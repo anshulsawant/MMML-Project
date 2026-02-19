@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find z.",
+  "choices": [
+    "\\sqrt { 19 }",
+    "5",
+    "3 \\sqrt { 19 }",
+    "14"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2834,
+  "annot_id": "pan_2020-03-23_20_24_38",
+  "is_standard": false,
+  "compact_choices": [
+    "\\sqrt{19}",
+    "5",
+    "3\\sqrt{19}",
+    "14"
+  ],
+  "precise_value": [
+    4.358898943540674,
+    5.0,
+    13.076696830622023,
+    14.0
+  ],
+  "rough_value": [
+    4.36,
+    5,
+    13.08,
+    14
+  ],
+  "compact_text": "Find z.",
+  "annotat_text": "Find z.",
+  "unit": "",
+  "img_width": 396,
+  "img_height": 300,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

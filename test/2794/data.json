@@ -1,0 +1,48 @@
+{
+  "problem_text": "For the pair of similar figures, use the given areas to find the scale factor from the blue to the green figure.",
+  "choices": [
+    "\\frac { 1 } { 4 }",
+    "\\frac { 1 } { 2 }",
+    "\\frac { 2 } { 1 }",
+    "\\frac { 4 } { 1 }"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Rectangle"
+  ],
+  "problem_type_goal": [
+    "Ratio"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2794,
+  "annot_id": "pan_2020-03-23_08_13_30",
+  "is_standard": false,
+  "compact_choices": [
+    "\\frac{1}{4}",
+    "\\frac{1}{2}",
+    "\\frac{2}{1}",
+    "\\frac{4}{1}"
+  ],
+  "precise_value": [
+    0.25,
+    0.5,
+    2.0,
+    4.0
+  ],
+  "rough_value": [
+    0.25,
+    0.5,
+    2,
+    4
+  ],
+  "compact_text": "For the pair of similar figures, use the given areas to find the scale factor from the blue to the green figure.",
+  "annotat_text": "For the pair of similar figures, use the given areas to find the scale factor from the blue to the green figure.",
+  "unit": "",
+  "img_width": 616,
+  "img_height": 242,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

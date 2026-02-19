@@ -1,0 +1,48 @@
+{
+  "problem_text": "Cut four congruent triangles off the corners of a rectangle to make an octagon. What is the area of the octagon?",
+  "choices": [
+    "456",
+    "528",
+    "552",
+    "564"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Rectangle"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "standard problem test & hard",
+  "id": 2983,
+  "annot_id": "Shibiao_2020-03-21_14_08_23",
+  "is_standard": true,
+  "compact_choices": [
+    "456",
+    "528",
+    "552",
+    "564"
+  ],
+  "precise_value": [
+    456.0,
+    528.0,
+    552.0,
+    564.0
+  ],
+  "rough_value": [
+    456,
+    528,
+    552,
+    564
+  ],
+  "compact_text": "Cut four congruent triangles off the corners of a rectangle to make an octagon. What is the area of the octagon?",
+  "annotat_text": "Cut four congruent triangles off the corners of a rectangle to make an octagon. What is the area of the octagon?",
+  "unit": "",
+  "img_width": 813,
+  "img_height": 505,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

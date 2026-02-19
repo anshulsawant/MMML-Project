@@ -1,0 +1,49 @@
+{
+  "problem_text": "M N \\parallel B C. Solve for x.",
+  "choices": [
+    "6",
+    "9",
+    "12",
+    "15"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "",
+  "id": 2676,
+  "annot_id": "Shibiao_2020-03-22_14_01_41",
+  "is_standard": false,
+  "compact_choices": [
+    "6",
+    "9",
+    "12",
+    "15"
+  ],
+  "precise_value": [
+    6.0,
+    9.0,
+    12.0,
+    15.0
+  ],
+  "rough_value": [
+    6,
+    9,
+    12,
+    15
+  ],
+  "compact_text": "MN \\parallel BC. Solve for x.",
+  "annotat_text": "$\\overline{MN} \\| \\overline{BC}$. Solve for $x$.",
+  "unit": "",
+  "img_width": 872,
+  "img_height": 539,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

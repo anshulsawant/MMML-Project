@@ -1,0 +1,146 @@
+{
+  "text_logic_form": [
+    "IsCentroidOf(Point(D),Circle($))",
+    "Find(MeasureOf(Angle(A,B,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsCentroidOf(Point(D),Circle(D))",
+    "Find(MeasureOf(Angle(A,B,C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(M, H)), d)",
+    "PointLiesOnLine(N, Line(A, I))",
+    "PointLiesOnLine(I, Line(A, C))",
+    "PointLiesOnLine(N, Line(A, C))",
+    "PointLiesOnLine(F, Line(E, I))",
+    "PointLiesOnLine(A, Line(E, M))",
+    "PointLiesOnLine(K, Line(B, C))",
+    "PointLiesOnLine(D, Line(C, H))",
+    "PointLiesOnLine(I, Line(C, N))",
+    "PointLiesOnLine(K, Line(N, J))",
+    "PointLiesOnLine(L, Line(D, G))",
+    "PointLiesOnLine(H, Line(D, G))",
+    "PointLiesOnLine(H, Line(D, L))",
+    "PointLiesOnLine(L, Line(G, H))",
+    "PointLiesOnLine(N, Line(F, K))",
+    "PointLiesOnLine(K, Line(F, J))",
+    "PointLiesOnLine(N, Line(F, J))",
+    "PointLiesOnCircle(A, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(D, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(F, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(B, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(C, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(J, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(L, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(M, Circle(I, radius_6_0))",
+    "PointLiesOnCircle(H, Circle(I, radius_6_0))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "AE",
+    "AI",
+    "AM",
+    "AN",
+    "BC",
+    "BJ",
+    "BK",
+    "BM",
+    "CD",
+    "CG",
+    "CH",
+    "CK",
+    "CL",
+    "CN",
+    "DG",
+    "DH",
+    "DL",
+    "EF",
+    "EI",
+    "EK",
+    "EM",
+    "EN",
+    "FJ",
+    "FK",
+    "GF",
+    "GH",
+    "GL",
+    "IC",
+    "ID",
+    "IF",
+    "IH",
+    "IJ",
+    "IK",
+    "IM",
+    "IN",
+    "KJ",
+    "LH",
+    "MH",
+    "ND",
+    "NF",
+    "NH",
+    "NJ",
+    "NK"
+  ],
+  "point_positions": {
+    "A": [
+      100.0,
+      13.0
+    ],
+    "B": [
+      33.0,
+      12.0
+    ],
+    "C": [
+      28.0,
+      119.0
+    ],
+    "D": [
+      49.0,
+      128.0
+    ],
+    "E": [
+      197.0,
+      65.0
+    ],
+    "F": [
+      129.0,
+      65.0
+    ],
+    "G": [
+      127.0,
+      128.0
+    ],
+    "H": [
+      62.0,
+      130.0
+    ],
+    "I": [
+      65.0,
+      64.0
+    ],
+    "J": [
+      5.0,
+      41.0
+    ],
+    "K": [
+      31.0,
+      46.0
+    ],
+    "L": [
+      86.0,
+      128.0
+    ],
+    "M": [
+      84.0,
+      3.0
+    ],
+    "N": [
+      71.0,
+      54.0
+    ]
+  },
+  "circle_instances": [
+    "I"
+  ]
+}

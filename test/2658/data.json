@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find x. Assume that segments that appear to be tangent are tangent.",
+  "choices": [
+    "\\frac { 3 } { 14 }",
+    "\\frac { 14 } { 3 }",
+    "12",
+    "16"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter10.pdf page 37",
+  "comment": "",
+  "id": 2658,
+  "annot_id": "Ran_2020-03-29_03_58_11",
+  "is_standard": false,
+  "compact_choices": [
+    "\\frac{3}{14}",
+    "\\frac{14}{3}",
+    "12",
+    "16"
+  ],
+  "precise_value": [
+    0.21428571428571427,
+    4.666666666666667,
+    12.0,
+    16.0
+  ],
+  "rough_value": [
+    0.21,
+    4.67,
+    12,
+    16
+  ],
+  "compact_text": "Find x. Assume that segments that appear to be tangent are tangent.",
+  "annotat_text": "Find x. Assume that segments that appear to be tangent are tangent.",
+  "unit": "",
+  "img_width": 274,
+  "img_height": 241,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

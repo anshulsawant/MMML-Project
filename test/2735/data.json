@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the trapezoid.",
+  "choices": [
+    "72",
+    "132",
+    "144",
+    "192"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Trapezoid"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2735,
+  "annot_id": "pan_2020-03-23_02_16_27",
+  "is_standard": false,
+  "unit": "ft^2",
+  "compact_choices": [
+    "72",
+    "132",
+    "144",
+    "192"
+  ],
+  "precise_value": [
+    72.0,
+    132.0,
+    144.0,
+    192.0
+  ],
+  "rough_value": [
+    72,
+    132,
+    144,
+    192
+  ],
+  "compact_text": "Find the area of the trapezoid.",
+  "annotat_text": "Find the area of the trapezoid.",
+  "img_width": 233,
+  "img_height": 240,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

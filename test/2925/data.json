@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the figure.",
+  "choices": [
+    "22",
+    "44",
+    "60",
+    "120"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Square"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2925,
+  "annot_id": "pan_2020-03-27_21_56_15",
+  "is_standard": false,
+  "compact_choices": [
+    "22",
+    "44",
+    "60",
+    "120"
+  ],
+  "precise_value": [
+    22.0,
+    44.0,
+    60.0,
+    120.0
+  ],
+  "rough_value": [
+    22,
+    44,
+    60,
+    120
+  ],
+  "compact_text": "Find the area of the figure.",
+  "annotat_text": "Find the area of the figure.",
+  "unit": "",
+  "img_width": 280,
+  "img_height": 231,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

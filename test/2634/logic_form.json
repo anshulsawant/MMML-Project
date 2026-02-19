@@ -1,0 +1,62 @@
+{
+  "text_logic_form": [
+    "IsMidsegmentOf(Line(X,Y),Triangle(R,S,T))",
+    "IsMidsegmentOf(Line(X,Z),Triangle(R,S,T))",
+    "Find(LengthOf(Line(S,T)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsMidsegmentOf(Line(X,Y),Triangle(R,S,T))",
+    "IsMidsegmentOf(Line(X,Z),Triangle(R,S,T))",
+    "Find(LengthOf(Line(S,T)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(R, T)), 13)",
+    "Equals(LengthOf(Line(X, Y)), 7)",
+    "Equals(MeasureOf(Angle(Z, X, Y)), 124)",
+    "PointLiesOnLine(Y, Line(R, T))",
+    "PointLiesOnLine(X, Line(R, S))",
+    "PointLiesOnLine(Z, Line(T, S))"
+  ],
+  "line_instances": [
+    "RS",
+    "RT",
+    "RX",
+    "RY",
+    "SX",
+    "SZ",
+    "TS",
+    "TY",
+    "TZ",
+    "XY",
+    "XZ"
+  ],
+  "point_positions": {
+    "R": [
+      1.0,
+      325.0
+    ],
+    "S": [
+      535.0,
+      1.0
+    ],
+    "T": [
+      385.0,
+      326.0
+    ],
+    "X": [
+      273.0,
+      160.0
+    ],
+    "Y": [
+      158.0,
+      325.0
+    ],
+    "Z": [
+      461.0,
+      162.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

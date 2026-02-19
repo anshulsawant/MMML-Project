@@ -1,0 +1,48 @@
+{
+  "problem_text": "\\triangle L M N \\cong \\triangle Q R S. Find x.",
+  "choices": [
+    "3",
+    "5",
+    "7",
+    "18"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "two",
+  "id": 2843,
+  "annot_id": "Shibiao_2020-03-21_14_17_54",
+  "is_standard": false,
+  "compact_choices": [
+    "3",
+    "5",
+    "7",
+    "18"
+  ],
+  "precise_value": [
+    3.0,
+    5.0,
+    7.0,
+    18.0
+  ],
+  "rough_value": [
+    3,
+    5,
+    7,
+    18
+  ],
+  "compact_text": "\\triangle LMN \\cong \\triangle QRS. Find x.",
+  "annotat_text": "$\\triangle LMN \\cong \\triangle QRS$. Find $x$.",
+  "unit": "",
+  "img_width": 785,
+  "img_height": 311,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

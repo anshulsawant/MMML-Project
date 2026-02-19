@@ -1,0 +1,48 @@
+{
+  "problem_text": "m \\angle 4 = 42. Find m \\angle 7.",
+  "choices": [
+    "42",
+    "48",
+    "132",
+    "138"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "",
+  "id": 2982,
+  "annot_id": "Shibiao_2020-03-21_09_25_10",
+  "is_standard": false,
+  "compact_choices": [
+    "42",
+    "48",
+    "132",
+    "138"
+  ],
+  "precise_value": [
+    42.0,
+    48.0,
+    132.0,
+    138.0
+  ],
+  "rough_value": [
+    42,
+    48,
+    132,
+    138
+  ],
+  "compact_text": "m \\angle 4 = 42. Find m \\angle 7.",
+  "annotat_text": "$m \\angle 4=42$. Find $m \\angle 7$.",
+  "unit": "",
+  "img_width": 547,
+  "img_height": 376,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

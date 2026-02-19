@@ -1,0 +1,34 @@
+{
+  "text_logic_form": [
+    "Find(RatioOf(SinOf(Angle(P))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(RatioOf(SinOf(Angle(P))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(R, Q)), 15)",
+    "Equals(LengthOf(Line(Q, P)), 17)",
+    "Equals(LengthOf(Line(R, P)), 8)",
+    "Perpendicular(Line(R, P), Line(R, Q))"
+  ],
+  "line_instances": [
+    "RQ",
+    "RP",
+    "QP"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "R": [
+      0.825264447428566,
+      244.09011237543288
+    ],
+    "Q": [
+      132.99895457510945,
+      0.3352669763639824
+    ],
+    "P": [
+      133.66726519667696,
+      318.18973401326343
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x. Round to the nearest tenth.",
+  "choices": [
+    "37.2",
+    "40.6",
+    "49.4",
+    "52.8"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2444,
+  "annot_id": "pan_2020-03-25_18_40_36",
+  "is_standard": false,
+  "compact_choices": [
+    "37.2",
+    "40.6",
+    "49.4",
+    "52.8"
+  ],
+  "precise_value": [
+    37.2,
+    40.6,
+    49.4,
+    52.8
+  ],
+  "rough_value": [
+    37.2,
+    40.6,
+    49.4,
+    52.8
+  ],
+  "compact_text": "Find x. Round to the nearest tenth.",
+  "annotat_text": "Find x. Round to the nearest tenth.",
+  "unit": "",
+  "img_width": 370,
+  "img_height": 240,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

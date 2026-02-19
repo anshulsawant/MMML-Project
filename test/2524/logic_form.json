@@ -1,0 +1,67 @@
+{
+  "text_logic_form": [
+    "Circle(Z)",
+    "Equals(Angle(W,Z,X),Angle(X,Z,Y))",
+    "Equals(MeasureOf(Angle(V,Z,U)),4x)",
+    "Equals(MeasureOf(Angle(U,Z,Y)),2x+24)",
+    "IsDiameterOf(Line(V,Y),Circle($))",
+    "IsDiameterOf(Line(W,U),Circle($))",
+    "Find(MeasureOf(Arc(W,U,X)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Circle(Z)",
+    "Equals(Angle(W,Z,X),Angle(X,Z,Y))",
+    "Equals(MeasureOf(Angle(V,Z,U)),4x)",
+    "Equals(MeasureOf(Angle(U,Z,Y)),2x+24)",
+    "IsDiameterOf(Line(V,Y),Circle(Z))",
+    "IsDiameterOf(Line(W,U),Circle(Z))",
+    "Find(MeasureOf(Arc(W,U,X)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(Z, Line(Y, V))",
+    "PointLiesOnLine(Z, Line(W, U))",
+    "PointLiesOnCircle(V, Circle(Z, radius_1_0))",
+    "PointLiesOnCircle(W, Circle(Z, radius_1_0))",
+    "PointLiesOnCircle(Y, Circle(Z, radius_1_0))",
+    "PointLiesOnCircle(U, Circle(Z, radius_1_0))",
+    "PointLiesOnCircle(X, Circle(Z, radius_1_0))"
+  ],
+  "line_instances": [
+    "VY",
+    "VZ",
+    "WU",
+    "ZU",
+    "ZW",
+    "ZX",
+    "ZY"
+  ],
+  "point_positions": {
+    "U": [
+      168.0,
+      88.0
+    ],
+    "V": [
+      66.0,
+      2.0
+    ],
+    "W": [
+      0.0,
+      83.0
+    ],
+    "X": [
+      33.0,
+      151.0
+    ],
+    "Y": [
+      107.0,
+      165.0
+    ],
+    "Z": [
+      84.0,
+      85.0
+    ]
+  },
+  "circle_instances": [
+    "Z"
+  ]
+}

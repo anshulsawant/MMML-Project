@@ -1,0 +1,61 @@
+{
+  "text_logic_form": [
+    "IsDiameterOf(Line(D,F),Circle(A))",
+    "IsDiameterOf(Line(P,G),Circle(A))",
+    "Equals(LengthOf(Line(D,F)),10)",
+    "Find(LengthOf(Line(D,A)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsDiameterOf(Line(D,F),Circle(A))",
+    "IsDiameterOf(Line(P,G),Circle(A))",
+    "Equals(LengthOf(Line(D,F)),10)",
+    "Find(LengthOf(Line(D,A)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(A, Line(G, P))",
+    "PointLiesOnLine(A, Line(F, D))",
+    "PointLiesOnCircle(G, Circle(A, radius_1_0))",
+    "PointLiesOnCircle(L, Circle(A, radius_1_0))",
+    "PointLiesOnCircle(P, Circle(A, radius_1_0))",
+    "PointLiesOnCircle(F, Circle(A, radius_1_0))",
+    "PointLiesOnCircle(D, Circle(A, radius_1_0))"
+  ],
+  "line_instances": [
+    "GA",
+    "GP",
+    "AL",
+    "AP",
+    "AF",
+    "AD",
+    "FD"
+  ],
+  "circle_instances": [
+    "A"
+  ],
+  "point_positions": {
+    "G": [
+      97.99535293361151,
+      241.02414454058368
+    ],
+    "A": [
+      121.04330207748939,
+      122.63249853098752
+    ],
+    "L": [
+      5.724564950434029,
+      159.08710339174309
+    ],
+    "P": [
+      143.57987876279446,
+      4.182803819394053
+    ],
+    "F": [
+      212.96254934779955,
+      200.12430240647598
+    ],
+    "D": [
+      28.65443098809378,
+      44.55239604908991
+    ]
+  }
+}

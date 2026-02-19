@@ -1,0 +1,41 @@
+{
+  "text_logic_form": [
+    "Equals(AreaOf(Rhombus($)),169)"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(AreaOf(Rhombus(A,C,X,B)),169)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, C)), x)",
+    "Equals(LengthOf(Line(A, X)), 2x)"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BX",
+    "CX",
+    "BC",
+    "AX"
+  ],
+  "point_positions": {
+    "A": [
+      1.0,
+      67.0
+    ],
+    "B": [
+      127.0,
+      132.0
+    ],
+    "C": [
+      125.0,
+      1.0
+    ],
+    "X": [
+      250.0,
+      68.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

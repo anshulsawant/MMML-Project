@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find the measure of \\angle 3 if A B \\perp B C.",
+  "choices": [
+    "64",
+    "68",
+    "72",
+    "76"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 5 - Relationships in Triangles.pdf",
+  "comment": "",
+  "id": 2540,
+  "annot_id": "pan_2020-03-18_20_20_43",
+  "is_standard": false,
+  "compact_choices": [
+    "64",
+    "68",
+    "72",
+    "76"
+  ],
+  "precise_value": [
+    64.0,
+    68.0,
+    72.0,
+    76.0
+  ],
+  "rough_value": [
+    64,
+    68,
+    72,
+    76
+  ],
+  "compact_text": "Find the measure of \\angle 3 if AB \\perp BC.",
+  "annotat_text": "Find the measure of $\\angle 3$ if $\\overline{A B} \\perp \\overline{B C}$.",
+  "unit": "",
+  "img_width": 559,
+  "img_height": 249,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

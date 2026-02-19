@@ -1,0 +1,48 @@
+{
+  "problem_text": "Which of the following facts would be sufficient to prove that line d is parallel to X Z?",
+  "choices": [
+    "\\angle 1 \\cong \\angle 3",
+    "\\angle 1 \\cong \\angle Z",
+    "\\angle 2 \\cong \\angle X",
+    "\\angle 3 \\cong \\angle Z"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "hard, good example",
+  "id": 2748,
+  "annot_id": "pan_2020-03-15_04_29_37",
+  "is_standard": true,
+  "compact_choices": [
+    "\\angle1\\cong\\angle3",
+    "\\angle1\\cong\\angleZ",
+    "\\angle2\\cong\\angleX",
+    "\\angle3\\cong\\angleZ"
+  ],
+  "precise_value": [
+    "\\angle 1 \\cong \\angle 3",
+    "\\angle 1 \\cong \\angle Z",
+    "\\angle 2 \\cong \\angle X",
+    "\\angle 3 \\cong \\angle Z"
+  ],
+  "rough_value": [
+    "\\angle 1 \\cong \\angle 3",
+    "\\angle 1 \\cong \\angle Z",
+    "\\angle 2 \\cong \\angle X",
+    "\\angle 3 \\cong \\angle Z"
+  ],
+  "compact_text": "Which of the following facts would be sufficient to prove that line d is parallel to XZ?",
+  "annotat_text": "Which of the following facts would be sufficient to prove that line $d$ is parallel to $\\overline {XZ}$?",
+  "unit": "",
+  "img_width": 342,
+  "img_height": 256,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

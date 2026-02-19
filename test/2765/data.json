@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the scale from B to B'.",
+  "choices": [
+    "\\frac { 3 } { 4 }",
+    "\\frac { 5 } { 6 }",
+    "\\frac { 6 } { 5 }",
+    "\\frac { 4 } { 3 }"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Ratio"
+  ],
+  "source": "textbook1_chapter_9.pdf",
+  "comment": "",
+  "id": 2765,
+  "annot_id": "Shibiao_2020-03-26_06_27_27",
+  "is_standard": false,
+  "compact_choices": [
+    "\\frac{3}{4}",
+    "\\frac{5}{6}",
+    "\\frac{6}{5}",
+    "\\frac{4}{3}"
+  ],
+  "precise_value": [
+    0.75,
+    0.8333333333333334,
+    1.2,
+    1.3333333333333333
+  ],
+  "rough_value": [
+    0.75,
+    0.83,
+    1.2,
+    1.33
+  ],
+  "compact_text": "Find the scale from B to B'.",
+  "annotat_text": "Find the scale from $B$ to $B'$.",
+  "unit": "",
+  "img_width": 654,
+  "img_height": 514,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

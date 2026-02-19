@@ -1,0 +1,53 @@
+{
+  "text_logic_form": [
+    "Circle(R)",
+    "Find(LengthOf(Line(T,V)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Circle(R)",
+    "Find(LengthOf(Line(T,V)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(U, S, T)), MeasureOf(angle 5))",
+    "Equals(MeasureOf(Angle(T, S, R)), MeasureOf(angle 6))",
+    "PointLiesOnLine(S, Line(V, T))",
+    "PointLiesOnLine(S, Line(R, U))",
+    "PointLiesOnCircle(V, Circle(R, radius_3_0))",
+    "PointLiesOnCircle(T, Circle(R, radius_3_0))",
+    "PointLiesOnCircle(U, Circle(R, radius_3_0))",
+    "Perpendicular(Line(S, V), Line(S, U))"
+  ],
+  "line_instances": [
+    "RU",
+    "SR",
+    "ST",
+    "SU",
+    "SV",
+    "VT"
+  ],
+  "point_positions": {
+    "R": [
+      138.0,
+      142.0
+    ],
+    "S": [
+      66.0,
+      140.0
+    ],
+    "T": [
+      67.0,
+      22.0
+    ],
+    "U": [
+      1.0,
+      144.0
+    ],
+    "V": [
+      63.0,
+      254.0
+    ]
+  },
+  "circle_instances": [
+    "R"
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "text_logic_form": [
+    "Similar(Shape($1),Shape($2))",
+    "Find(AreaOf(Green(Shape($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Quadrilateral(A,B,D,C),Quadrilateral(E,F,G,H))",
+    "Find(AreaOf(Green(Quadrilateral(E,F,G,H))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, D)), 8)",
+    "Equals(LengthOf(Line(E, G)), 4)",
+    "Equals(AreaOf(Quadrilateral(A, B, D, C)), 36)"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BD",
+    "CD",
+    "AD",
+    "EF",
+    "FG",
+    "GH",
+    "HE",
+    "EG"
+  ],
+  "point_positions": {
+    "A": [
+      87.0,
+      172.0
+    ],
+    "B": [
+      172.0,
+      87.0
+    ],
+    "C": [
+      1.0,
+      87.0
+    ],
+    "D": [
+      87.0,
+      0.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find A B.",
+  "choices": [
+    "5.5",
+    "7",
+    "8",
+    "10"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 22",
+  "comment": "",
+  "id": 2973,
+  "annot_id": "Ran_2020-03-20_06_07_48",
+  "is_standard": false,
+  "compact_choices": [
+    "5.5",
+    "7",
+    "8",
+    "10"
+  ],
+  "precise_value": [
+    5.5,
+    7.0,
+    8.0,
+    10.0
+  ],
+  "rough_value": [
+    5.5,
+    7,
+    8,
+    10
+  ],
+  "compact_text": "Find AB.",
+  "annotat_text": "Find AB",
+  "unit": "",
+  "img_width": 393,
+  "img_height": 267,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

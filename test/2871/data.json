@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the kite.",
+  "choices": [
+    "168",
+    "336",
+    "672",
+    "1344"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Other"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2871,
+  "annot_id": "pan_2020-03-23_08_03_07",
+  "is_standard": false,
+  "unit": "cm^2",
+  "compact_choices": [
+    "168",
+    "336",
+    "672",
+    "1344"
+  ],
+  "precise_value": [
+    168.0,
+    336.0,
+    672.0,
+    1344.0
+  ],
+  "rough_value": [
+    168,
+    336,
+    672,
+    1344
+  ],
+  "compact_text": "Find the area of the kite.",
+  "annotat_text": "Find the area of the kite.",
+  "img_width": 266,
+  "img_height": 264,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

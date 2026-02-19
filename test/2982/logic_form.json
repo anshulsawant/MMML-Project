@@ -1,0 +1,90 @@
+{
+  "text_logic_form": [
+    "Equals(MeasureOf(Angle(4)),42)",
+    "Find(MeasureOf(Angle(7)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(MeasureOf(Angle(4)),42)",
+    "Find(MeasureOf(Angle(7)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(C, D, H)), MeasureOf(angle 1))",
+    "Equals(MeasureOf(Angle(G, E, A)), MeasureOf(angle 8))",
+    "Equals(MeasureOf(Angle(F, E, G)), MeasureOf(angle 7))",
+    "Equals(MeasureOf(Angle(B, D, E)), MeasureOf(angle 3))",
+    "Equals(MeasureOf(Angle(E, D, C)), MeasureOf(angle 4))",
+    "Equals(MeasureOf(Angle(B, D, E)), MeasureOf(angle 6))",
+    "Equals(LengthOf(Line(B, C)), a)",
+    "Equals(LengthOf(Line(I, F)), b)",
+    "Equals(MeasureOf(Angle(H, D, B)), MeasureOf(angle 2))",
+    "Equals(MeasureOf(Angle(I, E, D)), MeasureOf(angle 5))",
+    "PointLiesOnLine(E, Line(A, F))",
+    "PointLiesOnLine(D, Line(E, H))",
+    "PointLiesOnLine(A, Line(E, I))",
+    "PointLiesOnLine(A, Line(F, I))",
+    "PointLiesOnLine(E, Line(F, I))",
+    "PointLiesOnLine(D, Line(B, C))",
+    "PointLiesOnLine(E, Line(D, G))",
+    "PointLiesOnLine(D, Line(G, H))",
+    "PointLiesOnLine(E, Line(G, H))",
+    "Parallel(Line(B, D), Line(F, E))"
+  ],
+  "line_instances": [
+    "AE",
+    "AF",
+    "AI",
+    "BC",
+    "BD",
+    "CD",
+    "DG",
+    "DH",
+    "ED",
+    "EF",
+    "EG",
+    "EH",
+    "EI",
+    "FI",
+    "GH"
+  ],
+  "point_positions": {
+    "A": [
+      24.0,
+      189.0
+    ],
+    "B": [
+      398.0,
+      69.0
+    ],
+    "C": [
+      27.0,
+      69.0
+    ],
+    "D": [
+      293.0,
+      69.0
+    ],
+    "E": [
+      157.0,
+      190.0
+    ],
+    "F": [
+      398.0,
+      189.0
+    ],
+    "G": [
+      74.0,
+      265.0
+    ],
+    "H": [
+      370.0,
+      0.0
+    ],
+    "I": [
+      2.0,
+      189.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

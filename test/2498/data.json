@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find m \\angle 1.",
+  "choices": [
+    "21",
+    "27",
+    "52",
+    "79"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "",
+  "id": 2498,
+  "annot_id": "Shibiao_2020-03-21_12_49_24",
+  "is_standard": false,
+  "compact_choices": [
+    "21",
+    "27",
+    "52",
+    "79"
+  ],
+  "precise_value": [
+    21.0,
+    27.0,
+    52.0,
+    79.0
+  ],
+  "rough_value": [
+    21,
+    27,
+    52,
+    79
+  ],
+  "compact_text": "Find m \\angle 1.",
+  "annotat_text": "Find $m \\angle 1$.",
+  "unit": "",
+  "img_width": 570,
+  "img_height": 233,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

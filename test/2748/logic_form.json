@@ -1,0 +1,47 @@
+{
+  "text_logic_form": [
+    "Parallel(Line(d),Line(X,Z))"
+  ],
+  "dissolved_text_logic_form": [
+    "Parallel(Line(A,B),Line(X,Z))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(X, Y, B)), MeasureOf(Angle(1)))",
+    "Equals(MeasureOf(Angle(Z, Y, X)), MeasureOf(Angle(2)))",
+    "Equals(MeasureOf(Angle(A, Y, Z)), MeasureOf(Angle(3)))",
+    "PointLiesOnLine(Y, Line(A, B))"
+  ],
+  "line_instances": [
+    "AB",
+    "XY",
+    "XZ",
+    "YA",
+    "YB",
+    "YZ"
+  ],
+  "point_positions": {
+    "A": [
+      274.0,
+      1.0
+    ],
+    "B": [
+      1.0,
+      3.0
+    ],
+    "X": [
+      34.0,
+      152.0
+    ],
+    "Y": [
+      137.0,
+      3.0
+    ],
+    "Z": [
+      237.0,
+      153.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

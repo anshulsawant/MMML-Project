@@ -1,0 +1,126 @@
+{
+  "text_logic_form": [
+    "Equals(MeasureOf(Angle(3)),110)",
+    "Equals(MeasureOf(Angle(12)),55)",
+    "Find(MeasureOf(Angle(13)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(MeasureOf(Angle(3)),110)",
+    "Equals(MeasureOf(Angle(12)),55)",
+    "Find(MeasureOf(Angle(13)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(K, A, J)), MeasureOf(angle 13))",
+    "Equals(MeasureOf(Angle(E, A, K)), MeasureOf(angle 14))",
+    "Equals(MeasureOf(Angle(D, H, F)), MeasureOf(angle 3))",
+    "Equals(MeasureOf(Angle(C, I, B)), MeasureOf(angle 2))",
+    "Equals(MeasureOf(Angle(D, I, C)), MeasureOf(angle 1))",
+    "Equals(MeasureOf(Angle(B, H, E)), MeasureOf(angle 8))",
+    "Equals(MeasureOf(Angle(C, A, E)), MeasureOf(angle 10))",
+    "Equals(MeasureOf(Angle(G, E, A)), MeasureOf(angle 15))",
+    "Equals(MeasureOf(Angle(F, E, L)), MeasureOf(angle 12))",
+    "Equals(MeasureOf(Angle(A, I, D)), MeasureOf(angle 5))",
+    "Equals(MeasureOf(Angle(J, A, C)), MeasureOf(angle 9))",
+    "Equals(MeasureOf(Angle(B, I, A)), MeasureOf(angle 6))",
+    "Equals(MeasureOf(Angle(L, E, G)), MeasureOf(angle 16))",
+    "Equals(MeasureOf(Angle(A, E, F)), MeasureOf(angle 11))",
+    "Equals(MeasureOf(Angle(E, H, I)), MeasureOf(angle 7))",
+    "Equals(MeasureOf(Angle(F, H, B)), MeasureOf(angle 4))",
+    "PointLiesOnLine(I, Line(A, C))",
+    "PointLiesOnLine(E, Line(A, L))",
+    "PointLiesOnLine(A, Line(C, K))",
+    "PointLiesOnLine(I, Line(C, K))",
+    "PointLiesOnLine(H, Line(E, F))",
+    "PointLiesOnLine(A, Line(E, J))",
+    "PointLiesOnLine(H, Line(I, B))",
+    "PointLiesOnLine(A, Line(I, K))",
+    "PointLiesOnLine(A, Line(J, L))",
+    "PointLiesOnLine(E, Line(J, L))",
+    "PointLiesOnLine(H, Line(B, D))",
+    "PointLiesOnLine(I, Line(B, D))",
+    "PointLiesOnLine(I, Line(D, H))",
+    "PointLiesOnLine(E, Line(H, G))",
+    "PointLiesOnLine(E, Line(F, G))",
+    "PointLiesOnLine(H, Line(F, G))",
+    "Parallel(Line(C, I), Line(H, F))"
+  ],
+  "line_instances": [
+    "AC",
+    "AE",
+    "AI",
+    "AJ",
+    "AK",
+    "AL",
+    "BD",
+    "BH",
+    "CI",
+    "CK",
+    "DH",
+    "EF",
+    "EG",
+    "EH",
+    "EJ",
+    "EL",
+    "FG",
+    "HF",
+    "HG",
+    "IB",
+    "ID",
+    "IH",
+    "IK",
+    "JL"
+  ],
+  "point_positions": {
+    "A": [
+      86.0,
+      246.0
+    ],
+    "B": [
+      407.0,
+      114.0
+    ],
+    "C": [
+      153.0,
+      1.0
+    ],
+    "D": [
+      0.0,
+      83.0
+    ],
+    "E": [
+      245.0,
+      212.0
+    ],
+    "F": [
+      302.0,
+      1.0
+    ],
+    "G": [
+      214.0,
+      325.0
+    ],
+    "H": [
+      274.0,
+      104.0
+    ],
+    "I": [
+      128.0,
+      93.0
+    ],
+    "J": [
+      0.0,
+      265.0
+    ],
+    "K": [
+      65.0,
+      325.0
+    ],
+    "L": [
+      406.0,
+      177.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

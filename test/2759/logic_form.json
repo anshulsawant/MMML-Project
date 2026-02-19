@@ -1,0 +1,46 @@
+{
+  "text_logic_form": [
+    "Find(AreaOf(Parallelogram(J,K,L,M)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(AreaOf(Parallelogram(J,K,L,M)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(E, J)), 6)",
+    "Equals(LengthOf(Line(L, K)), 7.2)",
+    "Equals(LengthOf(Line(M, L)), 4)",
+    "PointLiesOnLine(E, Line(M, L))",
+    "Perpendicular(Line(J, E), Line(E, L))"
+  ],
+  "line_instances": [
+    "JK",
+    "LK",
+    "MJ",
+    "ML"
+  ],
+  "point_positions": {
+    "J": [
+      45.0,
+      2.0
+    ],
+    "K": [
+      181.0,
+      1.0
+    ],
+    "L": [
+      135.0,
+      124.0
+    ],
+    "M": [
+      1.0,
+      122.0
+    ],
+    "E": [
+      45.0,
+      123.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,53 @@
+{
+  "text_logic_form": [
+    "Kite($)",
+    "Find(LengthOf(Line(G,H)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Kite(H,G,F,J)",
+    "Find(LengthOf(Line(G,H)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(H, A)), 15)",
+    "Equals(LengthOf(Line(A, G)), 12)",
+    "PointLiesOnLine(A, Line(H, F))",
+    "PointLiesOnLine(A, Line(G, J))"
+  ],
+  "line_instances": [
+    "AF",
+    "AG",
+    "AJ",
+    "GF",
+    "GJ",
+    "HA",
+    "HF",
+    "HG",
+    "HJ",
+    "JF"
+  ],
+  "point_positions": {
+    "A": [
+      122.0,
+      86.0
+    ],
+    "F": [
+      122.0,
+      2.0
+    ],
+    "G": [
+      1.0,
+      87.0
+    ],
+    "H": [
+      121.0,
+      308.0
+    ],
+    "J": [
+      239.0,
+      87.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

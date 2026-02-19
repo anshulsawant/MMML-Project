@@ -1,0 +1,62 @@
+{
+  "text_logic_form": [
+    "Find(AreaOf(Shaded(Shape($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(AreaOf(Shaded(Shape($))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, E)), 15)",
+    "PointLiesOnLine(F, Line(A, C))",
+    "PointLiesOnLine(C, Line(A, E))",
+    "PointLiesOnLine(F, Line(A, E))",
+    "PointLiesOnLine(G, Line(A, E))",
+    "PointLiesOnLine(C, Line(A, G))",
+    "PointLiesOnLine(F, Line(A, G))",
+    "PointLiesOnLine(G, Line(C, E))",
+    "PointLiesOnLine(C, Line(E, F))",
+    "PointLiesOnLine(G, Line(E, F))",
+    "PointLiesOnLine(C, Line(F, G))",
+    "PointLiesOnCircle(A, Circle(C, radius_2_0))",
+    "PointLiesOnCircle(E, Circle(C, radius_2_0))",
+    "PointLiesOnCircle(F, Circle(C, radius_2_1))",
+    "PointLiesOnCircle(G, Circle(C, radius_2_1))"
+  ],
+  "line_instances": [
+    "AC",
+    "AE",
+    "AF",
+    "AG",
+    "CE",
+    "CF",
+    "CG",
+    "EF",
+    "EG",
+    "FG"
+  ],
+  "point_positions": {
+    "A": [
+      2.0,
+      164.0
+    ],
+    "C": [
+      165.0,
+      162.0
+    ],
+    "E": [
+      329.0,
+      166.0
+    ],
+    "F": [
+      110.0,
+      165.0
+    ],
+    "G": [
+      219.0,
+      165.0
+    ]
+  },
+  "circle_instances": [
+    "C"
+  ]
+}

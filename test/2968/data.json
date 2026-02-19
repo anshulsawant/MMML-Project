@@ -1,0 +1,48 @@
+{
+  "problem_text": "If c = 5, find a.",
+  "choices": [
+    "2.5",
+    "5",
+    "7.5",
+    "10"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter7.pdf page 31",
+  "comment": "",
+  "id": 2968,
+  "annot_id": "Ran_2020-03-24_03_15_36",
+  "is_standard": false,
+  "compact_choices": [
+    "2.5",
+    "5",
+    "7.5",
+    "10"
+  ],
+  "precise_value": [
+    2.5,
+    5.0,
+    7.5,
+    10.0
+  ],
+  "rough_value": [
+    2.5,
+    5,
+    7.5,
+    10
+  ],
+  "compact_text": "If c = 5, find a.",
+  "annotat_text": "If $c=5,$ find $a$",
+  "unit": "",
+  "img_width": 347,
+  "img_height": 217,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

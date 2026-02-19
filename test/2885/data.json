@@ -1,0 +1,48 @@
+{
+  "problem_text": "If pentagons A B C D E and P Q R S T are similar, find S R.",
+  "choices": [
+    "1 \\frac { 5 } { 6 }",
+    "4 \\frac { 4 } { 11 }",
+    "3",
+    "14 \\frac { 2 } { 3 }"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Other"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter7.pdf page 59",
+  "comment": "",
+  "id": 2885,
+  "annot_id": "Ran_2020-03-24_06_11_49",
+  "is_standard": true,
+  "compact_choices": [
+    "1\\frac{5}{6}",
+    "4\\frac{4}{11}",
+    "3",
+    "14\\frac{2}{3}"
+  ],
+  "precise_value": [
+    0.8333333333333334,
+    1.4545454545454546,
+    3.0,
+    9.333333333333332
+  ],
+  "rough_value": [
+    0.83,
+    1.45,
+    3,
+    9.33
+  ],
+  "compact_text": "If pentagons ABCDE and PQRST are similar, find SR.",
+  "annotat_text": "If pentagons $A B C D E$ and $P Q R S T$ are similar, find $S R$",
+  "unit": "",
+  "img_width": 408,
+  "img_height": 257,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

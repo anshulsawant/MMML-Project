@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the value of t in the parallelogram.",
+  "choices": [
+    "6",
+    "7",
+    "8",
+    "13"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Parallelogram"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter6.pdf page 33",
+  "comment": "",
+  "id": 2688,
+  "annot_id": "Ran_2020-03-19_01_07_46",
+  "is_standard": false,
+  "compact_choices": [
+    "6",
+    "7",
+    "8",
+    "13"
+  ],
+  "precise_value": [
+    6.0,
+    7.0,
+    8.0,
+    13.0
+  ],
+  "rough_value": [
+    6,
+    7,
+    8,
+    13
+  ],
+  "compact_text": "Find the value of t in the parallelogram.",
+  "annotat_text": "Find the value of $t$ in the parallelogram.",
+  "unit": "",
+  "img_width": 428,
+  "img_height": 400,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find Q P.",
+  "choices": [
+    "2",
+    "3.6",
+    "5",
+    "6"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "",
+  "id": 2483,
+  "annot_id": "Shibiao_2020-03-22_09_57_56",
+  "is_standard": false,
+  "compact_choices": [
+    "2",
+    "3.6",
+    "5",
+    "6"
+  ],
+  "precise_value": [
+    2.0,
+    3.6,
+    5.0,
+    6.0
+  ],
+  "rough_value": [
+    2,
+    3.6,
+    5,
+    6
+  ],
+  "compact_text": "Find QP.",
+  "annotat_text": "Find $QP$.",
+  "unit": "",
+  "img_width": 521,
+  "img_height": 467,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

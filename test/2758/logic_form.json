@@ -1,0 +1,41 @@
+{
+  "text_logic_form": [
+    "Equals(AreaOf(Trapezoid(G,H,J,K)),75)",
+    "Find(HeightOf(Polygon($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(AreaOf(Trapezoid(G,H,J,K)),75)",
+    "Find(HeightOf(Trapezoid(G,H,J,K)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(K, J)), 13)",
+    "Equals(LengthOf(Line(G, H)), 17)"
+  ],
+  "line_instances": [
+    "GH",
+    "JH",
+    "KG",
+    "KJ"
+  ],
+  "point_positions": {
+    "G": [
+      1.0,
+      1.0
+    ],
+    "H": [
+      236.0,
+      1.0
+    ],
+    "J": [
+      223.0,
+      92.0
+    ],
+    "K": [
+      56.0,
+      92.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

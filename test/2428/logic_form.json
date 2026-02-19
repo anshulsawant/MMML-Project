@@ -1,0 +1,72 @@
+{
+  "text_logic_form": [
+    "InscribedIn(Regular(Polygon($)),Circle($))",
+    "Find(MeasureOf(Angle($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "InscribedIn(Regular(Hexagon(J,K,L,M,N,P)),Circle(R))",
+    "Find(MeasureOf(Angle(L,R,K)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(S, Line(K, L))",
+    "PointLiesOnCircle(K, Circle(R, radius_2_0))",
+    "PointLiesOnCircle(M, Circle(R, radius_2_0))",
+    "PointLiesOnCircle(P, Circle(R, radius_2_0))",
+    "PointLiesOnCircle(J, Circle(R, radius_2_0))",
+    "PointLiesOnCircle(N, Circle(R, radius_2_0))",
+    "PointLiesOnCircle(L, Circle(R, radius_2_0))",
+    "Perpendicular(Line(S, R), Line(S, L))"
+  ],
+  "line_instances": [
+    "JP",
+    "KJ",
+    "KL",
+    "KN",
+    "KR",
+    "KS",
+    "LM",
+    "LP",
+    "NM",
+    "NP",
+    "RL",
+    "RS",
+    "SL"
+  ],
+  "point_positions": {
+    "J": [
+      59.0,
+      14.0
+    ],
+    "K": [
+      173.0,
+      17.0
+    ],
+    "L": [
+      227.0,
+      115.0
+    ],
+    "M": [
+      169.0,
+      212.0
+    ],
+    "N": [
+      57.0,
+      211.0
+    ],
+    "P": [
+      1.0,
+      116.0
+    ],
+    "R": [
+      111.0,
+      115.0
+    ],
+    "S": [
+      201.0,
+      68.0
+    ]
+  },
+  "circle_instances": [
+    "R"
+  ]
+}

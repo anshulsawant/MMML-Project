@@ -1,0 +1,48 @@
+{
+  "problem_text": "Quadrilateral A B C D is a rectangle. m \\angle 2 = 40. Find m \\angle 8.",
+  "choices": [
+    "40",
+    "50",
+    "80",
+    "100"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Rectangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter6.pdf page 38",
+  "comment": "",
+  "id": 2776,
+  "annot_id": "Ran_2020-03-19_03_51_57",
+  "is_standard": false,
+  "compact_choices": [
+    "40",
+    "50",
+    "80",
+    "100"
+  ],
+  "precise_value": [
+    40.0,
+    50.0,
+    80.0,
+    100.0
+  ],
+  "rough_value": [
+    40,
+    50,
+    80,
+    100
+  ],
+  "compact_text": "Quadrilateral ABCD is a rectangle. m \\angle 2 = 40. Find m \\angle 8.",
+  "annotat_text": "Quadrilateral ABCD is a rectangle. $m\\angle 2 = 40$. Find $m \\angle 8$",
+  "unit": "",
+  "img_width": 380,
+  "img_height": 227,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

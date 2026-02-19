@@ -1,0 +1,61 @@
+{
+  "text_logic_form": [
+    "Similar(Polygon($1),Polygon($2))",
+    "Find(LengthOf(Line(U,T)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Pentagon(A,B,C,D,E),Pentagon(R,S,T,U,V))",
+    "Find(LengthOf(Line(U,T)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(T, S)), 18)",
+    "Equals(LengthOf(Line(T, U)), y+2)",
+    "Equals(LengthOf(Line(R, V)), x)",
+    "Equals(LengthOf(Line(B, C)), 4)",
+    "Equals(LengthOf(Line(C, D)), 5)",
+    "Equals(LengthOf(Line(A, E)), 3)",
+    "Equals(MeasureOf(Angle(B, A, E)), MeasureOf(Angle(V, R, S)))",
+    "Equals(MeasureOf(Angle(A, B, C)), MeasureOf(Angle(R, S, T)))",
+    "Equals(MeasureOf(Angle(B, C, D)), MeasureOf(Angle(S, T, U)))",
+    "Equals(MeasureOf(Angle(C, D, E)), MeasureOf(Angle(T, U, V)))",
+    "Equals(MeasureOf(Angle(A, E, D)), MeasureOf(Angle(U, V, R)))",
+    ""
+  ],
+  "line_instances": [
+    "AB",
+    "AE",
+    "BC",
+    "CD",
+    "DE",
+    "RS",
+    "ST",
+    "TU",
+    "UV",
+    "VR"
+  ],
+  "point_positions": {
+    "R": [
+      166.0,
+      1.0
+    ],
+    "S": [
+      2.0,
+      94.0
+    ],
+    "T": [
+      0.0,
+      297.0
+    ],
+    "U": [
+      253.0,
+      259.0
+    ],
+    "V": [
+      252.0,
+      130.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,49 @@
+{
+  "text_logic_form": [
+    "InscribedIn(Rectangle($),Circle($))",
+    "Find(CircumferenceOf(Circle($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "InscribedIn(Rectangle(A,G,F,C),Circle(E))",
+    "Find(CircumferenceOf(Circle(E)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(C, F)), 8)",
+    "Equals(LengthOf(Line(A, C)), 6)",
+    "PointLiesOnCircle(A, Circle(E, radius_4_0))",
+    "PointLiesOnCircle(C, Circle(E, radius_4_0))",
+    "PointLiesOnCircle(F, Circle(E, radius_4_0))",
+    "PointLiesOnCircle(G, Circle(E, radius_4_0))"
+  ],
+  "line_instances": [
+    "AC",
+    "AG",
+    "GF",
+    "FC"
+  ],
+  "point_positions": {
+    "A": [
+      299.0,
+      175.0
+    ],
+    "C": [
+      214.0,
+      16.0
+    ],
+    "E": [
+      153.0,
+      152.0
+    ],
+    "F": [
+      4.0,
+      130.0
+    ],
+    "G": [
+      87.0,
+      287.0
+    ]
+  },
+  "circle_instances": [
+    "E"
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(P, T)), 13.5)",
+    "Equals(LengthOf(Line(W, R)), 3)",
+    "Equals(LengthOf(Line(P, S)), x)",
+    "Equals(LengthOf(Line(W, Q)), 9)",
+    "PointLiesOnLine(P, Line(S, R))",
+    "PointLiesOnLine(Q, Line(U, V))",
+    "Equals(MeasureOf(Angle(S, T, R)), MeasureOf(Angle(U, W, V)))",
+    "Equals(MeasureOf(Angle(R, S, T)), MeasureOf(Angle(U, V, W)))",
+    "Equals(LengthOf(Line(U, Q)), LengthOf(Line(Q, V)))",
+    "Equals(LengthOf(Line(S, P)), LengthOf(Line(P, R)))",
+    "Equals(LengthOf(Line(U, Q)), LengthOf(Line(P, R)))"
+  ],
+  "line_instances": [
+    "PR",
+    "PT",
+    "QV",
+    "RT",
+    "SP",
+    "SR",
+    "ST",
+    "UQ",
+    "UV",
+    "WQ",
+    "WU",
+    "WV"
+  ],
+  "point_positions": {
+    "P": [
+      55.0,
+      126.0
+    ],
+    "Q": [
+      540.0,
+      253.0
+    ],
+    "R": [
+      2.0,
+      253.0
+    ],
+    "S": [
+      112.0,
+      1.0
+    ],
+    "T": [
+      503.0,
+      2.0
+    ],
+    "U": [
+      500.0,
+      126.0
+    ],
+    "V": [
+      580.0,
+      370.0
+    ],
+    "W": [
+      780.0,
+      370.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

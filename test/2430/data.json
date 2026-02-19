@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find X Z.",
+  "choices": [
+    "5",
+    "17",
+    "18",
+    "34"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_5.pdf",
+  "comment": "",
+  "id": 2430,
+  "annot_id": "Shibiao_2020-03-22_08_07_45",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "17",
+    "18",
+    "34"
+  ],
+  "precise_value": [
+    5.0,
+    17.0,
+    18.0,
+    34.0
+  ],
+  "rough_value": [
+    5,
+    17,
+    18,
+    34
+  ],
+  "compact_text": "Find XZ.",
+  "annotat_text": "Find $XZ$.",
+  "unit": "",
+  "img_width": 606,
+  "img_height": 392,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

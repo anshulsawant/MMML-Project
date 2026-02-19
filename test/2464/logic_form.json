@@ -1,0 +1,63 @@
+{
+  "text_logic_form": [
+    "IsPerpendicularBisectorOf(Line(m),Line(X,Z))",
+    "Equals(LengthOf(Line(W,Z)),14.9)",
+    "Find(LengthOf(Line(W,X)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsPerpendicularBisectorOf(Line(m),Line(X,Z))",
+    "Equals(LengthOf(Line(W,Z)),14.9)",
+    "Find(LengthOf(Line(W,X)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(Y, Line(X, Z))",
+    "PointLiesOnLine(W, Line(D, Y))",
+    "PointLiesOnLine(W, Line(D, T))",
+    "PointLiesOnLine(Y, Line(D, T))",
+    "PointLiesOnLine(Y, Line(W, T))",
+    "Perpendicular(Line(X, Y), Line(Y, W))",
+    "Equals(LengthOf(Line(X, Y)), LengthOf(Line(Y, Z)))"
+  ],
+  "line_instances": [
+    "DT",
+    "DW",
+    "DY",
+    "WT",
+    "WX",
+    "WY",
+    "WZ",
+    "XY",
+    "XZ",
+    "YT",
+    "YZ"
+  ],
+  "point_positions": {
+    "D": [
+      0.0,
+      182.0
+    ],
+    "T": [
+      291.0,
+      182.0
+    ],
+    "W": [
+      100.0,
+      171.0
+    ],
+    "X": [
+      226.0,
+      0.0
+    ],
+    "Y": [
+      226.0,
+      182.0
+    ],
+    "Z": [
+      226.0,
+      361.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

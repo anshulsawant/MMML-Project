@@ -1,0 +1,48 @@
+{
+  "problem_text": "Circle J has a radius of 10 units, \\odot K has a radius of 8 units, and B C = 5.4 units. Find C K.",
+  "choices": [
+    "2.4",
+    "2.6",
+    "2.8",
+    "4"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2709,
+  "annot_id": "Shibiao_2020-03-27_09_40_03",
+  "is_standard": false,
+  "compact_choices": [
+    "2.4",
+    "2.6",
+    "2.8",
+    "4"
+  ],
+  "precise_value": [
+    2.4,
+    2.6,
+    2.8,
+    4.0
+  ],
+  "rough_value": [
+    2.4,
+    2.6,
+    2.8,
+    4
+  ],
+  "compact_text": "Circle J has a radius of 10 units, \\odot K has a radius of 8 units, and BC = 5.4 units. Find CK.",
+  "annotat_text": "Circle $J$ has a radius of $10$ units, $\\odot K$ has a radius of $8$ units, and $BC=5.4$ units. Find $CK$.",
+  "unit": "",
+  "img_width": 710,
+  "img_height": 454,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

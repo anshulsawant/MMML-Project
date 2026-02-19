@@ -1,0 +1,52 @@
+{
+  "text_logic_form": [
+    "Equals(LengthOf(Line(D,B)),24)",
+    "Equals(LengthOf(Line(A,E)),3)",
+    "Equals(LengthOf(Line(E,C)),18)",
+    "Find(LengthOf(Line(A,D)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(LengthOf(Line(D,B)),24)",
+    "Equals(LengthOf(Line(A,E)),3)",
+    "Equals(LengthOf(Line(E,C)),18)",
+    "Find(LengthOf(Line(A,D)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(D, Line(B, A))",
+    "PointLiesOnLine(E, Line(C, A))",
+    "Parallel(Line(D, E), Line(B, C))"
+  ],
+  "line_instances": [
+    "BC",
+    "BA",
+    "BD",
+    "CE",
+    "CA",
+    "AE",
+    "AD",
+    "DE"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "B": [
+      0.14172648628749585,
+      165.33462175593593
+    ],
+    "E": [
+      82.63118346900438,
+      55.01941139636819
+    ],
+    "C": [
+      109.33260153677278,
+      165.99696304427368
+    ],
+    "A": [
+      69.55628896222956,
+      1.5919325265859783
+    ],
+    "D": [
+      45.779711096520025,
+      56.95896257386737
+    ]
+  }
+}

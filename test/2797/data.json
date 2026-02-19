@@ -1,0 +1,48 @@
+{
+  "problem_text": "If R L = 5, R T = 9, and W S = 6, find R W.",
+  "choices": [
+    "5.4",
+    "6",
+    "6.6",
+    "7.5"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 32",
+  "comment": "",
+  "id": 2797,
+  "annot_id": "Ran_2020-03-21_06_13_24",
+  "is_standard": false,
+  "compact_choices": [
+    "5.4",
+    "6",
+    "6.6",
+    "7.5"
+  ],
+  "precise_value": [
+    5.4,
+    6.0,
+    6.6,
+    7.5
+  ],
+  "rough_value": [
+    5.4,
+    6,
+    6.6,
+    7.5
+  ],
+  "compact_text": "If RL = 5, RT = 9, and WS = 6, find RW.",
+  "annotat_text": "If RL = 5, RT = 9, and WS = 6, find RW.",
+  "unit": "",
+  "img_width": 404,
+  "img_height": 199,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

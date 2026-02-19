@@ -1,0 +1,48 @@
+{
+  "problem_text": "Quadrilateral W X Y Z is inscribed in \\odot V. Find m \\angle X.",
+  "choices": [
+    "85",
+    "95",
+    "115",
+    "120"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2812,
+  "annot_id": "Shibiao_2020-03-28_08_58_04",
+  "is_standard": false,
+  "compact_choices": [
+    "85",
+    "95",
+    "115",
+    "120"
+  ],
+  "precise_value": [
+    85.0,
+    95.0,
+    115.0,
+    120.0
+  ],
+  "rough_value": [
+    85,
+    95,
+    115,
+    120
+  ],
+  "compact_text": "Quadrilateral WXYZ is inscribed in \\odot V. Find m \\angle X.",
+  "annotat_text": "Quadrilateral $WXYZ$ is inscribed in $\\odot V$. Find $m \\angle X$.",
+  "unit": "",
+  "img_width": 503,
+  "img_height": 475,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find m \\angle Z.",
+  "choices": [
+    "80",
+    "108",
+    "110",
+    "112"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Other"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook2_chapter8.pdf page 53",
+  "comment": "",
+  "id": 2795,
+  "annot_id": "Ran_2020-03-27_05_36_22",
+  "is_standard": false,
+  "compact_choices": [
+    "80",
+    "108",
+    "110",
+    "112"
+  ],
+  "precise_value": [
+    80.0,
+    108.0,
+    110.0,
+    112.0
+  ],
+  "rough_value": [
+    80,
+    108,
+    110,
+    112
+  ],
+  "compact_text": "Find m \\angle Z.",
+  "annotat_text": "Find $m \\angle Z$",
+  "unit": "",
+  "img_width": 252,
+  "img_height": 196,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

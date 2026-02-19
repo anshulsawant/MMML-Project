@@ -1,0 +1,48 @@
+{
+  "problem_text": "m \\angle 3 = x - 12 and m \\angle 6 = 72. Find x.",
+  "choices": [
+    "6",
+    "18",
+    "72",
+    "84"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "",
+  "id": 2588,
+  "annot_id": "Shibiao_2020-03-21_09_10_27",
+  "is_standard": false,
+  "compact_choices": [
+    "6",
+    "18",
+    "72",
+    "84"
+  ],
+  "precise_value": [
+    6.0,
+    18.0,
+    72.0,
+    84.0
+  ],
+  "rough_value": [
+    6,
+    18,
+    72,
+    84
+  ],
+  "compact_text": "m \\angle 3 = x-12 and m \\angle 6 = 72. Find x.",
+  "annotat_text": "$m \\angle 3=x-12$ and $m \\angle 6=72$. Find $x$.",
+  "unit": "",
+  "img_width": 375,
+  "img_height": 272,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

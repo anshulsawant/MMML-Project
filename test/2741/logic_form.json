@@ -1,0 +1,54 @@
+{
+  "text_logic_form": [
+    "InscribedIn(Equilateral(Pentagon(P,Q,R,S,T)),Circle(U))",
+    "Find(MeasureOf(Angle(P,S,R)))"
+  ],
+  "dissolved_text_logic_form": [
+    "InscribedIn(Equilateral(Pentagon(P,Q,R,S,T)),Circle(U))",
+    "Find(MeasureOf(Angle(P,S,R)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnCircle(P, Circle(U, radius_5_0))",
+    "PointLiesOnCircle(S, Circle(U, radius_5_0))",
+    "PointLiesOnCircle(Q, Circle(U, radius_5_0))",
+    "PointLiesOnCircle(T, Circle(U, radius_5_0))",
+    "PointLiesOnCircle(R, Circle(U, radius_5_0))"
+  ],
+  "line_instances": [
+    "PQ",
+    "PS",
+    "PT",
+    "QR",
+    "SR",
+    "ST"
+  ],
+  "point_positions": {
+    "P": [
+      8.0,
+      75.0
+    ],
+    "Q": [
+      112.0,
+      2.0
+    ],
+    "R": [
+      211.0,
+      69.0
+    ],
+    "S": [
+      174.0,
+      194.0
+    ],
+    "T": [
+      43.0,
+      190.0
+    ],
+    "U": [
+      112.0,
+      111.0
+    ]
+  },
+  "circle_instances": [
+    "U"
+  ]
+}

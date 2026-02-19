@@ -1,0 +1,68 @@
+{
+  "text_logic_form": [
+    "Find(PerimeterOf(Shape($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(PerimeterOf(Shape($)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, G)), 2)",
+    "Equals(LengthOf(Line(D, C)), 5)",
+    "Equals(LengthOf(Line(A, B)), 2)",
+    "Equals(LengthOf(Line(H, E)), 5)",
+    "Equals(LengthOf(Line(C, E)), 5)",
+    "Equals(LengthOf(Line(G, F)), 2)",
+    "PointLiesOnLine(F, Line(A, D))",
+    "PointLiesOnLine(A, Line(D, H))",
+    "PointLiesOnLine(F, Line(D, H))",
+    "PointLiesOnLine(A, Line(H, F))"
+  ],
+  "line_instances": [
+    "AB",
+    "AD",
+    "AH",
+    "BG",
+    "DC",
+    "DF",
+    "DH",
+    "HE",
+    "HF",
+    "GF",
+    "CE"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "A": [
+      1.9994556341861625,
+      128.00925421883505
+    ],
+    "B": [
+      106.00044072278537,
+      128.99074482150726
+    ],
+    "C": [
+      188.9962550156041,
+      2.333273889136578
+    ],
+    "D": [
+      0.0,
+      0.0
+    ],
+    "E": [
+      188.33523554762968,
+      178.32807252192003
+    ],
+    "F": [
+      1.3041874192953173,
+      65.02361187972699
+    ],
+    "G": [
+      107.96830985915493,
+      67.33215962441314
+    ],
+    "H": [
+      0.07835820895522261,
+      176.33457711442787
+    ]
+  }
+}

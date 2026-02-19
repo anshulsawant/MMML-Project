@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x so that m \\parallel n.",
+  "choices": [
+    "10",
+    "20",
+    "31",
+    "40"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "",
+  "id": 2647,
+  "annot_id": "pan_2020-03-15_04_05_59",
+  "is_standard": false,
+  "compact_choices": [
+    "10",
+    "20",
+    "31",
+    "40"
+  ],
+  "precise_value": [
+    10.0,
+    20.0,
+    31.0,
+    40.0
+  ],
+  "rough_value": [
+    10,
+    20,
+    31,
+    40
+  ],
+  "compact_text": "Find x so that m \\parallel n.",
+  "annotat_text": "Find $x$ so that $m || n$.",
+  "unit": "",
+  "img_width": 367,
+  "img_height": 252,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

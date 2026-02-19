@@ -1,0 +1,51 @@
+{
+  "text_logic_form": [
+    "Equals(RadiusOf(Circle(P)),2)",
+    "Find(LengthOf(Arc(R,S)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(RadiusOf(Circle(P)),2)",
+    "Find(LengthOf(Arc(R,S)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(R, P, S)), 130)",
+    "Equals(MeasureOf(Angle(T, P, Q)), 112)",
+    "PointLiesOnLine(P, Line(T, R))",
+    "PointLiesOnCircle(S, Circle(P, radius_5_0))",
+    "PointLiesOnCircle(T, Circle(P, radius_5_0))",
+    "PointLiesOnCircle(R, Circle(P, radius_5_0))",
+    "PointLiesOnCircle(Q, Circle(P, radius_5_0))"
+  ],
+  "line_instances": [
+    "PQ",
+    "PR",
+    "PT",
+    "SP",
+    "TR"
+  ],
+  "point_positions": {
+    "P": [
+      152.0,
+      155.0
+    ],
+    "Q": [
+      1.0,
+      132.0
+    ],
+    "R": [
+      119.0,
+      4.0
+    ],
+    "S": [
+      288.0,
+      222.0
+    ],
+    "T": [
+      188.0,
+      301.0
+    ]
+  },
+  "circle_instances": [
+    "P"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "text_logic_form": [
+    "Kite(F,G,H,J)",
+    "Find(MeasureOf(Angle(G,F,J)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Kite(F,G,H,J)",
+    "Find(MeasureOf(Angle(G,F,J)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(H, G, F)), 128)",
+    "Equals(MeasureOf(Angle(F, J, H)), 72)",
+    "Equals(LengthOf(Line(G, F)), LengthOf(Line(H, G)))",
+    "Equals(LengthOf(Line(H, J)), LengthOf(Line(J, F)))"
+  ],
+  "line_instances": [
+    "HJ",
+    "HG",
+    "JF",
+    "GF"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "H": [
+      209.0619145972429,
+      51.04508701986967
+    ],
+    "F": [
+      0.9402804333970636,
+      51.03836838750797
+    ],
+    "J": [
+      106.11676442804104,
+      194.03912651859662
+    ],
+    "G": [
+      104.66019417475728,
+      0.8224601518313648
+    ]
+  }
+}

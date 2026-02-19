@@ -1,0 +1,48 @@
+{
+  "problem_text": "In \\odot P, J K = 10 and \\widehat J K L = 134. Find m \\widehat J L.",
+  "choices": [
+    "46",
+    "67",
+    "92",
+    "134"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2825,
+  "annot_id": "Shibiao_2020-03-27_12_50_33",
+  "is_standard": false,
+  "compact_choices": [
+    "46",
+    "67",
+    "92",
+    "134"
+  ],
+  "precise_value": [
+    46.0,
+    67.0,
+    92.0,
+    134.0
+  ],
+  "rough_value": [
+    46,
+    67,
+    92,
+    134
+  ],
+  "compact_text": "In \\odot P, JK = 10 and \\widehat JKL = 134. Find m \\widehat JL.",
+  "annotat_text": "In $\\odot P$, $JK=10$ and $\\widehat {JKL}=134$. Find $m \\widehat{JL}$.",
+  "unit": "",
+  "img_width": 449,
+  "img_height": 441,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

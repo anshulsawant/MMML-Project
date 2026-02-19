@@ -1,0 +1,45 @@
+{
+  "text_logic_form": [
+    "Find(LengthOf(Line(G,D)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(LengthOf(Line(G,D)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(H, D)), 2x+4)",
+    "Equals(LengthOf(Line(H, G)), 7)",
+    "Equals(LengthOf(Line(J, H)), 10)",
+    "Equals(LengthOf(Line(G, D)), 2x-2)",
+    "PointLiesOnLine(D, Line(J, G))",
+    "Equals(MeasureOf(Angle(G, D, H)), MeasureOf(Angle(J, H, G)))"
+  ],
+  "line_instances": [
+    "GD",
+    "HD",
+    "HG",
+    "JD",
+    "JG",
+    "JH"
+  ],
+  "point_positions": {
+    "D": [
+      216.0,
+      277.0
+    ],
+    "G": [
+      1.0,
+      277.0
+    ],
+    "H": [
+      271.0,
+      2.0
+    ],
+    "J": [
+      699.0,
+      277.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

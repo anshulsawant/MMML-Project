@@ -1,0 +1,48 @@
+{
+  "problem_text": "\\triangle J K L \\sim \\triangle W Y Z. Find x.",
+  "choices": [
+    "13",
+    "21",
+    "32",
+    "44"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "! two subgraph",
+  "id": 2828,
+  "annot_id": "Shibiao_2020-03-22_09_45_49",
+  "is_standard": false,
+  "compact_choices": [
+    "13",
+    "21",
+    "32",
+    "44"
+  ],
+  "precise_value": [
+    13.0,
+    21.0,
+    32.0,
+    44.0
+  ],
+  "rough_value": [
+    13,
+    21,
+    32,
+    44
+  ],
+  "compact_text": "\\triangle JKL \\sim \\triangle WYZ. Find x.",
+  "annotat_text": "$\\triangle JKL \\sim \\triangle WYZ$. Find $x$.",
+  "unit": "",
+  "img_width": 1021,
+  "img_height": 461,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

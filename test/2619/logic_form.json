@@ -1,0 +1,54 @@
+{
+  "text_logic_form": [
+    "Rectangle(E,F,G,H)",
+    "Equals(LengthOf(Line(F,K)),32)",
+    "Find(LengthOf(Line(E,G)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Rectangle(E,F,G,H)",
+    "Equals(LengthOf(Line(F,K)),32)",
+    "Find(LengthOf(Line(E,G)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(K, Line(H, F))",
+    "PointLiesOnLine(K, Line(E, G))",
+    "Perpendicular(Line(H, G), Line(H, E))"
+  ],
+  "line_instances": [
+    "EF",
+    "EG",
+    "EK",
+    "GF",
+    "GK",
+    "HE",
+    "HF",
+    "HG",
+    "HK",
+    "KF"
+  ],
+  "point_positions": {
+    "E": [
+      0.0,
+      1.0
+    ],
+    "F": [
+      343.0,
+      3.0
+    ],
+    "G": [
+      344.0,
+      164.0
+    ],
+    "H": [
+      2.0,
+      164.0
+    ],
+    "K": [
+      173.0,
+      83.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "text_logic_form": [
+    "Similar(Triangle(A,B,C),Triangle(D,E,F))",
+    "IsMedianOf(Line(B,G),Triangle(A,B,C))",
+    "IsMedianOf(Line(E,H),Triangle(D,E,F))",
+    "Equals(LengthOf(Line(B,C)),30)",
+    "Equals(LengthOf(Line(B,G)),15)",
+    "Equals(LengthOf(Line(E,F)),15)",
+    "Find(LengthOf(Line(E,H)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Triangle(A,B,C),Triangle(D,E,F))",
+    "IsMedianOf(Line(B,G),Triangle(A,B,C))",
+    "IsMedianOf(Line(E,H),Triangle(D,E,F))",
+    "Equals(LengthOf(Line(B,C)),30)",
+    "Equals(LengthOf(Line(B,G)),15)",
+    "Equals(LengthOf(Line(E,F)),15)",
+    "Find(LengthOf(Line(E,H)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(G, Line(C, A))",
+    "PointLiesOnLine(H, Line(D, F))"
+  ],
+  "line_instances": [
+    "AG",
+    "BA",
+    "BG",
+    "CA",
+    "CB",
+    "CG",
+    "EH",
+    "DH",
+    "FH",
+    "ED",
+    "EF",
+    "DF"
+  ],
+  "point_positions": {
+    "A": [
+      0.0,
+      99.0
+    ],
+    "B": [
+      56.0,
+      3.0
+    ],
+    "C": [
+      225.0,
+      98.0
+    ],
+    "G": [
+      116.0,
+      99.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

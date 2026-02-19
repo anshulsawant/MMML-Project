@@ -1,0 +1,78 @@
+{
+  "text_logic_form": [
+    "Angle(A,B,C)",
+    "Parallel(Line(l),Line(m))",
+    "IntersectAt(Line(l),Line(m),Point(B))",
+    "Find(MeasureOf(Angle(A,B,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Angle(A,B,C)",
+    "Parallel(Line(D,F),Line(H,E))",
+    "IntersectAt(Line(l),Line(m),Point(B))",
+    "Find(MeasureOf(Angle(A,B,C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(H, C, B)), 33)",
+    "Equals(MeasureOf(Angle(B, A, D)), 38)",
+    "PointLiesOnLine(A, Line(D, F))",
+    "PointLiesOnLine(C, Line(E, H))",
+    "PointLiesOnLine(A, Line(B, G))",
+    "PointLiesOnLine(C, Line(B, I))",
+    "Parallel(Line(D, A), Line(C, H))"
+  ],
+  "line_instances": [
+    "AB",
+    "AG",
+    "BG",
+    "BI",
+    "CB",
+    "CH",
+    "CI",
+    "DA",
+    "DF",
+    "EC",
+    "EH",
+    "FA"
+  ],
+  "point_positions": {
+    "A": [
+      233.0,
+      89.0
+    ],
+    "B": [
+      114.0,
+      176.0
+    ],
+    "C": [
+      233.0,
+      241.0
+    ],
+    "D": [
+      0.0,
+      88.0
+    ],
+    "E": [
+      442.0,
+      241.0
+    ],
+    "F": [
+      442.0,
+      89.0
+    ],
+    "G": [
+      352.0,
+      1.0
+    ],
+    "H": [
+      1.0,
+      240.0
+    ],
+    "I": [
+      395.0,
+      328.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

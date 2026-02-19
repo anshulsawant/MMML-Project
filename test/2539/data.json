@@ -1,0 +1,48 @@
+{
+  "problem_text": "In \\odot M, F L = 24, H J = 48, and m \\widehat H P = 65. Find m \\widehat P J.",
+  "choices": [
+    "37.5",
+    "65",
+    "85",
+    "130"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2539,
+  "annot_id": "Shibiao_2020-03-28_09_48_11",
+  "is_standard": false,
+  "compact_choices": [
+    "37.5",
+    "65",
+    "85",
+    "130"
+  ],
+  "precise_value": [
+    37.5,
+    65.0,
+    85.0,
+    130.0
+  ],
+  "rough_value": [
+    37.5,
+    65,
+    85,
+    130
+  ],
+  "compact_text": "In \\odot M, FL = 24, HJ = 48, and m \\widehat HP = 65. Find m \\widehat PJ.",
+  "annotat_text": "In $\\odot M$, $FL=24,HJ=48$, and $m \\widehat {HP}=65$. Find $m \\widehat {PJ}$.",
+  "unit": "",
+  "img_width": 507,
+  "img_height": 467,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

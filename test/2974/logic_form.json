@@ -1,0 +1,55 @@
+{
+  "text_logic_form": [
+    "InscribedIn(Rhombus(P,Q,R,S),Circle($))",
+    "Find(MeasureOf(Arc(S,P)))"
+  ],
+  "dissolved_text_logic_form": [
+    "InscribedIn(Rhombus(P,Q,R,S),Circle(C))",
+    "Find(MeasureOf(Arc(S,P)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(C, Line(R, P))",
+    "PointLiesOnLine(C, Line(S, Q))",
+    "PointLiesOnCircle(R, Circle(C, radius_4_0))",
+    "PointLiesOnCircle(S, Circle(C, radius_4_0))",
+    "PointLiesOnCircle(Q, Circle(C, radius_4_0))",
+    "PointLiesOnCircle(P, Circle(C, radius_4_0))"
+  ],
+  "line_instances": [
+    "CP",
+    "QC",
+    "QP",
+    "RC",
+    "RP",
+    "RQ",
+    "RS",
+    "SC",
+    "SP",
+    "SQ"
+  ],
+  "point_positions": {
+    "C": [
+      81.0,
+      82.0
+    ],
+    "P": [
+      69.0,
+      2.0
+    ],
+    "Q": [
+      162.0,
+      66.0
+    ],
+    "R": [
+      96.0,
+      161.0
+    ],
+    "S": [
+      2.0,
+      97.0
+    ]
+  },
+  "circle_instances": [
+    "C"
+  ]
+}

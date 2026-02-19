@@ -1,0 +1,40 @@
+{
+  "text_logic_form": [
+    "Equals(AreaOf(Shape(A)),66)",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(AreaOf(Shaded(Shape($))),66)",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(K, Line(L, J))",
+    "PointLiesOnCircle(L, Circle(K, radius_2_0))",
+    "PointLiesOnCircle(J, Circle(K, radius_2_0))",
+    "Equals(LengthOf(Line(J, L)), x)",
+    "Equals(MeasureOf(Angle(J, K, L)), 180)",
+    ""
+  ],
+  "line_instances": [
+    "JK",
+    "LJ",
+    "LK"
+  ],
+  "point_positions": {
+    "J": [
+      104.0,
+      3.0
+    ],
+    "K": [
+      103.0,
+      102.0
+    ],
+    "L": [
+      104.0,
+      206.0
+    ]
+  },
+  "circle_instances": [
+    "K"
+  ]
+}

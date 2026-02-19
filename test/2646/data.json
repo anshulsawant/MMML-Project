@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the measure of \\angle A to the nearest tenth.",
+  "choices": [
+    "33.7",
+    "41.8",
+    "48.2",
+    "56.3"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2646,
+  "annot_id": "pan_2020-03-24_05_43_11",
+  "is_standard": false,
+  "compact_choices": [
+    "33.7",
+    "41.8",
+    "48.2",
+    "56.3"
+  ],
+  "precise_value": [
+    33.7,
+    41.8,
+    48.2,
+    56.3
+  ],
+  "rough_value": [
+    33.7,
+    41.8,
+    48.2,
+    56.3
+  ],
+  "compact_text": "Find the measure of \\angle A to the nearest tenth.",
+  "annotat_text": "Find the measure of $\u2220A$ to the nearest tenth.",
+  "unit": "",
+  "img_width": 242,
+  "img_height": 276,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

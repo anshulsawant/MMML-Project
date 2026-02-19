@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, C P is an altitude, C Q is the angle bisector of \\angle A C B, and R is the midpoint of A B. Find m \\angle A C Q if m \\angle A C B = 123 - x and m \\angle Q C B = 42 + x.",
+  "choices": [
+    "40",
+    "45",
+    "50",
+    "55"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 5 - Relationships in Triangles.pdf",
+  "comment": "",
+  "id": 2963,
+  "annot_id": "pan_2020-03-19_05_18_09",
+  "is_standard": false,
+  "compact_choices": [
+    "40",
+    "45",
+    "50",
+    "55"
+  ],
+  "precise_value": [
+    40.0,
+    45.0,
+    50.0,
+    55.0
+  ],
+  "rough_value": [
+    40,
+    45,
+    50,
+    55
+  ],
+  "compact_text": "In the figure, CP is an altitude, CQ is the angle bisector of \\angle ACB, and R is the midpoint of AB. Find m \\angle ACQ if m \\angle ACB = 123-x and m \\angle QCB = 42+x.",
+  "annotat_text": "In the figure, $\\overline{CP}$ is an altitude, $\\overline{CQ}$ is the angle bisector of $\u2220ACB$, and $R$ is the midpoint of $\\overline{AB}$. Find  $m\u2220ACQ$ if $m\u2220ACB=123-x$ and $m\u2220QCB = 42 + x$.",
+  "unit": "",
+  "img_width": 363,
+  "img_height": 267,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

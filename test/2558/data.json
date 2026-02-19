@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find R S if \\triangle Q R S is an equilateral triangle.",
+  "choices": [
+    "0.5",
+    "1",
+    "1.5",
+    "2"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "Textbook 2_Chapter 4 - Congruent Triangles.pdf",
+  "comment": "",
+  "id": 2558,
+  "annot_id": "pan_2020-03-17_07_42_32",
+  "is_standard": false,
+  "compact_choices": [
+    "0.5",
+    "1",
+    "1.5",
+    "2"
+  ],
+  "precise_value": [
+    0.5,
+    1.0,
+    1.5,
+    2.0
+  ],
+  "rough_value": [
+    0.5,
+    1,
+    1.5,
+    2
+  ],
+  "compact_text": "Find RS if \\triangle QRS is an equilateral triangle.",
+  "annotat_text": "Find $RS$ if $\\triangle QRS$ is an equilateral triangle.",
+  "unit": "",
+  "img_width": 305,
+  "img_height": 292,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

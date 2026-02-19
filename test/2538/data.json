@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find the measure of \\angle 3 in the figure.",
+  "choices": [
+    "52",
+    "56",
+    "60",
+    "68"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 4 - Congruent Triangles.pdf",
+  "comment": "",
+  "id": 2538,
+  "annot_id": "pan_2020-03-18_01_46_22",
+  "is_standard": false,
+  "compact_choices": [
+    "52",
+    "56",
+    "60",
+    "68"
+  ],
+  "precise_value": [
+    52.0,
+    56.0,
+    60.0,
+    68.0
+  ],
+  "rough_value": [
+    52,
+    56,
+    60,
+    68
+  ],
+  "compact_text": "Find the measure of \\angle 3 in the figure.",
+  "annotat_text": "Find the measure of $\\angle 3$ in the figure.",
+  "unit": "",
+  "img_width": 570,
+  "img_height": 270,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

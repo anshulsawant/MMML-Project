@@ -1,0 +1,48 @@
+{
+  "problem_text": "Quadrilateral W X Y Z is a rectangle. Find the measure of \\angle 5 if m \\angle 1 = 30.",
+  "choices": [
+    "15",
+    "30",
+    "45",
+    "60"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Parallelogram"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2710,
+  "annot_id": "pan_2020-03-25_22_18_18",
+  "is_standard": false,
+  "compact_choices": [
+    "15",
+    "30",
+    "45",
+    "60"
+  ],
+  "precise_value": [
+    15.0,
+    30.0,
+    45.0,
+    60.0
+  ],
+  "rough_value": [
+    15,
+    30,
+    45,
+    60
+  ],
+  "compact_text": "Quadrilateral WXYZ is a rectangle. Find the measure of \\angle 5 if m \\angle 1 = 30.",
+  "annotat_text": "Quadrilateral $WXYZ$ is a rectangle. Find the measure of $\\angle 5$ if $m\u22201 = 30$.",
+  "unit": "",
+  "img_width": 410,
+  "img_height": 273,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

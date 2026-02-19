@@ -1,0 +1,48 @@
+{
+  "problem_text": "E B \\parallel D C. Find A B.",
+  "choices": [
+    "5",
+    "7.5",
+    "9.5",
+    "10"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "the picture is confusing",
+  "id": 2666,
+  "annot_id": "Shibiao_2020-03-22_10_13_57",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "7.5",
+    "9.5",
+    "10"
+  ],
+  "precise_value": [
+    5.0,
+    7.5,
+    9.5,
+    10.0
+  ],
+  "rough_value": [
+    5,
+    7.5,
+    9.5,
+    10
+  ],
+  "compact_text": "EB \\parallel DC. Find AB.",
+  "annotat_text": "$\\overline{EB} \\| \\overline{DC}$. Find $AB$.",
+  "unit": "",
+  "img_width": 591,
+  "img_height": 457,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,34 @@
+{
+  "text_logic_form": [
+    "Find(SinOf(Angle(S)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(SinOf(Angle(S)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(T, S)), 4)",
+    "Equals(LengthOf(Line(S, R)), 5)",
+    "Equals(LengthOf(Line(T, R)), 3)",
+    "Perpendicular(Line(T, S), Line(T, R))"
+  ],
+  "line_instances": [
+    "TS",
+    "TR",
+    "SR"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "T": [
+      102.73224043715847,
+      1.6120218579234944
+    ],
+    "S": [
+      0.0,
+      86.0
+    ],
+    "R": [
+      163.12496005113456,
+      73.68328539469479
+    ]
+  }
+}

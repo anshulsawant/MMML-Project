@@ -1,0 +1,48 @@
+{
+  "problem_text": "Triangle L M N is equilateral, and M P bisects L N. Find the measure of the side of \\triangle L M N.",
+  "choices": [
+    "9",
+    "10",
+    "11",
+    "12"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 4 - Congruent Triangles.pdf",
+  "comment": "",
+  "id": 2472,
+  "annot_id": "pan_2020-03-18_07_48_31",
+  "is_standard": false,
+  "compact_choices": [
+    "9",
+    "10",
+    "11",
+    "12"
+  ],
+  "precise_value": [
+    9.0,
+    10.0,
+    11.0,
+    12.0
+  ],
+  "rough_value": [
+    9,
+    10,
+    11,
+    12
+  ],
+  "compact_text": "Triangle LMN is equilateral, and MP bisects LN. Find the measure of the side of \\triangle LMN.",
+  "annotat_text": "Triangle $LMN$ is equilateral, and $\\overline{MP}$ bisects $\\overline{LN}$. Find the measure of each side of $\\triangle LMN$.",
+  "unit": "",
+  "img_width": 295,
+  "img_height": 237,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,34 @@
+{
+  "text_logic_form": [
+    "Find(RatioOf(TanOf(Angle(M))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(RatioOf(TanOf(Angle(M))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(M, P)), 36)",
+    "Equals(LengthOf(Line(N, P)), 15)",
+    "Equals(LengthOf(Line(N, M)), 39)",
+    "Perpendicular(Line(P, N), Line(P, M))"
+  ],
+  "line_instances": [
+    "NM",
+    "NP",
+    "MP"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "N": [
+      0.006254906429646212,
+      105.664058345362
+    ],
+    "M": [
+      247.0,
+      2.0
+    ],
+    "P": [
+      0.6666414437592181,
+      0.002698851096567978
+    ]
+  }
+}

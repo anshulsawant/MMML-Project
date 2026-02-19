@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find h in the triangle.",
+  "choices": [
+    "4.62",
+    "5.66",
+    "6.93",
+    "8"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2854,
+  "annot_id": "pan_2020-03-22_20_33_27",
+  "is_standard": false,
+  "compact_choices": [
+    "4.62",
+    "5.66",
+    "6.93",
+    "8"
+  ],
+  "precise_value": [
+    4.62,
+    5.66,
+    6.93,
+    8.0
+  ],
+  "rough_value": [
+    4.62,
+    5.66,
+    6.93,
+    8
+  ],
+  "compact_text": "Find h in the triangle.",
+  "annotat_text": "Find $h$ in the triangle.",
+  "unit": "",
+  "img_width": 275,
+  "img_height": 161,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

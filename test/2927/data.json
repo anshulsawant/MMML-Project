@@ -1,0 +1,48 @@
+{
+  "problem_text": "The area of trapezoid J K L M is 138 square feet. The area of trapezoid Q R S T is 5.52 square feet. If trapezoid J K L M \\sim trapezoid Q R S T, find the value of x.",
+  "choices": [
+    "0.2",
+    "1",
+    "25",
+    "125"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Trapezoid"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2927,
+  "annot_id": "pan_2020-03-23_08_27_31",
+  "is_standard": false,
+  "compact_choices": [
+    "0.2",
+    "1",
+    "25",
+    "125"
+  ],
+  "precise_value": [
+    0.2,
+    1.0,
+    25.0,
+    125.0
+  ],
+  "rough_value": [
+    0.2,
+    1,
+    25,
+    125
+  ],
+  "compact_text": "The area of trapezoid JKLM is 138 square feet. The area of trapezoid QRST is 5.52 square feet. If trapezoid JKLM \\sim trapezoid QRST, find the value of x.",
+  "annotat_text": "The area of trapezoid $JKLM$ is 138 square feet. The area of trapezoid $QRST$ is 5.52 square feet. If trapezoid $J K L M$ $ \\sim$ trapezoid $QRST$, find the value of $x$.",
+  "unit": "",
+  "img_width": 573,
+  "img_height": 211,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

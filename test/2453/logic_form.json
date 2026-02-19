@@ -1,0 +1,59 @@
+{
+  "text_logic_form": [
+    "Rhombus(F,G,H,J)",
+    "IsDiagonalOf(Line(F,H),Rhombus(F,G,H,J))",
+    "IsDiagonalOf(Line(G,J),Rhombus(F,G,H,J))",
+    "IntersectAt(Line(F,H),Line(G,J),Point(K))",
+    "Equals(LengthOf(Line(G,H)),x+9)",
+    "Equals(LengthOf(Line(J,H)),5x-2)",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Rhombus(F,G,H,J)",
+    "IsDiagonalOf(Line(F,H),Rhombus(F,G,H,J))",
+    "IsDiagonalOf(Line(G,J),Rhombus(F,G,H,J))",
+    "IntersectAt(Line(F,H),Line(G,J),Point(K))",
+    "Equals(LengthOf(Line(G,H)),x+9)",
+    "Equals(LengthOf(Line(J,H)),5x-2)",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(K, Line(H, F))",
+    "PointLiesOnLine(K, Line(J, G))"
+  ],
+  "line_instances": [
+    "HK",
+    "HJ",
+    "HG",
+    "HF",
+    "KJ",
+    "KG",
+    "KF",
+    "JG",
+    "JF",
+    "GF"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "H": [
+      134.14277231951536,
+      124.0014729125012
+    ],
+    "K": [
+      67.64740466991434,
+      96.56005375440954
+    ],
+    "J": [
+      35.852049478021854,
+      193.00416581823538
+    ],
+    "G": [
+      100.10869006580022,
+      0.7673305491067737
+    ],
+    "F": [
+      0.19413464219992704,
+      69.36737336324956
+    ]
+  }
+}

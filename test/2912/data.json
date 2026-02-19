@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, m \\angle 12 = 64. Find the measure of \\angle 7.",
+  "choices": [
+    "54",
+    "64",
+    "74",
+    "84"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 3 - Parallel and Perpendicular Lines.pdf",
+  "comment": "",
+  "id": 2912,
+  "annot_id": "pan_2020-03-17_06_20_09",
+  "is_standard": false,
+  "compact_choices": [
+    "54",
+    "64",
+    "74",
+    "84"
+  ],
+  "precise_value": [
+    54.0,
+    64.0,
+    74.0,
+    84.0
+  ],
+  "rough_value": [
+    54,
+    64,
+    74,
+    84
+  ],
+  "compact_text": "In the figure, m \\angle 12 = 64. Find the measure of \\angle 7.",
+  "annotat_text": "In the figure, $m \u2220 12 = 64$. Find the measure of $ \\angle 7$.",
+  "unit": "",
+  "img_width": 585,
+  "img_height": 297,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

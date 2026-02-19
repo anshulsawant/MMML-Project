@@ -1,0 +1,46 @@
+{
+  "text_logic_form": [
+    "Congruent(Triangle(R,S,V),Triangle(T,V,S))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Congruent(Triangle(R,S,V),Triangle(T,V,S))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(T, S)), 24.5)",
+    "Equals(LengthOf(Line(T, V)), 24)",
+    "Equals(LengthOf(Line(R, S)), 2y-1)",
+    "Equals(MeasureOf(Angle(S, V, R)), 78)",
+    "Equals(MeasureOf(Angle(S, T, V)), x)",
+    "Perpendicular(Line(S, V), Line(S, R))"
+  ],
+  "line_instances": [
+    "RS",
+    "ST",
+    "VT",
+    "RV",
+    "SV"
+  ],
+  "point_positions": {
+    "R": [
+      0.0,
+      0.0
+    ],
+    "S": [
+      375.0,
+      4.0
+    ],
+    "T": [
+      733.0,
+      80.0
+    ],
+    "V": [
+      377.0,
+      79.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

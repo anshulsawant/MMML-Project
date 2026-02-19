@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x so that a \\parallel b.",
+  "choices": [
+    "2.5",
+    "14",
+    "15",
+    "16"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "",
+  "id": 2631,
+  "annot_id": "pan_2020-03-15_06_23_22",
+  "is_standard": false,
+  "compact_choices": [
+    "2.5",
+    "14",
+    "15",
+    "16"
+  ],
+  "precise_value": [
+    2.5,
+    14.0,
+    15.0,
+    16.0
+  ],
+  "rough_value": [
+    2.5,
+    14,
+    15,
+    16
+  ],
+  "compact_text": "Find x so that a \\parallel b.",
+  "annotat_text": "Find $x$ so that $a \u2225 b$.",
+  "unit": "",
+  "img_width": 536,
+  "img_height": 250,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

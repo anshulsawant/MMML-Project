@@ -1,0 +1,48 @@
+{
+  "problem_text": "If W X Y Z is a kite, find W P.",
+  "choices": [
+    "\\sqrt { 20 }",
+    "16",
+    "20",
+    "36"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Other"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter6.pdf page 56",
+  "comment": "",
+  "id": 2814,
+  "annot_id": "Ran_2020-03-19_05_43_14",
+  "is_standard": false,
+  "compact_choices": [
+    "\\sqrt{20}",
+    "16",
+    "20",
+    "36"
+  ],
+  "precise_value": [
+    4.47213595499958,
+    16.0,
+    20.0,
+    36.0
+  ],
+  "rough_value": [
+    4.47,
+    16,
+    20,
+    36
+  ],
+  "compact_text": "If WXYZ is a kite, find WP.",
+  "annotat_text": "If WXYZ is a kite, find WP",
+  "unit": "",
+  "img_width": 257,
+  "img_height": 279,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

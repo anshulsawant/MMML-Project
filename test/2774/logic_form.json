@@ -1,0 +1,35 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(P, N)), 20\\sqrt{2})",
+    "Equals(MeasureOf(Angle(N, P, A)), 38)",
+    "Equals(LengthOf(Line(N, A)), x)",
+    "Equals(LengthOf(Line(N, A)), 0)",
+    "Perpendicular(Line(A, N), Line(A, P))"
+  ],
+  "line_instances": [
+    "PN",
+    "PA",
+    "NA"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "P": [
+      285.1651883965741,
+      230.91268262933204
+    ],
+    "N": [
+      0.0,
+      82.0
+    ],
+    "A": [
+      180.17030516201294,
+      1.3692597905326949
+    ]
+  }
+}

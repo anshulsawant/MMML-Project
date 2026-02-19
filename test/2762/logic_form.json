@@ -1,0 +1,71 @@
+{
+  "text_logic_form": [
+    "Similar(Triangle(A,B,C),Triangle(F,D,G))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Triangle(A,B,C),Triangle(F,D,G))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(D, F)), 12)",
+    "Equals(LengthOf(Line(Q, F)), 8)",
+    "Equals(LengthOf(Line(A, P)), x)",
+    "Equals(LengthOf(Line(A, B)), 15)",
+    "PointLiesOnLine(P, Line(B, C))",
+    "PointLiesOnLine(Q, Line(D, G))",
+    "Equals(MeasureOf(Angle(C, A, P)), MeasureOf(Angle(B, A, P)))",
+    "Equals(MeasureOf(Angle(G, F, Q)), MeasureOf(Angle(D, F, Q)))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BC",
+    "DG",
+    "DQ",
+    "FD",
+    "FG",
+    "FQ",
+    "PA",
+    "PB",
+    "PC",
+    "QG"
+  ],
+  "point_positions": {
+    "A": [
+      1.0,
+      1.0
+    ],
+    "B": [
+      393.0,
+      354.0
+    ],
+    "C": [
+      46.0,
+      344.0
+    ],
+    "D": [
+      610.0,
+      80.0
+    ],
+    "F": [
+      880.0,
+      300.0
+    ],
+    "G": [
+      650.0,
+      300.0
+    ],
+    "P": [
+      181.0,
+      348.0
+    ],
+    "Q": [
+      630.0,
+      230.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

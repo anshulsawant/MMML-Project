@@ -1,0 +1,56 @@
+{
+  "text_logic_form": [
+    "Rhombus(L,M,P,Q)",
+    "Equals(MeasureOf(Angle(Q,L,M)),2x^{2}-10)",
+    "Equals(MeasureOf(Angle(Q,P,M)),8x)",
+    "Equals(LengthOf(Line(M,P)),10)",
+    "Find(PerimeterOf(Quadrilateral(L,M,P,Q)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Rhombus(L,M,P,Q)",
+    "Equals(MeasureOf(Angle(Q,L,M)),2x^{2}-10)",
+    "Equals(MeasureOf(Angle(Q,P,M)),8x)",
+    "Equals(LengthOf(Line(M,P)),10)",
+    "Find(PerimeterOf(Quadrilateral(L,M,P,Q)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(P, M)), 10)",
+    "PointLiesOnLine(R, Line(Q, M))",
+    "PointLiesOnLine(R, Line(L, P))"
+  ],
+  "line_instances": [
+    "QL",
+    "QP",
+    "QM",
+    "QR",
+    "LP",
+    "LM",
+    "LR",
+    "PM",
+    "PR",
+    "MR"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "Q": [
+      122.63234909851059,
+      3.4881434544029304
+    ],
+    "L": [
+      0.0,
+      99.0
+    ],
+    "P": [
+      279.2235204111929,
+      0.46723396263413974
+    ],
+    "M": [
+      156.01820087669145,
+      99.08490566037736
+    ],
+    "R": [
+      140.1931330472103,
+      49.5793991416309
+    ]
+  }
+}

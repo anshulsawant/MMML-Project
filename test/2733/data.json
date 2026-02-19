@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find y.",
+  "choices": [
+    "6 \\sqrt { 2 }",
+    "12 \\sqrt { 2 }",
+    "12 \\sqrt { 3 }",
+    "24"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Square",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2733,
+  "annot_id": "pan_2020-03-24_03_24_06",
+  "is_standard": false,
+  "compact_choices": [
+    "6\\sqrt{2}",
+    "12\\sqrt{2}",
+    "12\\sqrt{3}",
+    "24"
+  ],
+  "precise_value": [
+    8.485281374238571,
+    16.970562748477143,
+    20.784609690826528,
+    24.0
+  ],
+  "rough_value": [
+    8.49,
+    16.97,
+    20.78,
+    24
+  ],
+  "compact_text": "Find y.",
+  "annotat_text": "Find y.",
+  "unit": "",
+  "img_width": 200,
+  "img_height": 228,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

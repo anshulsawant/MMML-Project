@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find W R.",
+  "choices": [
+    "6",
+    "8",
+    "10",
+    "12"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "",
+  "id": 2438,
+  "annot_id": "Shibiao_2020-03-22_09_58_45",
+  "is_standard": false,
+  "compact_choices": [
+    "6",
+    "8",
+    "10",
+    "12"
+  ],
+  "precise_value": [
+    6.0,
+    8.0,
+    10.0,
+    12.0
+  ],
+  "rough_value": [
+    6,
+    8,
+    10,
+    12
+  ],
+  "compact_text": "Find WR.",
+  "annotat_text": "Find $WR$.",
+  "unit": "",
+  "img_width": 897,
+  "img_height": 410,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,63 @@
+{
+  "text_logic_form": [
+    "Similar(Triangle(R,U,W),Triangle(S,T,V))",
+    "Equals(LengthOf(Line(S,T)),24)",
+    "Equals(LengthOf(Line(V,S)),12)",
+    "Equals(LengthOf(Line(V,T)),18)",
+    "Equals(LengthOf(Line(U,W)),21)",
+    "Find(PerimeterOf(Triangle(R,U,W)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Triangle(R,U,W),Triangle(S,T,V))",
+    "Equals(LengthOf(Line(S,T)),24)",
+    "Equals(LengthOf(Line(V,S)),12)",
+    "Equals(LengthOf(Line(V,T)),18)",
+    "Equals(LengthOf(Line(U,W)),21)",
+    "Find(PerimeterOf(Triangle(R,U,W)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(T, Line(S, U))",
+    "PointLiesOnLine(S, Line(T, R))",
+    "PointLiesOnLine(S, Line(R, U))",
+    "PointLiesOnLine(T, Line(R, U))"
+  ],
+  "line_instances": [
+    "VS",
+    "VT",
+    "SR",
+    "SU",
+    "ST",
+    "TR",
+    "TU",
+    "RU",
+    "RW",
+    "UW"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "V": [
+      150.87720599139848,
+      52.45746205941965
+    ],
+    "R": [
+      1.3379426949669266,
+      143.66668679488342
+    ],
+    "U": [
+      229.46905193236717,
+      144.32955917874395
+    ],
+    "W": [
+      144.5794879502981,
+      0.7532441505085501
+    ],
+    "S": [
+      59.86240590957969,
+      144.12822011314228
+    ],
+    "T": [
+      204.67236128295423,
+      144.44180070429238
+    ]
+  }
+}

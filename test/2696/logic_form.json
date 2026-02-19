@@ -1,0 +1,38 @@
+{
+  "text_logic_form": [
+    "Isosceles(Triangle(A,B,C))",
+    "Find(LengthOf(Line(A,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Isosceles(Triangle(A,B,C))",
+    "Find(LengthOf(Line(A,C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, A)), 9x-1)",
+    "Equals(LengthOf(Line(C, A)), 4x+1)",
+    "Equals(LengthOf(Line(C, B)), 5x-0.5)",
+    "Equals(LengthOf(Line(C, A)), LengthOf(Line(B, C)))"
+  ],
+  "line_instances": [
+    "BA",
+    "CA",
+    "CB"
+  ],
+  "point_positions": {
+    "A": [
+      0.0,
+      1.0
+    ],
+    "B": [
+      539.0,
+      1.0
+    ],
+    "C": [
+      273.0,
+      136.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

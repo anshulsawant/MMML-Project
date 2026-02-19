@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure below, \\angle A B C is intersected by parallel lines l and m. What is the measure of \\angle A B C? Express your answer in degrees.",
+  "choices": [
+    "33",
+    "38",
+    "61",
+    "71"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "",
+  "id": 2405,
+  "annot_id": "pan_2020-03-15_06_24_33",
+  "is_standard": false,
+  "compact_choices": [
+    "33",
+    "38",
+    "61",
+    "71"
+  ],
+  "precise_value": [
+    33.0,
+    38.0,
+    61.0,
+    71.0
+  ],
+  "rough_value": [
+    33,
+    38,
+    61,
+    71
+  ],
+  "compact_text": "In the figure below, \\angle ABC is intersected by parallel lines l and m. What is the measure of \\angle ABC? Express your answer in degrees.",
+  "annotat_text": "In the figure below, $\u2220ABC$ is intersected by parallel lines $l$ and $m$. What is the measure of $\u2220ABC$? Express your answer in degrees.",
+  "unit": "",
+  "img_width": 531,
+  "img_height": 367,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

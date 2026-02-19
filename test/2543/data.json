@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the perimeter of \\triangle B C D, if \\triangle B C D \\sim \\triangle F D E, C D = 12, F D = 5, F E = 4, and D E = 8.",
+  "choices": [
+    "21.3",
+    "25.5",
+    "29.8",
+    "34"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 41",
+  "comment": "",
+  "id": 2543,
+  "annot_id": "Ran_2020-03-21_07_07_06",
+  "is_standard": false,
+  "compact_choices": [
+    "21.3",
+    "25.5",
+    "29.8",
+    "34"
+  ],
+  "precise_value": [
+    21.3,
+    25.5,
+    29.8,
+    34.0
+  ],
+  "rough_value": [
+    21.3,
+    25.5,
+    29.8,
+    34
+  ],
+  "compact_text": "Find the perimeter of \\triangle BCD, if \\triangle BCD \\sim \\triangle FDE, CD = 12, FD = 5, FE = 4, and DE = 8.",
+  "annotat_text": "Find the perimeter of $\\triangle B C D,$ if $\\triangle B C D \\sim \\triangle F D E, C D=12$, $F D=5, F E=4,$ and $D E=8$.",
+  "unit": "",
+  "img_width": 385,
+  "img_height": 266,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

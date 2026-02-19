@@ -1,0 +1,38 @@
+{
+  "text_logic_form": [
+    "Equilateral(Triangle(I,W,N))",
+    "Equals(LengthOf(Line(W,N)),5)",
+    "Find(MeasureOf(Arc(W,N)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equilateral(Triangle(I,W,N))",
+    "Equals(LengthOf(Line(W,N)),5)",
+    "Find(MeasureOf(Arc(W,N)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnCircle(W, Circle(I, radius_0_0))",
+    "PointLiesOnCircle(N, Circle(I, radius_0_0))"
+  ],
+  "line_instances": [
+    "IN",
+    "IW",
+    "WN"
+  ],
+  "point_positions": {
+    "I": [
+      75.0,
+      79.0
+    ],
+    "N": [
+      153.0,
+      80.0
+    ],
+    "W": [
+      112.0,
+      12.0
+    ]
+  },
+  "circle_instances": [
+    "I"
+  ]
+}

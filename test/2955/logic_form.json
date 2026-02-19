@@ -1,0 +1,50 @@
+{
+  "text_logic_form": [
+    "Equals(SumOf(MeasureOf(Angle(6)),MeasureOf(Angle(6))),90)",
+    "Equals(MeasureOf(Angle(8)),47)",
+    "Find(MeasureOf(Angle(7)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(SumOf(MeasureOf(Angle(6)),MeasureOf(Angle(6))),90)",
+    "Equals(MeasureOf(Angle(8)),47)",
+    "Find(MeasureOf(Angle(7)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(C, B, EA)), MeasureOf(Angle(6)))",
+    "Equals(MeasureOf(Angle(E, B, A)), MeasureOf(Angle(7)))",
+    "Equals(MeasureOf(Angle(D, B, A)), MeasureOf(Angle(8)))",
+    "PointLiesOnLine(B, Line(C, D))"
+  ],
+  "line_instances": [
+    "AB",
+    "BC",
+    "BD",
+    "BE",
+    "CD"
+  ],
+  "point_positions": {
+    "A": [
+      242.0,
+      133.0
+    ],
+    "B": [
+      132.0,
+      1.0
+    ],
+    "C": [
+      0.0,
+      0.0
+    ],
+    "D": [
+      250.0,
+      2.0
+    ],
+    "E": [
+      17.0,
+      97.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

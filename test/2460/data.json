@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x. Round the angle measure to the nearest degree.",
+  "choices": [
+    "98",
+    "103",
+    "108",
+    "113"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2460,
+  "annot_id": "pan_2020-03-25_21_04_01",
+  "is_standard": false,
+  "compact_choices": [
+    "98",
+    "103",
+    "108",
+    "113"
+  ],
+  "precise_value": [
+    98.0,
+    103.0,
+    108.0,
+    113.0
+  ],
+  "rough_value": [
+    98,
+    103,
+    108,
+    113
+  ],
+  "compact_text": "Find x. Round the angle measure to the nearest degree.",
+  "annotat_text": "Find x. Round the angle measure to the nearest degree",
+  "unit": "",
+  "img_width": 267,
+  "img_height": 199,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

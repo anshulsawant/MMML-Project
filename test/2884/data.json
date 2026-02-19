@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find B C if A B = 6, A F = 8, B C = x, C D = y, D E = 2 y - 3, and F E = x + \\frac { 10 } { 3 }.",
+  "choices": [
+    "9",
+    "10",
+    "13.3",
+    "15"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 33",
+  "comment": "",
+  "id": 2884,
+  "annot_id": "Ran_2020-03-21_06_28_01",
+  "is_standard": false,
+  "compact_choices": [
+    "9",
+    "10",
+    "13.3",
+    "15"
+  ],
+  "precise_value": [
+    9.0,
+    10.0,
+    13.3,
+    15.0
+  ],
+  "rough_value": [
+    9,
+    10,
+    13.3,
+    15
+  ],
+  "compact_text": "Find BC if AB = 6, AF = 8, BC = x, CD = y, DE = 2y-3, and FE = x+\\frac{10}{3}.",
+  "annotat_text": "Find $BC$ if $AB=6, AF=8, BC=x, CD=y$, $DE=2y-3$, and $FE=x+\\frac{10}{3}$.",
+  "unit": "",
+  "img_width": 346,
+  "img_height": 269,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

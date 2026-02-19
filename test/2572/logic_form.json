@@ -1,0 +1,41 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(M,P,Q)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(M,P,Q)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(N, M, P)), 56)",
+    "Equals(MeasureOf(Angle(Q, N, M)), 45)",
+    "PointLiesOnLine(P, Line(Q, N))"
+  ],
+  "line_instances": [
+    "NM",
+    "PM",
+    "PN",
+    "QN",
+    "QP"
+  ],
+  "point_positions": {
+    "M": [
+      334.0,
+      1.0
+    ],
+    "N": [
+      497.0,
+      164.0
+    ],
+    "P": [
+      301.0,
+      164.0
+    ],
+    "Q": [
+      15.0,
+      162.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

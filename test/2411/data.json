@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the shaded region. Round to the nearest tenth.",
+  "choices": [
+    "104.7",
+    "157.1",
+    "235.6",
+    "314.2"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "Textbook 2_Chapter 11 - Areas of Polygons and Circles.pdf",
+  "comment": "Complex area shape",
+  "id": 2411,
+  "annot_id": "pan_2020-03-22_06_11_07",
+  "is_standard": false,
+  "compact_choices": [
+    "104.7",
+    "157.1",
+    "235.6",
+    "314.2"
+  ],
+  "precise_value": [
+    104.7,
+    157.1,
+    235.6,
+    314.2
+  ],
+  "rough_value": [
+    104.7,
+    157.1,
+    235.6,
+    314.2
+  ],
+  "compact_text": "Find the area of the shaded region. Round to the nearest tenth.",
+  "annotat_text": "Find the area of the shaded region. Round to the nearest tenth.",
+  "unit": "",
+  "img_width": 305,
+  "img_height": 239,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

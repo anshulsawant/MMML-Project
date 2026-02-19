@@ -1,0 +1,46 @@
+{
+  "text_logic_form": [
+    "Similar(Pentagon(A,B,C,D,E),Pentagon(P,Q,R,S,T))",
+    "Find(LengthOf(Line(S,R)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Pentagon(A,B,C,D,E),Pentagon(P,Q,R,S,T))",
+    "Find(LengthOf(Line(S,R)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(D, E)), 14)",
+    "Equals(LengthOf(Line(S, D)), 8)",
+    "Equals(LengthOf(Line(S, T)), 6)",
+    "Equals(LengthOf(Line(A, E)), 11)"
+  ],
+  "line_instances": [
+    "ST",
+    "SD",
+    "TA",
+    "DE",
+    "AE"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "S": [
+      83.80246913580247,
+      170.66666666666669
+    ],
+    "A": [
+      53.63235294117647,
+      0.7098765432098588
+    ],
+    "T": [
+      105.58660844250363,
+      65.72634643377002
+    ],
+    "E": [
+      0.23319838056679743,
+      67.37300944669366
+    ],
+    "D": [
+      23.18380062305296,
+      170.66666666666669
+    ]
+  }
+}

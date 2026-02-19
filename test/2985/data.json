@@ -1,0 +1,48 @@
+{
+  "problem_text": "Each pair of polygons is similar. Find A C.",
+  "choices": [
+    "7",
+    "7.6",
+    "12",
+    "19"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 15",
+  "comment": "",
+  "id": 2985,
+  "annot_id": "Ran_2020-03-20_04_41_57",
+  "is_standard": false,
+  "compact_choices": [
+    "7",
+    "7.6",
+    "12",
+    "19"
+  ],
+  "precise_value": [
+    7.0,
+    7.6,
+    12.0,
+    19.0
+  ],
+  "rough_value": [
+    7,
+    7.6,
+    12,
+    19
+  ],
+  "compact_text": "Each pair of polygons is similar. Find AC.",
+  "annotat_text": "Each pair of polygons is similar. Find AC",
+  "unit": "",
+  "img_width": 457,
+  "img_height": 256,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,49 @@
+{
+  "problem_text": "The segment is tangent to the circle. Find x. Round to the nearest tenth.",
+  "choices": [
+    "7.5",
+    "8.5",
+    "9.2",
+    "13.0"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2823,
+  "annot_id": "Shibiao_2020-03-28_11_32_11",
+  "is_standard": false,
+  "compact_choices": [
+    "7.5",
+    "8.5",
+    "9.2",
+    "13.0"
+  ],
+  "precise_value": [
+    7.5,
+    8.5,
+    9.2,
+    13.0
+  ],
+  "rough_value": [
+    7.5,
+    8.5,
+    9.2,
+    13
+  ],
+  "compact_text": "The segment is tangent to the circle. Find x. Round to the nearest tenth.",
+  "annotat_text": "The segment is tangent to the circle. Find $x$. Round to the nearest tenth.",
+  "unit": "",
+  "img_width": 424,
+  "img_height": 372,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

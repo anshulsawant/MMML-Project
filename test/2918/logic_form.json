@@ -1,0 +1,55 @@
+{
+  "text_logic_form": [
+    "Parallel(Line(G,J),Line(F,K))",
+    "Equals(LengthOf(Line(G,H)),x+3.5)",
+    "Equals(LengthOf(Line(H,J)),x-8.5)",
+    "Equals(LengthOf(Line(F,H)),21)",
+    "Equals(LengthOf(Line(H,K)),7)",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Parallel(Line(G,J),Line(F,K))",
+    "Equals(LengthOf(Line(G,H)),x+3.5)",
+    "Equals(LengthOf(Line(H,J)),x-8.5)",
+    "Equals(LengthOf(Line(F,H)),21)",
+    "Equals(LengthOf(Line(H,K)),7)",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(G, Line(H, F))",
+    "PointLiesOnLine(J, Line(H, K))"
+  ],
+  "line_instances": [
+    "HF",
+    "HK",
+    "HG",
+    "HJ",
+    "FK",
+    "FG",
+    "KJ",
+    "GJ"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "H": [
+      167.12637765165238,
+      0.5470997866602261
+    ],
+    "F": [
+      0.0,
+      159.0
+    ],
+    "K": [
+      261.6666666666667,
+      159.0
+    ],
+    "G": [
+      65.27123187522847,
+      96.99488241744852
+    ],
+    "J": [
+      223.29403825842036,
+      94.01332003286
+    ]
+  }
+}

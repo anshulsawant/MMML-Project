@@ -1,0 +1,53 @@
+{
+  "text_logic_form": [
+    "Congruent(Triangle(L,M,N),Triangle(Q,R,S))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Congruent(Triangle(L,M,N),Triangle(Q,R,S))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(L, M, N)), y+10)",
+    "Equals(LengthOf(Line(Q, R)), 3x-9)",
+    "Equals(LengthOf(Line(M, L)), 2x+11)",
+    "Equals(MeasureOf(Angle(S, R, Q)), 2y-40)"
+  ],
+  "line_instances": [
+    "ML",
+    "MN",
+    "NL",
+    "QR",
+    "SQ",
+    "SR"
+  ],
+  "point_positions": {
+    "L": [
+      141.0,
+      1.0
+    ],
+    "M": [
+      1.0,
+      227.0
+    ],
+    "N": [
+      278.0,
+      227.0
+    ],
+    "Q": [
+      680.0,
+      227.0
+    ],
+    "R": [
+      819.0,
+      1.0
+    ],
+    "S": [
+      541.0,
+      1.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

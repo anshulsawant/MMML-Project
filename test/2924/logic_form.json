@@ -1,0 +1,33 @@
+{
+  "text_logic_form": [
+    "Find(CosOf(Angle(C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(CosOf(Angle(C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, A)), 3)",
+    "Equals(LengthOf(Line(B, C)), 5)",
+    "Perpendicular(Line(A, C), Line(A, B))"
+  ],
+  "line_instances": [
+    "BC",
+    "BA",
+    "CA"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "B": [
+      0.36717948717949866,
+      1.4010256410256403
+    ],
+    "C": [
+      357.50326569803633,
+      67.57508995177952
+    ],
+    "A": [
+      96.67023445463812,
+      195.00713557594293
+    ]
+  }
+}

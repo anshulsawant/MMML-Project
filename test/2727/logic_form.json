@@ -1,0 +1,33 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(Z)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(Z)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(Z, X)), 9)",
+    "Equals(LengthOf(Line(Y, X)), 5)",
+    "Perpendicular(Line(Y, X), Line(Y, Z))"
+  ],
+  "line_instances": [
+    "YZ",
+    "YX",
+    "ZX"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "Y": [
+      0.0,
+      0.0
+    ],
+    "Z": [
+      210.08265449346084,
+      0.6654729579053722
+    ],
+    "X": [
+      0.6678689867480472,
+      119.47640942301848
+    ]
+  }
+}

@@ -1,0 +1,54 @@
+{
+  "text_logic_form": [
+    "Congruent(Triangle(B,C,D),Triangle(W,X,Y))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Congruent(Triangle(B,C,D),Triangle(W,X,Y))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(C, B)), 11)",
+    "Equals(MeasureOf(Angle(B, C, D)), 20x-4)",
+    "Equals(LengthOf(Line(X, W)), 2x+5)",
+    "Equals(MeasureOf(Angle(C, B, D)), 24x+5)",
+    "Equals(MeasureOf(Angle(X, W, Y)), 77)"
+  ],
+  "line_instances": [
+    "BC",
+    "BD",
+    "CD",
+    "WX",
+    "WY",
+    "YX"
+  ],
+  "point_positions": {
+    "B": [
+      -400.0,
+      190.0
+    ],
+    "C": [
+      -300.0,
+      1.0
+    ],
+    "D": [
+      -100.0,
+      190.0
+    ],
+    "W": [
+      285.0,
+      202.0
+    ],
+    "X": [
+      206.0,
+      1.0
+    ],
+    "Y": [
+      1.0,
+      175.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

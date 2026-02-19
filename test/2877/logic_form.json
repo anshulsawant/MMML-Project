@@ -1,0 +1,53 @@
+{
+  "text_logic_form": [
+    "Find(AreaOf(Regular(Polygon($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(AreaOf(Regular(Hexagon(A,D,C,E,G,F))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(G, H)), 5)"
+  ],
+  "line_instances": [
+    "AD",
+    "AF",
+    "CE",
+    "DC",
+    "FG",
+    "GE",
+    "GH"
+  ],
+  "point_positions": {
+    "A": [
+      67.0,
+      151.0
+    ],
+    "C": [
+      1.0,
+      39.0
+    ],
+    "D": [
+      2.0,
+      113.0
+    ],
+    "E": [
+      67.0,
+      0.0
+    ],
+    "F": [
+      130.0,
+      113.0
+    ],
+    "G": [
+      131.0,
+      39.0
+    ],
+    "H": [
+      62.0,
+      79.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

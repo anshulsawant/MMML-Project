@@ -1,0 +1,58 @@
+{
+  "text_logic_form": [
+    "IsMedianOf(Line(G,H),Quadrilateral(R,S,B,A))",
+    "Find(LengthOf(Line(G,H)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsMedianOf(Line(G,H),Quadrilateral(R,S,B,A))",
+    "Find(LengthOf(Line(G,H)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(Q, T)), 86)",
+    "Equals(LengthOf(Line(R, S)), 54)",
+    "PointLiesOnLine(A, Line(R, Q))",
+    "PointLiesOnLine(B, Line(S, T))",
+    "Equals(LengthOf(Line(Q, A)), LengthOf(Line(R, A)))",
+    "Equals(LengthOf(Line(B, T)), LengthOf(Line(S, B)))"
+  ],
+  "line_instances": [
+    "AB",
+    "BT",
+    "QA",
+    "QT",
+    "RA",
+    "RQ",
+    "RS",
+    "SB",
+    "ST"
+  ],
+  "point_positions": {
+    "A": [
+      17.0,
+      34.0
+    ],
+    "B": [
+      245.0,
+      35.0
+    ],
+    "Q": [
+      0.0,
+      65.0
+    ],
+    "R": [
+      36.0,
+      2.0
+    ],
+    "S": [
+      211.0,
+      2.0
+    ],
+    "T": [
+      274.0,
+      64.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

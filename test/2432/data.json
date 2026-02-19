@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the figure.",
+  "choices": [
+    "25",
+    "50",
+    "72",
+    "144"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Rectangle"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2432,
+  "annot_id": "pan_2020-03-27_21_54_04",
+  "is_standard": false,
+  "compact_choices": [
+    "25",
+    "50",
+    "72",
+    "144"
+  ],
+  "precise_value": [
+    25.0,
+    50.0,
+    72.0,
+    144.0
+  ],
+  "rough_value": [
+    25,
+    50,
+    72,
+    144
+  ],
+  "compact_text": "Find the area of the figure.",
+  "annotat_text": "Find the area of the figure.",
+  "unit": "",
+  "img_width": 360,
+  "img_height": 218,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

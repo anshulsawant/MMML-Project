@@ -1,0 +1,62 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(2)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(2)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(A, B, F)), 48)",
+    "Equals(MeasureOf(Angle(F, A, B)), MeasureOf(angle 1))",
+    "Equals(MeasureOf(Angle(C, F, D)), MeasureOf(angle 2))",
+    "Equals(MeasureOf(Angle(F, D, C)), MeasureOf(angle 3))",
+    "Equals(MeasureOf(Angle(E, D, F)), 39)",
+    "PointLiesOnLine(B, Line(F, C))",
+    "PointLiesOnLine(F, Line(E, A))",
+    "Perpendicular(Line(F, A), Line(F, B))",
+    "Perpendicular(Line(C, F), Line(D, C))",
+    "Perpendicular(Line(F, E), Line(E, D))",
+    "Parallel(Line(C, F), Line(D, E))"
+  ],
+  "line_instances": [
+    "BA",
+    "CB",
+    "DC",
+    "DE",
+    "DF",
+    "EA",
+    "FA",
+    "FB",
+    "FC",
+    "FE"
+  ],
+  "point_positions": {
+    "A": [
+      82.0,
+      1.0
+    ],
+    "B": [
+      198.0,
+      110.0
+    ],
+    "C": [
+      410.0,
+      108.0
+    ],
+    "D": [
+      409.0,
+      375.0
+    ],
+    "E": [
+      81.0,
+      374.0
+    ],
+    "F": [
+      82.0,
+      108.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

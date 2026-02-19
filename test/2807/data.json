@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find x.",
+  "choices": [
+    "2",
+    "3",
+    "4",
+    "6"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter10.pdf page 50",
+  "comment": "",
+  "id": 2807,
+  "annot_id": "Ran_2020-03-29_04_57_43",
+  "is_standard": false,
+  "compact_choices": [
+    "2",
+    "3",
+    "4",
+    "6"
+  ],
+  "precise_value": [
+    2.0,
+    3.0,
+    4.0,
+    6.0
+  ],
+  "rough_value": [
+    2,
+    3,
+    4,
+    6
+  ],
+  "compact_text": "Find x.",
+  "annotat_text": "Find x",
+  "unit": "",
+  "img_width": 307,
+  "img_height": 267,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

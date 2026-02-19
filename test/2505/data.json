@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the rhombus.",
+  "choices": [
+    "38",
+    "84",
+    "168",
+    "336"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Rhombus"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2505,
+  "annot_id": "pan_2020-03-23_08_02_06",
+  "is_standard": false,
+  "unit": "ft^2",
+  "compact_choices": [
+    "38",
+    "84",
+    "168",
+    "336"
+  ],
+  "precise_value": [
+    38.0,
+    84.0,
+    168.0,
+    336.0
+  ],
+  "rough_value": [
+    38,
+    84,
+    168,
+    336
+  ],
+  "compact_text": "Find the area of the rhombus.",
+  "annotat_text": "Find the area of the rhombus.",
+  "img_width": 226,
+  "img_height": 256,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

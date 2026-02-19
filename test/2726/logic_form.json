@@ -1,0 +1,52 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(N, L, M)), 65)",
+    "Equals(MeasureOf(Angle(L, M, N)), 51)",
+    "Equals(MeasureOf(Angle(Y, X, Z)), 4x)",
+    "Equals(MeasureOf(Angle(Y, Z, X)), MeasureOf(Angle(M, L, N)))",
+    "Equals(MeasureOf(Angle(Z, Y, X)), MeasureOf(Angle(N, M, L)))"
+  ],
+  "line_instances": [
+    "LM",
+    "LN",
+    "MN",
+    "YX",
+    "ZX",
+    "ZY"
+  ],
+  "point_positions": {
+    "L": [
+      -200.0,
+      90.0
+    ],
+    "M": [
+      -300.0,
+      200.0
+    ],
+    "N": [
+      -100.0,
+      200.0
+    ],
+    "X": [
+      1.0,
+      0.0
+    ],
+    "Y": [
+      179.0,
+      4.0
+    ],
+    "Z": [
+      69.0,
+      141.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the parallelogram. Round to the nearest tenth if necessary.",
+  "choices": [
+    "89.1",
+    "178.2",
+    "252.0",
+    "356.4"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Parallelogram"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "Standardized Test Practice, SAT/ACT",
+  "id": 2844,
+  "annot_id": "pan_2020-03-23_04_20_38",
+  "is_standard": true,
+  "unit": "ft^2",
+  "compact_choices": [
+    "89.1",
+    "178.2",
+    "252.0",
+    "356.4"
+  ],
+  "precise_value": [
+    89.1,
+    178.2,
+    252.0,
+    356.4
+  ],
+  "rough_value": [
+    89.1,
+    178.2,
+    252,
+    356.4
+  ],
+  "compact_text": "Find the area of the parallelogram. Round to the nearest tenth if necessary.",
+  "annotat_text": "Find the area of the parallelogram. Round to the nearest tenth if necessary.",
+  "img_width": 360,
+  "img_height": 156,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

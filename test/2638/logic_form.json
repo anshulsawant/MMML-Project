@@ -1,0 +1,55 @@
+{
+  "text_logic_form": [
+    "Isosceles(Triangle(K,L,N))",
+    "Isosceles(Triangle(L,M,N))",
+    "Equals(MeasureOf(Angle(J,K,N)),130)",
+    "Find(MeasureOf(Angle(J)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Isosceles(Triangle(K,L,N))",
+    "Isosceles(Triangle(L,M,N))",
+    "Equals(MeasureOf(Angle(J,K,N)),130)",
+    "Find(MeasureOf(Angle(J)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(K, L, N)), 18)",
+    "Equals(MeasureOf(Angle(J, L, K)), 25)",
+    "Equals(MeasureOf(Angle(N, L, M)), 20)",
+    "Equals(LengthOf(Line(K, L)), LengthOf(Line(N, L)))",
+    "Equals(LengthOf(Line(N, M)), LengthOf(Line(M, L)))"
+  ],
+  "line_instances": [
+    "JK",
+    "KL",
+    "KN",
+    "LJ",
+    "ML",
+    "NL",
+    "NM"
+  ],
+  "point_positions": {
+    "J": [
+      5.0,
+      94.0
+    ],
+    "K": [
+      69.0,
+      3.0
+    ],
+    "L": [
+      55.0,
+      219.0
+    ],
+    "M": [
+      133.0,
+      134.0
+    ],
+    "N": [
+      138.0,
+      18.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

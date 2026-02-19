@@ -1,0 +1,96 @@
+{
+  "text_logic_form": [
+    "Find(AreaOf(Shape($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(AreaOf(Shape($)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(E, L)), 9)",
+    "Equals(LengthOf(Line(E, H)), 14)",
+    "PointLiesOnLine(I, Line(A, B))",
+    "PointLiesOnLine(I, Line(C, D))",
+    "PointLiesOnLine(A, Line(E, G))",
+    "PointLiesOnLine(C, Line(E, H))",
+    "PointLiesOnLine(D, Line(G, F))",
+    "PointLiesOnLine(B, Line(F, H))",
+    "PointLiesOnLine(G, Line(L, D))",
+    "Parallel(Line(B, F), Line(A, G))",
+    "Parallel(Line(A, G), Line(A, I))",
+    "Parallel(Line(A, I), Line(A, I))",
+    "Parallel(Line(A, I), Line(C, E))",
+    "Parallel(Line(C, E), Line(C, E))",
+    "Parallel(Line(C, E), Line(D, G))",
+    "Perpendicular(Line(I, A), Line(I, C))",
+    "Perpendicular(Line(F, L), Line(L, G))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "AD",
+    "AE",
+    "AG",
+    "AI",
+    "BC",
+    "BD",
+    "BF",
+    "BH",
+    "BI",
+    "CD",
+    "CE",
+    "CH",
+    "CI",
+    "DF",
+    "DG",
+    "DI",
+    "EG",
+    "EH",
+    "FH",
+    "GF"
+  ],
+  "point_positions": {
+    "A": [
+      54.0,
+      84.0
+    ],
+    "B": [
+      321.0,
+      88.0
+    ],
+    "C": [
+      205.0,
+      1.0
+    ],
+    "D": [
+      209.0,
+      170.0
+    ],
+    "E": [
+      0.0,
+      0.0
+    ],
+    "F": [
+      372.0,
+      171.0
+    ],
+    "G": [
+      106.0,
+      170.0
+    ],
+    "H": [
+      265.0,
+      1.0
+    ],
+    "I": [
+      207.0,
+      86.0
+    ],
+    "L": [
+      0.0,
+      170.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "text_logic_form": [
+    "Parallel(Line(P,R),Line(K,L))",
+    "Equals(LengthOf(Line(K,N)),9)",
+    "Equals(LengthOf(Line(L,N)),16)",
+    "Equals(LengthOf(Line(P,M)),Mul(Line(K,P),2))",
+    "Find(LengthOf(Line(P,R)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Parallel(Line(P,R),Line(K,L))",
+    "Equals(LengthOf(Line(K,N)),9)",
+    "Equals(LengthOf(Line(L,N)),16)",
+    "Equals(LengthOf(Line(P,M)),Mul(Line(K,P),2))",
+    "Find(LengthOf(Line(P,R)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(Q, Line(N, M))",
+    "PointLiesOnLine(P, Line(M, K))",
+    "PointLiesOnLine(R, Line(M, L))",
+    "PointLiesOnLine(N, Line(K, L))",
+    "PointLiesOnLine(Q, Line(P, R))",
+    "Perpendicular(Line(N, K), Line(N, M))",
+    "Perpendicular(Line(M, L), Line(M, K))"
+  ],
+  "line_instances": [
+    "NM",
+    "NK",
+    "NL",
+    "NQ",
+    "MK",
+    "ML",
+    "MP",
+    "MR",
+    "MQ",
+    "KL",
+    "KP",
+    "LR",
+    "QP",
+    "QR",
+    "PR"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "N": [
+      249.0,
+      0.24850299401197162
+    ],
+    "M": [
+      249.33300593540756,
+      252.33031248275284
+    ],
+    "K": [
+      500.6686429668123,
+      0.666005275382858
+    ],
+    "L": [
+      1.3346454609906573,
+      0.0013332910066168324
+    ],
+    "P": [
+      416.66897137598227,
+      84.99900889633528
+    ],
+    "R": [
+      83.83579599618685,
+      84.00250238322212
+    ],
+    "Q": [
+      249.0,
+      84.49700598802397
+    ]
+  }
+}

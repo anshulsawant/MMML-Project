@@ -1,0 +1,56 @@
+{
+  "text_logic_form": [
+    "Rectangle(D,E,F,G)",
+    "Equals(MeasureOf(Angle(E,D,F)),5x-3)",
+    "Equals(MeasureOf(Angle(D,F,G)),3x+7)",
+    "Find(MeasureOf(Angle(E,D,F)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Rectangle(D,E,F,G)",
+    "Equals(MeasureOf(Angle(E,D,F)),5x-3)",
+    "Equals(MeasureOf(Angle(D,F,G)),3x+7)",
+    "Find(MeasureOf(Angle(E,D,F)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(A, Line(G, E))",
+    "PointLiesOnLine(A, Line(F, D))",
+    "Perpendicular(Line(D, G), Line(G, F))"
+  ],
+  "line_instances": [
+    "AE",
+    "DA",
+    "DE",
+    "FA",
+    "FD",
+    "FE",
+    "GA",
+    "GD",
+    "GE",
+    "GF"
+  ],
+  "point_positions": {
+    "A": [
+      211.0,
+      90.0
+    ],
+    "D": [
+      1.0,
+      0.0
+    ],
+    "E": [
+      417.0,
+      2.0
+    ],
+    "F": [
+      418.0,
+      179.0
+    ],
+    "G": [
+      1.0,
+      179.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

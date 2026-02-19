@@ -1,0 +1,48 @@
+{
+  "problem_text": "A B is a diameter, A C = 8 inches, and B C = 15 inches. Find the circumference of the circle.",
+  "choices": [
+    "8.5 \\pi",
+    "15 \\pi",
+    "16 \\pi",
+    "17 \\pi"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "standard problem test",
+  "id": 2580,
+  "annot_id": "Shibiao_2020-03-28_09_44_46",
+  "is_standard": true,
+  "compact_choices": [
+    "8.5\\pi",
+    "15\\pi",
+    "16\\pi",
+    "17\\pi"
+  ],
+  "precise_value": [
+    26.703537555513243,
+    47.12388980384689,
+    50.26548245743669,
+    53.40707511102649
+  ],
+  "rough_value": [
+    26.7,
+    47.12,
+    50.27,
+    53.41
+  ],
+  "compact_text": "AB is a diameter, AC = 8 inches, and BC = 15 inches. Find the circumference of the circle.",
+  "annotat_text": "$\\overline{AB}$ is a diameter, $AC=8$ inches, and $BC=15$ inches. Find the circumference of the circle.",
+  "unit": "",
+  "img_width": 519,
+  "img_height": 431,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

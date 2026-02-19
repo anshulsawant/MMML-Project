@@ -1,0 +1,72 @@
+{
+  "text_logic_form": [
+    "Perpendicular(Line(A,B),Line(D,C))",
+    "Perpendicular(Line(G,H),Line(F,E))",
+    "Similar(Triangle(A,C,D),Triangle(G,E,F))",
+    "Find(LengthOf(Line(A,B)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Perpendicular(Line(A,B),Line(D,C))",
+    "Perpendicular(Line(G,H),Line(F,E))",
+    "Similar(Triangle(A,C,D),Triangle(G,E,F))",
+    "Find(LengthOf(Line(A,B)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(C, A)), 4.4)",
+    "Equals(LengthOf(Line(G, E)), 6.3)",
+    "Equals(LengthOf(Line(G, H)), 3.15)",
+    "PointLiesOnLine(H, Line(E, F))",
+    "PointLiesOnLine(B, Line(C, D))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "AD",
+    "BC",
+    "DB",
+    "DC",
+    "FE",
+    "FH",
+    "GE",
+    "GF",
+    "GH",
+    "HE"
+  ],
+  "point_positions": {
+    "A": [
+      -200.0,
+      75.0
+    ],
+    "B": [
+      -200.0,
+      152.0
+    ],
+    "C": [
+      -100.0,
+      152.0
+    ],
+    "D": [
+      -250.0,
+      152.0
+    ],
+    "E": [
+      318.0,
+      151.0
+    ],
+    "F": [
+      0.0,
+      152.0
+    ],
+    "G": [
+      108.0,
+      2.0
+    ],
+    "H": [
+      110.0,
+      152.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

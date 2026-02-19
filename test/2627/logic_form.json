@@ -1,0 +1,44 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(R, T, S)), 2x)",
+    "Equals(MeasureOf(Angle(S, R, T)), x)",
+    "PointLiesOnLine(B, Line(R, T))",
+    "PointLiesOnCircle(R, Circle(B, radius_3_0))",
+    "PointLiesOnCircle(T, Circle(B, radius_3_0))",
+    "PointLiesOnCircle(S, Circle(B, radius_3_0))"
+  ],
+  "line_instances": [
+    "RB",
+    "RS",
+    "RT",
+    "TB",
+    "TS"
+  ],
+  "point_positions": {
+    "B": [
+      159.0,
+      160.0
+    ],
+    "R": [
+      -0.0,
+      161.0
+    ],
+    "S": [
+      224.0,
+      15.0
+    ],
+    "T": [
+      318.0,
+      160.0
+    ]
+  },
+  "circle_instances": [
+    "B"
+  ]
+}

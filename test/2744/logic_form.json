@@ -1,0 +1,44 @@
+{
+  "text_logic_form": [
+    "Equals(MeasureOf(Angle(C,D,A)),61)",
+    "Find(MeasureOf(Angle(A,B,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(MeasureOf(Angle(C,D,A)),61)",
+    "Find(MeasureOf(Angle(A,B,C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(D, B, C)), 55)",
+    "Equals(MeasureOf(Angle(A, B, D)), x)",
+    "Equals(MeasureOf(Angle(D, A, B)), 69)",
+    "Perpendicular(Line(B, C), Line(C, D))"
+  ],
+  "line_instances": [
+    "BA",
+    "BC",
+    "DA",
+    "DB",
+    "DC"
+  ],
+  "point_positions": {
+    "A": [
+      57.0,
+      1.0
+    ],
+    "B": [
+      2.0,
+      72.0
+    ],
+    "C": [
+      2.0,
+      172.0
+    ],
+    "D": [
+      160.0,
+      174.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

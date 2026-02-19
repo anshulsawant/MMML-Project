@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find P S.",
+  "choices": [
+    "7",
+    "9",
+    "14",
+    "16"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_5.pdf",
+  "comment": "",
+  "id": 2875,
+  "annot_id": "Shibiao_2020-03-22_03_44_50",
+  "is_standard": false,
+  "compact_choices": [
+    "7",
+    "9",
+    "14",
+    "16"
+  ],
+  "precise_value": [
+    7.0,
+    9.0,
+    14.0,
+    16.0
+  ],
+  "rough_value": [
+    7,
+    9,
+    14,
+    16
+  ],
+  "compact_text": "Find PS.",
+  "annotat_text": "Find $PS$.",
+  "unit": "",
+  "img_width": 531,
+  "img_height": 384,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}
