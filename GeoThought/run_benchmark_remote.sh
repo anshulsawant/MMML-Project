@@ -9,13 +9,14 @@ if [ -z "$1" ]; then
 fi
 
 MODEL_NAME=$1
-MODEL_PATH=$(realpath -m "$2")
+MODEL_PATH=$2
 TP_SIZE=${3:-1}  # Default TP is 1
 
-if [ ! -d "$MODEL_PATH" ]; then
-    echo "Error: Model directory '$MODEL_PATH' does not exist."
-    echo "Check if you passed the correct path relative to your current directory."
-    exit 1
+if [ -d "$MODEL_PATH" ]; then
+    MODEL_PATH=$(realpath "$MODEL_PATH")
+    echo "Resolved local model path: $MODEL_PATH"
+else
+    echo "Model path '$MODEL_PATH' is not a local directory. Assuming HuggingFace Hub ID."
 fi
 
 # 1. Unzip Data
@@ -44,6 +45,8 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --gpu-memory-utilization 0.95 \
     --trust-remote-code \
     --port 8111 \
+    --chat-template evaluation_script/internvl_chat_template.jinja \
+    --limit-mm-per-prompt image=1 \
     > $LOG_FILE 2>&1 &
 
 SERVER_PID=$!

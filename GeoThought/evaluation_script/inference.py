@@ -70,7 +70,13 @@ class VLMessageClient:
             },
             {
                 "role": "user",
-                "content": f"<image>\n{item['question']}"
+                "content": [
+                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self._encode_image(image_path)}"}},
+                    {
+                        "type": "text",
+                        "text": f"{item['question']}"
+                    }
+                ]
             }
         ]
 
