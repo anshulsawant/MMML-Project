@@ -142,7 +142,7 @@ class VLMessageClient:
                             f.write("\n")
                             f.flush()
                     except Exception as e:
-                        print(f"写入成功文件失败: {str(e)}")
+                        print(f"Failed to write to success file: {str(e)}")
 
                 return True
 
@@ -164,7 +164,7 @@ class VLMessageClient:
                                 f.write("\n")
                                 f.flush()
                         except Exception as e:
-                            print(f"写入错误文件失败: {str(e)}")
+                            print(f"Failed to write to error file: {str(e)}")
                     return False
                 else:
                     time.sleep(min(2 ** attempt, 10))
@@ -190,8 +190,8 @@ def main():
     # 1. 加载测试数据
     test_data_all = pd.read_json(args.prompt_path, lines=True).to_dict("records")
     total_samples = len(test_data_all)
-    print(f"测试集总数: {total_samples}")
-    print(f"使用模型: {args.model_name}")
+    print(f"Total Test Samples: {total_samples}")
+    print(f"Using Model: {args.model_name}")
 
     # 2. 恢复已成功处理的数据（只恢复success为true的记录）
     processed_success = set()  # 成功处理的数据
@@ -199,12 +199,12 @@ def main():
     recovered_correct = 0
     valid_records = []  # 有效的成功记录
 
-    # 检查输出文件是否存在
+    # Checking output file...在
     output_file_exists = os.path.exists(args.output_path)
 
     # 恢复成功记录并清理输出文件
     if output_file_exists:
-        print("检查输出文件...")
+        print("Checking output file...")
         with open(args.output_path, "r") as f:
             for line in f:
                 try:
@@ -220,25 +220,25 @@ def main():
 
         # 重写输出文件，只保留成功记录
         if valid_records:
-            print(f"找到 {len(valid_records)} 条成功记录")
+            print(f"Found {len(valid_records)} successful records")
             with open(args.output_path, "w") as f:
                 for record in valid_records:
                     json.dump(record, f, ensure_ascii=False, default=str)
                     f.write("\n")
         else:
-            print("输出文件中没有有效记录，创建空文件")
+            print("No valid records found in output file, creating empty file")
             open(args.output_path, 'w').close()
     else:
         # 创建输出文件
-        print("输出文件不存在，创建新文件")
+        print("Output file does not exist, creating new file")
         open(args.output_path, 'w').close()
 
     # 安全打印恢复统计信息
-    print(f"已成功恢复记录数: {recovered_total} ({recovered_total/total_samples:.2%})")
+    print(f"Successfully recovered records: {recovered_total} ({recovered_total/total_samples:.2%})")
     if recovered_total > 0:
-        print(f"已恢复正确记录数: {recovered_correct} ({recovered_correct/recovered_total:.2%})")
+        print(f"Recovered correct records: {recovered_correct} ({recovered_correct/recovered_total:.2%})")
     else:
-        print(f"已恢复正确记录数: 0 (N/A)")
+        print(f"Recovered correct records: 0 (N/A)")
 
     # 3. 确定剩余待处理数据（所有未成功的数据）
     remaining_data = []
@@ -247,11 +247,11 @@ def main():
         if img_path not in processed_success:
             remaining_data.append(item)
 
-    print(f"剩余待处理记录数: {len(remaining_data)}")
+    print(f"Remaining records to process: {len(remaining_data)}")
 
     # 4. 处理剩余数据
     if remaining_data:
-        print(f"开始处理剩余记录，使用 {args.max_workers} 个工作进程...")
+        print(f"Started processing remaining records, using {args.max_workers} workers...")
 
         # 确保错误文件存在
         if not os.path.exists(error_output_path):
@@ -281,12 +281,12 @@ def main():
                     )
 
                 # 5. 进度条
-                with tqdm(total=len(remaining_data), desc="处理进度") as pbar:
+                with tqdm(total=len(remaining_data), desc="Processing Progress") as pbar:
                     for future in concurrent.futures.as_completed(futures):
                         try:
                             future.result()
                         except Exception as e:
-                            print(f"处理异常: {str(e)}")
+                            print(f"Processing Error: {str(e)}")
                         finally:
                             pbar.update(1)
                             current_total = total_counter.value
@@ -300,11 +300,14 @@ def main():
                                 accuracy_info = "N/A"
 
                             pbar.set_postfix({
-                                "当前正确": current_correct,
-                                "当前总数": current_total,
-                                "准确率": accuracy_info,
-                                "已处理": processed_info
+                                "Correct": current_correct,
+                                "Total": current_total,
+                                "Accuracy": accuracy_info,
+                                "Processed": processed_info
                             })
+                            
+                            # Output running stats for validation
+                            print(f"\n[Running Validation] Processed: {current_total}/{total_samples} | Correct: {current_correct} | Accuracy: {accuracy_info}", flush=True)
 
     # 6. 最终统计
     # 统计成功文件
@@ -342,17 +345,17 @@ def main():
     else:
         final_accuracy = 0
 
-    print("\n最终统计:")
-    print(f"测试集总数: {total_samples}")
-    print(f"成功处理记录数: {success_count} ({success_count/total_samples:.2%})")
-    print(f"失败处理记录数: {error_count} ({error_count/total_samples:.2%})")
+    print("\nFinal Statistics:")
+    print(f"Total Test Samples: {total_samples}")
+    print(f"Successfully processed records: {success_count} ({success_count/total_samples:.2%})")
+    print(f"Failed to process records: {error_count} ({error_count/total_samples:.2%})")
 
     if success_count > 0:
-        print(f"正确结果数: {correct_count} ({final_accuracy:.2%})")
+        print(f"Correct results: {correct_count} ({final_accuracy:.2%})")
     else:
-        print(f"正确结果数: 0 (N/A)")
+        print(f"Correct results: 0 (N/A)")
 
-    print(f"总处理记录数: {total_processed} (应与测试集总数一致: {'是' if total_processed == total_samples else '否'})")
+    print(f"Total processed records: {total_processed} (Should match total test samples: {'Yes' if total_processed == total_samples else 'No'})")
 
     # 保存统计文件
     stats_path = os.path.splitext(args.output_path)[0] + "_stats.json"
@@ -368,7 +371,7 @@ def main():
             "error_file": error_output_path
         }, f, indent=4)
 
-    print(f"统计信息已保存到: {stats_path}")
+    print(f"Statistics saved to: {stats_path}")
 
 if __name__ == "__main__":
     main()
