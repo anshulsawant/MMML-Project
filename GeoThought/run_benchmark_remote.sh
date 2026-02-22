@@ -98,7 +98,7 @@ python3 evaluation_script/inference.py \
   --prompt_path "evaluation_script/geometry3k_test_prompts.jsonl" \
   --image_root "evaluation_script/geometry3k" \
   --output_path "$OUTPUT_FILE" \
-  --max_workers 8
+  --max_workers 32
 
 # 5. Cleanup
 echo "Benchmark complete. Stopping server..."
