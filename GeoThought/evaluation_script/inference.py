@@ -70,13 +70,7 @@ class VLMessageClient:
             },
             {
                 "role": "user",
-                "content": [
-                    {"type": "image_url", "image_url": {"url": f"data:image/jpeg;base64,{self._encode_image(image_path)}"}},
-                    {
-                        "type": "text",
-                        "text": f"{item['question']}"
-                    }
-                ]
+                "content": f"<image>\n{item['question']}"
             }
         ]
 
@@ -157,11 +151,11 @@ class VLMessageClient:
                                 f.flush()
                         except Exception as e:
                             print(f"Failed to write to error file: {str(e)}")
-                    return False
+                    return (False, False)
                 else:
                     time.sleep(min(2 ** attempt, 10))
 
-        return False
+        return (False, False)
 
 # ========================
 # 3. Main Function

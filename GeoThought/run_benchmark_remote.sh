@@ -102,7 +102,7 @@ python3 evaluation_script/inference.py \
   --api_url "http://127.0.0.1:8111" \
   --model_name "$MODEL_NAME" \
   --prompt_path "evaluation_script/geometry3k_test_prompts.jsonl" \
-  --image_root "evaluation_script/geometry3k" \
+  --image_root "evaluation_script" \
   --output_path "$OUTPUT_FILE" \
   --max_workers 32
 
