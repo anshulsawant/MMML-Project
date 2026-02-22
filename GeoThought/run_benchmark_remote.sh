@@ -50,6 +50,18 @@ RETRY_COUNT=0
 SERVER_READY=0
 
 while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+    # Check if the server process is still alive. 
+    # If not, no point in waiting further.
+    if ! kill -0 $SERVER_PID 2>/dev/null; then
+        echo "vLLM Server process (PID: $SERVER_PID) died unexpectedly during startup."
+        echo "Check $LOG_FILE for details. Dumping last 20 lines:"
+        echo "========================================"
+        tail -n 20 $LOG_FILE
+        echo "========================================"
+        exit 1
+    fi
+
+    # Check if it responds to HTTP requests
     curl -s http://localhost:8111/v1/models > /dev/null
     if [ $? -eq 0 ]; then
         SERVER_READY=1
@@ -63,7 +75,7 @@ done
 
 if [ $SERVER_READY -eq 0 ]; then
     echo "Server failed to start within timeout. Check $LOG_FILE for details."
-    kill $SERVER_PID
+    kill -9 $SERVER_PID 2>/dev/null
     exit 1
 fi
 
