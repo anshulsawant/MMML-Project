@@ -45,6 +45,8 @@ nohup python3 -m vllm.entrypoints.openai.api_server \
     --gpu-memory-utilization 0.95 \
     --trust-remote-code \
     --port 8111 \
+    --chat-template evaluation_script/internvl_chat_template.jinja \
+    --limit-mm-per-prompt image=1 \
     > $LOG_FILE 2>&1 &
 
 SERVER_PID=$!
