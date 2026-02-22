@@ -9,8 +9,14 @@ if [ -z "$1" ]; then
 fi
 
 MODEL_NAME=$1
-MODEL_PATH=$(realpath $2)
+MODEL_PATH=$(realpath -m "$2")
 TP_SIZE=${3:-1}  # Default TP is 1
+
+if [ ! -d "$MODEL_PATH" ]; then
+    echo "Error: Model directory '$MODEL_PATH' does not exist."
+    echo "Check if you passed the correct path relative to your current directory."
+    exit 1
+fi
 
 # 1. Unzip Data
 if [ ! -d "geometry3k" ]; then
