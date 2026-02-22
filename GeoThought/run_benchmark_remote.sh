@@ -9,7 +9,7 @@ if [ -z "$1" ]; then
 fi
 
 MODEL_NAME=$1
-MODEL_PATH=$2
+MODEL_PATH=$(realpath $2)
 TP_SIZE=${3:-1}  # Default TP is 1
 
 # 1. Unzip Data
