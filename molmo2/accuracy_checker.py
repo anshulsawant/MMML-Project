@@ -50,77 +50,97 @@ def analyze_accuracies(predictions, ground_truth):
             })
     return results
 
-def main():
-    direct_preds = load_predictions('molmo2/predictions_direct.json')
-    thinking_preds = load_predictions('molmo2/predictions_thinking.json')
-    ground_truth = load_ground_truth('test')
+def run_analysis(group_name, file_map, ground_truth):
+    print(f"--- Analyzing Group: {group_name} ---")
+    dfs = []
+    for label, filename in file_map.items():
+        if os.path.exists(filename):
+            preds = load_predictions(filename)
+            results = analyze_accuracies(preds, ground_truth)
+            df = pd.DataFrame(results)
+            df['variant'] = label
+            dfs.append(df)
+            
+            accuracy = df['is_correct'].mean()
+            print(f"{label} Accuracy: {accuracy:.2%}")
+        else:
+            print(f"Warning: File {filename} not found.")
+            
+    if not dfs:
+        print("No data found for this group.")
+        return
 
-    direct_results = analyze_accuracies(direct_preds, ground_truth)
-    thinking_results = analyze_accuracies(thinking_preds, ground_truth)
-
-    direct_df = pd.DataFrame(direct_results)
-    thinking_df = pd.DataFrame(thinking_results)
-
-    direct_accuracy = direct_df['is_correct'].mean()
-    thinking_accuracy = thinking_df['is_correct'].mean()
-
-    print(f"Direct Predictions Accuracy: {direct_accuracy:.2%}")
-    print(f"Thinking Predictions Accuracy: {thinking_accuracy:.2%}")
-
+    combined_df = pd.concat(dfs, ignore_index=True)
+    
     # Overall Accuracy Comparison
     plt.figure(figsize=(8, 6))
-    sns.barplot(x=['Direct', 'Thinking'], y=[direct_accuracy, thinking_accuracy])
-    plt.title('Overall Prediction Accuracy Comparison')
+    overall_acc = combined_df.groupby('variant')['is_correct'].mean().reset_index()
+    sns.barplot(data=overall_acc, x='variant', y='is_correct')
+    plt.title(f'Overall Prediction Accuracy Comparison - {group_name}')
     plt.ylabel('Accuracy')
     plt.ylim(0, 1)
-    plt.savefig('molmo2/accuracy_comparison.png')
-    print("Saved overall accuracy comparison to molmo2/accuracy_comparison.png")
-
-    # Explode the lists in problem_type_graph and problem_type_goal
-    direct_df_graph = direct_df.explode('problem_type_graph')
-    thinking_df_graph = thinking_df.explode('problem_type_graph')
-    direct_df_goal = direct_df.explode('problem_type_goal')
-    thinking_df_goal = thinking_df.explode('problem_type_goal')
+    output_path = f'molmo2/accuracy_comparison_{group_name}.png'
+    plt.savefig(output_path)
+    print(f"Saved overall accuracy comparison to {output_path}")
+    plt.close()
 
     # Accuracy by graph type
-    graph_accuracy_direct = direct_df_graph.groupby('problem_type_graph')['is_correct'].mean().reset_index()
-    graph_accuracy_thinking = thinking_df_graph.groupby('problem_type_graph')['is_correct'].mean().reset_index()
+    df_graph = combined_df.explode('problem_type_graph')
+    graph_accuracy = df_graph.groupby(['problem_type_graph', 'variant'])['is_correct'].mean().reset_index()
     
-    graph_accuracy = pd.merge(graph_accuracy_direct, graph_accuracy_thinking, on='problem_type_graph', suffixes=('_direct', '_thinking'))
-    graph_accuracy = pd.melt(graph_accuracy, id_vars='problem_type_graph', value_vars=['is_correct_direct', 'is_correct_thinking'], var_name='prediction_type', value_name='accuracy')
-    graph_accuracy['prediction_type'] = graph_accuracy['prediction_type'].str.replace('is_correct_', '')
-
     plt.figure(figsize=(12, 8))
-    sns.barplot(data=graph_accuracy, x='problem_type_graph', y='accuracy', hue='prediction_type')
-    plt.title('Accuracy by Problem Graph Type')
+    sns.barplot(data=graph_accuracy, x='problem_type_graph', y='is_correct', hue='variant')
+    plt.title(f'Accuracy by Problem Graph Type - {group_name}')
     plt.ylabel('Accuracy')
     plt.xlabel('Problem Graph Type')
     plt.xticks(rotation=45, ha='right')
     plt.ylim(0, 1)
     plt.tight_layout()
-    plt.savefig('molmo2/accuracy_by_graph_type.png')
-    print("Saved accuracy by graph type to molmo2/accuracy_by_graph_type.png")
-
+    output_path_graph = f'molmo2/accuracy_by_graph_type_{group_name}.png'
+    plt.savefig(output_path_graph)
+    print(f"Saved accuracy by graph type to {output_path_graph}")
+    plt.close()
 
     # Accuracy by goal type
-    goal_accuracy_direct = direct_df_goal.groupby('problem_type_goal')['is_correct'].mean().reset_index()
-    goal_accuracy_thinking = thinking_df_goal.groupby('problem_type_goal')['is_correct'].mean().reset_index()
-
-    goal_accuracy = pd.merge(goal_accuracy_direct, goal_accuracy_thinking, on='problem_type_goal', suffixes=('_direct', '_thinking'))
-    goal_accuracy = pd.melt(goal_accuracy, id_vars='problem_type_goal', value_vars=['is_correct_direct', 'is_correct_thinking'], var_name='prediction_type', value_name='accuracy')
-    goal_accuracy['prediction_type'] = goal_accuracy['prediction_type'].str.replace('is_correct_', '')
-
+    df_goal = combined_df.explode('problem_type_goal')
+    goal_accuracy = df_goal.groupby(['problem_type_goal', 'variant'])['is_correct'].mean().reset_index()
 
     plt.figure(figsize=(12, 8))
-    sns.barplot(data=goal_accuracy, x='problem_type_goal', y='accuracy', hue='prediction_type')
-    plt.title('Accuracy by Problem Goal Type')
+    sns.barplot(data=goal_accuracy, x='problem_type_goal', y='is_correct', hue='variant')
+    plt.title(f'Accuracy by Problem Goal Type - {group_name}')
     plt.ylabel('Accuracy')
     plt.xlabel('Problem Goal Type')
     plt.xticks(rotation=45, ha='right')
     plt.ylim(0, 1)
     plt.tight_layout()
-    plt.savefig('molmo2/accuracy_by_goal_type.png')
-    print("Saved accuracy by goal type to molmo2/accuracy_by_goal_type.png")
+    output_path_goal = f'molmo2/accuracy_by_goal_type_{group_name}.png'
+    plt.savefig(output_path_goal)
+    print(f"Saved accuracy by goal type to {output_path_goal}")
+    plt.close()
+    print("\n")
+
+def main():
+    ground_truth = load_ground_truth('test')
+
+    groups = [
+        ('direct_vs_thinking', {
+            'Direct': 'molmo2/predictions_direct.json',
+            'Thinking': 'molmo2/predictions_thinking.json'
+        }),
+        ('text_vs_graph', {
+            'Text-Only': 'molmo2/predictions_text_only.json',
+            'JSON Graph': 'molmo2/predictions_json_graph.json'
+        }),
+        ('all_variants', {
+            'Direct': 'molmo2/predictions_direct.json',
+            'Thinking': 'molmo2/predictions_thinking.json',
+            'Text-Only': 'molmo2/predictions_text_only.json',
+            'JSON Graph': 'molmo2/predictions_json_graph.json'
+        })
+    ]
+
+    for group_name, file_map in groups:
+        run_analysis(group_name, file_map, ground_truth)
 
 
 if __name__ == '__main__':

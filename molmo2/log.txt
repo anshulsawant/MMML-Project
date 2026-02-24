@@ -1,0 +1,26 @@
+--- Analyzing Group: direct_vs_thinking ---
+Direct Accuracy: 37.77%
+Thinking Accuracy: 38.27%
+Saved overall accuracy comparison to molmo2/accuracy_comparison_direct_vs_thinking.png
+Saved accuracy by graph type to molmo2/accuracy_by_graph_type_direct_vs_thinking.png
+Saved accuracy by goal type to molmo2/accuracy_by_goal_type_direct_vs_thinking.png
+
+
+--- Analyzing Group: text_vs_graph ---
+Text-Only Accuracy: 30.45%
+JSON Graph Accuracy: 32.45%
+Saved overall accuracy comparison to molmo2/accuracy_comparison_text_vs_graph.png
+Saved accuracy by graph type to molmo2/accuracy_by_graph_type_text_vs_graph.png
+Saved accuracy by goal type to molmo2/accuracy_by_goal_type_text_vs_graph.png
+
+
+--- Analyzing Group: all_variants ---
+Direct Accuracy: 37.77%
+Thinking Accuracy: 38.27%
+Text-Only Accuracy: 30.45%
+JSON Graph Accuracy: 32.45%
+Saved overall accuracy comparison to molmo2/accuracy_comparison_all_variants.png
+Saved accuracy by graph type to molmo2/accuracy_by_graph_type_all_variants.png
+Saved accuracy by goal type to molmo2/accuracy_by_goal_type_all_variants.png
+
+

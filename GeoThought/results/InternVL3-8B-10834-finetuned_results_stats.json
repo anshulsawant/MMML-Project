@@ -1,0 +1,10 @@
+{
+    "total_samples": 601,
+    "model_name": "InternVL3-8B-10834-finetuned",
+    "successful_inferences": 597,
+    "failed_inferences": 717,
+    "correct_results": 376,
+    "accuracy": 0.6298157453936348,
+    "output_file": "./results/InternVL3-8B-10834-finetuned_results.jsonl",
+    "error_file": "./results/InternVL3-8B-10834-finetuned_results_errors.jsonl"
+}
