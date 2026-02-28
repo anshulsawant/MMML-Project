@@ -154,11 +154,12 @@ def train():
             # We extract them utilizing the associated model processor dynamically:
             tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
             inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
-            targets = targets.to(device)
             
             # Note: For strict Qwen3-VL, you pass 'pixel_values' explicitly from its `Processor`. 
             # If `pixel_values` aren't defined, the model dynamically routes to text-only mode processing.
             predicted_latents = model(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+            
+            targets = targets.to(device=device, dtype=predicted_latents.dtype)
             
             # Loss alignment mapping
             loss = criterion(predicted_latents, targets)
