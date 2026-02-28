@@ -4,7 +4,9 @@ import pandas as pd
 from PIL import Image
 import io
 
-def extract_samples():
+import argparse
+
+def extract_samples(limit: int = None):
     from datasets import load_dataset
     
     parquet_path = "GeoThought/playground/data/geo_thought/Geo-Thought-6K.parquet"
@@ -19,8 +21,9 @@ def extract_samples():
     dataset = load_dataset("parquet", data_files=parquet_path, split="train")
     
     with open(jsonl_path, "w") as f:
-        # Iterate over all exact examples natively stored in the HuggingFace GeoThought split
-        for idx in range(len(dataset)):
+        # Iterate over exact examples to extract. If limit is None, extract all.
+        num_items = len(dataset) if limit is None else min(limit, len(dataset))
+        for idx in range(num_items):
             item = dataset[idx]
             
             img_filename = f"sample_{idx}.jpg"
@@ -44,7 +47,11 @@ def extract_samples():
             
             print(f"Extracted {rel_img_path}")
             
-    print(f"\nWrote {len(dataset)} total examples to {jsonl_path}")
+    print(f"\nWrote {num_items} total examples to {jsonl_path}")
 
 if __name__ == "__main__":
-    extract_samples()
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--limit", type=int, default=None, help="Number of examples to extract")
+    args = parser.parse_args()
+    
+    extract_samples(limit=args.limit)

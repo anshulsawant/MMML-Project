@@ -73,7 +73,9 @@ async def process_problem(image_path: str, question: str, sem: asyncio.Semaphore
             print(f"Error processing {image_path}: {e}")
             return None
 
-async def main(dataset_path: str, output_path: str, images_dir: str):
+import argparse
+
+async def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None):
     """Asynchronously processes a local JSONL dataset from GeoThought/playground using semaphore batching."""
     
     print(f"Loading local dataset from {dataset_path}...")
@@ -94,6 +96,9 @@ async def main(dataset_path: str, output_path: str, images_dir: str):
                         "image_path": full_image_path,
                         "question": question_text
                     })
+                    
+                if limit and len(problems) >= limit:
+                    break
     
     print(f"Loaded {len(problems)} total inference problems. Beginning batched asynchronous execution...")
     
@@ -136,9 +141,17 @@ async def main(dataset_path: str, output_path: str, images_dir: str):
     print(f"Total Tokens:  {total_all_tokens}")
 
 if __name__ == "__main__":
-    # Example usage for the local GeoThought baseline data structure:
+    parser = argparse.ArgumentParser(description="Generate K=4 Euclidean Latent steps using Gemini")
+    parser.add_argument("--dataset_path", type=str, default="GeoThought/playground/data/test_question.jsonl")
+    parser.add_argument("--output_path", type=str, default="geothoughts_k4.jsonl")
+    parser.add_argument("--images_dir", type=str, default="GeoThought/playground/data/")
+    parser.add_argument("--limit", type=int, default=None, help="Max number of examples to call API on")
+    
+    args = parser.parse_args()
+    
     asyncio.run(main(
-        dataset_path="GeoThought/playground/data/test_question.jsonl",
-        output_path="geothoughts_k4.jsonl",
-        images_dir="GeoThought/playground/data/"
+        dataset_path=args.dataset_path,
+        output_path=args.output_path,
+        images_dir=args.images_dir,
+        limit=args.limit
     ))
