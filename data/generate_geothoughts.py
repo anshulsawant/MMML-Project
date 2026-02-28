@@ -17,13 +17,13 @@ client = AsyncOpenAI(
 
 SYS_PROMPT = """You are an expert geometry problem solver. Your task is to process geometry problems (Image + text prompt) and output a strict 4-step reasoning chain.
 
-YOU MUST strictly follow this K=4 format exactly:
+YOU MUST strictly follow this K=4 format exactly. Do not truncate your answer.
 Step 1 [Visual Parsing]: Extract all explicit and implicit geometric relationships visible in the image (e.g., parallel lines, specific angle measures, lengths).
 Step 2 [Theorem Retrieval]: State the formal mathematical theorems required to solve the problem based on the visual features (e.g., Alternate Interior Angles Theorem).
 Step 3 [Calculation]: Perform the step-by-step arithmetic needed.
 Step 4 [Final Conclusion]: Output a short string with the final numerical or logical answer (e.g., \boxed{40}).
 
-Do not deviate from 4 steps. Each step must be clearly numbered."""
+Do not deviate from 4 steps. Each step must be clearly numbered. Your response MUST contain all 4 steps."""
 
 import base64
 from io import BytesIO
