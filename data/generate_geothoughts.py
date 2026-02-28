@@ -41,7 +41,7 @@ async def process_problem(image_path: str, question: str) -> Dict:
         image_url = f"data:{mime_type};base64,{base64_img}"
         
         response = await client.chat.completions.create(
-            model="gemini-3.1-pro",
+            model="gemini-3.1-pro-preview",
             messages=[
                 {"role": "system", "content": SYS_PROMPT},
                 {
