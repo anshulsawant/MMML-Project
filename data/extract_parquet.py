@@ -19,8 +19,8 @@ def extract_samples():
     dataset = load_dataset("parquet", data_files=parquet_path, split="train")
     
     with open(jsonl_path, "w") as f:
-        # Take just the first 5
-        for idx in range(5):
+        # Iterate over all exact examples natively stored in the HuggingFace GeoThought split
+        for idx in range(len(dataset)):
             item = dataset[idx]
             
             img_filename = f"sample_{idx}.jpg"
@@ -44,7 +44,7 @@ def extract_samples():
             
             print(f"Extracted {rel_img_path}")
             
-    print(f"\nWrote 5 examples to {jsonl_path}")
+    print(f"\nWrote {len(dataset)} total examples to {jsonl_path}")
 
 if __name__ == "__main__":
     extract_samples()
