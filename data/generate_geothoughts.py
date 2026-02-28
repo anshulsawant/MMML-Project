@@ -58,7 +58,7 @@ async def process_problem(image_path: str, question: str, sem: asyncio.Semaphore
                         ],
                     }
                 ],
-                max_tokens=1000,
+                max_completion_tokens=2000,
             )
             print(f"✅ Generated reasoning for: {image_path}")
             return {
@@ -75,7 +75,7 @@ async def process_problem(image_path: str, question: str, sem: asyncio.Semaphore
 
 import argparse
 
-async def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None):
+async def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None, target_sample: str = None):
     """Asynchronously processes a local JSONL dataset from GeoThought/playground using semaphore batching."""
     
     print(f"Loading local dataset from {dataset_path}...")
@@ -90,6 +90,9 @@ async def main(dataset_path: str, output_path: str, images_dir: str, limit: int 
                 question_text = data.get("text", "")
                 
                 full_image_path = os.path.join(images_dir, image_rel_path)
+                
+                if target_sample and target_sample not in full_image_path:
+                    continue
                 
                 if os.path.exists(full_image_path) and question_text:
                     problems.append({
@@ -143,9 +146,10 @@ async def main(dataset_path: str, output_path: str, images_dir: str, limit: int 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate K=4 Euclidean Latent steps using Gemini")
     parser.add_argument("--dataset_path", type=str, default="GeoThought/playground/data/test_question.jsonl")
-    parser.add_argument("--output_path", type=str, default="geothoughts_k4.jsonl")
+    parser.add_argument("--output_path", type=str, default="data/geothoughts_k4.jsonl")
     parser.add_argument("--images_dir", type=str, default="GeoThought/playground/data/")
     parser.add_argument("--limit", type=int, default=None, help="Max number of examples to call API on")
+    parser.add_argument("--target_sample", type=str, default=None, help="Specific sample to target (e.g., 'sample_13.jpg')")
     
     args = parser.parse_args()
     
@@ -153,5 +157,6 @@ if __name__ == "__main__":
         dataset_path=args.dataset_path,
         output_path=args.output_path,
         images_dir=args.images_dir,
-        limit=args.limit
+        limit=args.limit,
+        target_sample=args.target_sample
     ))
