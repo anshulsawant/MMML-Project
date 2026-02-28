@@ -4,7 +4,7 @@ import warnings
 from transformers import AutoTokenizer, AutoConfig, AutoModelForImageTextToText
 
 # Import functions to test
-from data.build_manifold import parse_k4_steps, embed_step
+from data.build_manifold import parse_k4_steps, embed_steps_batch
 
 def test_k4_parsing():
     print("\n--- Testing K=4 Reasoning Parsing ---")
@@ -50,18 +50,13 @@ def test_manifold_embedding():
     
     test_text = "This is a geometric theorem."
     
+    
     # Run the actual embed step
-    # We pass the VLM, but embed_step calls model(**inputs) with just input_ids on the text side
-    # Qwen3VL requires pixel_values for visions, but for text-only some VLMs fail if pixel_values are missing.
-    # Let's ensure embed_step is robust.
+    # We pass the VLM, but embed_steps_batch calls model(**inputs) with just input_ids on the text side
     
     try:
-        inputs = tokenizer(test_text, return_tensors="pt").to(device)
-        with torch.no_grad():
-            outputs = model(**inputs, output_hidden_states=True)
-            last_hidden_states = outputs.hidden_states[-1]
-            final_token_embedding = last_hidden_states[:, -1, :] 
-            vec = final_token_embedding.squeeze(0).cpu()
+        vecs = embed_steps_batch([test_text], tokenizer, model, device=device)
+        vec = vecs[0]
             
         print(f"Generated Vector Shape: {list(vec.shape)}")
         print(f"Expected Target Dim: {target_dim}")
