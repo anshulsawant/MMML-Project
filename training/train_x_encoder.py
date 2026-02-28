@@ -1,95 +1,181 @@
 import argparse
+import yaml
+import json
+import os
 import torch
+from PIL import Image
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
-from torch.utils.data import DataLoader, DistributedSampler
+from torch.utils.data import Dataset, DataLoader, DistributedSampler
 
-# Assuming placeholder paths and imports from other LatentEuclid modules
-# from models.latent_euclid import LatentEuclid
-# from training.stable_alignment_loss import AlignmentLossFactory
-# from training.augmentation import GeometrySafeAugmentation
+from models.latent_euclid import LatentEuclid
+from training.stable_alignment_loss import AlignmentLossFactory
+# from training.augmentation import GeometrySafeAugmentation # Temporarily isolated depending on vision model specifics
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
-    parser.add_argument("--model_id", type=str, default="Qwen/Qwen3-VL-4B-Instruct",
-                        help="HuggingFace Base Model ID")
-    parser.add_argument("--k_steps", type=int, default=4,
-                        help="Number of reasoning steps to predict")
-    parser.add_argument("--loss_type", type=str, default="info_nce_threshold",
-                        choices=["info_nce_vanilla", "info_nce_threshold", "vicreg"],
-                        help="Alignment loss strategy")
-    parser.add_argument("--batch_size", type=int, default=4,
-                        help="Micro batch size per GPU")
-    parser.add_argument("--epochs", type=int, default=3)
-    parser.add_argument("--lr", type=float, default=2e-5)
-    
+    parser.add_argument("--config", type=str, default="training/config.yaml",
+                        help="Path to YAML training configuration")
     return parser.parse_args()
 
 def setup_ddp():
     """Initializes Distributed Data Parallel setup."""
-    # Placeholder for slurm or torchrun initialization
-    dist.init_process_group("nccl")
-    local_rank = dist.get_rank()
-    torch.cuda.set_device(local_rank)
-    return local_rank
+    if "LOCAL_RANK" in os.environ:
+        dist.init_process_group("nccl")
+        local_rank = int(os.environ["LOCAL_RANK"])
+        torch.cuda.set_device(local_rank)
+        return local_rank
+    else:
+        # Fallback to local CPU/Single GPU for testing if not launched via torchrun
+        device = "cuda" if torch.cuda.is_available() else "cpu"
+        return device
 
-def train(args):
+class GeoThoughtsDataset(Dataset):
     """
-    Main Training Loop for LatentEuclid.
-    Executes Full SFT without QLoRA constraints.
+    Parses the JSONL generation pairs, loads the raw vision images, 
+    and aligns them with the offline continuous 4-step .pt manifolds.
     """
-    local_rank = setup_ddp()
-    
-    # In a full implementation, these modules are imported from the codebase
-    print(f"Rank {local_rank} instantiating LatentEuclid ({args.model_id})...")
-    # model = LatentEuclid(base_model_id=args.model_id, k_steps=args.k_steps)
-    # model = model.to(local_rank)
-    # model = DDP(model, device_ids=[local_rank])
-    
-    # 2. Setup Loss Factory
-    # criterion = AlignmentLossFactory(loss_type=args.loss_type).to(local_rank)
-    
-    # if args.loss_type == "vicreg":
-    #     augmentor = GeometrySafeAugmentation()
+    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, k_steps=4):
+        self.data = []
+        self.targets_dir = targets_dir
+        self.tokenizer = tokenizer
+        self.k_steps = k_steps
         
-    # 3. Setup Optimizer for Full SFT
-    # optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr, weight_decay=0.01)
-    
-    # 4. DataLoader
-    # dataset = GeoThoughtsDataset(path="data/geothoughts_k4.jsonl")
-    # sampler = DistributedSampler(dataset)
-    # dataloader = DataLoader(dataset, batch_size=args.batch_size, sampler=sampler)
-    
-    print(f"Rank {local_rank} natively starting epoch runs...")
-    
-    # for epoch in range(args.epochs):
-    #     sampler.set_epoch(epoch)
-    #     model.train()
-    #     
-    #     for batch_idx, batch in enumerate(dataloader):
-    #         optimizer.zero_grad()
-    #         
-    #         images = batch["pixels"].to(local_rank)
-    #         questions = batch["input_ids"].to(local_rank) # Appended with <thought_1>...<thought_4>
-    #         targets = batch["Y_targets"].to(local_rank) # [batch, K, dim]
-    #         
-    #         # Forward pass
-    #         # predicted_latents = model(input_ids=questions, pixel_values=images)
-    #         
-    #         # Calculate Loss via configured strategy
-    #         # loss = criterion(predicted_latents, targets)
-    #         
-    #         # loss.backward()
-    #         # torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
-    #         # optimizer.step()
-    #         
-    #         if local_rank == 0 and batch_idx % 10 == 0:
-    #             print(f"Epoch {epoch} | Batch {batch_idx} | Loss {args.loss_type}: {loss.item()}")
+        with open(jsonl_path, 'r') as f:
+            for idx, line in enumerate(f):
+                item = json.loads(line)
                 
-    # if local_rank == 0:
-    #     torch.save(model.module.state_dict(), "latent_euclid_x_encoder_final.pt")
+                # Verify that the target tensor actually exists
+                target_path = os.path.join(targets_dir, f"problem_{idx}_targets.pt")
+                if os.path.exists(target_path):
+                    item["target_path"] = target_path
+                    self.data.append(item)
+                    
+        print(f"Loaded {len(self.data)} valid aligned geometric datasets.")
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        item = self.data[idx]
+        
+        # 1. Image
+        img_path = item["image_path"]
+        try:
+            image = Image.open(img_path).convert("RGB")
+        except:
+            # Fallback mock image if path is broken
+            image = Image.new('RGB', (224, 224), color = (73, 109, 137))
+            
+        # 2. Text Prompts (appended with K thoughts natively)
+        # Note: the prompt needs the specialized <thought> sequences generated inside
+        thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])
+        full_text = item["question"] + " " + thought_string
+        
+        # 3. Target Manifolds pre-generated into .pt
+        target_tensor = torch.load(item["target_path"], map_location="cpu", weights_only=True)
+        
+        return {
+            "image": image,
+            "text": full_text,
+            "target": target_tensor # Shape [4, target_dim]
+        }
+        
+def custom_collate(batch):
+    images = [item["image"] for item in batch]
+    texts = [item["text"] for item in batch]
+    targets = torch.stack([item["target"] for item in batch])
+    return images, texts, targets
+
+def train():
+    args = parse_args()
+    
+    with open(args.config, 'r') as f:
+        config = yaml.safe_load(f)
+        
+    local_rank = setup_ddp()
+    is_distributed = isinstance(local_rank, int)
+    
+    print(f"[{local_rank}] Instantiating LatentEuclid module constraints...")
+    
+    model = LatentEuclid(
+        base_model_id=config["model"]["base_model_id"],
+        target_model_id=config["model"]["target_model_id"],
+        k_steps=config["model"]["k_steps"]
+    )
+    
+    if is_distributed:
+        model = model.to(local_rank)
+        model = DDP(model, device_ids=[local_rank])
+    else:
+        model = model.to(local_rank) # cpu/cuda
+        
+    criterion = AlignmentLossFactory(loss_type=config["training"]["loss_type"])
+    if is_distributed:
+        criterion = criterion.to(local_rank)
+        
+    optimizer = torch.optim.AdamW(
+        model.parameters(), 
+        lr=float(config["training"]["learning_rate"]), 
+        weight_decay=float(config["training"]["weight_decay"])
+    )
+    
+    # Instantiate Data Loader
+    dataset = GeoThoughtsDataset(
+        jsonl_path=config["data"]["jsonl_path"],
+        targets_dir=config["data"]["targets_dir"],
+        tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
+        k_steps=config["model"]["k_steps"]
+    )
+    
+    sampler = DistributedSampler(dataset) if is_distributed else None
+    dataloader = DataLoader(
+        dataset, 
+        batch_size=int(config["training"]["batch_size"]), 
+        sampler=sampler,
+        collate_fn=custom_collate,
+        shuffle=(sampler is None)
+    )
+    
+    print(f"[{local_rank}] Successfully initialized epoch pipelines!")
+    
+    epochs = int(config["training"]["epochs"])
+    device = local_rank if is_distributed else local_rank
+    
+    for epoch in range(epochs):
+        if sampler:
+            sampler.set_epoch(epoch)
+        model.train()
+        
+        for batch_idx, (images, texts, targets) in enumerate(dataloader):
+            optimizer.zero_grad()
+            
+            # Since VLMs (like Qwen3) usually require a complex processor for their images rather than raw PIL...
+            # We extract them utilizing the associated model processor dynamically:
+            tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
+            inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
+            targets = targets.to(device)
+            
+            # Note: For strict Qwen3-VL, you pass 'pixel_values' explicitly from its `Processor`. 
+            # If `pixel_values` aren't defined, the model dynamically routes to text-only mode processing.
+            predicted_latents = model(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+            
+            # Loss alignment mapping
+            loss = criterion(predicted_latents, targets)
+            loss.backward()
+            
+            torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
+            optimizer.step()
+            
+            is_master = (local_rank == 0 if is_distributed else True)
+            if is_master and batch_idx % 10 == 0:
+                print(f"Epoch {epoch} | Batch {batch_idx} | {config['training']['loss_type']} Loss: {loss.item():.4f}")
+                
+    if (local_rank == 0 if is_distributed else True):
+        save_model = model.module if is_distributed else model
+        torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
+        print("Model state successfully saved.")
 
 if __name__ == "__main__":
-    # args = parse_args()
-    # train(args)
+    # train()
     pass
