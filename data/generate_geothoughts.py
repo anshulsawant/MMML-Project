@@ -107,9 +107,8 @@ async def main(dataset_path: str, output_path: str, images_dir: str):
 
 if __name__ == "__main__":
     # Example usage for the local GeoThought baseline data structure:
-    # asyncio.run(main(
-    #     dataset_path="GeoThought/playground/data/test_question.jsonl",
-    #     output_path="geothoughts_k4.jsonl",
-    #     images_dir="GeoThought/playground/data/"
-    # ))
-    pass
+    asyncio.run(main(
+        dataset_path="GeoThought/playground/data/test_question.jsonl",
+        output_path="geothoughts_k4.jsonl",
+        images_dir="GeoThought/playground/data/"
+    ))
