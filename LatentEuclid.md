@@ -8,6 +8,50 @@ Drawing on the Joint Embedding Predictive Architecture (VL-JEPA) paradigm, we in
 
 ## **2. Methodology & Architecture Pipeline**
 
+```mermaid
+flowchart TD
+    classDef offline fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef online fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+    classDef data fill:#f5f5f5,stroke:#616161,stroke-width:1px;
+    classDef align fill:#fff,stroke:#e91e63,stroke-width:2px,stroke-dasharray: 4 4;
+
+    %% Data Inputs
+    Input((Image + Prompt)):::data
+
+    %% Offline Teacher Sequence
+    subgraph Offline Extraction [Phase 1: Target Manifold]
+        Teacher[Expert Gemini API]:::offline
+        TextChains["Structured Text Chains<br/>(K Mathematical Steps)"]:::data
+        FrozenLLM[Frozen Qwen3-0.6B<br/>Y-Encoder]:::offline
+        TargetManifold["K-Step Target Manifold<br/>(Continuous Vectors)"]:::offline
+    end
+
+    %% Online Prediction Sequence
+    subgraph Online Training [Phase 2: X-Encoder]
+        ThoughtTokens["Add &lt;thought&gt; Tokens"]:::data
+        BaseVLM[Qwen3-VL-4B Instruct]:::online
+        MLP[Predictor MLP]:::online
+        PredictedManifold["K-Step Predicted Thoughts<br/>(Continuous Vectors)"]:::online
+    end
+
+    %% Alignment
+    VICReg{{VICReg Continuous Alignment}}:::align
+
+    %% Graph Connections
+    Input --> Teacher
+    Teacher ---> TextChains
+    TextChains ---> FrozenLLM
+    FrozenLLM ---> TargetManifold
+
+    Input --> ThoughtTokens
+    ThoughtTokens ---> BaseVLM
+    BaseVLM -- "Extract Token States" ---> MLP
+    MLP ---> PredictedManifold
+
+    PredictedManifold -...- VICReg
+    TargetManifold -...- VICReg
+```
+
 ### **Phase 1: Data Enrichment & The Frozen Target Manifold ($Y$-Encoder)**
 
 * **Dataset:** Geometric reasoning datasets (GeoThought) consisting of an image and a short mathematical prompt (e.g., *"Find x"*).
