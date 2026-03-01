@@ -1,0 +1,9 @@
+--- Analyzing Group: Simple MultiModal ---
+Simple MultiModal Accuracy: 31.78%
+0.2391304347826087 0.296875
+Simple MultiModal C-Gap: -5.77% (0-3 preds: 23.91%, 13+ preds: 29.69%)
+Saved overall accuracy comparison to SimpleMultiModal/accuracy_comparison_Simple MultiModal.png
+Saved accuracy by graph type to SimpleMultiModal/accuracy_by_graph_type_Simple MultiModal.png
+Saved accuracy by goal type to SimpleMultiModal/accuracy_by_goal_type_Simple MultiModal.png
+
+
