@@ -105,3 +105,32 @@ bash scripts/eval_multi.sh \
 
 ## 🤝 Acknowledgement
 This project builds upon previous work in structured geometric reasoning and multimodal representation fissions. We thank the research community for their foundational contributions to geometry benchmarks and the ARC-AGI problem domains.
+
+---
+
+## 🕒 Recent Commit History
+- **b2d426d** fix: Patch json newline rendering bug in extraction array and add resume_job checkpointing capability (Anshul Sawant)
+- **7876ec4** Merge branch 'main' of https://github.com/anshulsawant/MMML-Project (SMa2021)
+- **f59b749** simple multimodal model (SMa2021)
+- **ca5a7ab** refactor: Migrate generator to Gemini Batch API targeting flash-preview to resolve synchronous quota exhaustion (Anshul Sawant)
+- **9358ef0** fix: Resolve AsyncOpenAPI strict token cutoff mapping for 4-step generation blocks (Anshul Sawant)
+- **0281003** data: Add initial batch of generated K=4 reasoning chains for geothought dataset (Anshul Sawant)
+- **e5e495a** fix: Strengthen K=4 system prompt to explicitly prevent model truncations (Anshul Sawant)
+- **e2f4aac** feat: Add dynamic limits via argparse to data pipeline generators (Anshul Sawant)
+- **f5afa43** feat: Remove batch count hard caps for generation pipeline and include token tracking logic (Anshul Sawant)
+- **13015d6** test: Implement full e2e end-to-end training smoke test and fix Target bfloat16 cast mapping (Anshul Sawant)
+- **9cdcb86** test: Add smoke tests for SFT training pipeline data mapping and yaml parses (Anshul Sawant)
+- **ea7488e** feat: Implement formal data plumbing and training loop yaml configs for SFT (Anshul Sawant)
+- **745405f** feat: Implement batch inference for target manifold generation (Anshul Sawant)
+- **bb0dcae** update: Target gemini-3.1-pro-preview endpoint (Anshul Sawant)
+- **ee49b69** fix: Unwrap parquet binary correctly to serve into generate_geothoughts via local jsonl test structure (Anshul Sawant)
+- **861bcbd** feat: Integrate GeoThought local dataset into Gemini generator pipeline (Anshul Sawant)
+- **56b908b** test: Add smoke tests for data engineering and manifold generation (Anshul Sawant)
+- **5143322** feat: Add LatentEuclid architecture, training, data gen, and eval scripts (Anshul Sawant)
+- **a897d1e** A simple util to generate stats from results json. (Anshul Sawant)
+- **bcfa4ab** add thinking with sample examples for molmo2 (SMa2021)
+- **855762d** Add sampling (SMa2021)
+- **9266924** Fix typo (Joanna Smolska)
+- **b4b7737** Add Qwen 25 Laguage Only (Joanna Smolska)
+- **671e701** add colab (SMa2021)
+- **36219ed** Merge branch 'main' of https://github.com/anshulsawant/MMML-Project (SMa2021)
