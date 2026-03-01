@@ -1,0 +1,46 @@
+{
+  "text_logic_form": [
+    "Congruent(Triangle(W,X,Y),Triangle(W,X,Z))",
+    "Find(y)"
+  ],
+  "dissolved_text_logic_form": [
+    "Congruent(Triangle(W,X,Y),Triangle(W,X,Z))",
+    "Find(y)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(Y, X, W)), 20y+10)",
+    "Equals(LengthOf(Line(Z, X)), 3y+7)",
+    "Equals(LengthOf(Line(Y, X)), 19)",
+    "PointLiesOnLine(X, Line(Z, Y))",
+    "Perpendicular(Line(X, W), Line(X, Z))"
+  ],
+  "line_instances": [
+    "WX",
+    "WY",
+    "YX",
+    "ZW",
+    "ZX",
+    "ZY"
+  ],
+  "point_positions": {
+    "W": [
+      322.0,
+      2.0
+    ],
+    "X": [
+      320.0,
+      206.0
+    ],
+    "Y": [
+      1.0,
+      206.0
+    ],
+    "Z": [
+      651.0,
+      206.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

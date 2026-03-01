@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find z.",
+  "choices": [
+    "36 \\sqrt { 5 }",
+    "36 \\sqrt { 7 }",
+    "36 \\sqrt { 11 }",
+    "36 \\sqrt { 13 }"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter7.pdf page ",
+  "comment": "",
+  "id": 2958,
+  "annot_id": "Ran_2020-03-22_03_48_16",
+  "is_standard": false,
+  "compact_choices": [
+    "36\\sqrt{5}",
+    "36\\sqrt{7}",
+    "36\\sqrt{11}",
+    "36\\sqrt{13}"
+  ],
+  "precise_value": [
+    80.49844718999243,
+    95.24704719832526,
+    119.39849245279439,
+    129.79984591670362
+  ],
+  "rough_value": [
+    80.5,
+    95.25,
+    119.4,
+    129.8
+  ],
+  "compact_text": "Find z.",
+  "annotat_text": "Find z",
+  "unit": "",
+  "img_width": 363,
+  "img_height": 191,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

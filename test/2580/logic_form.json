@@ -1,0 +1,48 @@
+{
+  "text_logic_form": [
+    "IsDiameterOf(Line(A,B),Circle($))",
+    "Equals(LengthOf(Line(A,C)),8)",
+    "Equals(LengthOf(Line(B,C)),15)",
+    "Find(CircumferenceOf(Circle($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsDiameterOf(Line(A,B),Circle(D))",
+    "Equals(LengthOf(Line(A,C)),8)",
+    "Equals(LengthOf(Line(B,C)),15)",
+    "Find(CircumferenceOf(Circle(D)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(D, Line(B, A))",
+    "PointLiesOnCircle(B, Circle(D, radius_0_0))",
+    "PointLiesOnCircle(A, Circle(D, radius_0_0))",
+    "PointLiesOnCircle(C, Circle(D, radius_0_0))"
+  ],
+  "line_instances": [
+    "AC",
+    "BA",
+    "BC",
+    "DA",
+    "DB"
+  ],
+  "point_positions": {
+    "A": [
+      3.0,
+      156.0
+    ],
+    "B": [
+      318.0,
+      158.0
+    ],
+    "C": [
+      57.0,
+      280.0
+    ],
+    "D": [
+      161.0,
+      159.0
+    ]
+  },
+  "circle_instances": [
+    "D"
+  ]
+}

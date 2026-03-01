@@ -1,0 +1,52 @@
+{
+  "text_logic_form": [
+    "Equals(AreaOf(Trapezoid(G,H,J,K)),188.35)",
+    "Equals(Line(H,J),16.5)",
+    "Find(LengthOf(Line(G,K)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(AreaOf(Trapezoid(G,H,J,K)),188.35)",
+    "Equals(Line(H,J),16.5)",
+    "Find(LengthOf(Line(G,K)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(J, H)), 16.5)",
+    "Equals(LengthOf(Line(H, I)), 8.7)",
+    "PointLiesOnLine(I, Line(G,K))",
+    "Perpendicular(Line(H,I), Line(G,K))"
+  ],
+  "line_instances": [
+    "HG",
+    "HI",
+    "IG",
+    "IK",
+    "JH",
+    "JK",
+    "KG"
+  ],
+  "point_positions": {
+    "G": [
+      0.0,
+      109.0
+    ],
+    "H": [
+      77.0,
+      2.0
+    ],
+    "J": [
+      284.0,
+      1.0
+    ],
+    "K": [
+      325.0,
+      106.0
+    ],
+    "I": [
+      77.0,
+      108.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

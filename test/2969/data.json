@@ -1,0 +1,48 @@
+{
+  "problem_text": "The degree measure of minor arc \\widehat A C and major arc \\widehat A D C are x and y respectively. If m \\angle A B C = 70, find x.",
+  "choices": [
+    "90",
+    "100",
+    "110",
+    "120"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "Standardized Test Practice",
+  "id": 2969,
+  "annot_id": "pan_2020-03-27_21_30_04",
+  "is_standard": true,
+  "compact_choices": [
+    "90",
+    "100",
+    "110",
+    "120"
+  ],
+  "precise_value": [
+    90.0,
+    100.0,
+    110.0,
+    120.0
+  ],
+  "rough_value": [
+    90,
+    100,
+    110,
+    120
+  ],
+  "compact_text": "The degree measure of minor arc \\widehat AC and major arc \\widehat ADC are x and y respectively. If m \\angle ABC = 70, find x.",
+  "annotat_text": "The degree measures of minor arc $\\widehat{A C}$ and major arc $\\widehat{A D C}$ are $x$ and $y$ respectively. If $m\u2220ABC = 70\u00b0$, find $x$.",
+  "unit": "",
+  "img_width": 499,
+  "img_height": 235,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

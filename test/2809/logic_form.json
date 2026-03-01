@@ -1,0 +1,35 @@
+{
+  "text_logic_form": [
+    "Equals(Triangle($),3)",
+    "LengthOf(Triangle($))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(Triangle(A,B,C),3)",
+    "LengthOf(Triangle(A,B,C))"
+  ],
+  "diagram_logic_form": [
+    ""
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BC"
+  ],
+  "point_positions": {
+    "A": [
+      409.0,
+      158.0
+    ],
+    "B": [
+      0.0,
+      157.0
+    ],
+    "C": [
+      1.0,
+      0.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "A plane travels from Des Moines to Phoenix, on to Atlanta, and back to Des Moines, as shown below. Find the distance in miles from Phoenix to Atlanta if the total trip was 3482 miles.",
+  "choices": [
+    "53",
+    "73.8",
+    "110",
+    "1591"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter6 page 2",
+  "comment": "",
+  "id": 2450,
+  "annot_id": "Ran_2020-03-13_23_33_15",
+  "is_standard": false,
+  "compact_choices": [
+    "53",
+    "73.8",
+    "110",
+    "1591"
+  ],
+  "precise_value": [
+    53.0,
+    73.8,
+    110.0,
+    1591.0
+  ],
+  "rough_value": [
+    53,
+    73.8,
+    110,
+    1591
+  ],
+  "compact_text": "A plane travels from Des Moines to Phoenix, on to Atlanta, and back to Des Moines, as shown below. Find the distance in miles from Phoenix to Atlanta if the total trip was 3482 miles.",
+  "annotat_text": "A plane travels from Des Moines to Phoenix, on to Atlanta, and back to Des Moines, as shown below. Find the distance in miles from  Phoenix to Atlanta if the total trip was 3482 miles.",
+  "unit": "",
+  "img_width": 765,
+  "img_height": 330,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "In \\odot R, find T V. Round to the nearest hundredth.",
+  "choices": [
+    "9.22",
+    "11.00",
+    "12.00",
+    "18.44"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "the sign in the picture is confusing",
+  "id": 2673,
+  "annot_id": "Shibiao_2020-03-27_12_43_13",
+  "is_standard": false,
+  "compact_choices": [
+    "9.22",
+    "11.00",
+    "12.00",
+    "18.44"
+  ],
+  "precise_value": [
+    9.22,
+    11.0,
+    12.0,
+    18.44
+  ],
+  "rough_value": [
+    9.22,
+    11,
+    12,
+    18.44
+  ],
+  "compact_text": "In \\odot R, find TV. Round to the nearest hundredth.",
+  "annotat_text": "In $\\odot R$, find $TV$. Round to the nearest hundredth.",
+  "unit": "",
+  "img_width": 467,
+  "img_height": 439,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

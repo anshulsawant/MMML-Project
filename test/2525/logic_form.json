@@ -1,0 +1,45 @@
+{
+  "text_logic_form": [
+    "Equals(PerimeterOf(Triangle(A,B,C)),25)",
+    "Tangent(Line($),Circle($))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(PerimeterOf(Triangle(A,B,C)),25)",
+    "Tangent(Line(B, A),Circle(E))",
+    "Tangent(Line(B, C),Circle(E))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(C, A)), 7)",
+    "Equals(LengthOf(Line(A, B)), 3x)",
+    "PointLiesOnCircle(C, Circle(E, radius_3_0))",
+    "PointLiesOnCircle(A, Circle(E, radius_3_0))"
+  ],
+  "line_instances": [
+    "BA",
+    "CA",
+    "CB"
+  ],
+  "point_positions": {
+    "A": [
+      1.0,
+      156.0
+    ],
+    "B": [
+      22.0,
+      1.0
+    ],
+    "C": [
+      128.0,
+      123.0
+    ],
+    "E": [
+      70.0,
+      154.0
+    ]
+  },
+  "circle_instances": [
+    "E"
+  ]
+}

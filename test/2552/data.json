@@ -1,0 +1,49 @@
+{
+  "problem_text": "Which segments are parallel?",
+  "choices": [
+    "A B and C D",
+    "A D and B C",
+    "A D and B E",
+    "A E and B C"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 11 - Areas of Polygons and Circles.pdf",
+  "comment": "Standardized Test Practice, very hard",
+  "id": 2552,
+  "annot_id": "pan_2020-03-22_07_28_21",
+  "is_standard": true,
+  "compact_choices": [
+    "ABandCD",
+    "ADandBC",
+    "ADandBE",
+    "AEandBC"
+  ],
+  "precise_value": [
+    "A B and C D",
+    "A D and B C",
+    "A D and B E",
+    "A E and B C"
+  ],
+  "rough_value": [
+    "A B and C D",
+    "A D and B C",
+    "A D and B E",
+    "A E and B C"
+  ],
+  "compact_text": "Which segments are parallel?",
+  "annotat_text": "Which segments are parallel?",
+  "unit": "",
+  "img_width": 410,
+  "img_height": 265,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,159 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(J, C)), 8)",
+    "Equals(LengthOf(Line(O, B)), 7x-2)",
+    "Equals(LengthOf(Line(E, J)), 8)",
+    "Equals(LengthOf(Line(B, H)), 4x+3)",
+    "Parallel(Line(O, C), Line(B, J))",
+    "Parallel(Line(B, J), Line(H, E))",
+    "PointLiesOnLine(E, Line(A, D))",
+    "PointLiesOnLine(H, Line(A, D))",
+    "PointLiesOnLine(E, Line(A, H))",
+    "PointLiesOnLine(H, Line(D, E))",
+    "PointLiesOnLine(J, Line(E, C))",
+    "PointLiesOnLine(C, Line(E, P))",
+    "PointLiesOnLine(J, Line(E, P))",
+    "PointLiesOnLine(B, Line(H, F))",
+    "PointLiesOnLine(O, Line(H, F))",
+    "PointLiesOnLine(B, Line(H, O))",
+    "PointLiesOnLine(O, Line(B, F))",
+    "PointLiesOnLine(J, Line(B, I))",
+    "PointLiesOnLine(H, Line(B, N))",
+    "PointLiesOnLine(B, Line(F, N))",
+    "PointLiesOnLine(H, Line(F, N))",
+    "PointLiesOnLine(O, Line(F, N))",
+    "PointLiesOnLine(B, Line(I, L))",
+    "PointLiesOnLine(J, Line(I, L))",
+    "PointLiesOnLine(B, Line(J, L))",
+    "PointLiesOnLine(E, Line(J, M))",
+    "PointLiesOnLine(C, Line(J, P))",
+    "PointLiesOnLine(B, Line(N, O))",
+    "PointLiesOnLine(H, Line(N, O))",
+    "PointLiesOnLine(C, Line(O, K))",
+    "PointLiesOnLine(O, Line(C, G))",
+    "PointLiesOnLine(E, Line(C, M))",
+    "PointLiesOnLine(J, Line(C, M))",
+    "PointLiesOnLine(C, Line(G, K))",
+    "PointLiesOnLine(O, Line(G, K))",
+    "PointLiesOnLine(C, Line(M, P))",
+    "PointLiesOnLine(E, Line(M, P))",
+    "PointLiesOnLine(J, Line(M, P))",
+    "Parallel(Line(O, C), Line(E, H))",
+    "Parallel(Line(E, H), Line(B, J))"
+  ],
+  "line_instances": [
+    "AD",
+    "AE",
+    "AH",
+    "BF",
+    "BI",
+    "BJ",
+    "BL",
+    "BN",
+    "BO",
+    "CG",
+    "CK",
+    "CM",
+    "CP",
+    "DE",
+    "DH",
+    "EC",
+    "EH",
+    "EJ",
+    "EM",
+    "EP",
+    "FN",
+    "FO",
+    "GK",
+    "HB",
+    "HF",
+    "HN",
+    "HO",
+    "IJ",
+    "IL",
+    "JC",
+    "JL",
+    "JM",
+    "JP",
+    "MP",
+    "NO",
+    "OC",
+    "OG",
+    "OK"
+  ],
+  "point_positions": {
+    "A": [
+      460.0,
+      283.0
+    ],
+    "B": [
+      142.0,
+      167.0
+    ],
+    "C": [
+      355.0,
+      50.0
+    ],
+    "D": [
+      0.0,
+      281.0
+    ],
+    "E": [
+      329.0,
+      282.0
+    ],
+    "F": [
+      206.0,
+      0.0
+    ],
+    "G": [
+      3.0,
+      49.0
+    ],
+    "H": [
+      98.0,
+      281.0
+    ],
+    "I": [
+      461.0,
+      168.0
+    ],
+    "J": [
+      342.0,
+      168.0
+    ],
+    "K": [
+      461.0,
+      50.0
+    ],
+    "L": [
+      2.0,
+      167.0
+    ],
+    "M": [
+      323.0,
+      342.0
+    ],
+    "N": [
+      78.0,
+      333.0
+    ],
+    "O": [
+      187.0,
+      49.0
+    ],
+    "P": [
+      360.0,
+      2.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

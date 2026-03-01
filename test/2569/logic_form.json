@@ -1,0 +1,109 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(5)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(5)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Arc(E, A)), 110)",
+    "Equals(MeasureOf(Angle(A, J, C)), MeasureOf(Angle(5)))",
+    "Equals(MeasureOf(Arc(B, C)), 150)",
+    "PointLiesOnLine(J, Line(A, B))",
+    "PointLiesOnLine(B, Line(A, I))",
+    "PointLiesOnLine(J, Line(A, I))",
+    "PointLiesOnLine(A, Line(B, F))",
+    "PointLiesOnLine(J, Line(B, F))",
+    "PointLiesOnLine(A, Line(F, I))",
+    "PointLiesOnLine(B, Line(F, I))",
+    "PointLiesOnLine(J, Line(F, I))",
+    "PointLiesOnLine(A, Line(F, J))",
+    "PointLiesOnLine(B, Line(I, J))",
+    "PointLiesOnLine(C, Line(J, G))",
+    "PointLiesOnLine(E, Line(J, H))",
+    "PointLiesOnLine(J, Line(E, C))",
+    "PointLiesOnLine(C, Line(E, G))",
+    "PointLiesOnLine(J, Line(E, G))",
+    "PointLiesOnLine(E, Line(C, H))",
+    "PointLiesOnLine(J, Line(C, H))",
+    "PointLiesOnLine(C, Line(G, H))",
+    "PointLiesOnLine(E, Line(G, H))",
+    "PointLiesOnLine(J, Line(G, H))",
+    "PointLiesOnCircle(A, Circle(D, radius_3_0))",
+    "PointLiesOnCircle(B, Circle(D, radius_3_0))",
+    "PointLiesOnCircle(C, Circle(D, radius_3_0))",
+    "PointLiesOnCircle(E, Circle(D, radius_3_0))"
+  ],
+  "line_instances": [
+    "AB",
+    "AF",
+    "AI",
+    "AJ",
+    "BE",
+    "BF",
+    "BI",
+    "BJ",
+    "CG",
+    "CH",
+    "EC",
+    "EG",
+    "EH",
+    "FC",
+    "FI",
+    "FJ",
+    "GH",
+    "HD",
+    "IE",
+    "IJ",
+    "JC",
+    "JD",
+    "JE",
+    "JG",
+    "JH"
+  ],
+  "point_positions": {
+    "A": [
+      51.0,
+      34.0
+    ],
+    "B": [
+      80.0,
+      185.0
+    ],
+    "C": [
+      118.0,
+      37.0
+    ],
+    "D": [
+      82.0,
+      107.0
+    ],
+    "E": [
+      20.0,
+      155.0
+    ],
+    "F": [
+      45.0,
+      0.0
+    ],
+    "G": [
+      139.0,
+      12.0
+    ],
+    "H": [
+      1.0,
+      179.0
+    ],
+    "I": [
+      85.0,
+      214.0
+    ],
+    "J": [
+      64.0,
+      103.0
+    ]
+  },
+  "circle_instances": [
+    "D"
+  ]
+}

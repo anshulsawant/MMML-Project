@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, m \\angle 4 = 101. Find the measure of \\angle 6.",
+  "choices": [
+    "69",
+    "79",
+    "89",
+    "101"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "",
+  "id": 2584,
+  "annot_id": "pan_2020-03-14_00_35_51",
+  "is_standard": false,
+  "compact_choices": [
+    "69",
+    "79",
+    "89",
+    "101"
+  ],
+  "precise_value": [
+    69.0,
+    79.0,
+    89.0,
+    101.0
+  ],
+  "rough_value": [
+    69,
+    79,
+    89,
+    101
+  ],
+  "compact_text": "In the figure, m \\angle 4 = 101. Find the measure of \\angle 6.",
+  "annotat_text": "In the figure, $m\u22204 = 101$. Find the measure of $\\angle 6$.",
+  "unit": "",
+  "img_width": 290,
+  "img_height": 294,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

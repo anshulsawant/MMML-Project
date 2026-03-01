@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find y in the figure.",
+  "choices": [
+    "5",
+    "6",
+    "7",
+    "8"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 3 - Parallel and Perpendicular Lines.pdf",
+  "comment": "",
+  "id": 2416,
+  "annot_id": "pan_2020-03-17_01_58_26",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "6",
+    "7",
+    "8"
+  ],
+  "precise_value": [
+    5.0,
+    6.0,
+    7.0,
+    8.0
+  ],
+  "rough_value": [
+    5,
+    6,
+    7,
+    8
+  ],
+  "compact_text": "Find y in the figure.",
+  "annotat_text": "Find $y$ in each figure.",
+  "unit": "",
+  "img_width": 426,
+  "img_height": 202,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

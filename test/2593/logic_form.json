@@ -1,0 +1,38 @@
+{
+  "text_logic_form": [
+    "Isosceles(Triangle(D,E,F))",
+    "Find(SideOf(Regular(Polygon($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Isosceles(Triangle(D,E,F))",
+    "Find(SideOf(Regular(Triangle(D,E,F))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(D, F)), 8.5x+3)",
+    "Equals(LengthOf(Line(E, F)), 3.5x+4)",
+    "Equals(LengthOf(Line(D, E)), 10x)",
+    "Equals(LengthOf(Line(D, F)), LengthOf(Line(D, E)))"
+  ],
+  "line_instances": [
+    "DE",
+    "DF",
+    "EF"
+  ],
+  "point_positions": {
+    "D": [
+      175.0,
+      2.0
+    ],
+    "E": [
+      3.0,
+      383.0
+    ],
+    "F": [
+      350.0,
+      381.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

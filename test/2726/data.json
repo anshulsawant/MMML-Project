@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x.",
+  "choices": [
+    "12",
+    "16",
+    "51",
+    "65"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "two",
+  "id": 2726,
+  "annot_id": "Shibiao_2020-03-21_13_49_54",
+  "is_standard": false,
+  "compact_choices": [
+    "12",
+    "16",
+    "51",
+    "65"
+  ],
+  "precise_value": [
+    12.0,
+    16.0,
+    51.0,
+    65.0
+  ],
+  "rough_value": [
+    12,
+    16,
+    51,
+    65
+  ],
+  "compact_text": "Find x.",
+  "annotat_text": "Find $x$.",
+  "unit": "",
+  "img_width": 576,
+  "img_height": 388,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "\\overrightarrow Q P and \\overrightarrow Q R are opposite rays, and \\overrightarrow Q T bisects \\angle S Q R. If m \\angle S Q R = 6 x + 8 and m \\angle T Q R = 4 x - 14, find m \\angle S Q T.",
+  "choices": [
+    "18",
+    "32",
+    "36",
+    "58"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "hard & problem text is complicated",
+  "id": 2611,
+  "annot_id": "Shibiao_2020-03-22_09_11_46",
+  "is_standard": false,
+  "compact_choices": [
+    "18",
+    "32",
+    "36",
+    "58"
+  ],
+  "precise_value": [
+    18.0,
+    32.0,
+    36.0,
+    58.0
+  ],
+  "rough_value": [
+    18,
+    32,
+    36,
+    58
+  ],
+  "compact_text": "\\overrightarrow QP and \\overrightarrow QR are opposite rays, and \\overrightarrow QT bisects \\angle SQR. If m \\angle SQR = 6x+8 and m \\angle TQR = 4x-14, find m \\angle SQT.",
+  "annotat_text": "$\\overrightarrow{QP}$ and $\\overrightarrow{QR}$ are opposite rays, and $\\overrightarrow{QT}$ bisects $\\angle SOR$. If $m \\angle SOR=6x+8$ and $m \\angle TOR=4x-14,$ find $m \\angle SQT$.",
+  "unit": "",
+  "img_width": 522,
+  "img_height": 309,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

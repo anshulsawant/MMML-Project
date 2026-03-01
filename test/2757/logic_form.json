@@ -1,0 +1,117 @@
+{
+  "text_logic_form": [
+    "Equals(MeasureOf(Angle(1)),4p+15)",
+    "Equals(MeasureOf(Angle(3)),3p-10)",
+    "Equals(MeasureOf(Angle(4)),6r+5)",
+    "Find(p)"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(MeasureOf(Angle(1)),4p+15)",
+    "Equals(MeasureOf(Angle(3)),3p-10)",
+    "Equals(MeasureOf(Angle(4)),6r+5)",
+    "Find(p)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(A, B, H)), MeasureOf(angle 3))",
+    "Equals(MeasureOf(Angle(J, A, E)), MeasureOf(angle 1))",
+    "Equals(MeasureOf(Angle(I, C, A)), MeasureOf(angle 2))",
+    "Equals(MeasureOf(Angle(I, D, H)), MeasureOf(angle 4))",
+    "PointLiesOnLine(B, Line(E, A))",
+    "PointLiesOnLine(A, Line(E, L))",
+    "PointLiesOnLine(B, Line(E, L))",
+    "PointLiesOnLine(C, Line(A, G))",
+    "PointLiesOnLine(D, Line(B, F))",
+    "PointLiesOnLine(A, Line(B, L))",
+    "PointLiesOnLine(A, Line(G, J))",
+    "PointLiesOnLine(C, Line(G, J))",
+    "PointLiesOnLine(A, Line(J, C))",
+    "PointLiesOnLine(D, Line(C, K))",
+    "PointLiesOnLine(B, Line(F, H))",
+    "PointLiesOnLine(D, Line(F, H))",
+    "PointLiesOnLine(B, Line(H, D))",
+    "PointLiesOnLine(C, Line(D, I))",
+    "PointLiesOnLine(C, Line(I, K))",
+    "PointLiesOnLine(D, Line(I, K))",
+    "Parallel(Line(A, L), Line(C, I))",
+    "Parallel(Line(B, H), Line(A, J))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "AG",
+    "AJ",
+    "AL",
+    "BD",
+    "BF",
+    "BH",
+    "BL",
+    "CD",
+    "CI",
+    "CK",
+    "DI",
+    "DK",
+    "EA",
+    "EB",
+    "EL",
+    "FD",
+    "FH",
+    "GC",
+    "GJ",
+    "HD",
+    "IK",
+    "JC"
+  ],
+  "point_positions": {
+    "A": [
+      135.0,
+      110.0
+    ],
+    "B": [
+      226.0,
+      226.0
+    ],
+    "C": [
+      60.0,
+      212.0
+    ],
+    "D": [
+      150.0,
+      330.0
+    ],
+    "E": [
+      293.0,
+      313.0
+    ],
+    "F": [
+      101.0,
+      398.0
+    ],
+    "G": [
+      7.0,
+      285.0
+    ],
+    "H": [
+      300.0,
+      124.0
+    ],
+    "I": [
+      0.0,
+      133.0
+    ],
+    "J": [
+      215.0,
+      1.0
+    ],
+    "K": [
+      200.0,
+      396.0
+    ],
+    "L": [
+      74.0,
+      31.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

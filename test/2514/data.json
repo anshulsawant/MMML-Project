@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find K J if G J = 8, G H = 12, and H I = 4.",
+  "choices": [
+    "2",
+    "4",
+    "6",
+    "8"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 58",
+  "comment": "",
+  "id": 2514,
+  "annot_id": "Ran_2020-03-21_08_21_49",
+  "is_standard": false,
+  "compact_choices": [
+    "2",
+    "4",
+    "6",
+    "8"
+  ],
+  "precise_value": [
+    2.0,
+    4.0,
+    6.0,
+    8.0
+  ],
+  "rough_value": [
+    2,
+    4,
+    6,
+    8
+  ],
+  "compact_text": "Find KJ if GJ = 8, GH = 12, and HI = 4.",
+  "annotat_text": "Find $K J$ if $G J=8, G H=12,$ and $H I=4$",
+  "unit": "",
+  "img_width": 315,
+  "img_height": 219,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

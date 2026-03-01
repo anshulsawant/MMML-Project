@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x.",
+  "choices": [
+    "4.61",
+    "5.17",
+    "6.52",
+    "8.46"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2650,
+  "annot_id": "pan_2020-03-23_21_25_24",
+  "is_standard": false,
+  "compact_choices": [
+    "4.61",
+    "5.17",
+    "6.52",
+    "8.46"
+  ],
+  "precise_value": [
+    4.61,
+    5.17,
+    6.52,
+    8.46
+  ],
+  "rough_value": [
+    4.61,
+    5.17,
+    6.52,
+    8.46
+  ],
+  "compact_text": "Find x.",
+  "annotat_text": "Refer to the figure at the right. Find x.",
+  "unit": "",
+  "img_width": 401,
+  "img_height": 244,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

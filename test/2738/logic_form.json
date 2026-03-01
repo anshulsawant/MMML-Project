@@ -1,0 +1,34 @@
+{
+  "text_logic_form": [
+    "Find(RatioOf(TanOf(Angle(L))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(RatioOf(TanOf(Angle(L))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(K, J)), 5)",
+    "Equals(LengthOf(Line(L, J)), 13)",
+    "Equals(LengthOf(Line(L, K)), 12)",
+    "Perpendicular(Line(K, L), Line(K, J))"
+  ],
+  "line_instances": [
+    "LK",
+    "LJ",
+    "KJ"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "L": [
+      1.865591397849471,
+      123.66666666666666
+    ],
+    "K": [
+      222.01066666666668,
+      123.66666666666666
+    ],
+    "J": [
+      223.32495988224082,
+      0.8566740266164743
+    ]
+  }
+}

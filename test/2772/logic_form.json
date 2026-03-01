@@ -1,0 +1,64 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Arc(X,Z)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Arc(X,Z)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(Z, Y, X)), 68)",
+    "Equals(MeasureOf(Arc(E, W, X)), 224)",
+    "PointLiesOnLine(Z, Line(Y, E))",
+    "PointLiesOnLine(X, Line(Y, B))",
+    "PointLiesOnLine(E, Line(Y, D))",
+    "PointLiesOnLine(Z, Line(Y, D))",
+    "PointLiesOnLine(E, Line(Z, D))",
+    "PointLiesOnCircle(X, Circle(C, radius_4_0))",
+    "PointLiesOnCircle(E, Circle(C, radius_4_0))",
+    "PointLiesOnCircle(Z, Circle(C, radius_4_0))"
+  ],
+  "line_instances": [
+    "XB",
+    "XY",
+    "ED",
+    "EZ",
+    "YB",
+    "YD",
+    "YE",
+    "YZ",
+    "ZD"
+  ],
+  "point_positions": {
+    "X": [
+      135.0,
+      77.0
+    ],
+    "B": [
+      0.0,
+      141.0
+    ],
+    "C": [
+      192.0,
+      195.0
+    ],
+    "D": [
+      312.0,
+      322.0
+    ],
+    "E": [
+      308.0,
+      261.0
+    ],
+    "Y": [
+      290.0,
+      2.0
+    ],
+    "Z": [
+      297.0,
+      112.0
+    ]
+  },
+  "circle_instances": [
+    "C"
+  ]
+}

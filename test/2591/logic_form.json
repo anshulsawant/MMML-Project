@@ -1,0 +1,71 @@
+{
+  "text_logic_form": [
+    "Regular(Pentagon($))",
+    "Square($)",
+    "Equals(Line(X,Y),SideOf(Regular(Polygon($))))",
+    "Equals(Line(X,Z),SideOf(Regular(Polygon($))))",
+    "Regular(Polygon($))",
+    "Polygon($)"
+  ],
+  "dissolved_text_logic_form": [
+    "Regular(Pentagon(Z, A, D, B, C))",
+    "Square(Y, E, B, C)",
+    "Equals(Line(X,Y),SideOf(Regular(Polygon(X, Z, A, D, B))))",
+    "Equals(Line(X,Z),SideOf(Regular(Polygon(X, Z, A, D, B))))",
+    "Regular(Polygon(Z, A, D, B, C))",
+    "Polygon($)"
+  ],
+  "diagram_logic_form": [
+    ""
+  ],
+  "line_instances": [
+    "AD",
+    "AZ",
+    "BF",
+    "BH",
+    "CB",
+    "CF",
+    "CG",
+    "CZ",
+    "DB",
+    "DF",
+    "DH",
+    "EB",
+    "EF",
+    "EH",
+    "FH",
+    "GZ",
+    "YC",
+    "YE",
+    "YG"
+  ],
+  "point_positions": {
+    "A": [
+      65.0,
+      202.0
+    ],
+    "B": [
+      107.0,
+      80.0
+    ],
+    "C": [
+      23.0,
+      84.0
+    ],
+    "D": [
+      129.0,
+      156.0
+    ],
+    "Y": [
+      26.0,
+      3.0
+    ],
+    "Z": [
+      1.0,
+      157.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "In \\odot F, F H \\cong F L and F K = 17. Find J G.",
+  "choices": [
+    "15",
+    "16",
+    "17",
+    "30"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter10.pdf page 21",
+  "comment": "",
+  "id": 2887,
+  "annot_id": "Ran_2020-03-28_03_36_57",
+  "is_standard": false,
+  "compact_choices": [
+    "15",
+    "16",
+    "17",
+    "30"
+  ],
+  "precise_value": [
+    15.0,
+    16.0,
+    17.0,
+    30.0
+  ],
+  "rough_value": [
+    15,
+    16,
+    17,
+    30
+  ],
+  "compact_text": "In \\odot F, FH \\cong FL and FK = 17. Find JG.",
+  "annotat_text": "In $\\odot F, \\overline{F H} \\cong \\overline{F L}$ and $\\mathrm{FK}=17$.\r\nFind JG",
+  "unit": "",
+  "img_width": 251,
+  "img_height": 213,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

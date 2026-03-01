@@ -1,0 +1,37 @@
+{
+  "text_logic_form": [
+    "Find(LengthOf(Line(K,L)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(LengthOf(Line(K,L)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(J, K)), x+7)",
+    "Equals(LengthOf(Line(J, L)), 4x-8)",
+    "Equals(LengthOf(Line(J, K)), LengthOf(Line(J, L)))",
+    "Equals(LengthOf(Line(J, K)), LengthOf(Line(K, L)))",
+    "Equals(LengthOf(Line(L, K)), LengthOf(Line(J, L)))"
+  ],
+  "line_instances": [
+    "JK",
+    "JL",
+    "KL"
+  ],
+  "point_positions": {
+    "J": [
+      0.0,
+      278.0
+    ],
+    "K": [
+      158.0,
+      1.0
+    ],
+    "L": [
+      315.0,
+      276.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

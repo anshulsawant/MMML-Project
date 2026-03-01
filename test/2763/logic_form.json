@@ -1,0 +1,50 @@
+{
+  "text_logic_form": [
+    "IsDiagonalOf(Line(A,C),Rhombus(A,B,C,D))",
+    "Equals(MeasureOf(Angle(C,D,E)),116)",
+    "Find(MeasureOf(Angle(A,C,D)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsDiagonalOf(Line(A,C),Rhombus(A,B,C,D))",
+    "Equals(MeasureOf(Angle(C,D,E)),116)",
+    "Find(MeasureOf(Angle(A,C,D)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(C, D, E)), 116)",
+    "PointLiesOnLine(D, Line(A, E))"
+  ],
+  "line_instances": [
+    "BC",
+    "AB",
+    "CA",
+    "AD",
+    "CD",
+    "DE",
+    "AE"
+  ],
+  "point_positions": {
+    "A": [
+      62.0,
+      128.0
+    ],
+    "B": [
+      1.0,
+      1.0
+    ],
+    "C": [
+      155.0,
+      1.0
+    ],
+    "D": [
+      221.0,
+      129.0
+    ],
+    "E": [
+      288.0,
+      132.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

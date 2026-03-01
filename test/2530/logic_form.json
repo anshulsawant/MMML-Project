@@ -1,0 +1,39 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(K)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(K)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(J, M)), 6)",
+    "Equals(MeasureOf(Angle(J, M, L)), 80)",
+    "Equals(LengthOf(Line(K, L)), 6)",
+    "Parallel(Line(J, K), Line(M, L))"
+  ],
+  "line_instances": [
+    "JK",
+    "JM",
+    "KL",
+    "ML"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "J": [
+      24.66608713180638,
+      1.0035779978330481
+    ],
+    "K": [
+      208.17327105620012,
+      1.9911104414645138
+    ],
+    "M": [
+      1.4941546943538953,
+      141.00710290152523
+    ],
+    "L": [
+      232.2744697265723,
+      142.32996683599347
+    ]
+  }
+}

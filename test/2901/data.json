@@ -1,0 +1,48 @@
+{
+  "problem_text": "\\triangle W X Y \\cong \\triangle W X Z. Find y.",
+  "choices": [
+    "3",
+    "4",
+    "5",
+    "7"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "",
+  "id": 2901,
+  "annot_id": "Shibiao_2020-03-21_14_13_52",
+  "is_standard": false,
+  "compact_choices": [
+    "3",
+    "4",
+    "5",
+    "7"
+  ],
+  "precise_value": [
+    3.0,
+    4.0,
+    5.0,
+    7.0
+  ],
+  "rough_value": [
+    3,
+    4,
+    5,
+    7
+  ],
+  "compact_text": "\\triangle WXY \\cong \\triangle WXZ. Find y.",
+  "annotat_text": "$\\triangle WXY \\cong \\triangle WXZ$. Find $y$.",
+  "unit": "",
+  "img_width": 786,
+  "img_height": 368,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

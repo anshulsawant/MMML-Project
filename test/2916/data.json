@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find K L.",
+  "choices": [
+    "7",
+    "8",
+    "12",
+    "15"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "",
+  "id": 2916,
+  "annot_id": "Shibiao_2020-03-22_09_51_47",
+  "is_standard": false,
+  "compact_choices": [
+    "7",
+    "8",
+    "12",
+    "15"
+  ],
+  "precise_value": [
+    7.0,
+    8.0,
+    12.0,
+    15.0
+  ],
+  "rough_value": [
+    7,
+    8,
+    12,
+    15
+  ],
+  "compact_text": "Find KL.",
+  "annotat_text": "Find $KL$.",
+  "unit": "",
+  "img_width": 489,
+  "img_height": 459,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

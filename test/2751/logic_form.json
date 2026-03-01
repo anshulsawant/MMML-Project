@@ -1,0 +1,90 @@
+{
+  "text_logic_form": [
+    "Equals(RatioOf(Line(I,J),Line(X,J)),RatioOf(Line(H,J),Line(Y,J)))",
+    "Equals(MeasureOf(Angle(W,X,J)),130)",
+    "Equals(MeasureOf(Angle(W,Z,G)),20)",
+    "Find(MeasureOf(Angle(Y,I,Z)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(RatioOf(Line(I,J),Line(X,J)),RatioOf(Line(H,J),Line(Y,J)))",
+    "Equals(MeasureOf(Angle(W,X,J)),130)",
+    "Equals(MeasureOf(Angle(W,Z,G)),20)",
+    "Find(MeasureOf(Angle(Y,I,Z)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(Y, Z, I)), 20)",
+    "Equals(MeasureOf(Angle(W, X, J)), 130)",
+    "PointLiesOnLine(H, Line(G, I))",
+    "PointLiesOnLine(H, Line(G, Z))",
+    "PointLiesOnLine(I, Line(H, Z))",
+    "PointLiesOnLine(I, Line(G, Z))",
+    "PointLiesOnLine(H, Line(J, X))",
+    "PointLiesOnLine(I, Line(J, Y))",
+    "PointLiesOnLine(X, Line(W, Y))",
+    "PointLiesOnLine(X, Line(W, Z))",
+    "PointLiesOnLine(Y, Line(X, Z))",
+    "PointLiesOnLine(Y, Line(W, Z))",
+    ""
+  ],
+  "line_instances": [
+    "WX",
+    "XY",
+    "YZ",
+    "WY",
+    "XZ",
+    "WZ",
+    "GH",
+    "HI",
+    "IZ",
+    "GI",
+    "HZ",
+    "GZ",
+    "JH",
+    "JX",
+    "HX",
+    "JI",
+    "IY",
+    "JY"
+  ],
+  "point_positions": {
+    "I": [
+      401.0,
+      186.0
+    ],
+    "C": [
+      544.0,
+      199.0
+    ],
+    "D": [
+      0.0,
+      199.0
+    ],
+    "G": [
+      198.0,
+      103.0
+    ],
+    "H": [
+      235.0,
+      116.0
+    ],
+    "J": [
+      331.0,
+      2.0
+    ],
+    "W": [
+      78.0,
+      202.0
+    ],
+    "X": [
+      163.0,
+      200.0
+    ],
+    "Z": [
+      455.0,
+      199.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

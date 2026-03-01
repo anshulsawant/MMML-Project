@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find the measure of \\angle 2.",
+  "choices": [
+    "23",
+    "24",
+    "28",
+    "33"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 4 - Congruent Triangles.pdf",
+  "comment": "",
+  "id": 2870,
+  "annot_id": "pan_2020-03-18_05_10_02",
+  "is_standard": false,
+  "compact_choices": [
+    "23",
+    "24",
+    "28",
+    "33"
+  ],
+  "precise_value": [
+    23.0,
+    24.0,
+    28.0,
+    33.0
+  ],
+  "rough_value": [
+    23,
+    24,
+    28,
+    33
+  ],
+  "compact_text": "Find the measure of \\angle 2.",
+  "annotat_text": "Find the measure of $\\angle 2$.",
+  "unit": "",
+  "img_width": 612,
+  "img_height": 243,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

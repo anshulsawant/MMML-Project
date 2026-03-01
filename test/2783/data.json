@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the length of \\widehat J K. Round to the nearest hundredth.",
+  "choices": [
+    "6.87",
+    "13.74",
+    "20.62",
+    "27.49"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2783,
+  "annot_id": "Shibiao_2020-03-27_12_06_15",
+  "is_standard": false,
+  "compact_choices": [
+    "6.87",
+    "13.74",
+    "20.62",
+    "27.49"
+  ],
+  "precise_value": [
+    6.87,
+    13.74,
+    20.62,
+    27.49
+  ],
+  "rough_value": [
+    6.87,
+    13.74,
+    20.62,
+    27.49
+  ],
+  "compact_text": "Find the length of \\widehat JK. Round to the nearest hundredth.",
+  "annotat_text": "Find the length of $\\widehat {JK}$. Round to the nearest hundredth.",
+  "unit": "",
+  "img_width": 432,
+  "img_height": 427,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,49 @@
+{
+  "problem_text": "In \\triangle P Q R, S T \\parallel R Q. If P S = 12.5, S R = 5, and P T = 15, find T Q.",
+  "choices": [
+    "5",
+    "6",
+    "6.5",
+    "12.5"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "",
+  "id": 2501,
+  "annot_id": "Shibiao_2020-03-22_11_24_09",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "6",
+    "6.5",
+    "12.5"
+  ],
+  "precise_value": [
+    5.0,
+    6.0,
+    6.5,
+    12.5
+  ],
+  "rough_value": [
+    5,
+    6,
+    6.5,
+    12.5
+  ],
+  "compact_text": "In \\triangle PQR, ST \\parallel RQ. If PS = 12.5, SR = 5, and PT = 15, find TQ.",
+  "annotat_text": "In $\\triangle PQR$, $\\overline{ST} \\| \\overline{R Q}$ . If  $PS=12.5$, $SR=5$, and $PT=15$, find $TQ$.",
+  "unit": "",
+  "img_width": 654,
+  "img_height": 577,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

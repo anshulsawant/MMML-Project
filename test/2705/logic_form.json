@@ -1,0 +1,43 @@
+{
+  "text_logic_form": [
+    "Parallelogram($)",
+    "Find(y)"
+  ],
+  "dissolved_text_logic_form": [
+    "Parallelogram(A,B,C,D)",
+    "Find(y)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(C, D, A)), 3y+36)",
+    "Equals(MeasureOf(Angle(D, A, B)), 5x-19)",
+    "Equals(MeasureOf(Angle(B, C, D)), 3x+9)",
+    "Equals(MeasureOf(Angle(A, B, C)), 6y-57)"
+  ],
+  "line_instances": [
+    "AB",
+    "AD",
+    "BC",
+    "DC"
+  ],
+  "point_positions": {
+    "A": [
+      343.0,
+      1.0
+    ],
+    "B": [
+      84.0,
+      1.0
+    ],
+    "C": [
+      0.0,
+      108.0
+    ],
+    "D": [
+      259.0,
+      105.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

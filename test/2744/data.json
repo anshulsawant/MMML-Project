@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find m \\angle A B C if m \\angle C D A = 61.",
+  "choices": [
+    "55",
+    "69",
+    "85",
+    "140"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook2_chapter7.pdf page 60",
+  "comment": "",
+  "id": 2744,
+  "annot_id": "Ran_2020-03-24_06_15_22",
+  "is_standard": false,
+  "compact_choices": [
+    "55",
+    "69",
+    "85",
+    "140"
+  ],
+  "precise_value": [
+    55.0,
+    69.0,
+    85.0,
+    140.0
+  ],
+  "rough_value": [
+    55,
+    69,
+    85,
+    140
+  ],
+  "compact_text": "Find m \\angle ABC if m \\angle CDA = 61.",
+  "annotat_text": "Find $m \\angle A B C$\r\nif $m \\angle C D A=61$",
+  "unit": "",
+  "img_width": 321,
+  "img_height": 269,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

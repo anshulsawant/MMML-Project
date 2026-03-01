@@ -1,0 +1,63 @@
+{
+  "text_logic_form": [
+    "Find(LengthOf(Line(P,N)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(LengthOf(Line(P,N)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(P, N)), 4x-2)",
+    "Equals(MeasureOf(Angle(C, M, B)), 25)",
+    "Equals(LengthOf(Line(P, L)), 3x+6)",
+    "Equals(MeasureOf(Angle(A, M, P)), 25)",
+    "PointLiesOnLine(L, Line(M, A))",
+    "PointLiesOnLine(N, Line(M, B))",
+    "PointLiesOnLine(P, Line(M, C))",
+    "Perpendicular(Line(L, P), Line(L, M))",
+    "Perpendicular(Line(N, P), Line(N, M))"
+  ],
+  "line_instances": [
+    "PM",
+    "PN",
+    "PL",
+    "PC",
+    "MN",
+    "ML",
+    "MA",
+    "MB",
+    "MC",
+    "NB",
+    "LA"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "P": [
+      305.2032647831983,
+      148.3485837691924
+    ],
+    "M": [
+      4.07554157883655,
+      148.39298985958902
+    ],
+    "N": [
+      253.37883287292817,
+      265.1351174033149
+    ],
+    "L": [
+      252.1817399364407,
+      31.403866525423723
+    ],
+    "A": [
+      315.0,
+      2.0
+    ],
+    "B": [
+      299.0,
+      285.0
+    ],
+    "C": [
+      329.0,
+      149.0
+    ]
+  }
+}

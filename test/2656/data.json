@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the area of the parallelogram. Round to the nearest tenth if necessary.",
+  "choices": [
+    "65",
+    "91.9",
+    "112.6",
+    "130"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Parallelogram"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "Textbook 2_Chapter 11 - Areas of Polygons and Circles.pdf",
+  "comment": "",
+  "id": 2656,
+  "annot_id": "pan_2020-03-21_20_21_05",
+  "is_standard": false,
+  "unit": "yd^2",
+  "compact_choices": [
+    "65",
+    "91.9",
+    "112.6",
+    "130"
+  ],
+  "precise_value": [
+    65.0,
+    91.9,
+    112.6,
+    130.0
+  ],
+  "rough_value": [
+    65,
+    91.9,
+    112.6,
+    130
+  ],
+  "compact_text": "Find the area of the parallelogram. Round to the nearest tenth if necessary.",
+  "annotat_text": "Find the area of the parallelogram. Round to the nearest tenth if necessary.",
+  "img_width": 369,
+  "img_height": 201,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

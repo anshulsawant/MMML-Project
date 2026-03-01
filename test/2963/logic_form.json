@@ -1,0 +1,76 @@
+{
+  "text_logic_form": [
+    "IsAltitudeOf(Line(C,P),Shape($))",
+    "BisectsAngle(Line(C,Q),Angle(A,C,B))",
+    "IsMidpointOf(Point(R),Line(A,B))",
+    "Equals(MeasureOf(Angle(A,C,B)),123-x)",
+    "Equals(MeasureOf(Angle(Q,C,B)),42+x)",
+    "Find(MeasureOf(Angle(A,C,Q)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsAltitudeOf(Line(C,P), Triangle(A,B,C))",
+    "BisectsAngle(Line(C,Q),Angle(A,C,B))",
+    "IsMidpointOf(Point(R),Line(A,B))",
+    "Equals(MeasureOf(Angle(A,C,B)),123-x)",
+    "Equals(MeasureOf(Angle(Q,C,B)),42+x)",
+    "Find(MeasureOf(Angle(A,C,Q)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(Q, Line(R, A))",
+    "PointLiesOnLine(P, Line(R, A))",
+    "PointLiesOnLine(Q, Line(R, P))",
+    "PointLiesOnLine(R, Line(A, B))",
+    "PointLiesOnLine(Q, Line(A, B))",
+    "PointLiesOnLine(P, Line(A, B))",
+    "PointLiesOnLine(P, Line(A, Q))",
+    "PointLiesOnLine(R, Line(B, Q))",
+    "PointLiesOnLine(R, Line(B, P))",
+    "PointLiesOnLine(Q, Line(B, P))"
+  ],
+  "line_instances": [
+    "AB",
+    "AP",
+    "AQ",
+    "BP",
+    "BQ",
+    "CA",
+    "CB",
+    "CP",
+    "CQ",
+    "CR",
+    "QP",
+    "RA",
+    "RB",
+    "RP",
+    "RQ"
+  ],
+  "point_positions": {
+    "A": [
+      1.0,
+      150.0
+    ],
+    "B": [
+      272.0,
+      152.0
+    ],
+    "C": [
+      92.0,
+      3.0
+    ],
+    "P": [
+      94.0,
+      151.0
+    ],
+    "Q": [
+      115.0,
+      151.0
+    ],
+    "R": [
+      138.0,
+      151.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

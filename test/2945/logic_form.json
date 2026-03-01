@@ -1,0 +1,76 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(H)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(H)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(K, B, F)), 88)",
+    "Equals(MeasureOf(Angle(J, B, G)), 26)",
+    "PointLiesOnLine(F, Line(A, G))",
+    "PointLiesOnLine(G, Line(A, H))",
+    "PointLiesOnLine(F, Line(A, H))",
+    "PointLiesOnLine(J, Line(H, K))",
+    "PointLiesOnLine(K, Line(H, C))",
+    "PointLiesOnLine(J, Line(H, C))",
+    "PointLiesOnLine(G, Line(H, F))",
+    "PointLiesOnLine(K, Line(J, C))",
+    "PointLiesOnCircle(G, Circle(B, radius_4_0))",
+    "PointLiesOnCircle(K, Circle(B, radius_4_0))",
+    "PointLiesOnCircle(F, Circle(B, radius_4_0))",
+    "PointLiesOnCircle(J, Circle(B, radius_4_0))"
+  ],
+  "line_instances": [
+    "AF",
+    "AG",
+    "AH",
+    "GF",
+    "GH",
+    "GJ",
+    "HC",
+    "HF",
+    "HJ",
+    "HK",
+    "JC",
+    "JK",
+    "KC"
+  ],
+  "point_positions": {
+    "A": [
+      433.0,
+      254.0
+    ],
+    "B": [
+      248.0,
+      159.0
+    ],
+    "C": [
+      436.0,
+      1.0
+    ],
+    "F": [
+      365.0,
+      234.0
+    ],
+    "G": [
+      108.0,
+      157.0
+    ],
+    "H": [
+      2.0,
+      127.0
+    ],
+    "J": [
+      125.0,
+      92.0
+    ],
+    "K": [
+      315.0,
+      36.0
+    ]
+  },
+  "circle_instances": [
+    "B"
+  ]
+}

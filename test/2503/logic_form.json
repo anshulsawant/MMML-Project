@@ -1,0 +1,43 @@
+{
+  "text_logic_form": [
+    "Find(AreaOf(Shaded(Shape($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(AreaOf(Shaded(Shape($))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(E, C)), 5)",
+    "Equals(MeasureOf(Angle(C, B, E)), 30)",
+    "PointLiesOnCircle(B, Circle(D, radius_3_0))",
+    "PointLiesOnCircle(C, Circle(D, radius_3_0))",
+    "PointLiesOnCircle(E, Circle(D, radius_3_0))"
+  ],
+  "line_instances": [
+    "BC",
+    "BD",
+    "BF",
+    "CD",
+    "EC"
+  ],
+  "point_positions": {
+    "B": [
+      161.0,
+      78.0
+    ],
+    "C": [
+      4.0,
+      76.0
+    ],
+    "D": [
+      85.0,
+      83.0
+    ],
+    "E": [
+      45.0,
+      15.0
+    ]
+  },
+  "circle_instances": [
+    "D"
+  ]
+}

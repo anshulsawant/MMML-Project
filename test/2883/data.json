@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find m \\angle 3.",
+  "choices": [
+    "28",
+    "38",
+    "52",
+    "62"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Rectangle",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "",
+  "id": 2883,
+  "annot_id": "Shibiao_2020-03-21_12_31_10",
+  "is_standard": false,
+  "compact_choices": [
+    "28",
+    "38",
+    "52",
+    "62"
+  ],
+  "precise_value": [
+    28.0,
+    38.0,
+    52.0,
+    62.0
+  ],
+  "rough_value": [
+    28,
+    38,
+    52,
+    62
+  ],
+  "compact_text": "Find m \\angle 3.",
+  "annotat_text": "Find $m \\angle 3$.",
+  "unit": "",
+  "img_width": 596,
+  "img_height": 426,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

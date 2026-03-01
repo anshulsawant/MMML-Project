@@ -1,0 +1,69 @@
+{
+  "text_logic_form": [
+    "Equals(LengthOf(Line(A,B)),6)",
+    "Equals(LengthOf(Line(A,F)),8)",
+    "Equals(LengthOf(Line(B,C)),x)",
+    "Equals(LengthOf(Line(C,D)),y)",
+    "Equals(LengthOf(Line(D,E)),2y-3)",
+    "Equals(LengthOf(Line(F,E)),x+\\frac{10}{3})",
+    "Find(LengthOf(Line(B,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(LengthOf(Line(A,B)),6)",
+    "Equals(LengthOf(Line(A,F)),8)",
+    "Equals(LengthOf(Line(B,C)),x)",
+    "Equals(LengthOf(Line(C,D)),y)",
+    "Equals(LengthOf(Line(D,E)),2y-3)",
+    "Equals(LengthOf(Line(F,E)),x+\\frac{10}{3})",
+    "Find(LengthOf(Line(B,C)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(D, Line(E, C))",
+    "PointLiesOnLine(F, Line(E, A))",
+    "PointLiesOnLine(B, Line(C, A))",
+    "Parallel(Line(C, D), Line(F, B))",
+    "Parallel(Line(C, B), Line(F, D))"
+  ],
+  "line_instances": [
+    "AB",
+    "CA",
+    "CB",
+    "CD",
+    "EA",
+    "EC",
+    "ED",
+    "EF",
+    "FA",
+    "FB",
+    "FD"
+  ],
+  "point_positions": {
+    "A": [
+      73.0,
+      1.0
+    ],
+    "B": [
+      44.0,
+      66.0
+    ],
+    "C": [
+      0.0,
+      166.0
+    ],
+    "D": [
+      93.0,
+      166.0
+    ],
+    "E": [
+      228.0,
+      166.0
+    ],
+    "F": [
+      134.0,
+      68.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "A B \\cong D F. Find x.",
+  "choices": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2492,
+  "annot_id": "Shibiao_2020-03-27_13_06_36",
+  "is_standard": false,
+  "compact_choices": [
+    "1",
+    "2",
+    "3",
+    "4"
+  ],
+  "precise_value": [
+    1.0,
+    2.0,
+    3.0,
+    4.0
+  ],
+  "rough_value": [
+    1,
+    2,
+    3,
+    4
+  ],
+  "compact_text": "AB \\cong DF. Find x.",
+  "annotat_text": "$\\overline{AB} \\cong \\overline{DF}$. Find $x$.",
+  "unit": "",
+  "img_width": 491,
+  "img_height": 449,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

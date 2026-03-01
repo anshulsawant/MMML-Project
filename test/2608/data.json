@@ -1,0 +1,48 @@
+{
+  "problem_text": "Triangle L M N is equilateral, and M P bisects L N. Find y.",
+  "choices": [
+    "15",
+    "16",
+    "17",
+    "18"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 4 - Congruent Triangles.pdf",
+  "comment": "",
+  "id": 2608,
+  "annot_id": "pan_2020-03-18_07_47_15",
+  "is_standard": false,
+  "compact_choices": [
+    "15",
+    "16",
+    "17",
+    "18"
+  ],
+  "precise_value": [
+    15.0,
+    16.0,
+    17.0,
+    18.0
+  ],
+  "rough_value": [
+    15,
+    16,
+    17,
+    18
+  ],
+  "compact_text": "Triangle LMN is equilateral, and MP bisects LN. Find y.",
+  "annotat_text": "Triangle $LMN$ is equilateral, and $\\overline{MP}$ bisects $\\overline{LN}$. Find $y$.",
+  "unit": "",
+  "img_width": 295,
+  "img_height": 237,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,73 @@
+{
+  "text_logic_form": [
+    "IsChordOf(Line(A,C),Circle($))",
+    "IsChordOf(Line(D,F),Circle($))",
+    "Line(A,C)",
+    "Line(D,F)",
+    "Equals(RadiusOf(Circle(G)),26)",
+    "Find(LengthOf(Line(A,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsChordOf(Line(A,C),Circle(G))",
+    "IsChordOf(Line(D,F),Circle(G))",
+    "Line(A,C)",
+    "Line(D,F)",
+    "Equals(RadiusOf(Circle(G)),26)",
+    "Find(LengthOf(Line(A,C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, G)), 10)",
+    "Equals(LengthOf(Line(E, G)), 10)",
+    "PointLiesOnLine(E, Line(D, F))",
+    "PointLiesOnLine(B, Line(A, C))",
+    "PointLiesOnCircle(D, Circle(G, radius_2_0))",
+    "PointLiesOnCircle(A, Circle(G, radius_2_0))",
+    "PointLiesOnCircle(F, Circle(G, radius_2_0))",
+    "PointLiesOnCircle(C, Circle(G, radius_2_0))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BG",
+    "CB",
+    "DE",
+    "DF",
+    "AG",
+    "EG",
+    "FE",
+    "FG"
+  ],
+  "point_positions": {
+    "A": [
+      85.0,
+      1.0
+    ],
+    "B": [
+      132.0,
+      52.0
+    ],
+    "C": [
+      177.0,
+      102.0
+    ],
+    "D": [
+      64.0,
+      174.0
+    ],
+    "E": [
+      36.0,
+      111.0
+    ],
+    "F": [
+      10.0,
+      48.0
+    ],
+    "G": [
+      89.0,
+      88.0
+    ]
+  },
+  "circle_instances": [
+    "G"
+  ]
+}

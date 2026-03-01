@@ -1,0 +1,48 @@
+{
+  "problem_text": "In \\triangle P Q R, Z Q = 3 a - 11, Z P = a + 5, P Y = 2 c - 1, Y R = 4 c - 11, m \\angle P R Z = 4 b - 17, m \\angle Z R Q = 3 b - 4, m \\angle Q Y R = 7 b + 6, and m \\angle P X R = 2 a + 10. If R Z is an angle bisector, find m \\angle P R Z.",
+  "choices": [
+    "20",
+    "25",
+    "30",
+    "35"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 5 - Relationships in Triangles.pdf",
+  "comment": "",
+  "id": 2702,
+  "annot_id": "pan_2020-03-18_21_52_23",
+  "is_standard": false,
+  "compact_choices": [
+    "20",
+    "25",
+    "30",
+    "35"
+  ],
+  "precise_value": [
+    20.0,
+    25.0,
+    30.0,
+    35.0
+  ],
+  "rough_value": [
+    20,
+    25,
+    30,
+    35
+  ],
+  "compact_text": "In \\triangle PQR, ZQ = 3a-11, ZP = a+5, PY = 2c-1, YR = 4c-11, m \\angle PRZ = 4b-17, m \\angle ZRQ = 3b-4, m \\angle QYR = 7b+6, and m \\angle PXR = 2a+10. If RZ is an angle bisector, find m \\angle PRZ.",
+  "annotat_text": "In $\\triangle PQR$, $ZQ=3a-11$, $ZP=a+5$, $PY=2 c-1$, $YR=4 c-11$, $m \\angle PRZ=4 b-17$, $m \\angle ZRQ=3 b-4$, $m \\angle QYR=7 b+6$, and $m \\angle PXR=2 a+10$.  If $\\overline{RZ}$ is an angle bisector, find $m\u2220PRZ$.",
+  "unit": "",
+  "img_width": 274,
+  "img_height": 351,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

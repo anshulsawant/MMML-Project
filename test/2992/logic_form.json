@@ -1,0 +1,105 @@
+{
+  "text_logic_form": [
+    "Tangent(Line($),Circle($))",
+    "Find(MeasureOf(Angle(2)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(2)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Arc(J, D)), 85)",
+    "Equals(MeasureOf(Arc(H, F)), 230)",
+    "Equals(MeasureOf(Angle(F, C, D)), MeasureOf(Angle(2)))",
+    "PointLiesOnLine(C, Line(A, D))",
+    "PointLiesOnLine(C, Line(A, E))",
+    "PointLiesOnLine(C, Line(F, D))",
+    "PointLiesOnLine(C, Line(F, E))",
+    "PointLiesOnLine(C, Line(I, H))",
+    "PointLiesOnLine(C, Line(I, B))",
+    "PointLiesOnLine(C, Line(J, B))",
+    "PointLiesOnLine(C, Line(J, H))",
+    "PointLiesOnLine(F, Line(A, C))",
+    "PointLiesOnLine(F, Line(A, D))",
+    "PointLiesOnLine(F, Line(A, E))",
+    "PointLiesOnLine(D, Line(A, E))",
+    "PointLiesOnLine(D, Line(C, E))",
+    "PointLiesOnLine(D, Line(F, E))",
+    "PointLiesOnLine(H, Line(B, C))",
+    "PointLiesOnLine(H, Line(B, J))",
+    "PointLiesOnLine(H, Line(B, I))",
+    "PointLiesOnLine(J, Line(I, C))",
+    "PointLiesOnLine(J, Line(I, H))",
+    "PointLiesOnLine(J, Line(I, B))",
+    "PointLiesOnCircle(D, Circle(G, radius_6_0))",
+    "PointLiesOnCircle(F, Circle(G, radius_6_0))",
+    "PointLiesOnCircle(H, Circle(G, radius_6_0))",
+    "PointLiesOnCircle(J, Circle(G, radius_6_0))"
+  ],
+  "line_instances": [
+    "AF",
+    "FC",
+    "CD",
+    "DE",
+    "AC",
+    "FD",
+    "CE",
+    "AD",
+    "FE",
+    "AE",
+    "IJ",
+    "JC",
+    "CH",
+    "HB",
+    "IC",
+    "JH",
+    "CB",
+    "IH",
+    "JB",
+    "IB"
+  ],
+  "point_positions": {
+    "A": [
+      0.0,
+      51.0
+    ],
+    "B": [
+      239.0,
+      106.0
+    ],
+    "C": [
+      97.0,
+      49.0
+    ],
+    "D": [
+      196.0,
+      48.0
+    ],
+    "E": [
+      248.0,
+      47.0
+    ],
+    "F": [
+      65.0,
+      50.0
+    ],
+    "G": [
+      130.0,
+      71.0
+    ],
+    "H": [
+      197.0,
+      89.0
+    ],
+    "I": [
+      10.0,
+      15.0
+    ],
+    "J": [
+      70.0,
+      40.0
+    ]
+  },
+  "circle_instances": [
+    "G"
+  ]
+}

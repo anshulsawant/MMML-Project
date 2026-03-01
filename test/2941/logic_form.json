@@ -1,0 +1,60 @@
+{
+  "text_logic_form": [
+    "InscribedIn(Square(A,B,D,C),Circle(K))",
+    "Find(MeasureOf(Angle($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "InscribedIn(Square(A,B,D,C),Circle(K))",
+    "Find(MeasureOf(Angle(C,F,D)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(G, Line(C, D))",
+    "PointLiesOnCircle(C, Circle(F, radius_3_0))",
+    "PointLiesOnCircle(D, Circle(F, radius_3_0))",
+    "PointLiesOnCircle(B, Circle(F, radius_3_0))",
+    "PointLiesOnCircle(A, Circle(F, radius_3_0))",
+    "Perpendicular(Line(G, E), Line(G, D))"
+  ],
+  "line_instances": [
+    "BA",
+    "CA",
+    "CB",
+    "CD",
+    "CF",
+    "CG",
+    "DA",
+    "DB",
+    "DF",
+    "DG",
+    "FG"
+  ],
+  "point_positions": {
+    "A": [
+      36.0,
+      33.0
+    ],
+    "B": [
+      195.0,
+      35.0
+    ],
+    "C": [
+      36.0,
+      193.0
+    ],
+    "D": [
+      193.0,
+      194.0
+    ],
+    "F": [
+      115.0,
+      113.0
+    ],
+    "G": [
+      116.0,
+      194.0
+    ]
+  },
+  "circle_instances": [
+    "F"
+  ]
+}

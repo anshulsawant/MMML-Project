@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find y.",
+  "choices": [
+    "5",
+    "5 \\sqrt { 3 }",
+    "10",
+    "5 \\sqrt { 5 }"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2908,
+  "annot_id": "pan_2020-03-23_19_50_52",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "5\\sqrt{3}",
+    "10",
+    "5\\sqrt{5}"
+  ],
+  "precise_value": [
+    5.0,
+    8.660254037844386,
+    10.0,
+    11.180339887498949
+  ],
+  "rough_value": [
+    5,
+    8.66,
+    10,
+    11.18
+  ],
+  "compact_text": "Find y.",
+  "annotat_text": "Find $y$.",
+  "unit": "",
+  "img_width": 270,
+  "img_height": 460,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

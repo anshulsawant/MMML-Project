@@ -1,0 +1,48 @@
+{
+  "problem_text": "\\triangle A B C \\sim \\triangle F D G. Find the value of x.",
+  "choices": [
+    "8",
+    "10",
+    "12",
+    "15"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "! two subgraph",
+  "id": 2762,
+  "annot_id": "Shibiao_2020-03-22_12_18_16",
+  "is_standard": false,
+  "compact_choices": [
+    "8",
+    "10",
+    "12",
+    "15"
+  ],
+  "precise_value": [
+    8.0,
+    10.0,
+    12.0,
+    15.0
+  ],
+  "rough_value": [
+    8,
+    10,
+    12,
+    15
+  ],
+  "compact_text": "\\triangle ABC \\sim \\triangle FDG. Find the value of x.",
+  "annotat_text": "$\\triangle ABC \\sim \\triangle FDG$. Find the value of $x$.",
+  "unit": "",
+  "img_width": 1095,
+  "img_height": 514,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the measure of J K.",
+  "choices": [
+    "15.5",
+    "31",
+    "62",
+    "124"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2902,
+  "annot_id": "pan_2020-03-23_04_23_29",
+  "is_standard": false,
+  "compact_choices": [
+    "15.5",
+    "31",
+    "62",
+    "124"
+  ],
+  "precise_value": [
+    15.5,
+    31.0,
+    62.0,
+    124.0
+  ],
+  "rough_value": [
+    15.5,
+    31,
+    62,
+    124
+  ],
+  "compact_text": "Find the measure of JK.",
+  "annotat_text": "Find the measure of $JK$.",
+  "unit": "",
+  "img_width": 325,
+  "img_height": 329,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

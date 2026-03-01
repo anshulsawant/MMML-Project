@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x in the figure.",
+  "choices": [
+    "11",
+    "12",
+    "13",
+    "14"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 3 - Parallel and Perpendicular Lines.pdf",
+  "comment": "",
+  "id": 2643,
+  "annot_id": "pan_2020-03-17_03_00_46",
+  "is_standard": false,
+  "compact_choices": [
+    "11",
+    "12",
+    "13",
+    "14"
+  ],
+  "precise_value": [
+    11.0,
+    12.0,
+    13.0,
+    14.0
+  ],
+  "rough_value": [
+    11,
+    12,
+    13,
+    14
+  ],
+  "compact_text": "Find x in the figure.",
+  "annotat_text": "Find $x$ in the figure.",
+  "unit": "",
+  "img_width": 331,
+  "img_height": 283,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

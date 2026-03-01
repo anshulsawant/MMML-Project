@@ -1,0 +1,62 @@
+{
+  "text_logic_form": [
+    "Parallelogram(M,N,P,R)",
+    "Find(MeasureOf(Angle(M,N,P)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Parallelogram(M,N,P,R)",
+    "Find(MeasureOf(Angle(M,N,P)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(P, Q)), 11.1)",
+    "Equals(MeasureOf(Angle(N, Q, P)), 83)",
+    "Equals(LengthOf(Line(R, P)), 20)",
+    "Equals(LengthOf(Line(M, N)), 3x-4)",
+    "Equals(LengthOf(Line(P, N)), 2y+5)",
+    "Equals(LengthOf(Line(N, Q)), 15.4)",
+    "Equals(MeasureOf(Angle(Q, N, M)), 33)",
+    "Equals(LengthOf(Line(M, N)), 3x-4)",
+    "Equals(LengthOf(Line(R, Q)), 3z-3)",
+    "Equals(MeasureOf(Angle(M, R, Q)), 38)",
+    "Equals(LengthOf(Line(R, M)), 17.9)",
+    "PointLiesOnLine(Q, Line(R, N))",
+    "PointLiesOnLine(Q, Line(P, M))"
+  ],
+  "line_instances": [
+    "MN",
+    "MQ",
+    "NQ",
+    "PM",
+    "PN",
+    "PQ",
+    "RM",
+    "RN",
+    "RP",
+    "RQ"
+  ],
+  "point_positions": {
+    "M": [
+      65.0,
+      0.0
+    ],
+    "N": [
+      260.0,
+      1.0
+    ],
+    "P": [
+      197.0,
+      166.0
+    ],
+    "Q": [
+      131.0,
+      83.0
+    ],
+    "R": [
+      0.0,
+      166.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

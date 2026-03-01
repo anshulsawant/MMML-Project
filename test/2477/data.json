@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find m \\angle B.",
+  "choices": [
+    "29",
+    "58",
+    "61",
+    "122"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2477,
+  "annot_id": "Shibiao_2020-03-28_11_46_11",
+  "is_standard": false,
+  "compact_choices": [
+    "29",
+    "58",
+    "61",
+    "122"
+  ],
+  "precise_value": [
+    29.0,
+    58.0,
+    61.0,
+    122.0
+  ],
+  "rough_value": [
+    29,
+    58,
+    61,
+    122
+  ],
+  "compact_text": "Find m \\angle B.",
+  "annotat_text": "Find $m \\angle B$.",
+  "unit": "",
+  "img_width": 417,
+  "img_height": 382,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

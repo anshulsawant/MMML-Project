@@ -1,0 +1,48 @@
+{
+  "text_logic_form": [
+    "Similar(Polygon($1),Polygon($2))",
+    "Find(LengthOf(Line(G,F)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Triangle(R,T,S),Triangle(E,F,G))",
+    "Find(LengthOf(Line(G,F)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(S, R)), 20.7)",
+    "Equals(LengthOf(Line(G, F)), x)",
+    "Equals(LengthOf(Line(S, T)), 10)",
+    "Equals(LengthOf(Line(R, T)), 15)",
+    "Equals(LengthOf(Line(E, F)), 11.25)",
+    "Equals(MeasureOf(Angle(S, R, T)), 27)",
+    "Equals(MeasureOf(Angle(R, T, S)), 110)",
+    "Equals(MeasureOf(Angle(E, F, G)), 110)",
+    "Equals(MeasureOf(Angle(G, E, F)), 27)",
+    "Equals(MeasureOf(Angle(R, S, T)), 43)",
+    ""
+  ],
+  "line_instances": [
+    "SR",
+    "ST",
+    "RT",
+    "EF",
+    "FG",
+    "EG"
+  ],
+  "point_positions": {
+    "S": [
+      234.0,
+      1.0
+    ],
+    "R": [
+      2.0,
+      122.0
+    ],
+    "T": [
+      192.0,
+      123.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

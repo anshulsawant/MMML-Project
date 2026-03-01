@@ -1,0 +1,47 @@
+{
+  "text_logic_form": [
+    "Equilateral(Triangle(L,M,N))",
+    "BisectsAngle(Line(M,P),Line(L,N))",
+    "Find(LengthOf(SideOf(Triangle(L,M,N))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equilateral(Triangle(L,M,N))",
+    "BisectsAngle(Line(M,P),Line(L,N))",
+    "Find(LengthOf(SideOf(Triangle(L,M,N))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(M, N)), 4x-2)",
+    "Equals(LengthOf(Line(M, L)), 3x+1)",
+    "Equals(MeasureOf(Angle(L, P, M)), 5y)",
+    "PointLiesOnLine(P, Line(L, N))"
+  ],
+  "line_instances": [
+    "LN",
+    "ML",
+    "MN",
+    "MP",
+    "PL",
+    "PN"
+  ],
+  "point_positions": {
+    "L": [
+      1.0,
+      144.0
+    ],
+    "M": [
+      91.0,
+      2.0
+    ],
+    "N": [
+      181.0,
+      142.0
+    ],
+    "P": [
+      93.0,
+      144.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

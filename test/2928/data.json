@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find C F if B F bisects \\angle A B C and A C \\parallel E D, B A = 6, B C = 7.5, A C = 9, and D E = 9.",
+  "choices": [
+    "3",
+    "4.5",
+    "5",
+    "7.5"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 42",
+  "comment": "",
+  "id": 2928,
+  "annot_id": "Ran_2020-03-21_07_32_36",
+  "is_standard": false,
+  "compact_choices": [
+    "3",
+    "4.5",
+    "5",
+    "7.5"
+  ],
+  "precise_value": [
+    3.0,
+    4.5,
+    5.0,
+    7.5
+  ],
+  "rough_value": [
+    3,
+    4.5,
+    5,
+    7.5
+  ],
+  "compact_text": "Find CF if BF bisects \\angle ABC and AC \\parallel ED, BA = 6, BC = 7.5, AC = 9, and DE = 9.",
+  "annotat_text": "Find $C F$ if $\\overline{B F}$ bisects $\\angle A B C$ and $\\overline{A C} \\| \\overline{E D}, B A=6, B C=7.5$, $A C=9,$ and $D E=9$",
+  "unit": "",
+  "img_width": 375,
+  "img_height": 218,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

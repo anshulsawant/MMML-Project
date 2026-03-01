@@ -1,0 +1,42 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(4)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(4)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(A, B, C)), MeasureOf(angle 4))",
+    "Equals(MeasureOf(Angle(D, A, B)), 123)",
+    "PointLiesOnLine(A, Line(C, D))",
+    "Perpendicular(Line(C, B), Line(C, D))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "AD",
+    "BC",
+    "CD"
+  ],
+  "point_positions": {
+    "A": [
+      73.0,
+      112.0
+    ],
+    "B": [
+      475.0,
+      114.0
+    ],
+    "C": [
+      194.0,
+      299.0
+    ],
+    "D": [
+      8.0,
+      9.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

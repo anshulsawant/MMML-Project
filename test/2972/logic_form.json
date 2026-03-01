@@ -1,0 +1,80 @@
+{
+  "text_logic_form": [
+    "Equals(LengthOf(Line(U,J)),9)",
+    "Equals(LengthOf(Line(V,J)),3)",
+    "Equals(LengthOf(Line(Z,T)),18)",
+    "Find(LengthOf(Line(S,J)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(LengthOf(Line(U,J)),9)",
+    "Equals(LengthOf(Line(V,J)),3)",
+    "Equals(LengthOf(Line(Z,T)),18)",
+    "Find(LengthOf(Line(S,J)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(U, J)), 9)",
+    "Equals(LengthOf(Line(J, V)), 3)",
+    "PointLiesOnLine(V, Line(Z, U))",
+    "PointLiesOnLine(Y, Line(Z, S))",
+    "PointLiesOnLine(J, Line(Z, T))",
+    "PointLiesOnLine(J, Line(U, Y))",
+    "PointLiesOnLine(T, Line(U, S))",
+    "PointLiesOnLine(J, Line(S, V))",
+    "Equals(LengthOf(Line(S, T)), LengthOf(Line(U, T)))",
+    "Equals(LengthOf(Line(Z, V)), LengthOf(Line(U, V)))",
+    "Equals(LengthOf(Line(S, Y)), LengthOf(Line(Y, Z)))"
+  ],
+  "line_instances": [
+    "JS",
+    "JT",
+    "JV",
+    "JY",
+    "ST",
+    "SV",
+    "UJ",
+    "US",
+    "UT",
+    "UV",
+    "UY",
+    "YS",
+    "ZJ",
+    "ZS",
+    "ZT",
+    "ZU",
+    "ZV",
+    "ZY"
+  ],
+  "point_positions": {
+    "J": [
+      197.0,
+      164.0
+    ],
+    "S": [
+      27.0,
+      2.0
+    ],
+    "T": [
+      287.0,
+      60.0
+    ],
+    "U": [
+      546.0,
+      119.0
+    ],
+    "V": [
+      282.0,
+      245.0
+    ],
+    "Y": [
+      21.0,
+      186.0
+    ],
+    "Z": [
+      14.0,
+      372.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

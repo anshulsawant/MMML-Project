@@ -1,0 +1,50 @@
+{
+  "text_logic_form": [
+    "Equals(AreaOf(Parallelogram($)),2000)",
+    "Find(HeightOf(Parallelogram($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(AreaOf(Parallelogram(A,B,C,D)),2000)",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, C)), x+10)",
+    "Equals(LengthOf(Line(B, E)), x)",
+    "PointLiesOnLine(E, Line(A, D))",
+    "Perpendicular(Line(E, B), Line(E, D))"
+  ],
+  "line_instances": [
+    "AB",
+    "AD",
+    "AE",
+    "BC",
+    "BE",
+    "DC",
+    "DE"
+  ],
+  "point_positions": {
+    "A": [
+      0.0,
+      177.0
+    ],
+    "B": [
+      116.0,
+      1.0
+    ],
+    "C": [
+      335.0,
+      1.0
+    ],
+    "D": [
+      222.0,
+      177.0
+    ],
+    "E": [
+      115.0,
+      177.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

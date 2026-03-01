@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x.",
+  "choices": [
+    "45",
+    "90",
+    "180",
+    "360"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "",
+  "id": 2669,
+  "annot_id": "pan_2020-03-13_21_42_40",
+  "is_standard": false,
+  "compact_choices": [
+    "45",
+    "90",
+    "180",
+    "360"
+  ],
+  "precise_value": [
+    45.0,
+    90.0,
+    180.0,
+    360.0
+  ],
+  "rough_value": [
+    45,
+    90,
+    180,
+    360
+  ],
+  "compact_text": "Find x.",
+  "annotat_text": "Find $x$.",
+  "unit": "",
+  "img_width": 391,
+  "img_height": 171,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

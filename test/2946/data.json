@@ -1,0 +1,48 @@
+{
+  "problem_text": "If F G H J is a kite, find m \\angle G F J.",
+  "choices": [
+    "72",
+    "80",
+    "128",
+    "190"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Other"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter6.pdf page 54",
+  "comment": "",
+  "id": 2946,
+  "annot_id": "Ran_2020-03-19_05_11_35",
+  "is_standard": false,
+  "compact_choices": [
+    "72",
+    "80",
+    "128",
+    "190"
+  ],
+  "precise_value": [
+    72.0,
+    80.0,
+    128.0,
+    190.0
+  ],
+  "rough_value": [
+    72,
+    80,
+    128,
+    190
+  ],
+  "compact_text": "If FGHJ is a kite, find m \\angle GFJ.",
+  "annotat_text": "If $FGHJ$ is a kite, find $m\\angle GFJ$.",
+  "unit": "",
+  "img_width": 337,
+  "img_height": 273,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

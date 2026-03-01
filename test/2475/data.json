@@ -1,0 +1,48 @@
+{
+  "problem_text": "If m \\angle 5 = 7 x - 5 and m \\angle 4 = 2 x + 23, find x.",
+  "choices": [
+    "5.6",
+    "18",
+    "20",
+    "22"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "ALGEBRA, hard",
+  "id": 2475,
+  "annot_id": "pan_2020-03-15_06_17_49",
+  "is_standard": false,
+  "compact_choices": [
+    "5.6",
+    "18",
+    "20",
+    "22"
+  ],
+  "precise_value": [
+    5.6,
+    18.0,
+    20.0,
+    22.0
+  ],
+  "rough_value": [
+    5.6,
+    18,
+    20,
+    22
+  ],
+  "compact_text": "If m \\angle 5 = 7x-5 and m \\angle 4 = 2x+23, find x.",
+  "annotat_text": "If $m\u22205 = 7x - 5$ and $m\u22204 = 2x + 23$, find $x$.",
+  "unit": "",
+  "img_width": 419,
+  "img_height": 369,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

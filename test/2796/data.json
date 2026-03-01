@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the measure of m \\widehat Y X Z.",
+  "choices": [
+    "145",
+    "166",
+    "194",
+    "215"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2796,
+  "annot_id": "pan_2020-03-27_21_37_24",
+  "is_standard": false,
+  "compact_choices": [
+    "145",
+    "166",
+    "194",
+    "215"
+  ],
+  "precise_value": [
+    145.0,
+    166.0,
+    194.0,
+    215.0
+  ],
+  "rough_value": [
+    145,
+    166,
+    194,
+    215
+  ],
+  "compact_text": "Find the measure of m \\widehat YXZ.",
+  "annotat_text": "Find the measure of $m \\widehat{YXZ}$.",
+  "unit": "",
+  "img_width": 387,
+  "img_height": 355,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

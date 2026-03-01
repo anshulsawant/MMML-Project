@@ -1,0 +1,37 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(L, M, P)), 60)",
+    "Equals(MeasureOf(Angle(M, P, L)), 60)",
+    "Equals(LengthOf(Line(P, M)), 4)",
+    "Equals(LengthOf(Line(L, M)), 2y+6)",
+    "Equals(LengthOf(Line(L, P)), 5x-3)"
+  ],
+  "line_instances": [
+    "LM",
+    "LP",
+    "PM"
+  ],
+  "point_positions": {
+    "L": [
+      276.0,
+      79.0
+    ],
+    "M": [
+      0.0,
+      1.0
+    ],
+    "P": [
+      71.0,
+      279.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

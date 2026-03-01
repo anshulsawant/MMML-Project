@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x. Round to the nearest hundredth.",
+  "choices": [
+    "8.00",
+    "10.16",
+    "10.24",
+    "16.64"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2737,
+  "annot_id": "pan_2020-03-24_05_47_17",
+  "is_standard": false,
+  "compact_choices": [
+    "8.00",
+    "10.16",
+    "10.24",
+    "16.64"
+  ],
+  "precise_value": [
+    8.0,
+    10.16,
+    10.24,
+    16.64
+  ],
+  "rough_value": [
+    8,
+    10.16,
+    10.24,
+    16.64
+  ],
+  "compact_text": "Find x. Round to the nearest hundredth.",
+  "annotat_text": "Find x. Round to the nearest hundredth.",
+  "unit": "",
+  "img_width": 232,
+  "img_height": 260,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

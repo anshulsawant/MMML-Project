@@ -1,0 +1,48 @@
+{
+  "problem_text": "If P R \\parallel K L, K N = 9, L N = 16, P M = 2 K P, find M N.",
+  "choices": [
+    "7",
+    "12",
+    "15",
+    "16"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 24",
+  "comment": "",
+  "id": 2874,
+  "annot_id": "Ran_2020-03-20_17_01_48",
+  "is_standard": false,
+  "compact_choices": [
+    "7",
+    "12",
+    "15",
+    "16"
+  ],
+  "precise_value": [
+    7.0,
+    12.0,
+    15.0,
+    16.0
+  ],
+  "rough_value": [
+    7,
+    12,
+    15,
+    16
+  ],
+  "compact_text": "If PR \\parallel KL, KN = 9, LN = 16, PM = 2 KP, find MN.",
+  "annotat_text": "If PR || KL, KN = 9, LN = 16, PM = 2 KP, find MN",
+  "unit": "",
+  "img_width": 585,
+  "img_height": 380,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

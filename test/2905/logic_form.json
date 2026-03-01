@@ -1,0 +1,48 @@
+{
+  "text_logic_form": [
+    "Find(y)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(y)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(C, B)), 6)",
+    "Equals(LengthOf(Line(A, M)), 10)",
+    "Equals(LengthOf(Line(M, B)), y)",
+    "PointLiesOnLine(B, Line(M, C))",
+    "PointLiesOnCircle(C, Circle(P, radius_4_0))",
+    "PointLiesOnCircle(B, Circle(P, radius_4_0))",
+    "PointLiesOnCircle(A, Circle(P, radius_4_0))"
+  ],
+  "line_instances": [
+    "AM",
+    "CB",
+    "MB",
+    "MC"
+  ],
+  "point_positions": {
+    "A": [
+      84.0,
+      79.0
+    ],
+    "B": [
+      138.0,
+      187.0
+    ],
+    "C": [
+      249.0,
+      187.0
+    ],
+    "M": [
+      4.0,
+      189.0
+    ],
+    "P": [
+      194.0,
+      102.0
+    ]
+  },
+  "circle_instances": [
+    "P"
+  ]
+}

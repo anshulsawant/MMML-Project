@@ -1,0 +1,48 @@
+{
+  "problem_text": "In R S T V, R S = 6, V T = 3 and R X is twice the length of X V. Find X Y.",
+  "choices": [
+    "3",
+    "4",
+    "6",
+    "9"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Trapezoid"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter8.pdf page 45",
+  "comment": "",
+  "id": 2816,
+  "annot_id": "Ran_2020-03-27_05_22_41",
+  "is_standard": false,
+  "compact_choices": [
+    "3",
+    "4",
+    "6",
+    "9"
+  ],
+  "precise_value": [
+    3.0,
+    4.0,
+    6.0,
+    9.0
+  ],
+  "rough_value": [
+    3,
+    4,
+    6,
+    9
+  ],
+  "compact_text": "In RSTV, RS = 6, VT = 3 and RX is twice the length of XV. Find XY.",
+  "annotat_text": " In RSTV, RS $=6, V T=3$ and $R X$ is twice the length of $X V .$ Find $X Y .$",
+  "unit": "",
+  "img_width": 290,
+  "img_height": 257,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

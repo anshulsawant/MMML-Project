@@ -1,0 +1,77 @@
+{
+  "text_logic_form": [
+    "Similar(Quadrilateral(A,B,C,D),Quadrilateral(A,E,F,G))",
+    "Equals(MeasureOf(Angle(A,G,F)),108)",
+    "Equals(LengthOf(Line(G,F)),14)",
+    "Equals(LengthOf(Line(A,D)),12)",
+    "Equals(LengthOf(Line(D,G)),4.5)",
+    "Equals(LengthOf(Line(E,F)),8)",
+    "Equals(LengthOf(Line(A,B)),26)",
+    "Find(MeasureOf(Angle(A,D,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Quadrilateral(A,B,C,D),Quadrilateral(A,E,F,G))",
+    "Equals(MeasureOf(Angle(A,G,F)),108)",
+    "Equals(LengthOf(Line(G,F)),14)",
+    "Equals(LengthOf(Line(A,D)),12)",
+    "Equals(LengthOf(Line(D,G)),4.5)",
+    "Equals(LengthOf(Line(E,F)),8)",
+    "Equals(LengthOf(Line(A,B)),26)",
+    "Find(MeasureOf(Angle(A,D,C)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, A)), 26)",
+    "Equals(LengthOf(Line(E, F)), 8)",
+    "Equals(MeasureOf(Angle(A, G, F)), 108)",
+    "Equals(LengthOf(Line(D, A)), 12)",
+    "Equals(LengthOf(Line(G, F)), 14)",
+    "Equals(LengthOf(Line(D, G)), 4.5)",
+    "PointLiesOnLine(E, Line(B, A))",
+    "PointLiesOnLine(G, Line(D, A))"
+  ],
+  "line_instances": [
+    "AE",
+    "AG",
+    "BA",
+    "BE",
+    "CB",
+    "CD",
+    "DA",
+    "DG",
+    "EF",
+    "GF"
+  ],
+  "point_positions": {
+    "A": [
+      1.0,
+      27.0
+    ],
+    "B": [
+      250.0,
+      1.0
+    ],
+    "C": [
+      249.0,
+      133.0
+    ],
+    "D": [
+      37.0,
+      132.0
+    ],
+    "E": [
+      156.0,
+      9.0
+    ],
+    "F": [
+      159.0,
+      87.0
+    ],
+    "G": [
+      22.0,
+      89.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

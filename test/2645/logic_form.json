@@ -1,0 +1,38 @@
+{
+  "text_logic_form": [
+    "Triangle($)",
+    "Find(h)"
+  ],
+  "dissolved_text_logic_form": [
+    "Triangle(A,B,C)",
+    "Find(h)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, C)), h)",
+    "Equals(LengthOf(Line(B, C)), 22)",
+    "Equals(MeasureOf(Angle(A, B, C)), 30)",
+    "Perpendicular(Line(A, B), Line(A, C))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BC"
+  ],
+  "point_positions": {
+    "A": [
+      0.0,
+      124.0
+    ],
+    "B": [
+      215.0,
+      126.0
+    ],
+    "C": [
+      1.0,
+      1.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

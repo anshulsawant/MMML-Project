@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find the area of the figure to the nearest tenth.",
+  "choices": [
+    "24",
+    "31.1",
+    "38.1",
+    "52.3"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle",
+    "Rectangle"
+  ],
+  "problem_type_goal": [
+    "Area"
+  ],
+  "source": "Textbook 2_Chapter 11 - Areas of Polygons and Circles.pdf",
+  "comment": "",
+  "id": 2898,
+  "annot_id": "pan_2020-03-22_07_22_02",
+  "is_standard": false,
+  "unit": "units^2",
+  "compact_choices": [
+    "24",
+    "31.1",
+    "38.1",
+    "52.3"
+  ],
+  "precise_value": [
+    24.0,
+    31.1,
+    38.1,
+    52.3
+  ],
+  "rough_value": [
+    24,
+    31.1,
+    38.1,
+    52.3
+  ],
+  "compact_text": "Find the area of the figure to the nearest tenth.",
+  "annotat_text": "Find the area of the figure to the nearest tenth.",
+  "img_width": 404,
+  "img_height": 162,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

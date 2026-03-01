@@ -1,0 +1,44 @@
+{
+  "text_logic_form": [
+    "Parallelogram(A,B,C,D)",
+    "Equals(PerimeterOf(Quadrilateral(A,B,C,D)),22)",
+    "Find(LengthOf(Line(A,B)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(PerimeterOf(Parallelogram(A,B,C,D)),22)",
+    "Find(LengthOf(Line(A,B)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, B)), 2y+1)",
+    "Equals(LengthOf(Line(D, C)), 3-4w)",
+    "Equals(LengthOf(Line(D, A)), 3x-2)",
+    "Equals(LengthOf(Line(C, B)), x-w+1)"
+  ],
+  "line_instances": [
+    "AB",
+    "CB",
+    "DA",
+    "DC"
+  ],
+  "point_positions": {
+    "A": [
+      83.0,
+      2.0
+    ],
+    "B": [
+      331.0,
+      1.0
+    ],
+    "C": [
+      249.0,
+      110.0
+    ],
+    "D": [
+      0.0,
+      110.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

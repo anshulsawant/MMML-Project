@@ -1,0 +1,36 @@
+{
+  "text_logic_form": [
+    "UseTheorem(Pythagorean_Triple)",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "UseTheorem(Pythagorean_Triple)",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(B, C)), 24)",
+    "Equals(LengthOf(Line(A, C)), 74)",
+    "Equals(LengthOf(Line(A, B)), x)",
+    "Perpendicular(Line(B, A), Line(B, C))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BC"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "A": [
+      0.0,
+      208.0
+    ],
+    "B": [
+      120.60969100672004,
+      1.9955789202919476
+    ],
+    "C": [
+      197.0,
+      44.5
+    ]
+  }
+}

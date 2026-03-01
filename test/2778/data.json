@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x.",
+  "choices": [
+    "\\frac { 72 } { 7 }",
+    "14",
+    "\\frac { 95 } { 6 }",
+    "\\frac { 97 } { 6 }"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2778,
+  "annot_id": "Shibiao_2020-03-28_12_42_50",
+  "is_standard": false,
+  "compact_choices": [
+    "\\frac{72}{7}",
+    "14",
+    "\\frac{95}{6}",
+    "\\frac{97}{6}"
+  ],
+  "precise_value": [
+    10.285714285714286,
+    14.0,
+    15.833333333333334,
+    16.166666666666668
+  ],
+  "rough_value": [
+    10.29,
+    14,
+    15.83,
+    16.17
+  ],
+  "compact_text": "Find x.",
+  "annotat_text": "Find $x$.",
+  "unit": "",
+  "img_width": 568,
+  "img_height": 446,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

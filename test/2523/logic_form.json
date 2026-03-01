@@ -1,0 +1,63 @@
+{
+  "text_logic_form": [
+    "Similar(Polygon($1),Polygon($2))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Quadrilateral(A,D,C,B),Quadrilateral(A,G,F,E))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, B)), x-2)",
+    "Equals(LengthOf(Line(G, D)), 7.5)",
+    "Equals(LengthOf(Line(A, D)), x)",
+    "Equals(LengthOf(Line(E, B)), 5)",
+    "PointLiesOnLine(D, Line(A, G))",
+    "PointLiesOnLine(B, Line(A, E))"
+  ],
+  "line_instances": [
+    "AB",
+    "AD",
+    "AE",
+    "AG",
+    "BC",
+    "DC",
+    "EB",
+    "EF",
+    "GD",
+    "GF"
+  ],
+  "point_positions": {
+    "A": [
+      2.0,
+      156.0
+    ],
+    "B": [
+      1.0,
+      85.0
+    ],
+    "C": [
+      99.0,
+      88.0
+    ],
+    "D": [
+      100.0,
+      155.0
+    ],
+    "E": [
+      0.0,
+      0.0
+    ],
+    "F": [
+      229.0,
+      1.0
+    ],
+    "G": [
+      228.0,
+      154.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

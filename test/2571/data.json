@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find x.",
+  "choices": [
+    "1.8",
+    "5",
+    "46",
+    "90"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2571,
+  "annot_id": "Shibiao_2020-03-28_10_01_47",
+  "is_standard": true,
+  "compact_choices": [
+    "1.8",
+    "5",
+    "46",
+    "90"
+  ],
+  "precise_value": [
+    1.8,
+    5.0,
+    46.0,
+    90.0
+  ],
+  "rough_value": [
+    1.8,
+    5,
+    46,
+    90
+  ],
+  "compact_text": "Find x.",
+  "annotat_text": "Find $x$.",
+  "unit": "",
+  "img_width": 736,
+  "img_height": 530,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

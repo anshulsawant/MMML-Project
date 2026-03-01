@@ -1,0 +1,74 @@
+{
+  "text_logic_form": [
+    "Circle(O)",
+    "IsDiameterOf(Line(E,C),Circle(O))",
+    "IsDiameterOf(Line(A,B),Circle(O))",
+    "Equals(Angle(B,O,D),Angle(D,O,E))",
+    "Equals(Angle(D,O,E),Angle(E,O,F))",
+    "Equals(Angle(E,O,F),Angle(F,O,A))",
+    "Find(MeasureOf(Arc(A,C)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Circle(O)",
+    "IsDiameterOf(Line(E,C),Circle(O))",
+    "IsDiameterOf(Line(A,B),Circle(O))",
+    "Equals(Angle(B,O,D),Angle(D,O,E))",
+    "Equals(Angle(D,O,E),Angle(E,O,F))",
+    "Equals(Angle(E,O,F),Angle(F,O,A))",
+    "Find(MeasureOf(Arc(A,C)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(O, Line(E, C))",
+    "PointLiesOnLine(O, Line(A, B))",
+    "PointLiesOnCircle(E, Circle(O, radius_0_0))",
+    "PointLiesOnCircle(F, Circle(O, radius_0_0))",
+    "PointLiesOnCircle(A, Circle(O, radius_0_0))",
+    "PointLiesOnCircle(C, Circle(O, radius_0_0))",
+    "PointLiesOnCircle(D, Circle(O, radius_0_0))",
+    "PointLiesOnCircle(B, Circle(O, radius_0_0))",
+    "Perpendicular(Line(O, A), Line(O, C))"
+  ],
+  "line_instances": [
+    "AB",
+    "CE",
+    "OA",
+    "OB",
+    "OC",
+    "OD",
+    "OE",
+    "OF"
+  ],
+  "point_positions": {
+    "A": [
+      28.0,
+      147.0
+    ],
+    "B": [
+      139.0,
+      29.0
+    ],
+    "C": [
+      146.0,
+      144.0
+    ],
+    "D": [
+      82.0,
+      2.0
+    ],
+    "E": [
+      26.0,
+      28.0
+    ],
+    "F": [
+      2.0,
+      89.0
+    ],
+    "O": [
+      85.0,
+      85.0
+    ]
+  },
+  "circle_instances": [
+    "O"
+  ]
+}

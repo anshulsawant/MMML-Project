@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, \\triangle A B C \\sim \\triangle D E F. B G is a median of \\triangle A B C, and E H is a median of \\triangle D E F. Find E H if B C = 30, B G = 15, and E F = 15.",
+  "choices": [
+    "7.5",
+    "15",
+    "22.5",
+    "30"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 39",
+  "comment": "",
+  "id": 2632,
+  "annot_id": "Ran_2020-03-21_06_58_30",
+  "is_standard": false,
+  "compact_choices": [
+    "7.5",
+    "15",
+    "22.5",
+    "30"
+  ],
+  "precise_value": [
+    7.5,
+    15.0,
+    22.5,
+    30.0
+  ],
+  "rough_value": [
+    7.5,
+    15,
+    22.5,
+    30
+  ],
+  "compact_text": "In the figure, \\triangle ABC \\sim \\triangle DEF. BG is a median of \\triangle ABC, and EH is a median of \\triangle DEF. Find EH if BC = 30, BG = 15, and EF = 15.",
+  "annotat_text": "In the figure, $\\triangle A B C \\sim \\triangle D E F . \\overline{B G}$ is a median of $\\triangle A B C,$ and $\\overline{E H}$ is a median of $\\triangle D E F .$ Find $E H$ if $B C=30, B G=15,$ and $E F=15$",
+  "unit": "",
+  "img_width": 436,
+  "img_height": 330,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

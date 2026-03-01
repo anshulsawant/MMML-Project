@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find Q S.",
+  "choices": [
+    "5",
+    "15",
+    "20",
+    "25"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "",
+  "id": 2691,
+  "annot_id": "Shibiao_2020-03-21_12_06_07",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "15",
+    "20",
+    "25"
+  ],
+  "precise_value": [
+    5.0,
+    15.0,
+    20.0,
+    25.0
+  ],
+  "rough_value": [
+    5,
+    15,
+    20,
+    25
+  ],
+  "compact_text": "Find QS.",
+  "annotat_text": "Find $QS$.",
+  "unit": "",
+  "img_width": 484,
+  "img_height": 393,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

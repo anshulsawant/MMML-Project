@@ -1,0 +1,40 @@
+{
+  "text_logic_form": [
+    "Equals(a,14)",
+    "Equals(b,48)",
+    "Equals(c,50)",
+    "Find(SinOf(Angle(A)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(a,14)",
+    "Equals(b,48)",
+    "Equals(c,50)",
+    "Find(SinOf(Angle(A)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(C, B)), a)",
+    "Equals(LengthOf(Line(A, C)), b)",
+    "Equals(LengthOf(Line(A, B)), c)",
+    "Perpendicular(Line(C, A), Line(C, B))"
+  ],
+  "line_instances": [
+    "AC",
+    "AB",
+    "CB"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "A": [
+      162.0,
+      90.0
+    ],
+    "C": [
+      0.9999999999999929,
+      88.0
+    ],
+    "B": [
+      0.6666666666666643,
+      0.518518518518519
+    ]
+  }
+}

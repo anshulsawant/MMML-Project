@@ -1,0 +1,54 @@
+{
+  "text_logic_form": [
+    "Circle(F)",
+    "IsDiameterOf(Line(A,C),Circle(F))",
+    "Find(MeasureOf(Angle(C,F,D)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Circle(F)",
+    "IsDiameterOf(Line(A,C),Circle(F))",
+    "Find(MeasureOf(Angle(C,F,D)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(B, F, C)), 72)",
+    "Equals(MeasureOf(Angle(D, F, A)), 2a-5)",
+    "Equals(MeasureOf(Angle(C, F, D)), 4a-1)",
+    "PointLiesOnCircle(D, Circle(F, radius_0_0))",
+    "PointLiesOnCircle(C, Circle(F, radius_0_0))",
+    "PointLiesOnCircle(A, Circle(F, radius_0_0))",
+    "PointLiesOnCircle(B, Circle(F, radius_0_0))"
+  ],
+  "line_instances": [
+    "BE",
+    "CA",
+    "FA",
+    "FB",
+    "FC",
+    "FD"
+  ],
+  "point_positions": {
+    "A": [
+      49.0,
+      223.0
+    ],
+    "B": [
+      55.0,
+      35.0
+    ],
+    "C": [
+      196.0,
+      25.0
+    ],
+    "D": [
+      149.0,
+      245.0
+    ],
+    "F": [
+      124.0,
+      125.0
+    ]
+  },
+  "circle_instances": [
+    "F"
+  ]
+}

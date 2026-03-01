@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find y.",
+  "choices": [
+    "16 \\sqrt { 2 }",
+    "16 \\sqrt { 3 }",
+    "32",
+    "16 \\sqrt { 5 }"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "",
+  "id": 2554,
+  "annot_id": "pan_2020-03-23_20_15_39",
+  "is_standard": false,
+  "compact_choices": [
+    "16\\sqrt{2}",
+    "16\\sqrt{3}",
+    "32",
+    "16\\sqrt{5}"
+  ],
+  "precise_value": [
+    22.627416997969522,
+    27.712812921102035,
+    32.0,
+    35.77708763999664
+  ],
+  "rough_value": [
+    22.63,
+    27.71,
+    32,
+    35.78
+  ],
+  "compact_text": "Find y.",
+  "annotat_text": "Find y.",
+  "unit": "",
+  "img_width": 427,
+  "img_height": 196,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

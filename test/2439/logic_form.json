@@ -1,0 +1,32 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(R,S,T)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(R,S,T)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(T, R, S)), 70)",
+    "Equals(LengthOf(Line(T, R)), LengthOf(Line(S, R)))"
+  ],
+  "line_instances": [
+    "TS",
+    "TR",
+    "SR"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "T": [
+      227.09815950920245,
+      163.33333333333334
+    ],
+    "S": [
+      0.4634146341463321,
+      163.66666666666669
+    ],
+    "R": [
+      113.00247493901679,
+      1.4759717251571232
+    ]
+  }
+}

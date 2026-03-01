@@ -1,0 +1,73 @@
+{
+  "text_logic_form": [
+    "Circle(F)",
+    "Equals(LengthOf(Line(F,H)),Line(F,L))",
+    "Equals(LengthOf(Line(F,K)),17)",
+    "Find(LengthOf(Line(J,G)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Circle(F)",
+    "Equals(LengthOf(Line(F,H)),Line(F,L))",
+    "Equals(LengthOf(Line(F,K)),17)",
+    "Find(LengthOf(Line(J,G)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(F, H)), 8)",
+    "PointLiesOnLine(L, Line(K, M))",
+    "PointLiesOnLine(F, Line(K, G))",
+    "PointLiesOnLine(H, Line(G, J))",
+    "PointLiesOnLine(F, Line(L, H))",
+    "PointLiesOnCircle(K, Circle(F, radius_1_0))",
+    "PointLiesOnCircle(M, Circle(F, radius_1_0))",
+    "PointLiesOnCircle(J, Circle(F, radius_1_0))",
+    "PointLiesOnCircle(G, Circle(F, radius_1_0))",
+    "Perpendicular(Line(L, K), Line(L, H))",
+    "Perpendicular(Line(H, J), Line(H, L))"
+  ],
+  "line_instances": [
+    "KF",
+    "KM",
+    "KG",
+    "KL",
+    "FH",
+    "FL",
+    "ML",
+    "GH",
+    "GJ",
+    "LH",
+    "HJ"
+  ],
+  "circle_instances": [
+    "F"
+  ],
+  "point_positions": {
+    "K": [
+      150.30693248682098,
+      27.30978212043
+    ],
+    "F": [
+      86.87040650406504,
+      90.15138211382114
+    ],
+    "M": [
+      151.96290341673466,
+      151.40484691958966
+    ],
+    "H": [
+      27.00362898265469,
+      89.0159306187723
+    ],
+    "J": [
+      28.982223339788376,
+      26.14659458364985
+    ],
+    "G": [
+      27.032555873188485,
+      151.90014617934204
+    ],
+    "L": [
+      151.2788035450517,
+      90.98855243722303
+    ]
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "problem_text": "\\triangle B C D \\cong \\triangle W X Y. Find x.",
+  "choices": [
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_4.pdf",
+  "comment": "! two subgraph",
+  "id": 2995,
+  "annot_id": "Shibiao_2020-03-21_14_34_44",
+  "is_standard": false,
+  "compact_choices": [
+    "2",
+    "3",
+    "4",
+    "5"
+  ],
+  "precise_value": [
+    2.0,
+    3.0,
+    4.0,
+    5.0
+  ],
+  "rough_value": [
+    2,
+    3,
+    4,
+    5
+  ],
+  "compact_text": "\\triangle BCD \\cong \\triangle WXY. Find x.",
+  "annotat_text": "$\\triangle BCD \\cong \\triangle WXY$. Find $x$.",
+  "unit": "",
+  "img_width": 861,
+  "img_height": 366,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

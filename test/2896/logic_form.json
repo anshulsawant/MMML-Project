@@ -1,0 +1,41 @@
+{
+  "text_logic_form": [
+    "Parallelogram(J,K,L,M)",
+    "Find(MeasureOf(Angle(J,M,L)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Parallelogram(J,K,L,M)",
+    "Find(MeasureOf(Angle(J,M,L)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(L, K, J)), 109)",
+    "Equals(LengthOf(Line(M, L)), 6)"
+  ],
+  "line_instances": [
+    "JK",
+    "JM",
+    "KL",
+    "ML"
+  ],
+  "point_positions": {
+    "J": [
+      0.0,
+      0.0
+    ],
+    "K": [
+      283.0,
+      30.0
+    ],
+    "L": [
+      356.0,
+      214.0
+    ],
+    "M": [
+      76.0,
+      187.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "text_logic_form": [
+    "Line(Q,P)",
+    "Line(Q,R)",
+    "PointLiesOnLine(Q,Line(P,R))",
+    "BisectsAngle(Line(Q,T),Angle(S,Q,R))",
+    "Equals(MeasureOf(Angle(S,Q,R)),6x+8)",
+    "Equals(MeasureOf(Angle(T,Q,R)),4x-14)",
+    "Find(MeasureOf(Angle(S,Q,T)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Line(Q,P)",
+    "Line(Q,R)",
+    "PointLiesOnLine(Q,Line(P,R))",
+    "BisectsAngle(Line(Q,T),Angle(S,Q,R))",
+    "Equals(MeasureOf(Angle(S,Q,R)),6x+8)",
+    "Equals(MeasureOf(Angle(T,Q,R)),4x-14)",
+    "Find(MeasureOf(Angle(S,Q,T)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(Q, Line(P, Q))"
+  ],
+  "line_instances": [
+    "PR",
+    "QP",
+    "QR",
+    "QS",
+    "QT"
+  ],
+  "point_positions": {
+    "P": [
+      74.0,
+      186.0
+    ],
+    "Q": [
+      208.0,
+      182.0
+    ],
+    "R": [
+      336.0,
+      186.0
+    ],
+    "S": [
+      182.0,
+      56.0
+    ],
+    "T": [
+      296.0,
+      84.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

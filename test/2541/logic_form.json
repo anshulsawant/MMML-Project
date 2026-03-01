@@ -1,0 +1,43 @@
+{
+  "text_logic_form": [
+    "Quadrilateral(A,B,C,D)",
+    "Find(MeasureOf(Angle(A)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Quadrilateral(A,B,C,D)",
+    "Find(MeasureOf(Angle(A)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(B, A, D)), 3x)",
+    "Equals(MeasureOf(Angle(A, D, C)), x)",
+    "Perpendicular(Line(C, D), Line(C, B))",
+    "Perpendicular(Line(B, A), Line(B, C))"
+  ],
+  "line_instances": [
+    "AB",
+    "AD",
+    "BC",
+    "DC"
+  ],
+  "point_positions": {
+    "A": [
+      133.0,
+      0.0
+    ],
+    "B": [
+      399.0,
+      1.0
+    ],
+    "C": [
+      399.0,
+      180.0
+    ],
+    "D": [
+      1.0,
+      181.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

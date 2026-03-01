@@ -1,0 +1,77 @@
+{
+  "text_logic_form": [
+    "Perpendicular(Line(B,E),Line(A,D))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Perpendicular(Line(B,E),Line(A,D))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(C, F, D)), 3x)",
+    "Equals(MeasureOf(Angle(B, F, C)), 6x)",
+    "Equals(MeasureOf(Angle(A, F, E)), 12y-10)",
+    "PointLiesOnLine(F, Line(A, D))",
+    "PointLiesOnLine(F, Line(B, E))",
+    "",
+    ""
+  ],
+  "line_instances": [
+    "AD",
+    "AF",
+    "BE",
+    "CF",
+    "EF",
+    "FB",
+    "FD"
+  ],
+  "point_positions": {
+    "A": [
+      63.0,
+      142.0
+    ],
+    "B": [
+      257.0,
+      63.0
+    ],
+    "C": [
+      400.0,
+      61.0
+    ],
+    "D": [
+      451.0,
+      143.0
+    ],
+    "E": [
+      257.0,
+      231.0
+    ],
+    "F": [
+      254.0,
+      147.0
+    ],
+    "H": [
+      460.0,
+      27.0
+    ],
+    "I": [
+      0.0,
+      142.0
+    ],
+    "L": [
+      258.0,
+      291.0
+    ],
+    "M": [
+      510.0,
+      142.0
+    ],
+    "N": [
+      258.0,
+      1.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

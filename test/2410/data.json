@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find C D if A C = x - 3, B E = 20, A B = 16, and C D = x + 5.",
+  "choices": [
+    "32",
+    "35",
+    "36",
+    "40"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter6.pdf page 33",
+  "comment": "",
+  "id": 2410,
+  "annot_id": "Ran_2020-03-21_06_26_14",
+  "is_standard": false,
+  "compact_choices": [
+    "32",
+    "35",
+    "36",
+    "40"
+  ],
+  "precise_value": [
+    32.0,
+    35.0,
+    36.0,
+    40.0
+  ],
+  "rough_value": [
+    32,
+    35,
+    36,
+    40
+  ],
+  "compact_text": "Find CD if AC = x-3, BE = 20, AB = 16, and CD = x+5.",
+  "annotat_text": "Find $CD$ if $AC=x-3$, $BE=20, AB=16,$ and $CD=x+5$",
+  "unit": "",
+  "img_width": 367,
+  "img_height": 268,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

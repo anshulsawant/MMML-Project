@@ -1,0 +1,47 @@
+{
+  "text_logic_form": [
+    "Find(ScaleFactorOf(Shape(Q),Shape(Q')))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(ScaleFactorOf(Shape(Q),Shape(Q')))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(Q, C)), 5)",
+    "Equals(LengthOf(Line(Q', C)), 15)",
+    "PointLiesOnLine(Q, Line(Q', C))",
+    "PointLiesOnLine(F, Line(B, C))"
+  ],
+  "line_instances": [
+    "AB",
+    "AD",
+    "DX",
+    "BX",
+    "QQ'",
+    "Q'C",
+    "CQ",
+    "BC",
+    "CF",
+    "FB"
+  ],
+  "point_positions": {
+    "A": [
+      191.0,
+      5.0
+    ],
+    "B": [
+      474.0,
+      86.0
+    ],
+    "D": [
+      2.0,
+      169.0
+    ],
+    "X": [
+      157.0,
+      356.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

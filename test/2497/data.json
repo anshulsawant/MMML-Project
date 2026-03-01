@@ -1,0 +1,48 @@
+{
+  "problem_text": "In H, the diameter is 18, L M = 12, and m \\widehat L M = 84. Find H P. Round to the nearest hundredth.",
+  "choices": [
+    "2.29",
+    "3.35",
+    "5.65",
+    "6.71"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2497,
+  "annot_id": "Shibiao_2020-03-27_13_02_39",
+  "is_standard": false,
+  "compact_choices": [
+    "2.29",
+    "3.35",
+    "5.65",
+    "6.71"
+  ],
+  "precise_value": [
+    2.29,
+    3.35,
+    5.65,
+    6.71
+  ],
+  "rough_value": [
+    2.29,
+    3.35,
+    5.65,
+    6.71
+  ],
+  "compact_text": "In H, the diameter is 18, LM = 12, and m \\widehat LM = 84. Find HP. Round to the nearest hundredth.",
+  "annotat_text": "In H, the diameter is $18$, $LM = 12$, and $m \\widehat {LM} = 84$. Find $HP$. Round to the nearest hundredth.",
+  "unit": "",
+  "img_width": 460,
+  "img_height": 419,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

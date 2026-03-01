@@ -1,0 +1,47 @@
+{
+  "text_logic_form": [
+    "Find(MeasureOf(Angle(H)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(MeasureOf(Angle(H)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(E, F, G)), x+20)",
+    "Equals(MeasureOf(Angle(F, E, J)), x)",
+    "Equals(MeasureOf(Angle(J, H, G)), x-5)",
+    "Equals(MeasureOf(Angle(E, J, H)), x+10)",
+    "Equals(MeasureOf(Angle(F, G, H)), x+5)"
+  ],
+  "line_instances": [
+    "EJ",
+    "FE",
+    "GF",
+    "GH",
+    "HJ"
+  ],
+  "point_positions": {
+    "E": [
+      2.0,
+      54.0
+    ],
+    "F": [
+      31.0,
+      0.0
+    ],
+    "G": [
+      203.0,
+      2.0
+    ],
+    "H": [
+      233.0,
+      109.0
+    ],
+    "J": [
+      134.0,
+      166.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

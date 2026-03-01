@@ -1,0 +1,39 @@
+{
+  "text_logic_form": [
+    "Equilateral(Triangle(Q,R,S))",
+    "Triangle($)",
+    "Find(LengthOf(Line(R,S)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equilateral(Triangle(Q,R,S))",
+    "Triangle(Q,R,S)",
+    "Find(LengthOf(Line(R,S)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(R, Q)), 4x)",
+    "Equals(LengthOf(Line(R, S)), 2x+1)",
+    "Equals(LengthOf(Line(S, Q)), 6x-1)"
+  ],
+  "line_instances": [
+    "RQ",
+    "RS",
+    "SQ"
+  ],
+  "point_positions": {
+    "Q": [
+      1.0,
+      171.0
+    ],
+    "R": [
+      99.0,
+      0.0
+    ],
+    "S": [
+      198.0,
+      173.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

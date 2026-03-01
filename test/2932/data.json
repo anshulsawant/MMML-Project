@@ -1,0 +1,48 @@
+{
+  "problem_text": "For trapezoid A B C D, S and T are midpoints of the legs. If C D = 14, S T = 10, and A B = 2 x, find x.",
+  "choices": [
+    "2",
+    "3",
+    "10",
+    "14"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Trapezoid"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_7.pdf",
+  "comment": "",
+  "id": 2932,
+  "annot_id": "Shibiao_2020-03-22_09_18_18",
+  "is_standard": false,
+  "compact_choices": [
+    "2",
+    "3",
+    "10",
+    "14"
+  ],
+  "precise_value": [
+    2.0,
+    3.0,
+    10.0,
+    14.0
+  ],
+  "rough_value": [
+    2,
+    3,
+    10,
+    14
+  ],
+  "compact_text": "For trapezoid ABCD, S and T are midpoints of the legs. If CD = 14, ST = 10, and AB = 2x, find x.",
+  "annotat_text": "For trapezoid $ABCD$, $S$ and $T$ are midpoints of the legs. If $CD=14$, $ST=10$, and $AB=2x$, find $x$.",
+  "unit": "",
+  "img_width": 490,
+  "img_height": 447,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

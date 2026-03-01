@@ -1,0 +1,51 @@
+{
+  "text_logic_form": [
+    "Equals(MeasureOf(Angle(9)),2x-4)",
+    "Equals(MeasureOf(Angle(10)),2x+4)",
+    "Find(MeasureOf(Angle(10)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(MeasureOf(Angle(9)),2x-4)",
+    "Equals(MeasureOf(Angle(10)),2x+4)",
+    "Find(MeasureOf(Angle(10)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(B,C, D)), MeasureOf(angle 10))",
+    "Equals(MeasureOf(Angle(B,C, E)), MeasureOf(angle 9))",
+    "PointLiesOnLine(C, Line(A, B))",
+    "PointLiesOnLine(C, Line(D, E))"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BC",
+    "CD",
+    "CE",
+    "DE"
+  ],
+  "point_positions": {
+    "A": [
+      183.0,
+      77.0
+    ],
+    "B": [
+      0.0,
+      77.0
+    ],
+    "C": [
+      95.0,
+      77.0
+    ],
+    "D": [
+      123.0,
+      1.0
+    ],
+    "E": [
+      70.0,
+      145.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

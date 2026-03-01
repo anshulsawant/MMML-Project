@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, A D is perpendicular to B C and A B is perpendicular to A C. What is B C?",
+  "choices": [
+    "5 \\sqrt 2",
+    "5 \\sqrt 3",
+    "20",
+    "25"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_8.pdf",
+  "comment": "SAT/ACT",
+  "id": 2948,
+  "annot_id": "pan_2020-03-23_22_03_11",
+  "is_standard": true,
+  "compact_choices": [
+    "5\\sqrt2",
+    "5\\sqrt3",
+    "20",
+    "25"
+  ],
+  "precise_value": [
+    7.0710678118654755,
+    8.660254037844386,
+    20.0,
+    25.0
+  ],
+  "rough_value": [
+    7.07,
+    8.66,
+    20,
+    25
+  ],
+  "compact_text": "In the figure, AD is perpendicular to BC and AB is perpendicular to AC. What is BC?",
+  "annotat_text": "In the figure, $\\overline{A D}$ is perpendicular to $\\overline{B C}$ and $\\overline{A B}$ is perpendicular to $\\overline{A C}$. What is $B C ?$",
+  "unit": "",
+  "img_width": 502,
+  "img_height": 247,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,34 @@
+{
+  "text_logic_form": [
+    "Find(z)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(z)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(R, T)), 9)",
+    "Equals(LengthOf(Line(T, S)), 7)",
+    "Equals(LengthOf(Line(R, S)), 2z-15)",
+    "Equals(MeasureOf(Angle(S, T, R)), MeasureOf(Angle(T, S, R)))"
+  ],
+  "line_instances": [
+    "RT",
+    "RS",
+    "TS"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "R": [
+      215.03763084669407,
+      1.6326686100437087
+    ],
+    "T": [
+      230.3015677597174,
+      269.13260796024866
+    ],
+    "S": [
+      0.790981837500425,
+      142.58494095250745
+    ]
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "text_logic_form": [
+    "Equals(AreaOf(Trapezoid(J,K,L,M)),138)",
+    "Equals(AreaOf(Trapezoid(Q,R,S,T)),5.52)",
+    "Similar(Trapezoid(J,K,L,M),Trapezoid(Q,R,S,T))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(AreaOf(Trapezoid(J,K,L,M)),138)",
+    "Equals(AreaOf(Trapezoid(Q,R,S,T)),5.52)",
+    "Similar(Trapezoid(J,K,L,M),Trapezoid(Q,R,S,T))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(Q, T)), x)",
+    "Equals(LengthOf(Line(K, J)), 5)"
+  ],
+  "line_instances": [
+    "JM",
+    "KJ",
+    "KL",
+    "LM"
+  ],
+  "point_positions": {
+    "J": [
+      57.0,
+      122.0
+    ],
+    "K": [
+      174.0,
+      123.0
+    ],
+    "L": [
+      231.0,
+      0.0
+    ],
+    "M": [
+      0.0,
+      1.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

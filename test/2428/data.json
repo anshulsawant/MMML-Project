@@ -1,0 +1,49 @@
+{
+  "problem_text": "In the figure, a regular polygon is inscribed in a circle. Find the measure of a central angle.",
+  "choices": [
+    "30",
+    "60",
+    "90",
+    "120"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle",
+    "Triangle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_11.pdf",
+  "comment": "",
+  "id": 2428,
+  "annot_id": "pan_2020-03-23_04_50_30",
+  "is_standard": false,
+  "compact_choices": [
+    "30",
+    "60",
+    "90",
+    "120"
+  ],
+  "precise_value": [
+    30.0,
+    60.0,
+    90.0,
+    120.0
+  ],
+  "rough_value": [
+    30,
+    60,
+    90,
+    120
+  ],
+  "compact_text": "In the figure, a regular polygon is inscribed in a circle. Find the measure of a central angle.",
+  "annotat_text": "In the figure, a regular polygon is inscribed in a circle. Find the measure of a central angle.",
+  "unit": "",
+  "img_width": 297,
+  "img_height": 296,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

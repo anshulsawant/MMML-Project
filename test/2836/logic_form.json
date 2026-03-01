@@ -1,0 +1,96 @@
+{
+  "text_logic_form": [
+    "IntersectAt(Circle(G),Circle(J),Circle(K),Point(L))",
+    "Equals(LengthOf(Line(G,H)),10)",
+    "Find(LengthOf(Line(J,L)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IntersectAt(Circle(G),Circle(J),Circle(K),Point(L))",
+    "Equals(LengthOf(Line(G,H)),10)",
+    "Find(LengthOf(Line(J,L)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(J, Line(L, G))",
+    "PointLiesOnLine(G, Line(L, B))",
+    "PointLiesOnLine(J, Line(L, B))",
+    "PointLiesOnLine(K, Line(L, J))",
+    "PointLiesOnLine(K, Line(L, G))",
+    "PointLiesOnLine(K, Line(L, B))",
+    "PointLiesOnLine(G, Line(J, B))",
+    "PointLiesOnLine(I, Line(C, G))",
+    "PointLiesOnLine(G, Line(F, H))",
+    "PointLiesOnCircle(F, Circle(G, radius_1_0))",
+    "PointLiesOnCircle(L, Circle(G, radius_1_0))",
+    "PointLiesOnCircle(B, Circle(G, radius_1_0))",
+    "PointLiesOnCircle(H, Circle(G, radius_1_0))",
+    "PointLiesOnCircle(G, Circle(J, radius_6_0))",
+    "PointLiesOnCircle(L, Circle(J, radius_6_0))",
+    "PointLiesOnCircle(D, Circle(K, radius_3_0))",
+    "PointLiesOnCircle(J, Circle(K, radius_3_0))",
+    "PointLiesOnCircle(L, Circle(K, radius_3_0))",
+    "PointLiesOnCircle(I, Circle(K, radius_3_0))",
+    "PointLiesOnCircle(C, Circle(K, radius_3_0))"
+  ],
+  "line_instances": [
+    "FH",
+    "GB",
+    "GF",
+    "GH",
+    "JB",
+    "JG",
+    "KB",
+    "KG",
+    "KJ",
+    "KL",
+    "LB",
+    "LG",
+    "LJ"
+  ],
+  "point_positions": {
+    "B": [
+      9.0,
+      67.0
+    ],
+    "C": [
+      177.0,
+      169.0
+    ],
+    "D": [
+      176.0,
+      116.0
+    ],
+    "F": [
+      68.0,
+      213.0
+    ],
+    "G": [
+      110.0,
+      111.0
+    ],
+    "H": [
+      152.0,
+      10.0
+    ],
+    "I": [
+      160.0,
+      153.0
+    ],
+    "J": [
+      159.0,
+      134.0
+    ],
+    "K": [
+      185.0,
+      145.0
+    ],
+    "L": [
+      210.0,
+      154.0
+    ]
+  },
+  "circle_instances": [
+    "G",
+    "J",
+    "K"
+  ]
+}

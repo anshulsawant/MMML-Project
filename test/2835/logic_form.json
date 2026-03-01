@@ -1,0 +1,49 @@
+{
+  "text_logic_form": [
+    "InscribedIn(Square($),Circle($))",
+    "Equals(AreaOf(Square($)),18\\pi)",
+    "Find(LengthOf(SideOf(Square($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "InscribedIn(Square(D,B,C,E),Circle(O))",
+    "Equals(AreaOf(Square(D,B,C,E)),18\\pi)",
+    "Find(LengthOf(SideOf(Square(D,B,C,E))))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnCircle(B, Circle(O, radius_4_0))",
+    "PointLiesOnCircle(C, Circle(O, radius_4_0))",
+    "PointLiesOnCircle(D, Circle(O, radius_4_0))",
+    "PointLiesOnCircle(E, Circle(O, radius_4_0))"
+  ],
+  "line_instances": [
+    "BC",
+    "DB",
+    "DE",
+    "EC"
+  ],
+  "point_positions": {
+    "B": [
+      163.0,
+      82.0
+    ],
+    "C": [
+      82.0,
+      2.0
+    ],
+    "D": [
+      80.0,
+      163.0
+    ],
+    "E": [
+      2.0,
+      84.0
+    ],
+    "O": [
+      83.0,
+      83.0
+    ]
+  },
+  "circle_instances": [
+    "O"
+  ]
+}

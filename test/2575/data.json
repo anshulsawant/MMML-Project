@@ -1,0 +1,49 @@
+{
+  "problem_text": "Find m \\angle S.",
+  "choices": [
+    "28",
+    "30",
+    "32",
+    "34"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle",
+    "Ratio"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2575,
+  "annot_id": "Shibiao_2020-03-28_09_31_15",
+  "is_standard": false,
+  "compact_choices": [
+    "28",
+    "30",
+    "32",
+    "34"
+  ],
+  "precise_value": [
+    28.0,
+    30.0,
+    32.0,
+    34.0
+  ],
+  "rough_value": [
+    28,
+    30,
+    32,
+    34
+  ],
+  "compact_text": "Find m \\angle S.",
+  "annotat_text": "Find $m \\angle S$.",
+  "unit": "",
+  "img_width": 496,
+  "img_height": 467,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

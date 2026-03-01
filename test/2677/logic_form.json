@@ -1,0 +1,48 @@
+{
+  "text_logic_form": [
+    "Equals(PerimeterOf(Polygon($)),60)",
+    "Find(LengthOf(SideOf(Polygon($))))"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(PerimeterOf(Pentagon(A,D,B,E,C)),60)",
+    "Find(LengthOf(SideOf(Pentagon(A,D,B,E,C))))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(D, B)), LengthOf(Line(A, C)))",
+    "Equals(LengthOf(Line(A, C)), LengthOf(Line(C, E)))",
+    "Equals(LengthOf(Line(C, E)), LengthOf(Line(B, E)))",
+    "Equals(LengthOf(Line(B, E)), LengthOf(Line(A, D)))"
+  ],
+  "line_instances": [
+    "AC",
+    "AD",
+    "BE",
+    "CE",
+    "DB"
+  ],
+  "point_positions": {
+    "A": [
+      107.0,
+      1.0
+    ],
+    "B": [
+      174.0,
+      204.0
+    ],
+    "C": [
+      1.0,
+      77.0
+    ],
+    "D": [
+      215.0,
+      78.0
+    ],
+    "E": [
+      40.0,
+      201.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

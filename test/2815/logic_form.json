@@ -1,0 +1,36 @@
+{
+  "text_logic_form": [
+    "Triangle($)",
+    "PerimeterOf(Triangle($))"
+  ],
+  "dissolved_text_logic_form": [
+    "Triangle(A,B,C)",
+    "PerimeterOf(Triangle(A,B,C))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, B)), 12)",
+    "Equals(LengthOf(Line(A, C)), 7)"
+  ],
+  "line_instances": [
+    "AB",
+    "AC",
+    "BC"
+  ],
+  "point_positions": {
+    "A": [
+      161.0,
+      1.0
+    ],
+    "B": [
+      486.0,
+      136.0
+    ],
+    "C": [
+      0.0,
+      137.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

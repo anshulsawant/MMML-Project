@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the value of x in the diagram.",
+  "choices": [
+    "11",
+    "31",
+    "71",
+    "133"
+  ],
+  "answer": "C",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Other"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter6.pdf page 10",
+  "comment": "give up",
+  "id": 2938,
+  "annot_id": "Ran_2020-03-15_04_45_32",
+  "is_standard": false,
+  "compact_choices": [
+    "11",
+    "31",
+    "71",
+    "133"
+  ],
+  "precise_value": [
+    11.0,
+    31.0,
+    71.0,
+    133.0
+  ],
+  "rough_value": [
+    11,
+    31,
+    71,
+    133
+  ],
+  "compact_text": "Find the value of x in the diagram.",
+  "annotat_text": "Find the value of $x$ in each diagram",
+  "unit": "",
+  "img_width": 597,
+  "img_height": 409,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

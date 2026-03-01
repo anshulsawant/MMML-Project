@@ -1,0 +1,42 @@
+{
+  "text_logic_form": [
+    "Find(PerimeterOf(Shape($)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(PerimeterOf(Trapezoid(A,C,B,D)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(A, C)), 8)",
+    "Equals(LengthOf(Line(C, B)), 10)",
+    "Equals(LengthOf(Line(A, D)), 4)",
+    "Perpendicular(Line(C, A), Line(C, B))",
+    "Perpendicular(Line(A, D), Line(A, C))"
+  ],
+  "line_instances": [
+    "AC",
+    "AD",
+    "CB",
+    "DB"
+  ],
+  "point_positions": {
+    "A": [
+      231.0,
+      151.0
+    ],
+    "B": [
+      1.0,
+      0.0
+    ],
+    "C": [
+      229.0,
+      0.0
+    ],
+    "D": [
+      159.0,
+      149.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

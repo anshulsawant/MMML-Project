@@ -1,0 +1,44 @@
+{
+  "text_logic_form": [
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Angle(D, C, E)), 5x-12)",
+    "Equals(MeasureOf(Angle(D, E, C)), 3x)",
+    "PointLiesOnLine(B, Line(E, C))",
+    "PointLiesOnCircle(E, Circle(B, radius_2_0))",
+    "PointLiesOnCircle(C, Circle(B, radius_2_0))",
+    "PointLiesOnCircle(D, Circle(B, radius_2_0))"
+  ],
+  "line_instances": [
+    "BC",
+    "DC",
+    "EB",
+    "EC",
+    "ED"
+  ],
+  "point_positions": {
+    "B": [
+      159.0,
+      160.0
+    ],
+    "C": [
+      27.0,
+      244.0
+    ],
+    "D": [
+      25.0,
+      77.0
+    ],
+    "E": [
+      293.0,
+      76.0
+    ]
+  },
+  "circle_instances": [
+    "B"
+  ]
+}

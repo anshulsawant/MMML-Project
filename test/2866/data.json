@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, m \\angle 3 = 110 and m \\angle 12 = 55. Find the measure of \\angle 13.",
+  "choices": [
+    "55",
+    "65",
+    "70",
+    "110"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "Textbook 2_Chapter 3 - Parallel and Perpendicular Lines.pdf",
+  "comment": "",
+  "id": 2866,
+  "annot_id": "pan_2020-03-17_01_51_12",
+  "is_standard": false,
+  "compact_choices": [
+    "55",
+    "65",
+    "70",
+    "110"
+  ],
+  "precise_value": [
+    55.0,
+    65.0,
+    70.0,
+    110.0
+  ],
+  "rough_value": [
+    55,
+    65,
+    70,
+    110
+  ],
+  "compact_text": "In the figure, m \\angle 3 = 110 and m \\angle 12 = 55. Find the measure of \\angle 13.",
+  "annotat_text": "In the figure, $m\u22203 = 110$ and $m \u2220 12 = 55$. Find the measure of $\u222013$.",
+  "unit": "",
+  "img_width": 472,
+  "img_height": 345,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

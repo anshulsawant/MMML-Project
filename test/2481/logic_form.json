@@ -1,0 +1,36 @@
+{
+  "text_logic_form": [
+    "Congruent(Circle(P),Circle(Q))",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Congruent(Circle(P),Circle(Q))",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(U, R)), 3x)",
+    "Equals(LengthOf(Line(U, R)), 7x-44)",
+    "PointLiesOnCircle(U, Circle(P, radius_2_0))",
+    "PointLiesOnCircle(R, Circle(P, radius_2_0))"
+  ],
+  "line_instances": [
+    "UR"
+  ],
+  "point_positions": {
+    "P": [
+      147.0,
+      146.0
+    ],
+    "R": [
+      5.0,
+      117.0
+    ],
+    "U": [
+      287.0,
+      118.0
+    ]
+  },
+  "circle_instances": [
+    "P"
+  ]
+}

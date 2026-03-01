@@ -1,0 +1,56 @@
+{
+  "text_logic_form": [
+    "Triangle(P,Q,R)",
+    "Parallel(Line(S,T),Line(R,Q))",
+    "Equals(LengthOf(Line(P,S)),12.5)",
+    "Equals(LengthOf(Line(S,R)),5)",
+    "Equals(LengthOf(Line(P,T)),15)",
+    "Find(LengthOf(Line(T,Q)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Triangle(P,Q,R)",
+    "Parallel(Line(S,T),Line(R,Q))",
+    "Equals(LengthOf(Line(P,S)),12.5)",
+    "Equals(LengthOf(Line(S,R)),5)",
+    "Equals(LengthOf(Line(P,T)),15)",
+    "Find(LengthOf(Line(T,Q)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(T, Line(P, Q))",
+    "PointLiesOnLine(S, Line(P, R))",
+    "Parallel(Line(T, S), Line(Q, R))"
+  ],
+  "line_instances": [
+    "PQ",
+    "PR",
+    "PT",
+    "PS",
+    "QR",
+    "QT",
+    "RS",
+    "TS"
+  ],
+  "circle_instances": [],
+  "point_positions": {
+    "P": [
+      103.59866103776567,
+      0.20665788200011548
+    ],
+    "Q": [
+      405.3134198409376,
+      234.79857122924514
+    ],
+    "R": [
+      0.806256510197926,
+      312.2424761712756
+    ],
+    "T": [
+      322.9064623127073,
+      170.2142742765641
+    ],
+    "S": [
+      28.519094538154462,
+      227.89828552968595
+    ]
+  }
+}

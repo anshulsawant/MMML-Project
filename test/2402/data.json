@@ -1,0 +1,48 @@
+{
+  "problem_text": "Circle O has a radius of 13 inches. Radius O B is perpendicular to chord C D which is 24 inches long. Find O X.",
+  "choices": [
+    "5",
+    "12",
+    "13",
+    "26"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook2_chapter10.pdf page 19",
+  "comment": "",
+  "id": 2402,
+  "annot_id": "Ran_2020-03-28_02_35_53",
+  "is_standard": false,
+  "compact_choices": [
+    "5",
+    "12",
+    "13",
+    "26"
+  ],
+  "precise_value": [
+    5.0,
+    12.0,
+    13.0,
+    26.0
+  ],
+  "rough_value": [
+    5,
+    12,
+    13,
+    26
+  ],
+  "compact_text": "Circle O has a radius of 13 inches. Radius OB is perpendicular to chord CD which is 24 inches long. Find OX.",
+  "annotat_text": "Circle $O$ has a radius of 13 inches. Radius $\\overline{O B}$ is perpendicular to chord $\\overline{C D}$ which is 24 inches long.\r\nFind OX",
+  "unit": "",
+  "img_width": 323,
+  "img_height": 253,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

@@ -1,0 +1,49 @@
+{
+  "text_logic_form": [
+    "Similar(Triangle(L,M,N),Triangle(Q,R,S))",
+    "Equals(LengthOf(Line(Q,R)),35)",
+    "Equals(LengthOf(Line(R,S)),37)",
+    "Equals(LengthOf(Line(S,Q)),12)",
+    "Equals(LengthOf(Line(N,L)),5)",
+    "Find(PerimeterOf(Triangle(L,M,N)))"
+  ],
+  "dissolved_text_logic_form": [
+    "Similar(Triangle(L,M,N),Triangle(Q,R,S))",
+    "Equals(LengthOf(Line(Q,R)),35)",
+    "Equals(LengthOf(Line(R,S)),37)",
+    "Equals(LengthOf(Line(S,Q)),12)",
+    "Equals(LengthOf(Line(N,L)),5)",
+    "Find(PerimeterOf(Triangle(L,M,N)))"
+  ],
+  "diagram_logic_form": [
+    "Equals(LengthOf(Line(R, Q)), 35)",
+    "Equals(LengthOf(Line(R, S)), 37)",
+    "Equals(LengthOf(Line(N, L)), 5)",
+    "Equals(LengthOf(Line(Q, S)), 12)"
+  ],
+  "line_instances": [
+    "ML",
+    "MN",
+    "NL",
+    "QS",
+    "RQ",
+    "RS"
+  ],
+  "point_positions": {
+    "Q": [
+      1.0,
+      90.0
+    ],
+    "R": [
+      261.0,
+      91.0
+    ],
+    "S": [
+      0.0,
+      0.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

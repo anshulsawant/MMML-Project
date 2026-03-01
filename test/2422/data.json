@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find the length of \\widehat A B. Round to the nearest hundredth.",
+  "choices": [
+    "7.63",
+    "9.77",
+    "11.13",
+    "14.83"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Length"
+  ],
+  "source": "textbook1_chapter_10.pdf",
+  "comment": "",
+  "id": 2422,
+  "annot_id": "Shibiao_2020-03-27_11_57_07",
+  "is_standard": false,
+  "compact_choices": [
+    "7.63",
+    "9.77",
+    "11.13",
+    "14.83"
+  ],
+  "precise_value": [
+    7.63,
+    9.77,
+    11.13,
+    14.83
+  ],
+  "rough_value": [
+    7.63,
+    9.77,
+    11.13,
+    14.83
+  ],
+  "compact_text": "Find the length of \\widehat AB. Round to the nearest hundredth.",
+  "annotat_text": "Find the length of $\\widehat {AB}$. Round to the nearest hundredth.",
+  "unit": "",
+  "img_width": 415,
+  "img_height": 376,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

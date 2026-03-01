@@ -1,0 +1,48 @@
+{
+  "problem_text": "For trapezoid Q R S T, A and B are midpoints of the legs. Find m \\angle S.",
+  "choices": [
+    "45",
+    "60",
+    "120",
+    "135"
+  ],
+  "answer": "D",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Trapezoid"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook2_chapter8.pdf page 44",
+  "comment": "",
+  "id": 2952,
+  "annot_id": "Ran_2020-03-27_05_19_08",
+  "is_standard": false,
+  "compact_choices": [
+    "45",
+    "60",
+    "120",
+    "135"
+  ],
+  "precise_value": [
+    45.0,
+    60.0,
+    120.0,
+    135.0
+  ],
+  "rough_value": [
+    45,
+    60,
+    120,
+    135
+  ],
+  "compact_text": "For trapezoid QRST, A and B are midpoints of the legs. Find m \\angle S.",
+  "annotat_text": "For trapezoid $Q R S T, A$ and $B$ are midpoints of the legs. Find $m \\angle S$",
+  "unit": "",
+  "img_width": 359,
+  "img_height": 169,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

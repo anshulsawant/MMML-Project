@@ -1,0 +1,73 @@
+{
+  "text_logic_form": [
+    "IsCentroidOf(Point(Q),Shape($))",
+    "Equals(LengthOf(Line(B,E)),9)",
+    "Find(LengthOf(Line(B,Q)))"
+  ],
+  "dissolved_text_logic_form": [
+    "IsCentroidOf(Point(Q),Shape(A, B, C))",
+    "Equals(LengthOf(Line(B,E)),9)",
+    "Find(LengthOf(Line(B,Q)))"
+  ],
+  "diagram_logic_form": [
+    "PointLiesOnLine(D, Line(B, C))",
+    "PointLiesOnLine(F, Line(B, A))",
+    "PointLiesOnLine(Q, Line(B, E))",
+    "PointLiesOnLine(E, Line(C, A))",
+    "PointLiesOnLine(Q, Line(C, F))",
+    "PointLiesOnLine(Q, Line(A, D))"
+  ],
+  "line_instances": [
+    "AD",
+    "AE",
+    "AF",
+    "AQ",
+    "BA",
+    "BC",
+    "BD",
+    "BE",
+    "BF",
+    "BQ",
+    "CA",
+    "CD",
+    "CE",
+    "CF",
+    "CQ",
+    "QD",
+    "QE",
+    "QF"
+  ],
+  "point_positions": {
+    "A": [
+      1.0,
+      243.0
+    ],
+    "B": [
+      148.0,
+      0.0
+    ],
+    "C": [
+      501.0,
+      243.0
+    ],
+    "D": [
+      316.0,
+      115.0
+    ],
+    "E": [
+      252.0,
+      243.0
+    ],
+    "F": [
+      77.0,
+      116.0
+    ],
+    "Q": [
+      215.0,
+      157.0
+    ]
+  },
+  "circle_instances": [
+    ""
+  ]
+}

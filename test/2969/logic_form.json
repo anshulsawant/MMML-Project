@@ -1,0 +1,50 @@
+{
+  "text_logic_form": [
+    "Minor(Arc(A,C))",
+    "Major(Arc(A,D,C))",
+    "Equals(MeasureOf(Angle(A,B,C)),70)",
+    "Find(x)"
+  ],
+  "dissolved_text_logic_form": [
+    "Equals(MeasureOf(Minor(Arc(A,C))),x)",
+    "Equals(MeasureOf(Major(Arc(A,D,C))),y)",
+    "Equals(MeasureOf(Angle(A,B,C)),70)",
+    "Find(x)"
+  ],
+  "diagram_logic_form": [
+    "Equals(MeasureOf(Minor(Arc(A,C))),x)",
+    "Equals(MeasureOf(Major(Arc(A,D,C))),y)",
+    "PointLiesOnCircle(A, Circle(E, radius_3_0))",
+    "PointLiesOnCircle(C, Circle(E, radius_3_0))",
+    "PointLiesOnCircle(D, Circle(E, radius_3_0))"
+  ],
+  "line_instances": [
+    "BA",
+    "BC"
+  ],
+  "point_positions": {
+    "A": [
+      281.0,
+      9.0
+    ],
+    "B": [
+      -1.0,
+      84.0
+    ],
+    "C": [
+      295.0,
+      161.0
+    ],
+    "D": [
+      360.0,
+      7.0
+    ],
+    "E": [
+      318.0,
+      82.0
+    ]
+  },
+  "circle_instances": [
+    "E"
+  ]
+}

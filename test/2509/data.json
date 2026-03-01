@@ -1,0 +1,48 @@
+{
+  "problem_text": "In the figure, m \\angle 1 = 123. Find the measure of \\angle 14.",
+  "choices": [
+    "47",
+    "57",
+    "67",
+    "123"
+  ],
+  "answer": "B",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Line"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook1_chapter_3.pdf",
+  "comment": "",
+  "id": 2509,
+  "annot_id": "pan_2020-03-15_06_14_58",
+  "is_standard": false,
+  "compact_choices": [
+    "47",
+    "57",
+    "67",
+    "123"
+  ],
+  "precise_value": [
+    47.0,
+    57.0,
+    67.0,
+    123.0
+  ],
+  "rough_value": [
+    47,
+    57,
+    67,
+    123
+  ],
+  "compact_text": "In the figure, m \\angle 1 = 123. Find the measure of \\angle 14.",
+  "annotat_text": "In the figure, $m\u22201 = 123$. Find the measure of $\\angle 14$.",
+  "unit": "",
+  "img_width": 361,
+  "img_height": 330,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}

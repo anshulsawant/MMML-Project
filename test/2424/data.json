@@ -1,0 +1,48 @@
+{
+  "problem_text": "Find m \\angle B G E.",
+  "choices": [
+    "60",
+    "120",
+    "240",
+    "360"
+  ],
+  "answer": "A",
+  "detailed_solution": " ",
+  "problem_type_graph": [
+    "Circle"
+  ],
+  "problem_type_goal": [
+    "Angle"
+  ],
+  "source": "textbook2_chapter10.pdf page 14",
+  "comment": "",
+  "id": 2424,
+  "annot_id": "Ran_2020-03-28_02_15_06",
+  "is_standard": false,
+  "compact_choices": [
+    "60",
+    "120",
+    "240",
+    "360"
+  ],
+  "precise_value": [
+    60.0,
+    120.0,
+    240.0,
+    360.0
+  ],
+  "rough_value": [
+    60,
+    120,
+    240,
+    360
+  ],
+  "compact_text": "Find m \\angle BGE.",
+  "annotat_text": "Find $m \\angle B G E$",
+  "unit": "",
+  "img_width": 263,
+  "img_height": 236,
+  "data_type": "test",
+  "date": "Fri Sep 18 22:23:14 2020",
+  "system": "linux"
+}
