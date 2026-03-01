@@ -31,6 +31,13 @@ class AlignmentLossFactory(nn.Module):
         """
         batch, k_steps, dim = predicted.shape
         total_loss = 0.0
+        metrics = {
+            "loss/vicreg_total": 0.0,
+            "loss/invariance_mse": 0.0,
+            "loss/variance_std": 0.0,
+            "loss/covariance_cor": 0.0,
+            "loss/info_nce": 0.0
+        }
         
         # We compute the loss iteratively across the sequence of K steps
         for k in range(k_steps):
@@ -38,14 +45,27 @@ class AlignmentLossFactory(nn.Module):
             targ_k = targets[:, k, :]
             
             if self.loss_type == "info_nce_vanilla":
-                total_loss += self.compute_info_nce(pred_k, targ_k, use_threshold=False)
+                loss_val = self.compute_info_nce(pred_k, targ_k, use_threshold=False)
+                total_loss += loss_val
+                metrics["loss/info_nce"] += loss_val.item()
             elif self.loss_type == "info_nce_threshold":
-                total_loss += self.compute_info_nce(pred_k, targ_k, use_threshold=True)
+                loss_val = self.compute_info_nce(pred_k, targ_k, use_threshold=True)
+                total_loss += loss_val
+                metrics["loss/info_nce"] += loss_val.item()
             elif self.loss_type == "vicreg":
-                total_loss += self.compute_vicreg(pred_k, targ_k)
+                loss_val, vicreg_metrics = self.compute_vicreg(pred_k, targ_k)
+                total_loss += loss_val
+                metrics["loss/vicreg_total"] += loss_val.item()
+                metrics["loss/invariance_mse"] += vicreg_metrics["invariance_mse"]
+                metrics["loss/variance_std"] += vicreg_metrics["variance_std"]
+                metrics["loss/covariance_cor"] += vicreg_metrics["covariance_cor"]
                 
-        # Average loss over the K reasoning steps
-        return total_loss / k_steps
+        # Average loss and metrics over the K reasoning steps
+        total_loss = total_loss / k_steps
+        for k in metrics.keys():
+            metrics[k] /= k_steps
+            
+        return total_loss, metrics
 
     def compute_info_nce(self, pred, targ, use_threshold=False):
         """
@@ -101,7 +121,14 @@ class AlignmentLossFactory(nn.Module):
         cov_loss = self.off_diagonal(cov_x).pow_(2).sum().div(x.shape[1]) + \
                    self.off_diagonal(cov_y).pow_(2).sum().div(y.shape[1])
                    
-        return (self.sim_coeff * sim_loss) + (self.var_coeff * var_loss) + (self.cov_coeff * cov_loss)
+        total_vicreg_loss = (self.sim_coeff * sim_loss) + (self.var_coeff * var_loss) + (self.cov_coeff * cov_loss)
+        metrics = {
+            "invariance_mse": sim_loss.item(),
+            "variance_std": var_loss.item(),
+            "covariance_cor": cov_loss.item()
+        }
+        
+        return total_vicreg_loss, metrics
         
     @staticmethod
     def off_diagonal(x):
