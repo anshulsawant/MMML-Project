@@ -3,6 +3,7 @@ import yaml
 import json
 import os
 import torch
+import wandb
 from PIL import Image
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
@@ -95,6 +96,14 @@ def train():
         
     local_rank = setup_ddp()
     is_distributed = isinstance(local_rank, int)
+    is_master = (local_rank == 0 if is_distributed else True)
+    
+    if is_master:
+        wandb.init(
+            project="LatentEuclid",
+            name=f"LatentEuclid-{config['training']['loss_type']}",
+            config=config
+        )
     
     print(f"[{local_rank}] Instantiating LatentEuclid module constraints...")
     
@@ -162,20 +171,29 @@ def train():
             targets = targets.to(device=device, dtype=predicted_latents.dtype)
             
             # Loss alignment mapping
-            loss = criterion(predicted_latents, targets)
+            loss, metrics_dict = criterion(predicted_latents, targets)
             loss.backward()
             
-            torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
+            grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
             optimizer.step()
             
-            is_master = (local_rank == 0 if is_distributed else True)
             if is_master and batch_idx % 10 == 0:
+                current_lr = optimizer.param_groups[0]['lr']
                 print(f"Epoch {epoch} | Batch {batch_idx} | {config['training']['loss_type']} Loss: {loss.item():.4f}")
                 
-    if (local_rank == 0 if is_distributed else True):
+                # Push tracked metrics to WandB securely
+                metrics_dict["train/total_loss"] = loss.item()
+                metrics_dict["train/grad_norm"] = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
+                metrics_dict["train/learning_rate"] = current_lr
+                metrics_dict["epoch"] = epoch
+                
+                wandb.log(metrics_dict)
+                
+    if is_master:
         save_model = model.module if is_distributed else model
         torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
         print("Model state successfully saved.")
+        wandb.finish()
 
 if __name__ == "__main__":
     # train()

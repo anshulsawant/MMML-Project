@@ -61,8 +61,10 @@ def run_cpu_smoke_test():
         print("\n--- Testing AlignmentLossFactory (VICReg) ---")
         dummy_targets = torch.randn(batch_size, k_steps, target_dim, device=device, dtype=predicted_latents.dtype)
         loss_factory_vicreg = AlignmentLossFactory(loss_type="vicreg")
-        loss_vicreg = loss_factory_vicreg(predicted_latents, dummy_targets)
-        print(f"VICReg Loss: {loss_vicreg.item():.4f}")
+        loss_vicreg, dict_metrics = loss_factory_vicreg(predicted_latents, dummy_targets)
+        print(f"VICReg Total Loss: {loss_vicreg.item():.4f}")
+        for k, v in dict_metrics.items():
+            print(f"  {k}: {v:.4f}")
         assert not torch.isnan(loss_vicreg), "VICReg Loss returned NaN!"
         
         print("\n--- Testing Gradients (Backward Pass) ---")

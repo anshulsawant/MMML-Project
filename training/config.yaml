@@ -5,12 +5,13 @@ model:
   
 training:
   epochs: 3
-  batch_size: 2
+  batch_size: 4
   learning_rate: 2.0e-5
   weight_decay: 0.01
   loss_type: "vicreg"  # supports: info_nce_vanilla, info_nce_threshold, vicreg
   max_grad_norm: 1.0
 
 data:
-  jsonl_path: "geothoughts_k4.jsonl"
+  jsonl_path: "data/geothoughts_k4.jsonl"
   targets_dir: "target_tensors/"
+

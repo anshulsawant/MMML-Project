@@ -47,7 +47,7 @@ def build_inline_request(problem: Dict) -> Dict:
 
 import argparse
 
-def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None, target_sample: str = None):
+def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None, target_sample: str = None, resume_job: str = None):
     """Processes large JSONL datasets using the asynchronous genai Batch API."""
     
     print(f"Loading local dataset from {dataset_path}...")
@@ -75,26 +75,32 @@ def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None
                 if limit and len(problems) >= limit:
                     break
     
-    print(f"Loaded {len(problems)} pending inference problems.")
-    
-    if len(problems) == 0:
-        print("No pending generation jobs found in the dataset list.")
-        return
+    if resume_job:
+        job_name = resume_job
+        print(f"Resuming existing batch job: {job_name}")
+        batch_job_inline = client.batches.get(name=job_name)
+    else:
+        print(f"Loaded {len(problems)} pending inference problems.")
         
-    print(f"Packaging {len(problems)} models into Inline Batch execution format...")
-    inline_requests = [build_inline_request(p) for p in problems]
-    
-    print(f"Connecting to Gemini Batch API [Model: gemini-3-flash-preview]")
-    inline_batch_job = client.batches.create(
-        model="gemini-3-flash-preview",
-        src=inline_requests,
-        config={
-            'display_name': "geothoughts-k4-flash-batch",
-        },
-    )
-    
-    job_name = inline_batch_job.name
-    print(f"Created batch job: {job_name}")
+        if len(problems) == 0:
+            print("No pending generation jobs found in the dataset list.")
+            return
+            
+        print(f"Packaging {len(problems)} models into Inline Batch execution format...")
+        inline_requests = [build_inline_request(p) for p in problems]
+        
+        print(f"Connecting to Gemini Batch API [Model: gemini-3-flash-preview]")
+        inline_batch_job = client.batches.create(
+            model="gemini-3-flash-preview",
+            src=inline_requests,
+            config={
+                'display_name': "geothoughts-k4-flash-batch",
+            },
+        )
+        
+        job_name = inline_batch_job.name
+        print(f"Created batch job: {job_name}")
+        
     print(f"Polling status for background remote calculation...")
 
     while True:
@@ -122,12 +128,12 @@ def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None
                 "reasoning": reasoning_out.strip()
             })
             
-            if (i + 1) % 50 == 0 or (i + 1) == len(inline_requests):
+            if (i + 1) % 50 == 0 or (i + 1) == len(batch_job_inline.dest.inlined_responses):
                 print(f"Downloaded Sample {i+1} : {reasoning_out[:100]}...")
             
         with open(output_path, 'a') as f:
             for res in valid_results:
-                f.write(json.dumps(res) + '\\n')
+                f.write(json.dumps(res) + '\n')
                 
         print(f"Successfully processed {len(valid_results)} samples securely in batch mapping over to {output_path}!")
     else:
@@ -140,6 +146,7 @@ if __name__ == "__main__":
     parser.add_argument("--images_dir", type=str, default="GeoThought/playground/data/")
     parser.add_argument("--limit", type=int, default=None, help="Max number of examples to call API on")
     parser.add_argument("--target_sample", type=str, default=None, help="Specific sample to target (e.g., 'sample_13.jpg')")
+    parser.add_argument("--resume_job", type=str, default=None, help="Job name to resume polling/retrieving (e.g., batches/12345)")
     
     args = parser.parse_args()
     
@@ -148,5 +155,6 @@ if __name__ == "__main__":
         output_path=args.output_path,
         images_dir=args.images_dir,
         limit=args.limit,
-        target_sample=args.target_sample
+        target_sample=args.target_sample,
+        resume_job=args.resume_job
     )

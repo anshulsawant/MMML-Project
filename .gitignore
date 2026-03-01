@@ -3,3 +3,9 @@ venv/
 __pycache__/
 *.pt
 
+GeoThought/
+*.parquet
+
+# WandB Logging
+wandb/
+*.wandb
