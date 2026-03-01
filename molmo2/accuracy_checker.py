@@ -125,7 +125,8 @@ def main():
     groups = [
         ('direct_vs_thinking', {
             'Direct': 'molmo2/predictions_direct.json',
-            'Thinking': 'molmo2/predictions_thinking.json'
+            'Thinking': 'molmo2/predictions_thinking.json',
+            'Thinking+': 'molmo2/predictions_thinking_with_sample.json'
         }),
         ('text_vs_graph', {
             'Text-Only': 'molmo2/predictions_text_only.json',
@@ -134,6 +135,7 @@ def main():
         ('all_variants', {
             'Direct': 'molmo2/predictions_direct.json',
             'Thinking': 'molmo2/predictions_thinking.json',
+            'Thinking+': 'molmo2/predictions_thinking_with_sample.json',
             'Text-Only': 'molmo2/predictions_text_only.json',
             'JSON Graph': 'molmo2/predictions_json_graph.json'
         })

@@ -1,0 +1,16 @@
+model:
+  base_model_id: "trl-internal-testing/tiny-Qwen3VLForConditionalGeneration"
+  target_model_id: "trl-internal-testing/tiny-Qwen3VLForConditionalGeneration"
+  k_steps: 4
+  
+training:
+  epochs: 1
+  batch_size: 2
+  learning_rate: 2.0e-5
+  weight_decay: 0.01
+  loss_type: "vicreg"
+  max_grad_norm: 1.0
+
+data:
+  jsonl_path: "tests/mock_data/mock_geothoughts.jsonl"
+  targets_dir: "tests/mock_data/target_tensors/"
