@@ -1,19 +1,18 @@
 import os
 import json
-import asyncio
+import base64
+import time
 from typing import List, Dict
 
-from openai import AsyncOpenAI
+from google import genai
+from google.genai import types
 from dotenv import load_dotenv
 
 # Load environment variables from ~/.env
 load_dotenv(os.path.expanduser('~/.env'))
 
-# Gemini acts as an OpenAI-compatible endpoint now
-client = AsyncOpenAI(
-    api_key=os.environ.get("GEMINI_API_KEY"),
-    base_url="https://generativelanguage.googleapis.com/v1beta/openai/"
-)
+# Use the strictly typed Google GenAI Python SDK
+client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 SYS_PROMPT = """You are an expert geometry problem solver. Your task is to process geometry problems (Image + text prompt) and output a strict 4-step reasoning chain.
 
@@ -21,62 +20,35 @@ YOU MUST strictly follow this K=4 format exactly. Do not truncate your answer.
 Step 1 [Visual Parsing]: Extract all explicit and implicit geometric relationships visible in the image (e.g., parallel lines, specific angle measures, lengths).
 Step 2 [Theorem Retrieval]: State the formal mathematical theorems required to solve the problem based on the visual features (e.g., Alternate Interior Angles Theorem).
 Step 3 [Calculation]: Perform the step-by-step arithmetic needed.
-Step 4 [Final Conclusion]: Output a short string with the final numerical or logical answer (e.g., \boxed{40}).
+Step 4 [Final Conclusion]: Output a short string with the final numerical or logical answer (e.g., \\boxed{40}).
 
 Do not deviate from 4 steps. Each step must be clearly numbered. Your response MUST contain all 4 steps."""
 
-import base64
-from io import BytesIO
-from PIL import Image
+def extract_image_bytes(image_path: str) -> str:
+    """Helper to load standard image bytes into base64."""
+    with open(image_path, "rb") as int_img:
+        return base64.b64encode(int_img.read()).decode('utf-8')
 
-async def process_problem(image_path: str, question: str, sem: asyncio.Semaphore) -> Dict:
-    """Queries Gemini 3.1 Pro for a K=4 extraction, throttled by a semaphore."""
-    async with sem:
-        try:
-            # Gemini API via AsyncOpenAI expects base64 encoded images inline if we don't have public URLs
-            with open(image_path, "rb") as int_img:
-                base64_img = base64.b64encode(int_img.read()).decode('utf-8')
-                
-            # Optional: Detect mime type (assuming jpeg or png from path)
-            mime_type = "image/jpeg" if image_path.lower().endswith(('.jpg', '.jpeg')) else "image/png"
-            image_url = f"data:{mime_type};base64,{base64_img}"
-            
-            response = await client.chat.completions.create(
-                model="gemini-3.1-pro-preview",
-                messages=[
-                    {"role": "system", "content": SYS_PROMPT},
-                    {
-                        "role": "user",
-                        "content": [
-                            {"type": "text", "text": question},
-                            {
-                                "type": "image_url",
-                                "image_url": {
-                                    "url": image_url,
-                                },
-                            },
-                        ],
-                    }
-                ],
-                max_completion_tokens=2000,
-            )
-            print(f"✅ Generated reasoning for: {image_path}")
-            return {
-                "image_path": image_path,
-                "question": question,
-                "reasoning": response.choices[0].message.content,
-                "prompt_tokens": response.usage.prompt_tokens,
-                "completion_tokens": response.usage.completion_tokens,
-                "total_tokens": response.usage.total_tokens
-            }
-        except Exception as e:
-            print(f"Error processing {image_path}: {e}")
-            return None
+def build_inline_request(problem: Dict) -> Dict:
+    """Constructs a GenerateContentRequest compatible format for exactly one problem."""
+    path = problem["image_path"]
+    mime_type = "image/jpeg" if path.lower().endswith(('.jpg', '.jpeg')) else "image/png"
+    b64_string = extract_image_bytes(path)
+    
+    return {
+        'contents': [{
+            'parts': [
+                {'text': f"{SYS_PROMPT}\n\nProblem:\n{problem['question']}"},
+                {'inline_data': {'data': b64_string, 'mime_type': mime_type}}
+            ],
+            'role': 'user'
+        }]
+    }
 
 import argparse
 
-async def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None, target_sample: str = None):
-    """Asynchronously processes a local JSONL dataset from GeoThought/playground using semaphore batching."""
+def main(dataset_path: str, output_path: str, images_dir: str, limit: int = None, target_sample: str = None):
+    """Processes large JSONL datasets using the asynchronous genai Batch API."""
     
     print(f"Loading local dataset from {dataset_path}...")
     problems = []
@@ -103,45 +75,63 @@ async def main(dataset_path: str, output_path: str, images_dir: str, limit: int 
                 if limit and len(problems) >= limit:
                     break
     
-    print(f"Loaded {len(problems)} total inference problems. Beginning batched asynchronous execution...")
+    print(f"Loaded {len(problems)} pending inference problems.")
     
-    # Restrict concurrent API calls to batches of 5 at a time to stay under Gemini rate limits
-    sem = asyncio.Semaphore(5)
+    if len(problems) == 0:
+        print("No pending generation jobs found in the dataset list.")
+        return
+        
+    print(f"Packaging {len(problems)} models into Inline Batch execution format...")
+    inline_requests = [build_inline_request(p) for p in problems]
     
-    tasks = [process_problem(p["image_path"], p["question"], sem) for p in problems]
-    valid_results = []
+    print(f"Connecting to Gemini Batch API [Model: gemini-3-flash-preview]")
+    inline_batch_job = client.batches.create(
+        model="gemini-3-flash-preview",
+        src=inline_requests,
+        config={
+            'display_name': "geothoughts-k4-flash-batch",
+        },
+    )
     
-    total_prompt_tokens = 0
-    total_completion_tokens = 0
-    total_all_tokens = 0
+    job_name = inline_batch_job.name
+    print(f"Created batch job: {job_name}")
+    print(f"Polling status for background remote calculation...")
+
+    while True:
+        batch_job_inline = client.batches.get(name=job_name)
+        if batch_job_inline.state.name in ('JOB_STATE_SUCCEEDED', 'JOB_STATE_FAILED', 'JOB_STATE_CANCELLED', 'JOB_STATE_EXPIRED'):
+            break
+        print(f"Job not finished. Current state: {batch_job_inline.state.name}. Waiting 30 seconds...")
+        time.sleep(30)
+        
+    print(f"Job finished with state: {batch_job_inline.state.name}")
     
-    for i, future in enumerate(asyncio.as_completed(tasks)):
-        r = await future
-        if r is not None:
-            valid_results.append(r)
-            total_prompt_tokens += r.get("prompt_tokens", 0)
-            total_completion_tokens += r.get("completion_tokens", 0)
-            total_all_tokens += r.get("total_tokens", 0)
+    if batch_job_inline.state.name == 'JOB_STATE_SUCCEEDED' and batch_job_inline.dest and batch_job_inline.dest.inlined_responses:
+        valid_results = []
+        # Ordered identically to src submission sequence natively by the API logic
+        for i, inline_response in enumerate(batch_job_inline.dest.inlined_responses):
+            p = problems[i]
+            reasoning_out = ""
             
-            # Print running totals and sample every 10 samples (or 50 for larger runs)
-            if (i + 1) % 10 == 0 or (i + 1) == len(tasks):
-                print(f"\n--- Progress: {i+1}/{len(tasks)} Problems ---")
-                print(f"Running Tokens -> Input: {total_prompt_tokens} | Output: {total_completion_tokens}")
-                print(f"Sample Question: {r['question']}")
-                print(f"Sample Reasoning:\n{r['reasoning']}")
-                print("-" * 50)
-    
-    with open(output_path, 'w') as f:
-        for res in valid_results:
-            # We can strip the token usage from the jsonl if we only wanted it for counting, 
-            # but it is harmless to leave it in.
-            f.write(json.dumps(res) + '\n')
+            if inline_response.response:
+                reasoning_out = inline_response.response.text
+                
+            valid_results.append({
+                "image_path": p["image_path"],
+                "question": p["question"],
+                "reasoning": reasoning_out.strip()
+            })
             
-    print(f"\nSaved {len(valid_results)} extracted reasoning chains to {output_path}")
-    print(f"--- FINAL TOKEN ACCOUNTING (Gemini 3.1 Pro Preview) ---")
-    print(f"Input Tokens:  {total_prompt_tokens}")
-    print(f"Output Tokens: {total_completion_tokens}")
-    print(f"Total Tokens:  {total_all_tokens}")
+            if (i + 1) % 50 == 0 or (i + 1) == len(inline_requests):
+                print(f"Downloaded Sample {i+1} : {reasoning_out[:100]}...")
+            
+        with open(output_path, 'a') as f:
+            for res in valid_results:
+                f.write(json.dumps(res) + '\\n')
+                
+        print(f"Successfully processed {len(valid_results)} samples securely in batch mapping over to {output_path}!")
+    else:
+        print("Failed to map success state directly onto the inline return. Check server payload.")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Generate K=4 Euclidean Latent steps using Gemini")
@@ -153,10 +143,10 @@ if __name__ == "__main__":
     
     args = parser.parse_args()
     
-    asyncio.run(main(
+    main(
         dataset_path=args.dataset_path,
         output_path=args.output_path,
         images_dir=args.images_dir,
         limit=args.limit,
         target_sample=args.target_sample
-    ))
+    )
