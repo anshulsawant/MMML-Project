@@ -10,19 +10,19 @@ Developed for the MMML 11-977 course project.
 
 This repository is split into two primary architectures.
 
-### 1. GeoThought (Autoregressive Baseline)
-The initial baseline fine-tunes large vision-language models like **InternVL3-8B** and **Qwen2.5-VL** directly on the `GeoThought-6k` dataset. These models utilize standard autoregressive loops and CoT (Chain of Thought), often resulting in "Visual Forgetting" on longer proofs where language priors override diagram grounding. 
-- Located internally in the `GeoThought/` and `Qwen25 LM/` directories.
-
-### 2. LatentEuclid (Macro-JEPA Continuous Alignment)
+### 1. LatentEuclid (Macro-JEPA Continuous Alignment)
 LatentEuclid completely bypasses the discrete autoregressive text bottleneck. Leveraging the Joint Embedding Predictive Architecture (VL-JEPA), LatentEuclid uses the **Qwen3-VL-4B-Instruct** encoder to map geometry inputs directly into a sequence of continuous frozen thought vectors predicting a mathematical manifold formulated by a smaller Expert Decoder (**Qwen3-0.6B**).
 - Located internally in the `models/`, `training/`, `data/`, and `eval/` directories.
 
+### 2. GeoThought (Autoregressive Baseline)
+The initial baseline fine-tunes large vision-language models like **InternVL3-8B** and **Qwen2.5-VL** directly on the `GeoThought-6k` dataset. These models utilize standard autoregressive loops and CoT (Chain of Thought), often resulting in "Visual Forgetting" on longer proofs where language priors override diagram grounding. 
+- Located internally in the `GeoThought/` and `Qwen25 LM/` directories.
+
 ---
 
-## 🚀 Quick Start: LatentEuclid
+## 🚀 Step-by-Step Guide: LatentEuclid Pipeline
 
-### 1. Environment Setup
+### Phase 1: Environment Setup
 
 To run LatentEuclid, initialize the virtual environment directly containing `torch`, `transformers`, `accelerate`, and API support.
 
@@ -38,35 +38,59 @@ Add your Gemini API Key for data generation into an environment file (`~/.env`):
 GEMINI_API_KEY=AIzaSyB...
 ```
 
-### 2. Data Engineering & Manifold Generation
-Using Gemini 3.1 Pro as an "Expert Teacher", we prompt-engineer structured 4-step geometry reasoning chains, then translate those chains into continuous `target_dim=1024` vectors mapping to the Qwen3-0.6B internal dimensions.
+### Phase 2: Data Engineering (Geometry Extraction & Reasoning)
 
+Our pipeline uses an Expert Teacher model (Gemini 3.1 Pro / Gemini 3 Flash Preview) to generate mathematically solid "K=4" step-by-step reasoning chains for geometric proofs. These text chains are then transformed into a continuous embedding manifold.
+
+**Step 2a: Extract the Parquet Datasets**
+First, unpack your raw geometric datasets from Huggingface Parquet files.
 ```bash
-# Query the Gemini 3.1 Pro API for K=4 parsing
-python -m data.generate_geothoughts
+python -m data.extract_parquet --limit 6200
+```
 
-# Embed the generated steps natively into continuous .pt tensors
+**Step 2b: Generate Reasoning Chains via Gemini Batch API**
+We send thousands of problem images to Google's asynchronous Batch API to prevent running out of rate limits (429/503 errors) on synchronous requests.
+```bash
+# This packages all local problems and submits them securely to Google's backend.
+python -m data.generate_geothoughts --limit 6243
+```
+If your script or internet gets interrupted while polling, you can seamlessly resume downloading the job outputs by providing the job URI:
+```bash
+python -m data.generate_geothoughts --resume_job batches/YOUR_JOB_ID_HERE
+```
+*Outputs are mapped safely onto physical newlines into `data/geothoughts_k4.jsonl`.*
+
+**Step 2c: Build the Target Manifold**
+Pass the strictly formatted 4-step chains natively through the frozen `Qwen3-0.6B` text model to create the `.pt` embedding vector targets.
+```bash
 python -m data.build_manifold
 ```
 
-### 3. CPU Smoke Testing
-Since GPU compute is expensive, you can rigorously test the entire structural LatentEuclid pipeline (forward passes, loss calculations, index checking, backward gradients) using the absolute microscopic `trl-internal-testing/tiny-Qwen3VL` models directly on your CPU. This executes in under a second:
+### Phase 3: CPU Smoke Testing (Optional but Recommended)
 
+Since GPU compute is extremely expensive, you can rigorously test the entire structural LatentEuclid pipeline (forward passes, loss calculations, index checking, yaml parsing, backward gradients) using the microscopic `trl-internal-testing/tiny-Qwen3VL` models natively on your CPU. This executes in under two seconds.
 ```bash
 python -m tests.test_architecture
+python -m tests.test_data_pipeline
 ```
 
-### 4. Training (Continuous Alignment)
-Training uses a distributed DDP wrapper mapping massive Qwen3-VL visual outputs onto the Target Manifold. We support a dynamic loss factory natively implementing **Vanilla InfoNCE**, **Thresholded InfoNCE**, and **VICReg**.
+### Phase 4: Training (Continuous Alignment)
+
+Training relies heavily on `training/config.yaml` to configure data paths and learning rates, and uses a dynamic loss factory natively implementing **Vanilla InfoNCE**, **Thresholded InfoNCE**, and **VICReg**.
 
 ```bash
-python -m training.train_x_encoder --model_id "Qwen/Qwen3-VL-4B-Instruct" --loss_type "vicreg" --batch_size 4
+# Example training run using VICReg (Variance-Invariance-Covariance Regularization)
+python -m training.train_x_encoder \
+    --model_id "Qwen/Qwen3-VL-4B-Instruct" \
+    --loss_type "vicreg" \
+    --batch_size 4
 ```
 
-*Note: For `vicreg`, our pipeline natively utilizes structurally safe geometry augmentations (Affine transformations like shearing and scaling) and strictly avoids destructive cropping inside `training/augmentation.py`.*
+*Note: For `vicreg`, our pipeline natively utilizes structurally safe geometry augmentations (Affine transformations like shearing, rotation, scaling) and avoids destructive random cropping via `training/augmentation.py`.*
 
-### 5. Probing & Inference Eval
-The evaluation suite contains scripts measuring exact time-to-answer latency reductions and the primary "Visual Forgetting" thesis probe comparing `LatentEuclid` predicted thought vectors against the `baseline` pre-generation hidden states.
+### Phase 5: Probing & Inference Evaluation
+
+The evaluation suite contains scripts measuring exact time-to-answer latency reductions. It runs the primary "Visual Forgetting" thesis probe, calculating cosine similarity and Euclidean drift of the `LatentEuclid` predicted thought vectors against baseline generative representations across deep layers.
 
 ```bash
 python -m eval.temporal_probing
@@ -74,7 +98,7 @@ python -m eval.temporal_probing
 
 ---
 
-## 🛠️ Quick Start: GeoThought (Baselines)
+## 🛠️ Step-by-Step Guide: GeoThought (Baselines)
 
 For comparative benchmarking or utilizing our pre-trained autoregressive checkpoints:
 
