@@ -132,7 +132,10 @@ This project builds upon previous work in structured geometric reasoning and mul
 
 ---
 
-## 🕒 Recent Commit History
+## 🕒 Complete Commit History
+- **a16fedc** docs: Add LatentEuclid whitepaper artifact formalizing VL-JEPA methodology (Anshul Sawant)
+- **e1973e1** docs: Completely expand step-by-step documentation for LatentEuclid architecture, data engine, and training lifecycle (Anshul Sawant)
+- **4c597b9** docs: Append recent project commit history to README (Anshul Sawant)
 - **b2d426d** fix: Patch json newline rendering bug in extraction array and add resume_job checkpointing capability (Anshul Sawant)
 - **7876ec4** Merge branch 'main' of https://github.com/anshulsawant/MMML-Project (SMa2021)
 - **f59b749** simple multimodal model (SMa2021)
@@ -158,3 +161,26 @@ This project builds upon previous work in structured geometric reasoning and mul
 - **b4b7737** Add Qwen 25 Laguage Only (Joanna Smolska)
 - **671e701** add colab (SMa2021)
 - **36219ed** Merge branch 'main' of https://github.com/anshulsawant/MMML-Project (SMa2021)
+- **e6a877a** add more results (SMa2021)
+- **9241873** Generate missing evaluation stats for base model (Anshul Sawant)
+- **23fadbc** Add benchmark results from base InternVL3-8B-Instruct model (Anshul Sawant)
+- **2afc5ef** Add custom chat template to fix InternVL3 concatenation bug and restore missing vision flags (Anshul Sawant)
+- **b2780be** Allow HuggingFace Hub IDs as MODEL_PATH by conditionally applying realpath (Anshul Sawant)
+- **3aceb1b** Merge branch 'main' of https://github.com/anshulsawant/MMML-Project (SMa2021)
+- **9e7a274** other tests (SMa2021)
+- **13fd537** monet benchmark (Canchen Li)
+- **bd08c96** Fix inference script path bug and multimodal payload structure (Anshul Sawant)
+- **c95f07a** Finetuned Intern3-8B model results. (Anshul Sawant)
+- **1a5db2c** Add check for valid realpath model directory to prevent empty vllm --model argument (Anshul Sawant)
+- **67d4fbd** Use realpath for vLLM local model directory to prevent huggingface parsing errors (Anshul Sawant)
+- **11efe89** Make all shell scripts executable (Anshul Sawant)
+- **498263d** Translate all Chinese comments to English (Anshul Sawant)
+- **45a6628** Translate inference script output to English (Anshul Sawant)
+- **d38f717** Increase max_workers to 32 for higher inference throughput (Anshul Sawant)
+- **c5f5f20** Enhance run_benchmark_remote.sh to exit early on vLLM server crash (Anshul Sawant)
+- **ebeed6d** Add benchmark scripts and convert GeoThought to standard directory (Anshul Sawant)
+- **1af197a** add analytics (SMa2021)
+- **e6b3703** results (SMa2021)
+- **c9061a7** molmo2 full results (SMa2021)
+- **1fd7bcd** molmo2 v1 (SMa2021)
+- **d79f772** Upload of report and GeoThought. (Anshul Sawant)
