@@ -1,3 +1,18 @@
+'''
+LatentEuclid: The X-Encoder Architecture
+
+This module formally implements the Macro-JEPA paradigm for the LatentEuclid architecture.
+Instead of relying on standard autoregressive discrete text generation, this network isolates the 
+multimodal geometry representations of an input problem, projecting them into `K` continuous
+"thought vectors" representing a spatial solution using a singular parallel forward pass.
+
+Key Architectural Properties:
+1. `<thought_k>` Vocabulary Injection: K new special tokens are injected to query the multimodal topology.
+2. Causal Masking: Exploits the native Causal Mask to ensure temporal logic (Thought 2 sees 1, but not 3).
+3. LatentPredictor MLP: The final layer hidden states are extracted over these tokens and mapped 
+   to the dimensionality of the expert Y-Encoder (Qwen3-0.6B) target manifold.
+'''
+
 import torch
 import torch.nn as nn
 from transformers import AutoModelForImageTextToText, AutoTokenizer, AutoConfig

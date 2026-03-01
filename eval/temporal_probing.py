@@ -1,3 +1,16 @@
+'''
+Evaluation: Pre-Generation Hidden States Probing and VL-JEPA Latencies
+
+This script is central to scientifically validating the core hypothesis that modern,
+autoregressive VLMs suffer from "Visual Forgetting." Because the VLM translates continuous 
+diagram features into discrete 1D texts, it allows language priors to hallucinate geometries.
+
+1. Grounding Claim: Extracts Baseline Pre-Generation Token States vs LatentEuclid's K States.
+   Identical Non-Linear MLPs probe the targets for geometric features to verify where visual topologies 
+   are maintained natively.
+2. Latency Efficiency: Benchmarks identical answers driven temporally vs Auto-regressive passes.
+'''
+
 import torch
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score

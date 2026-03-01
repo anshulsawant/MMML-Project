@@ -1,3 +1,16 @@
+'''
+Training: Geometry-Safe Augmentation Pipeline
+
+When mapping visual topologies to continuous manifolds, standard computer vision augmentations
+(like RandomResizedCrop) are highly destructive. Cropping an image of a triangle might remove
+one of its vertices, completely destroying the geometric relationships the CoT reasoning relies on.
+
+This module guarantees that augmented "positive/negative views" for contrastive learning
+(like VICReg or InfoNCE) are strictly limited to affine transformations (translation, rotation, 
+scaling, shearing) that safely preserve parallel lines and topological continuity without cropping 
+crucial visual evidence out of the frame.
+'''
+
 import torch
 import torchvision.transforms.v2 as transforms
 

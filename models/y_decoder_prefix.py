@@ -1,3 +1,15 @@
+'''
+LatentEuclid: The Y-Decoder Continuous Generative Loop
+
+Because pure transformer decoder-only LLMs lack cross-attention layers, mapping 
+predicted target latents natively into generation relies strictly upon "Soft Prompt Prefix Tuning."
+
+This component accepts the continuous `K` projected thought manifolds from the `X-Encoder`
+and appends them logically before the standard generation inputs. This allows the frozen
+0.6B baseline syntax to inherently leverage visual topologies to "calculate" text probabilities 
+via autoregressive extraction.
+'''
+
 import torch
 import torch.nn as nn
 from transformers import AutoModelForCausalLM, AutoTokenizer
