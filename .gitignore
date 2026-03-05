@@ -12,5 +12,4 @@ wandb/
 
 # Temporary pipelines & caches
 batch_requests.jsonl
-target_tensors_toy/
 data/latest_gemini_job_id.txt
