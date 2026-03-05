@@ -67,3 +67,35 @@ if __name__ == "__main__":
     # Test Scaffold
     # augmentor = GeometrySafeAugmentation()
     pass
+
+class DestroyGeometryAugmentation:
+    """
+    Applies highly destructive non-affine spatial transformations to create 
+    true negative examples for InfoNCE/VICReg contrastive learning batches.
+    By actively ruining topological continuity (via extreme perspective warping
+    and aggressive random erasing), the model learns what invalid geometry looks like.
+    """
+    def __init__(self, erase_prob: float = 0.5, distortion_scale: float = 0.8):
+        self.transform = transforms.Compose([
+            transforms.RandomPerspective(distortion_scale=distortion_scale, p=0.8),
+            # Aggressive erasing to simulate missing vertices or disconnected segments
+            transforms.RandomErasing(p=erase_prob, scale=(0.1, 0.33), ratio=(0.2, 5.0), value=0),
+            transforms.RandomErasing(p=erase_prob, scale=(0.05, 0.15), ratio=(0.2, 5.0), value=255)
+        ])
+
+    def __call__(self, image):
+        """
+        Applies a destructive transformation resulting in a ruined geometry negative sample.
+        Expects a PyTorch Tensor (RandomErasing requires tensors).
+        """
+        return self.transform(image)
+
+def generate_negative_pairs(images, destroyer):
+    """
+    Applies aggressive transformations to generate explicitly invalid geometric views. 
+    Use these as the negative pairs in contrastive batches to push repelling vectors.
+    """
+    negative_views = []
+    for img in images:
+        negative_views.append(destroyer(img))
+    return negative_views

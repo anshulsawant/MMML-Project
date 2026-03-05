@@ -177,7 +177,7 @@ def train():
             grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
             optimizer.step()
             
-            if is_master and batch_idx % 10 == 0:
+            if is_master and batch_idx % 2 == 0:
                 current_lr = optimizer.param_groups[0]['lr']
                 print(f"Epoch {epoch} | Batch {batch_idx} | {config['training']['loss_type']} Loss: {loss.item():.4f}")
                 
@@ -196,5 +196,4 @@ def train():
         wandb.finish()
 
 if __name__ == "__main__":
-    # train()
-    pass
+    train()

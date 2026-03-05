@@ -7,14 +7,62 @@ diagram features into discrete 1D texts, it allows language priors to hallucinat
 
 1. Grounding Claim: Extracts Baseline Pre-Generation Token States vs LatentEuclid's K States.
    Identical Non-Linear MLPs probe the targets for geometric features to verify where visual topologies 
-   are maintained natively.
+   are maintained natively. We use PyTorch MLPs instead of linear scikit-learn probes to 
+   properly capture the entangled features mapped from the Qwen-0.6B LLM representations.
 2. Latency Efficiency: Benchmarks identical answers driven temporally vs Auto-regressive passes.
 '''
 
 import torch
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+import torch.nn as nn
 import numpy as np
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import accuracy_score
+
+class NonLinearProbe(nn.Module):
+    """
+    A 2-layer MLP to probe complex, entangled geometric features from continuous vectors.
+    """
+    def __init__(self, input_dim, hidden_dim=256, num_classes=2):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(input_dim, hidden_dim),
+            nn.ReLU(),
+            nn.Dropout(0.1),
+            nn.Linear(hidden_dim, num_classes)
+        )
+        
+    def forward(self, x):
+        return self.net(x)
+
+def train_and_eval_probe(X_train, y_train, X_test, y_test, num_classes=2, epochs=100, lr=1e-3, device="cuda"):
+    """
+    Trains a NonLinearProbe on the train set and evaluates on the test set.
+    """
+    input_dim = X_train.shape[1]
+    probe = NonLinearProbe(input_dim, num_classes=num_classes).to(device)
+    optimizer = torch.optim.Adam(probe.parameters(), lr=lr)
+    criterion = nn.CrossEntropyLoss()
+    
+    X_train_t = torch.tensor(X_train, dtype=torch.float32).to(device)
+    y_train_t = torch.tensor(y_train, dtype=torch.long).to(device)
+    X_test_t = torch.tensor(X_test, dtype=torch.float32).to(device)
+    y_test_t = torch.tensor(y_test, dtype=torch.long).to(device)
+    
+    probe.train()
+    for _ in range(epochs):
+        optimizer.zero_grad()
+        out = probe(X_train_t)
+        loss = criterion(out, y_train_t)
+        loss.backward()
+        optimizer.step()
+        
+    probe.eval()
+    with torch.no_grad():
+        out = probe(X_test_t)
+        preds = torch.argmax(out, dim=1)
+        acc = accuracy_score(y_test_t.cpu().numpy(), preds.cpu().numpy())
+        
+    return acc
 
 def extract_baseline_pregen_states(vanilla_model, dataloader, device="cuda"):
     """
@@ -86,21 +134,18 @@ def temporal_probing_experiment():
     If Vanilla fails but LatentEuclid Phase 1 (<thought_1>) succeeds, 
     the VL-JEPA hypothesis is fully validated.
     """
-    print("Beginning Progressive Temporal Probing...")
+    print("Beginning Progressive Temporal Probing with Non-Linear PyTorch MLPs...")
     
-    # 1. Standard train/test split on extracted vectors 
-    # (Placeholder arrays for the scaffold)
+    # Example logic mapping:
     # X_vanilla, y = extract_baseline_pregen_states(...)
-    # X_latent_k, y = extract_latent_euclid_states(...)
-    
-    # Example logic:
-    # clf_vanilla = LogisticRegression(max_iter=1000).fit(X_vanilla_train, y_train)
-    # acc_vanilla = accuracy_score(y_test, clf_vanilla.predict(X_vanilla_test))
+    # X_train, X_test, y_train, y_test = train_test_split(X_vanilla, y, test_size=0.2)
+    # acc_vanilla = train_and_eval_probe(X_train, y_train, X_test, y_test)
     # print(f"Vanilla Pre-Generation Probe Accuracy: {acc_vanilla*100:.2f}%")
     
+    # X_latent_k, y = extract_latent_euclid_states(...)
     # for k in range(4):
-    #     clf_k = LogisticRegression(max_iter=1000).fit(X_latent_k_train[k], y_train)
-    #     acc_k = accuracy_score(y_test, clf_k.predict(X_latent_k_test[k]))
+    #     X_train, X_test, y_train, y_test = train_test_split(X_latent_k[k], y, test_size=0.2)
+    #     acc_k = train_and_eval_probe(X_train, y_train, X_test, y_test)
     #     print(f"LatentEuclid <Thought_{k+1}> Probe Accuracy: {acc_k*100:.2f}%")
 
 def measure_latency_win():

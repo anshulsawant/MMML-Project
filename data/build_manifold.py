@@ -16,17 +16,27 @@ import json
 import re
 
 
-MODEL_ID = "Qwen/Qwen3-0.6B" # Using 0.6B target manifold mode
+import argparse
+import os
 
-def load_qwen_target_model():
-    print(f"Loading {MODEL_ID} for Target Manifold extraction...")
-    tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
-    model = AutoModelForCausalLM.from_pretrained(
-        MODEL_ID, 
-        torch_dtype=torch.bfloat16,
-        device_map="auto"
-    )
+def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_available() else "cpu"):
+    print(f"Loading {model_id} for Target Manifold extraction on {device}...")
+    tokenizer = AutoTokenizer.from_pretrained(model_id)
+    # CPU fallback compatible loading
+    if device == "cpu":
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id, 
+            torch_dtype=torch.float32
+        )
+    else:
+        model = AutoModelForCausalLM.from_pretrained(
+            model_id, 
+            torch_dtype=torch.bfloat16,
+            device_map="auto"
+        )
     model.eval()
+    if device == "cpu":
+        model = model.to(device)
     return tokenizer, model
 
 def parse_k4_steps(reasoning_text: str):
@@ -65,9 +75,11 @@ def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda"):
     
     return final_token_embeddings.cpu()
 
-def build_manifold(input_jsonl: str, output_dir: str):
+def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
     """Processes K4 text and saves continuous target tensors."""
-    tokenizer, model = load_qwen_target_model()
+    os.makedirs(output_dir, exist_ok=True)
+    device = "cuda" if torch.cuda.is_available() else "cpu"
+    tokenizer, model = load_qwen_target_model(model_id, device)
     
     with open(input_jsonl, 'r') as f:
         for idx, line in enumerate(f):
@@ -75,14 +87,19 @@ def build_manifold(input_jsonl: str, output_dir: str):
             steps = parse_k4_steps(data["reasoning"])
             
             # Process all 4 steps in a single batched matrix multiplication
-            target_tensor = embed_steps_batch(steps, tokenizer, model)
-            
-            # Shape should be [4, hidden_dim]
+            target_tensor = embed_steps_batch(steps, tokenizer, model, device=device)
             
             # Save the .pt file for Phase 3 training
-            torch.save(target_tensor, f"{output_dir}/problem_{idx}_targets.pt")
+            torch.save(target_tensor, os.path.join(output_dir, f"problem_{idx}_targets.pt"))
+            
+            if (idx + 1) % 50 == 0:
+                print(f"Generated manifolds for {idx + 1} problems...")
 
 if __name__ == "__main__":
-    # Example usage:
-    # build_manifold("geothoughts_k4.jsonl", "target_tensors/")
-    pass
+    parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
+    parser.add_argument("--model_id", type=str, default="Qwen/Qwen3-0.6B")
+    parser.add_argument("--input_jsonl", type=str, default="data/geothoughts_k4_gemini3.1.jsonl")
+    parser.add_argument("--output_dir", type=str, default="target_tensors/")
+    args = parser.parse_args()
+    
+    build_manifold(args.model_id, args.input_jsonl, args.output_dir)

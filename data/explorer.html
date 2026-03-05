@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GeoThought Dataset Explorer</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px; }
+        .nav-controls button { padding: 10px 20px; font-size: 16px; cursor: pointer; background: #007bff; color: white; border: none; border-radius: 6px; transition: 0.2s; }
+        .nav-controls button:hover { background: #0056b3; }
+        .nav-controls button:disabled { background: #ccc; cursor: not-allowed; }
+        .idx-display { font-size: 20px; font-weight: bold; margin: 0 20px; }
+        
+        .content-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 30px; }
+        
+        .image-col img { width: 100%; border: 1px solid #ddd; border-radius: 8px; }
+        .image-col h3 { margin-top: 0; color: #555; }
+        
+        .text-col .box { background: #f9f9f9; border-left: 5px solid #007bff; padding: 15px 20px; margin-bottom: 20px; border-radius: 0 8px 8px 0; }
+        .text-col .box.ground-truth { border-left-color: #28a745; background: #eef9f0; }
+        .text-col .box.gemini { border-left-color: #dc3545; background: #fcf1f2; }
+        
+        .text-col h4 { margin-top: 0; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+        .text-col p { margin: 0; line-height: 1.6; white-space: pre-wrap; font-family: monospace; font-size: 14px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>GeoThought Dataset Explorer</h1>
+        <div class="nav-controls">
+            <button id="prevBtn" onclick="navigate(-1)">&#8592; Previous</button>
+            <span class="idx-display">Sample <span id="currentIndex">0</span> / 100</span>
+            <button id="nextBtn" onclick="navigate(1)">Next &#8594;</button>
+        </div>
+    </div>
+
+    <div class="content-grid">
+        <div class="image-col">
+            <h3>Visual Input</h3>
+            <img id="displayImage" src="" alt="Dataset Image">
+        </div>
+        
+        <div class="text-col">
+            <div class="box">
+                <h4>Dataset Prompt (Question)</h4>
+                <p id="questionText">Loading...</p>
+            </div>
+            
+            <div class="box ground-truth">
+                <h4>Ground Truth Solution</h4>
+                <p id="gtText">Loading...</p>
+            </div>
+            
+            <div class="box gemini">
+                <h4>Gemini Flash K=4 Generated Output</h4>
+                <p id="geminiText">Loading...</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Load the inline JSON payload we generated from Python -->
+<script src="ui_payload.js"></script>
+
+<script>
+    let currentIdx = 0;
+    const maxIdx = dataset.length - 1;
+
+    function renderSample(idx) {
+        const sample = dataset[idx];
+        
+        document.getElementById('currentIndex').innerText = sample.id;
+        document.getElementById('displayImage').src = sample.image_b64;
+        document.getElementById('questionText').innerText = sample.question;
+        document.getElementById('gtText').innerText = sample.ground_truth;
+        document.getElementById('geminiText').innerText = sample.gemini;
+        
+        document.getElementById('prevBtn').disabled = (idx === 0);
+        document.getElementById('nextBtn').disabled = (idx === maxIdx);
+    }
+
+    function navigate(step) {
+        currentIdx += step;
+        if (currentIdx < 0) currentIdx = 0;
+        if (currentIdx > maxIdx) currentIdx = maxIdx;
+        renderSample(currentIdx);
+    }
+
+    // Initialize UI on window load
+    window.onload = () => {
+        if (typeof dataset !== 'undefined' && dataset.length > 0) {
+            renderSample(0);
+        } else {
+            alert('Dataset payload failed to load. Please run the backend Python script first.');
+        }
+    };
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') navigate(1);
+        if (e.key === 'ArrowLeft') navigate(-1);
+    });
+</script>
+
+</body>
+</html>
