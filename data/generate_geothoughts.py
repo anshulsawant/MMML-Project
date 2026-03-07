@@ -1,13 +1,16 @@
 import os
 import json
-import base64
 import argparse
-import requests
-import re
+import time
+from tqdm import tqdm
+from PIL import Image
 from typing import Dict, List
 
 from google import genai
 from dotenv import load_dotenv
+import warnings
+
+warnings.filterwarnings('ignore', message='.*there are non-text parts in the response.*')
 
 load_dotenv(os.path.expanduser('~/.env'))
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
@@ -22,175 +25,110 @@ Step 4 [Final Conclusion]: Output a short string with the final numerical or log
 
 Do not deviate from 4 steps. Each step must be clearly numbered. Your response MUST contain all 4 steps."""
 
-def extract_image_bytes(image_path: str) -> str:
-    with open(image_path, "rb") as int_img:
-        return base64.b64encode(int_img.read()).decode('utf-8')
-
-def build_batch_request_line(problem: Dict) -> str:
-    path = problem["image_path"]
-    mime_type = "image/jpeg" if path.lower().endswith(('.jpg', '.jpeg')) else "image/png"
-    b64_string = extract_image_bytes(path)
+def call_gemini_flash(image_path: str, question: str) -> str:
+    image = Image.open(image_path)
     
-    match = re.search(r'sample_(\d+)\.', path)
-    problem_idx = match.group(1) if match else "0"
-    
-    payload = {
-        "custom_job_id": str(problem_idx),
-        "request": {
-            "contents": [{
-                "role": "user",
-                "parts": [
-                    {"text": f"{SYS_PROMPT}\n\nProblem:\n{problem['question']}"},
-                    {"inline_data": {"data": b64_string, "mime_type": mime_type}}
-                ]
-            }]
-        }
-    }
-    return json.dumps(payload)
+    response = client.models.generate_content(
+        model='gemini-3-flash-preview',
+        contents=[
+            f"{SYS_PROMPT}\n\nProblem:\n{question}",
+            image
+        ],
+        config=genai.types.GenerateContentConfig(
+            temperature=0.2,
+        )
+    )
+    return response.text
 
-def cmd_submit(dataset_path: str, images_dir: str, limit: int = None, target_sample: str = None):
-    print(f"Loading local dataset from {dataset_path}...")
+def process_dataset(dataset_path: str, images_dir: str, output_path: str, limit: int = None, target_sample: str = None):
+    processed_samples = set()
+    if os.path.exists(output_path):
+        with open(output_path, 'r') as f:
+            for line in f:
+                if not line.strip(): continue
+                data = json.loads(line)
+                processed_samples.add(data.get("image_path", ""))
+    
+    print(f"Skipping {len(processed_samples)} previously processed items from {output_path}.")
+    
     problems = []
-    
     if os.path.exists(dataset_path):
         with open(dataset_path, 'r') as f:
             for line in f:
                 data = json.loads(line)
                 image_rel_path = data.get("image", "")
-                question_text = data.get("text", "")
+                question = data.get("text", "")
                 full_image_path = os.path.join(images_dir, image_rel_path)
                 
                 if target_sample and target_sample not in full_image_path:
                     continue
-                
-                if os.path.exists(full_image_path) and question_text:
-                    problems.append({"image_path": full_image_path, "question": question_text})
                     
-                if limit and len(problems) >= limit:
-                    break
+                if full_image_path in processed_samples:
+                    continue
+                    
+                if os.path.exists(full_image_path) and question:
+                    problems.append({"image_path": full_image_path, "question": question})
 
-    if not problems:
-        print("No pending generation jobs found in the dataset list.")
-        return
-
-    tmp_jsonl = "batch_requests.jsonl"
-    print(f"Packaging {len(problems)} models into JSONL Batch execution format at {tmp_jsonl}...")
-    with open(tmp_jsonl, 'w') as f:
-        for p in problems:
-            f.write(build_batch_request_line(p) + '\n')
-            
-    print(f"Uploading {tmp_jsonl} to Google GenAI File API...")
-    upload_file = client.files.upload(file=tmp_jsonl, config={'mime_type': 'application/jsonl'})
-    print(f"File uploaded. URI: {upload_file.uri}, Name: {upload_file.name}")
+    print(f"Loaded {len(problems)} new problems to run through gemini-3-flash-preview.")
     
-    print("Connecting to Gemini Batch API [Model: gemini-3.1-pro-preview]")
-    batch_job = client.batches.create(
-        model="gemini-3.1-pro-preview",
-        src=upload_file.name,
-        config={'display_name': "geothoughts-k4-3.1-pro"},
-    )
-    
-    # Save the job ID locally so it's not lost
-    job_id_file = "data/latest_gemini_job_id.txt"
-    with open(job_id_file, 'w') as f:
-        f.write(batch_job.name)
-        
-    print(f"\n+++ BATCH SUBMITTED +++")
-    print(f"Batch Name: {batch_job.name}")
-    print(f"Saved locally to: {job_id_file}")
-    print(f"State: {batch_job.state.name}")
-    print(f"\nRun this script again whenever you want to check status/download:")
-    print(f"python data/generate_geothoughts.py --mode retrieve")
+    if limit:
+        problems = problems[:limit]
+        print(f"Limited run to {limit} items.")
 
-def cmd_retrieve(job_name: str, output_path: str, dataset_path: str, images_dir: str):
-    print(f"Polling status for background job: {job_name} ...")
-    batch_job = client.batches.get(name=job_name)
-    state = batch_job.state.name
-    print(f"Current State: {state}")
-    
-    if state == 'JOB_STATE_SUCCEEDED':
-        print(f"Job completed successfully. Downloading results from {batch_job.dest.uri}...")
-        
-        response = requests.get(batch_job.dest.uri)
-        if response.status_code != 200:
-            print(f"Failed to download from {batch_job.dest.uri}. HTTP {response.status_code}")
-            return
-            
-        output_lines = response.text.strip().split('\n')
-        print(f"Downloaded {len(output_lines)} lines.")
-        
-        questions_map = {}
-        if os.path.exists(dataset_path):
-            with open(dataset_path, 'r') as f:
-                for line in f:
-                    data = json.loads(line)
-                    match = re.search(r'sample_(\d+)\.', data.get("image", ""))
-                    if match:
-                        questions_map[str(match.group(1))] = data.get("text", "")
+    success_count = 0
+    import concurrent.futures
+    import threading
+    import logging
 
-        valid_results = []
-        for line in output_lines:
-            if not line.strip(): continue
-            parsed = json.loads(line)
-            
-            idx = parsed.get("custom_job_id")
-            if not idx: continue
-            
-            error = parsed.get("error")
-            if error:
-                print(f"Warning: Item {idx} failed on server: {error}")
-                continue
-                
-            resp = parsed.get("response")
-            reasoning_out = ""
-            if resp and "candidates" in resp and len(resp["candidates"]) > 0:
-                parts = resp["candidates"][0]["content"]["parts"]
-                reasoning_out = parts[0]["text"]
-            
-            image_path = os.path.join(images_dir, "images", "samples", f"sample_{idx}.jpg")
-            
-            q = questions_map.get(str(idx), "")
-            valid_results.append({
-                "image_path": image_path,
-                "question": q,
-                "reasoning": reasoning_out.strip()
-            })
-                        
-        with open(output_path, 'a') as f:
-            for res in valid_results:
-                f.write(json.dumps(res) + '\n')
-                
-        print(f"Successfully saved {len(valid_results)} aligned samples explicitly linked by custom_job_id permanently to {output_path}!")
+    # Suppress all internal SDK prints and warnings that ruin TQDM
+    logging.getLogger("google").setLevel(logging.ERROR)
 
-    else:
-        print("Job is not finished yet or failed. Check back later.")
+    api_lock = threading.Lock()
+    file_lock = threading.Lock()
+    last_req_time = 0.0
+
+    def process_item(p):
+        nonlocal success_count, last_req_time
+        
+        # Enforce global 0.45s delay between API hits (max ~133 RPM)
+        with api_lock:
+            now = time.time()
+            elapsed = now - last_req_time
+            if elapsed < 0.45:
+                time.sleep(0.45 - elapsed)
+            last_req_time = time.time()
+            
+        try:
+            reasoning = call_gemini_flash(p['image_path'], p['question'])
+            
+            result = {
+                "image_path": p['image_path'],
+                "question": p['question'],
+                "reasoning": reasoning.strip()
+            }
+            with file_lock:
+                with open(output_path, 'a') as f:
+                    f.write(json.dumps(result) + '\n')
+                success_count += 1
+        except Exception as e:
+            # Swallow timeouts/errors silently so TQDM keeps drawing smoothly. Next run will catch them.
+            time.sleep(1)
+
+    with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
+        futures = {executor.submit(process_item, p): p for p in problems}
+        for future in tqdm(concurrent.futures.as_completed(futures), total=len(problems), desc="Generating Geometry Reasoning"):
+            pass
+
+    print(f"\n+++ FINISHED! +++")
+    print(f"Successfully generated {success_count} geometries.")
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description="Generate K=4 Euclidean Latent steps using Gemini")
-    parser.add_argument("--mode", type=str, choices=['submit', 'retrieve'], required=True, help="Submit a new batch or retrieve a finished one.")
+    parser = argparse.ArgumentParser(description="Generate K=4 Euclidean Latent steps using Gemini 3.0 Flash on-demand")
     parser.add_argument("--dataset_path", type=str, default="GeoThought/playground/data/test_question.jsonl")
-    parser.add_argument("--output_path", type=str, default="data/geothoughts_k4_gemini3.1.jsonl")
+    parser.add_argument("--output_path", type=str, default="data/geothoughts_k4_gemini3.1.jsonl") # Keep original filename for compatibility
     parser.add_argument("--images_dir", type=str, default="GeoThought/playground/data/")
     parser.add_argument("--limit", type=int, default=None, help="Max number of examples to call API on")
     parser.add_argument("--target_sample", type=str, default=None, help="Specific sample to target")
-    parser.add_argument("--job_name", type=str, default=None, help="Job name required for retrieving (e.g., batches/12345)")
     
     args = parser.parse_args()
-    
-    if args.mode == "submit":
-        cmd_submit(args.dataset_path, args.images_dir, args.limit, args.target_sample)
-    elif args.mode == "retrieve":
-        # If no job_name provided, try to load it from the tracker file
-        job_id = args.job_name
-        tracker_file = "data/latest_gemini_job_id.txt"
-        
-        if not job_id:
-            if os.path.exists(tracker_file):
-                with open(tracker_file, 'r') as f:
-                    job_id = f.read().strip()
-                print(f"Auto-loaded job_name '{job_id}' from {tracker_file}")
-            else:
-                print("Error: --job_name is required for retrieve mode, and no tracking file was found.")
-                
-        if job_id:
-            cmd_retrieve(job_id, args.output_path, args.dataset_path, args.images_dir)
+    process_dataset(args.dataset_path, args.images_dir, args.output_path, args.limit, args.target_sample)
