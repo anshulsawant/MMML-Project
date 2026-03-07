@@ -110,7 +110,7 @@ class AlignmentLossFactory(nn.Module):
         # Variance: Push standard deviation of each feature dimension towards 1 (gamma=1)
         std_x = torch.sqrt(x.var(dim=0) + 1e-04)
         std_y = torch.sqrt(y.var(dim=0) + 1e-04)
-        var_loss = torch.mean(F.relu(1 - std_x)) + torch.mean(F.relu(1 - std_y))
+        var_loss = torch.mean(F.relu(1 - std_x))
         
         # Covariance: Decorrelate distinct features
         batch_size = x.shape[0]
