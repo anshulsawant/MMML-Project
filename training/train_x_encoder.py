@@ -243,7 +243,13 @@ def train():
             loss, metrics_dict = criterion(predicted_latents, targets)
             
             # Scale loss by accumulation steps
-            loss = loss / gradient_accumulation_steps
+            # Dynamically handle the remainder of the epoch if the last accumulation step isn't full
+            if (batch_idx + 1 == len(train_dataloader)) and (len(train_dataloader) % gradient_accumulation_steps != 0):
+                current_accumulation_steps = len(train_dataloader) % gradient_accumulation_steps
+            else:
+                current_accumulation_steps = gradient_accumulation_steps
+                
+            loss = loss / current_accumulation_steps
             loss.backward()
             
             # Step conditionally based on batch_idx and accumulation steps
