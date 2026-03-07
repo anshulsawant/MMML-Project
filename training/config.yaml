@@ -12,6 +12,6 @@ training:
   max_grad_norm: 1.0
 
 data:
-  jsonl_path: "data/geothoughts_k4.jsonl"
+  jsonl_path: "data/geothoughts_verified.jsonl"
   targets_dir: "data/target_tensors_verified/"
 
