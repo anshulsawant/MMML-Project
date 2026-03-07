@@ -2,6 +2,7 @@ import argparse
 import yaml
 import json
 import os
+import shutil
 import torch
 import wandb
 from PIL import Image
@@ -141,6 +142,7 @@ def train():
     # Checkpointing Logic (Load)
     # ---------------------------------------------------------
     start_epoch = 0
+    best_val_loss = float('inf')
     checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints")
     latest_cp_path = None
     
@@ -156,6 +158,9 @@ def train():
             
             # Load states
             cp = torch.load(latest_cp_path, map_location="cpu")
+            if "val_loss" in cp:
+                best_val_loss = cp.get("val_loss", float('inf'))
+                
             if is_distributed:
                 model.module.load_state_dict(cp["model_state_dict"])
             else:
@@ -212,6 +217,7 @@ def train():
             train_sampler.set_epoch(epoch)
         model.train()
         optimizer.zero_grad()
+        avg_val_loss = float('inf')
         
         for batch_idx, (images, texts, targets) in enumerate(train_dataloader):
             if max_steps_per_epoch is not None and batch_idx >= max_steps_per_epoch:
@@ -284,9 +290,16 @@ def train():
                 'epoch': epoch,
                 'model_state_dict': save_model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
-                'loss': loss.item()
+                'loss': loss.item(),
+                'val_loss': best_val_loss
             }, cp_path)
             print(f"[{local_rank}] Saved checkpoint: {cp_path}")
+            
+            if avg_val_loss < best_val_loss:
+                best_val_loss = avg_val_loss
+                best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
+                shutil.copy2(cp_path, best_cp_path)
+                print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
             
             # Keep only latest 2 checkpoints to prevent RunPod MooseFS disk quota exceeded
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
