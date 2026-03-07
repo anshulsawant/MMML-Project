@@ -270,15 +270,15 @@ def train():
                     current_lr = optimizer.param_groups[0]['lr']
                     grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
                     var_std_val = metrics_dict.get("loss/variance_std", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
+                    train_mse_val = metrics_dict.get("loss/invariance_mse", 0.0) if type(metrics_dict) is dict else 0.0
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Train MSE: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * gradient_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
                     metrics_dict["val/total_loss"] = avg_val_loss
-                    if avg_val_mse > 0:
-                        metrics_dict["val/invariance_mse"] = avg_val_mse
+                    metrics_dict["val/invariance_mse"] = avg_val_mse
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
