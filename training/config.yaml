@@ -20,4 +20,3 @@ training:
 data:
   jsonl_path: "data/geothoughts_verified.jsonl"
   targets_dir: "data/target_tensors_verified/"
-
