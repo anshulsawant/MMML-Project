@@ -1,0 +1,9 @@
+torch
+torchvision
+transformers
+accelerate
+datasets
+wandb
+Pillow
+pyyaml
+google-genai
