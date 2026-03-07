@@ -119,7 +119,12 @@ def train():
     else:
         model = model.to(local_rank) # cpu/cuda
         
-    criterion = AlignmentLossFactory(loss_type=config["training"]["loss_type"])
+    criterion = AlignmentLossFactory(
+        loss_type=config["training"]["loss_type"],
+        vicreg_sim_coeff=float(config["training"].get("vicreg_sim_coeff", 25.0)),
+        vicreg_var_coeff=float(config["training"].get("vicreg_var_coeff", 25.0)),
+        vicreg_cov_coeff=float(config["training"].get("vicreg_cov_coeff", 1.0))
+    )
     if is_distributed:
         criterion = criterion.to(local_rank)
         
