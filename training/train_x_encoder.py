@@ -269,7 +269,8 @@ def train():
                 if is_master:
                     current_lr = optimizer.param_groups[0]['lr']
                     grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Grad Norm: {grad_norm_val:.2f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
+                    var_std_val = metrics_dict.get("variance_std", 0.0) if type(metrics_dict) is dict else 0.0
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * gradient_accumulation_steps
