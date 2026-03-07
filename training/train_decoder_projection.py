@@ -17,7 +17,7 @@ def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid Phase 4.5: Train Prefix Projection")
     parser.add_argument("--config", type=str, default="training/config.yaml",
                         help="Path to YAML training configuration")
-    parser.add_argument("--x_encoder_weights", type=str, default="latent_euclid_x_encoder_final.pt",
+    parser.add_argument("--x_encoder_weights", type=str, default="checkpoints/x_encoder_best.pt",
                         help="Path to the frozen VICReg-aligned X-Encoder weights")
     parser.add_argument("--end_to_end", action="store_true",
                         help="Experimental: Unfreeze X-Encoder to train end-to-end (Method B)")
@@ -59,13 +59,10 @@ class GeoThoughtsTextDataset(Dataset):
         full_text = item["question"] + " " + thought_string
         
         # 3. Final Target Answer for the Y-Decoder to learn to generate
-        # In a real Geothought pipeline, this is derived from `item["answer"]` or parsed reasoning
-        # Assuming the generated offline dataset has a discrete `answer` field
-        target_answer = "\\boxed{" + str(item.get("answer", "0")) + "}"
-        if "reasoning" in item:
-            # Optionally train it to output the full 4 steps iteratively over the manifold
-            # But the primary objective is to get the final short numerical string
-            pass
+        # In this dataset, the dictionary has an `answer` field. 
+        # The Qwen model typically formats this text out cleanly.
+        target_answer = " \\boxed{" + str(item.get("answer", "0")) + "}"
+        target_answer += "<|im_end|>" # Ensure it learns to stop
 
         return {
             "image": image,
@@ -106,11 +103,14 @@ def train():
     )
     
     # Load VICReg weights
-    if os.path.exists(args.x_encoder_weights):
-        state_dict = torch.load(args.x_encoder_weights, map_location="cpu", weights_only=True)
-        x_encoder.load_state_dict(state_dict)
+    if os.path.exists(config["training"].get("checkpoint_dir", "/workspace/checkpoints") + "/x_encoder_best.pt"):
+        weight_path = config["training"].get("checkpoint_dir", "/workspace/checkpoints") + "/x_encoder_best.pt"
+        state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)
+        x_encoder.load_state_dict(state_dict["model_state_dict"])
+        print(f"[{local_rank}] Successfully loaded pre-aligned geometry from {weight_path}")
     else:
-        print(f"Warning: Could not find '{args.x_encoder_weights}'. Training from scratch.")
+        print(f"Error: Could not find '{args.x_encoder_weights}'. You must complete Phase 3 VICReg first!")
+        exit(1)
 
     if not args.end_to_end:
         print(f"[{local_rank}] Freezing X-Encoder (Method A)...")
