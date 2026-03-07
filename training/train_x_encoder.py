@@ -204,6 +204,7 @@ def train():
     print(f"[{local_rank}] Successfully initialized epoch pipelines! Train: {len(train_dataset)}, Val: {len(val_dataset)}")
     
     epochs = int(config["training"]["epochs"])
+    max_steps_per_epoch = config["training"].get("max_steps_per_epoch", None)
     device = local_rank if is_distributed else local_rank
     
     for epoch in range(start_epoch, epochs):
@@ -213,6 +214,10 @@ def train():
         optimizer.zero_grad()
         
         for batch_idx, (images, texts, targets) in enumerate(train_dataloader):
+            if max_steps_per_epoch is not None and batch_idx >= max_steps_per_epoch:
+                print(f"[{local_rank}] Reached max_steps_per_epoch ({max_steps_per_epoch}). Ending epoch {epoch} early.")
+                break
+                
             # Since VLMs (like Qwen3) usually require a complex processor for their images rather than raw PIL...
             # We extract them utilizing the associated model processor dynamically:
             tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
