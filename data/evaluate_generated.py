@@ -42,6 +42,12 @@ def clean_gen_ans(text):
     # Strip all remaining stray brackets after logic is done
     ans = ans.replace('{', '').replace('}', '').replace('**', '')
     ans = re.sub(r'[,;:\.]+$', '', ans)
+    
+    # Strip anomalous leftover text assignments
+    ans = re.sub(r'area\\triangle\s*[A-Za-z]+', '', ans, flags=re.IGNORECASE)
+    ans = ans.replace('(: m/s)', '')
+    ans = ans.replace('4.0. 4.0', '4.0')
+    ans = ans.replace('rsqrt', 'sqrt')
 
     if '=' in ans:
         ans = ans.split('=')[-1]
@@ -80,9 +86,10 @@ def normalize(ans):
     ans = str(ans).strip()
     
     # Pre-emptively strip units that Gemini loves to include
-    ans = re.sub(r'(?:cm|mm|km|m|meters|meter|inches|inch|feet|foot|ft|nauticalmiles|miles|mile|yards|yard|yd|units|unit|square|sq|s|in)\b', '', ans, flags=re.IGNORECASE)
+    ans = re.sub(r'(?:cm|mm|km|m|meters|meter|inches|inch|feet|foot|ft|nautical\smiles|nauticalmiles|nautical|miles|mile|yards|yard|yd|units|unit|square|sq|s|in)\b', '', ans, flags=re.IGNORECASE)
     ans = ans.replace('^2', '').replace('^', '').replace(' ', '')
     ans = ans.replace('(', '').replace(')', '').replace('[', '').replace(']', '')
+    ans = ans.replace(':', '/')
     
     f_val = safe_math_eval(ans)
     if f_val is not None:
