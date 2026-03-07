@@ -169,6 +169,7 @@ def train():
         shuffle=False
     )
     
+    gradient_accumulation_steps = int(config["training"].get("gradient_accumulation_steps", 1))
     print(f"[{local_rank}] Successfully initialized epoch pipelines! Train: {len(train_dataset)}, Val: {len(val_dataset)}")
     
     epochs = int(config["training"]["epochs"])
@@ -178,10 +179,9 @@ def train():
         if train_sampler:
             train_sampler.set_epoch(epoch)
         model.train()
+        optimizer.zero_grad()
         
         for batch_idx, (images, texts, targets) in enumerate(train_dataloader):
-            optimizer.zero_grad()
-            
             # Since VLMs (like Qwen3) usually require a complex processor for their images rather than raw PIL...
             # We extract them utilizing the associated model processor dynamically:
             tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
@@ -195,17 +195,25 @@ def train():
             
             # Loss alignment mapping
             loss, metrics_dict = criterion(predicted_latents, targets)
+            
+            # Scale loss by accumulation steps
+            loss = loss / gradient_accumulation_steps
             loss.backward()
             
-            grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
-            optimizer.step()
+            # Step conditionally based on batch_idx and accumulation steps
+            if ((batch_idx + 1) % gradient_accumulation_steps == 0) or (batch_idx + 1 == len(train_dataloader)):
+                grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
+                optimizer.step()
+                optimizer.zero_grad()
+            else:
+                grad_norm = 0.0 # Just a placeholder since no step occurred
             
-            if is_master and batch_idx % 2 == 0:
+            if is_master and batch_idx % (2 * gradient_accumulation_steps) == 0:
                 current_lr = optimizer.param_groups[0]['lr']
-                print(f"Epoch {epoch} | Batch {batch_idx} | {config['training']['loss_type']} Loss: {loss.item():.4f}")
+                print(f"Epoch {epoch} | Batch {batch_idx} | {config['training']['loss_type']} Loss: {loss.item() * gradient_accumulation_steps:.4f}")
                 
                 # Push tracked metrics to WandB securely
-                metrics_dict["train/total_loss"] = loss.item()
+                metrics_dict["train/total_loss"] = loss.item() * gradient_accumulation_steps
                 metrics_dict["train/grad_norm"] = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
                 metrics_dict["train/learning_rate"] = current_lr
                 metrics_dict["epoch"] = epoch
