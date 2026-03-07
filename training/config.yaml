@@ -7,7 +7,6 @@ training:
   epochs: 5
   batch_size: 32
   gradient_accumulation_steps: 8
-  max_steps_per_epoch: 16  # Added so you can test epoch completion quickly
   learning_rate: 2.0e-5
   weight_decay: 0.01
   loss_type: "vicreg"  # supports: info_nce_vanilla, info_nce_threshold, vicreg
