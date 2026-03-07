@@ -260,8 +260,8 @@ def train():
                         
                         v_loss, v_metrics = criterion(val_pred, val_targ)
                         total_val_loss += v_loss.item()
-                        if "invariance_mse" in v_metrics:
-                            total_val_mse += v_metrics["invariance_mse"]
+                        if "loss/invariance_mse" in v_metrics:
+                            total_val_mse += v_metrics["loss/invariance_mse"]
                         
                 avg_val_loss = total_val_loss / max(1, len(val_dataloader))
                 avg_val_mse = total_val_mse / max(1, len(val_dataloader))
@@ -269,7 +269,7 @@ def train():
                 if is_master:
                     current_lr = optimizer.param_groups[0]['lr']
                     grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
-                    var_std_val = metrics_dict.get("variance_std", 0.0) if type(metrics_dict) is dict else 0.0
+                    var_std_val = metrics_dict.get("loss/variance_std", 0.0) if type(metrics_dict) is dict else 0.0
                     print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
                     
                     # Push tracked metrics to WandB securely
