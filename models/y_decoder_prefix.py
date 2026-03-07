@@ -44,12 +44,13 @@ class YDecoderPrefix(nn.Module):
         # This linear layer can map any structural mismatch if we experiment with other models.
         self.prefix_projection = nn.Linear(self.embedding_dim, self.embedding_dim).to(torch.bfloat16)
 
-    def forward(self, predicted_latents, text_prompts=None):
+    def forward(self, predicted_latents, text_prompts=None, labels=None):
         """
         predicted_latents: [batch, K, dim] from LatentEuclid.
         text_prompts: Optional List[str] guiding the generation (e.g. "The final answer is: ")
+        labels: Optional List[str] of target answers for computing cross-entropy loss.
         
-        Returns logits from the autoregressive generation.
+        Returns CausalLMOutputWithPast (includes logits and loss if labels are provided).
         """
         device = self.decoder.device
         predicted_latents = predicted_latents.to(device)
@@ -85,15 +86,38 @@ class YDecoderPrefix(nn.Module):
         # Shape: [batch, K + seq_len]
         extended_attention_mask = torch.cat([prefix_mask, attention_mask], dim=1)
         
-        # 5. Forward pass through frozen LLM using `inputs_embeds` instead of integer IDs
+        # 5. Handle Target Labels for Training (Phase 4.5)
+        extended_labels = None
+        if labels is not None:
+            # Tokenize the target text separately
+            label_inputs = self.tokenizer(labels, return_tensors="pt", padding=True).to(device)
+            # -100 is the standard PyTorch ignore_index for CrossEntropyLoss
+            # We must ignore the K continuous prefix latents, since they are not textual targets
+            ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
+            
+            # The prompt text should ideally be ignored as well if we are strictly training NEXT token prediction 
+            # for the answer, but for simplicity we'll let the model calculate loss over the whole text_prompts + labels sequence.
+            # To be precise, extended_labels = [ -100 * K ] + [ tokenized text ]
+            # Note: For strict seq2seq fine-tuning, you would mask out `text_prompts` too.
+            extended_labels = torch.cat([ignore_prefix, label_inputs.input_ids], dim=1)
+            
+            # Update inputs_embeds to include the label embeddings instead of just prompts
+            label_embeddings = self.decoder.get_input_embeddings()(label_inputs.input_ids)
+            inputs_embeds = torch.cat([soft_prefixes, label_embeddings], dim=1)
+            
+            # Recompute attention mask for the new extended sequence
+            extended_attention_mask = torch.cat([prefix_mask, label_inputs.attention_mask], dim=1)
+
+        # 6. Forward pass through frozen LLM using `inputs_embeds` instead of integer IDs
         outputs = self.decoder(
             inputs_embeds=inputs_embeds,
             attention_mask=extended_attention_mask,
+            labels=extended_labels,
             output_hidden_states=False,
             return_dict=True
         )
         
-        return outputs.logits
+        return outputs
 
     @torch.no_grad()
     def generate(self, predicted_latents, text_prompts=None, max_new_tokens=20):
