@@ -13,12 +13,30 @@ crucial visual evidence out of the frame.
 
 import torch
 import torchvision.transforms.v2 as transforms
+from torchvision.transforms import functional as F_t
+
+class AddGaussianNoise(torch.nn.Module):
+    def __init__(self, mean=0.0, std=0.05, p=0.5):
+        super().__init__()
+        self.mean = mean
+        self.std = std
+        self.p = p
+
+    def forward(self, img):
+        if torch.rand(1).item() > self.p:
+            return img
+        # img is a PIL Image
+        tensor = F_t.pil_to_tensor(img).to(torch.float32) / 255.0
+        noise = torch.randn(tensor.size()) * self.std + self.mean
+        tensor = torch.clamp(tensor + noise, 0.0, 1.0)
+        return F_t.to_pil_image(tensor)
 
 class GeometrySafeAugmentation:
     """
     Applies strict, geometry-safe affine transformations to diagrams.
     Guarantees no destructive crops that would remove mathematical context.
-    Allows for: Translation, Rotation, Scaling, Shearing, and Low-Norm Affine Matrices.
+    Allows for: Translation, Rotation, Scaling, Shearing, Low-Norm Affine Matrices,
+    as well as Gaussian Blur and White Noise.
     """
     def __init__(self, 
                  max_rotation: float = 15.0, 
@@ -35,7 +53,9 @@ class GeometrySafeAugmentation:
                 scale=scale_range,
                 shear=max_shear,
                 interpolation=transforms.InterpolationMode.BILINEAR,
-            )
+            ),
+            transforms.RandomApply([transforms.GaussianBlur(kernel_size=5, sigma=(0.1, 2.0))], p=0.5),
+            AddGaussianNoise(std=0.05, p=0.5)
         ])
 
     def __call__(self, image):
