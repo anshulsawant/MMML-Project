@@ -251,26 +251,33 @@ def train():
                 # --- RUN VALIDATION ON STEP ---
                 model.eval()
                 total_val_loss = 0.0
+                total_val_mse = 0.0
                 with torch.no_grad():
                     for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
                         val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
                         val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
                         val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
                         
-                        v_loss, _ = criterion(val_pred, val_targ)
+                        v_loss, v_metrics = criterion(val_pred, val_targ)
                         total_val_loss += v_loss.item()
+                        if "invariance_mse" in v_metrics:
+                            total_val_mse += v_metrics["invariance_mse"]
                         
                 avg_val_loss = total_val_loss / max(1, len(val_dataloader))
+                avg_val_mse = total_val_mse / max(1, len(val_dataloader))
                 
                 if is_master:
                     current_lr = optimizer.param_groups[0]['lr']
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Val Loss: {avg_val_loss:.4f}")
+                    grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Grad Norm: {grad_norm_val:.2f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * gradient_accumulation_steps
-                    metrics_dict["train/grad_norm"] = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
+                    metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
                     metrics_dict["val/total_loss"] = avg_val_loss
+                    if avg_val_mse > 0:
+                        metrics_dict["val/invariance_mse"] = avg_val_mse
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
@@ -301,11 +308,11 @@ def train():
                 shutil.copy2(cp_path, best_cp_path)
                 print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
             
-            # Keep only latest 2 checkpoints to prevent RunPod MooseFS disk quota exceeded
+            # Keep only latest 15 checkpoints to safely utilize the 500GB RunPod MooseFS disk quota
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
-            if len(old_epochs) > 2:
+            if len(old_epochs) > 15:
                 old_epochs.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
-                for old_f in old_epochs[:-1]: # Keep only the latest 1 checkpoint to be ultra-safe with 200GB quota
+                for old_f in old_epochs[:-15]: # Keep the latest 15 checkpoints (approx 360GB total)
                     try:
                         os.remove(os.path.join(checkpoint_dir, old_f))
                         print(f"[{local_rank}] Auto-deleted ancient checkpoint {old_f} to preserve disk space.")
