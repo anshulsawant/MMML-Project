@@ -286,8 +286,18 @@ def train():
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': loss.item()
             }, cp_path)
-            print(f"Saved checkpoint: {cp_path}")
+            print(f"[{local_rank}] Saved checkpoint: {cp_path}")
             
+            # Keep only latest 2 checkpoints to prevent RunPod MooseFS disk quota exceeded
+            old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
+            if len(old_epochs) > 2:
+                old_epochs.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                for old_f in old_epochs[:-1]: # Keep only the latest 1 checkpoint to be ultra-safe with 200GB quota
+                    try:
+                        os.remove(os.path.join(checkpoint_dir, old_f))
+                        print(f"[{local_rank}] Auto-deleted ancient checkpoint {old_f} to preserve disk space.")
+                    except OSError:
+                        pass
     if is_master:
         save_model = model.module if is_distributed else model
         torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
