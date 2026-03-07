@@ -193,7 +193,8 @@ def train():
         batch_size=int(config["training"]["batch_size"]), 
         sampler=train_sampler,
         collate_fn=custom_collate,
-        shuffle=(train_sampler is None)
+        shuffle=(train_sampler is None),
+        drop_last=True
     )
     
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
