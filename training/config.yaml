@@ -9,6 +9,7 @@ training:
   gradient_accumulation_steps: 16
   learning_rate: 2.0e-5
   weight_decay: 0.01
+  loss_type: "vicreg"  # supports: info_nce_vanilla, info_nce_threshold, vicreg
   max_grad_norm: 50.0
   vicreg_sim_coeff: 25.0
   vicreg_var_coeff: 25.0
