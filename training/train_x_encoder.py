@@ -166,8 +166,14 @@ def train():
                 model.module.load_state_dict(cp["model_state_dict"])
             else:
                 model.load_state_dict(cp["model_state_dict"])
-                
             optimizer.load_state_dict(cp["optimizer_state_dict"])
+            
+            # Explicitly override the loaded learning rate with the config value
+            # (optimizer.load_state_dict will otherwise overwrite the new lr with the old saved lr)
+            target_lr = float(config["training"]["learning_rate"])
+            for param_group in optimizer.param_groups:
+                param_group['lr'] = target_lr
+            print(f"[{local_rank}] Checkpoint Optimizer LR manually overridden to {target_lr}")
     else:
         if is_master:
             os.makedirs(checkpoint_dir, exist_ok=True)
