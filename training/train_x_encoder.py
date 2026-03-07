@@ -137,6 +137,37 @@ def train():
         weight_decay=float(config["training"]["weight_decay"])
     )
     
+    # ---------------------------------------------------------
+    # Checkpointing Logic (Load)
+    # ---------------------------------------------------------
+    start_epoch = 0
+    checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints")
+    latest_cp_path = None
+    
+    if os.path.exists(checkpoint_dir):
+        checkpoints = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
+        if checkpoints:
+            checkpoints.sort(key=lambda x: int(x.split('_')[2].split('.')[0]))
+            latest_cp_file = checkpoints[-1]
+            latest_cp_path = os.path.join(checkpoint_dir, latest_cp_file)
+            start_epoch = int(latest_cp_file.split('_')[2].split('.')[0]) + 1
+            
+            print(f"[{local_rank}] Found checkpoint {latest_cp_file}. Resuming from epoch {start_epoch}...")
+            
+            # Load states
+            cp = torch.load(latest_cp_path, map_location="cpu")
+            if is_distributed:
+                model.module.load_state_dict(cp["model_state_dict"])
+            else:
+                model.load_state_dict(cp["model_state_dict"])
+                
+            optimizer.load_state_dict(cp["optimizer_state_dict"])
+    else:
+        if is_master:
+            os.makedirs(checkpoint_dir, exist_ok=True)
+            print(f"[{local_rank}] Checkpoint directory {checkpoint_dir} created. Starting from scratch.")
+    # ---------------------------------------------------------
+    
     # Instantiate Data Loader
     full_dataset = GeoThoughtsDataset(
         jsonl_path=config["data"]["jsonl_path"],
@@ -175,7 +206,7 @@ def train():
     epochs = int(config["training"]["epochs"])
     device = local_rank if is_distributed else local_rank
     
-    for epoch in range(epochs):
+    for epoch in range(start_epoch, epochs):
         if train_sampler:
             train_sampler.set_epoch(epoch)
         model.train()
@@ -239,6 +270,19 @@ def train():
             else:
                 pass # Just accumulating gradients
 
+        # --- SAVE CHECKPOINT PER EPOCH ---
+        if is_master:
+            cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}.pt")
+            save_model = model.module if is_distributed else model
+            
+            torch.save({
+                'epoch': epoch,
+                'model_state_dict': save_model.state_dict(),
+                'optimizer_state_dict': optimizer.state_dict(),
+                'loss': loss.item()
+            }, cp_path)
+            print(f"Saved checkpoint: {cp_path}")
+            
     if is_master:
         save_model = model.module if is_distributed else model
         torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
