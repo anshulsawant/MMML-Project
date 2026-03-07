@@ -130,33 +130,47 @@ def train():
     )
     
     # Instantiate Data Loader
-    dataset = GeoThoughtsDataset(
+    full_dataset = GeoThoughtsDataset(
         jsonl_path=config["data"]["jsonl_path"],
         targets_dir=config["data"]["targets_dir"],
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
         k_steps=config["model"]["k_steps"]
     )
     
-    sampler = DistributedSampler(dataset) if is_distributed else None
-    dataloader = DataLoader(
-        dataset, 
+    # 90/10 Train/Val Split
+    train_size = int(0.9 * len(full_dataset))
+    val_size = len(full_dataset) - train_size
+    train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
+    
+    train_sampler = DistributedSampler(train_dataset) if is_distributed else None
+    train_dataloader = DataLoader(
+        train_dataset, 
         batch_size=int(config["training"]["batch_size"]), 
-        sampler=sampler,
+        sampler=train_sampler,
         collate_fn=custom_collate,
-        shuffle=(sampler is None)
+        shuffle=(train_sampler is None)
     )
     
-    print(f"[{local_rank}] Successfully initialized epoch pipelines!")
+    val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
+    val_dataloader = DataLoader(
+        val_dataset, 
+        batch_size=int(config["training"]["batch_size"]), 
+        sampler=val_sampler,
+        collate_fn=custom_collate,
+        shuffle=False
+    )
+    
+    print(f"[{local_rank}] Successfully initialized epoch pipelines! Train: {len(train_dataset)}, Val: {len(val_dataset)}")
     
     epochs = int(config["training"]["epochs"])
     device = local_rank if is_distributed else local_rank
     
     for epoch in range(epochs):
-        if sampler:
-            sampler.set_epoch(epoch)
+        if train_sampler:
+            train_sampler.set_epoch(epoch)
         model.train()
         
-        for batch_idx, (images, texts, targets) in enumerate(dataloader):
+        for batch_idx, (images, texts, targets) in enumerate(train_dataloader):
             optimizer.zero_grad()
             
             # Since VLMs (like Qwen3) usually require a complex processor for their images rather than raw PIL...
@@ -188,6 +202,25 @@ def train():
                 metrics_dict["epoch"] = epoch
                 
                 wandb.log(metrics_dict)
+                
+        # Validation Loop
+        model.eval()
+        total_val_loss = 0.0
+        with torch.no_grad():
+            for val_idx, (images, texts, targets) in enumerate(val_dataloader):
+                tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
+                inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
+                
+                predicted_latents = model(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+                targets = targets.to(device=device, dtype=predicted_latents.dtype)
+                
+                val_loss, _ = criterion(predicted_latents, targets)
+                total_val_loss += val_loss.item()
+                
+        avg_val_loss = total_val_loss / max(1, len(val_dataloader))
+        if is_master:
+            print(f"=== Epoch {epoch} Validation {config['training']['loss_type']} Loss: {avg_val_loss:.4f} ===")
+            wandb.log({"val/total_loss": avg_val_loss, "epoch": epoch})
                 
     if is_master:
         save_model = model.module if is_distributed else model
