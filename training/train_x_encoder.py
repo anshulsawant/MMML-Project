@@ -11,7 +11,7 @@ from torch.utils.data import Dataset, DataLoader, DistributedSampler
 
 from models.latent_euclid import LatentEuclid
 from training.stable_alignment_loss import AlignmentLossFactory
-# from training.augmentation import GeometrySafeAugmentation # Temporarily isolated depending on vision model specifics
+from training.augmentation import GeometrySafeAugmentation
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
@@ -36,11 +36,12 @@ class GeoThoughtsDataset(Dataset):
     Parses the JSONL generation pairs, loads the raw vision images, 
     and aligns them with the offline continuous 4-step .pt manifolds.
     """
-    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, k_steps=4):
+    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, k_steps=4, augment=False):
         self.data = []
         self.targets_dir = targets_dir
         self.tokenizer = tokenizer
         self.k_steps = k_steps
+        self.augmentor = GeometrySafeAugmentation() if augment else None
         
         with open(jsonl_path, 'r') as f:
             for idx, line in enumerate(f):
@@ -64,6 +65,8 @@ class GeoThoughtsDataset(Dataset):
         img_path = item["image_path"]
         try:
             image = Image.open(img_path).convert("RGB")
+            if self.augmentor is not None:
+                image = self.augmentor(image)
         except:
             # Fallback mock image if path is broken
             image = Image.new('RGB', (224, 224), color = (73, 109, 137))
@@ -139,7 +142,8 @@ def train():
         jsonl_path=config["data"]["jsonl_path"],
         targets_dir=config["data"]["targets_dir"],
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
-        k_steps=config["model"]["k_steps"]
+        k_steps=config["model"]["k_steps"],
+        augment=True # Apply affine geometry-safe augmentations dynamically
     )
     
     # 90/10 Train/Val Split
