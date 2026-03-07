@@ -147,10 +147,10 @@ def train():
     if os.path.exists(checkpoint_dir):
         checkpoints = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
         if checkpoints:
-            checkpoints.sort(key=lambda x: int(x.split('_')[2].split('.')[0]))
+            checkpoints.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
             latest_cp_file = checkpoints[-1]
             latest_cp_path = os.path.join(checkpoint_dir, latest_cp_file)
-            start_epoch = int(latest_cp_file.split('_')[2].split('.')[0]) + 1
+            start_epoch = int(latest_cp_file.split('epoch_')[1].split('.')[0]) + 1
             
             print(f"[{local_rank}] Found checkpoint {latest_cp_file}. Resuming from epoch {start_epoch}...")
             
