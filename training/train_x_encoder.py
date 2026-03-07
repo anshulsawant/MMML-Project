@@ -205,40 +205,40 @@ def train():
                 grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
                 optimizer.step()
                 optimizer.zero_grad()
+                
+                # --- RUN VALIDATION ON STEP ---
+                model.eval()
+                total_val_loss = 0.0
+                with torch.no_grad():
+                    for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+                        val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
+                        val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
+                        val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                        
+                        v_loss, _ = criterion(val_pred, val_targ)
+                        total_val_loss += v_loss.item()
+                        
+                avg_val_loss = total_val_loss / max(1, len(val_dataloader))
+                
+                if is_master:
+                    current_lr = optimizer.param_groups[0]['lr']
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Train Loss: {loss.item() * gradient_accumulation_steps:.4f} | Val Loss: {avg_val_loss:.4f}")
+                    
+                    # Push tracked metrics to WandB securely
+                    metrics_dict["train/total_loss"] = loss.item() * gradient_accumulation_steps
+                    metrics_dict["train/grad_norm"] = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
+                    metrics_dict["train/learning_rate"] = current_lr
+                    metrics_dict["val/total_loss"] = avg_val_loss
+                    metrics_dict["epoch"] = epoch
+                    
+                    wandb.log(metrics_dict)
+                
+                model.train() # Return to training mode
+                # ------------------------------
+                
             else:
-                grad_norm = 0.0 # Just a placeholder since no step occurred
-            
-            if is_master and batch_idx % (2 * gradient_accumulation_steps) == 0:
-                current_lr = optimizer.param_groups[0]['lr']
-                print(f"Epoch {epoch} | Batch {batch_idx} | {config['training']['loss_type']} Loss: {loss.item() * gradient_accumulation_steps:.4f}")
-                
-                # Push tracked metrics to WandB securely
-                metrics_dict["train/total_loss"] = loss.item() * gradient_accumulation_steps
-                metrics_dict["train/grad_norm"] = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
-                metrics_dict["train/learning_rate"] = current_lr
-                metrics_dict["epoch"] = epoch
-                
-                wandb.log(metrics_dict)
-                
-        # Validation Loop
-        model.eval()
-        total_val_loss = 0.0
-        with torch.no_grad():
-            for val_idx, (images, texts, targets) in enumerate(val_dataloader):
-                tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
-                inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
-                
-                predicted_latents = model(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
-                targets = targets.to(device=device, dtype=predicted_latents.dtype)
-                
-                val_loss, _ = criterion(predicted_latents, targets)
-                total_val_loss += val_loss.item()
-                
-        avg_val_loss = total_val_loss / max(1, len(val_dataloader))
-        if is_master:
-            print(f"=== Epoch {epoch} Validation {config['training']['loss_type']} Loss: {avg_val_loss:.4f} ===")
-            wandb.log({"val/total_loss": avg_val_loss, "epoch": epoch})
-                
+                pass # Just accumulating gradients
+
     if is_master:
         save_model = model.module if is_distributed else model
         torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
