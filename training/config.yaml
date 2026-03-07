@@ -5,8 +5,8 @@ model:
   
 training:
   epochs: 5
-  batch_size: 4
-  gradient_accumulation_steps: 1
+  batch_size: 32
+  gradient_accumulation_steps: 8
   learning_rate: 2.0e-5
   weight_decay: 0.01
   loss_type: "vicreg"  # supports: info_nce_vanilla, info_nce_threshold, vicreg
