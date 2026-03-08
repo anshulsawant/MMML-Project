@@ -9,10 +9,6 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import Dataset, DataLoader, DistributedSampler
 import random
-import sys
-
-# Ensure project root is reachable for 'models' import regardless of execution dir
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from models.latent_euclid import LatentEuclid
 from models.y_decoder_prefix import YDecoderPrefix
