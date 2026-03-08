@@ -58,8 +58,12 @@ class YDecoderPrefix(nn.Module):
         self.embedding_dim = getattr(self.decoder.config, "hidden_size", getattr(getattr(self.decoder.config, "text_config", None), "hidden_size", None))
         
         # In our pipeline, the X-Encoder predictor outputs strictly to self.embedding_dim.
-        # This linear layer can map any structural mismatch if we experiment with other models.
-        self.prefix_projection = nn.Linear(self.embedding_dim, self.embedding_dim).to(torch.bfloat16)
+        # This 2-layer MLP maps the structural non-linearities between the modalities.
+        self.prefix_projection = nn.Sequential(
+            nn.Linear(self.embedding_dim, self.embedding_dim * 2).to(torch.bfloat16),
+            nn.GELU().to(torch.bfloat16),
+            nn.Linear(self.embedding_dim * 2, self.embedding_dim).to(torch.bfloat16)
+        )
 
     def forward(self, predicted_latents, text_prompts=None, labels=None):
         """
