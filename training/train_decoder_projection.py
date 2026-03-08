@@ -234,9 +234,11 @@ def train():
                 inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
                 predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
                 
+                val_prompts = ["Answer: "] * len(images)
+                
                 outputs = y_decoder(
                     predicted_latents=predicted_latents, 
-                    text_prompts=decoder_prompts,
+                    text_prompts=val_prompts,
                     labels=target_answers
                 )
                 total_val_loss += outputs.loss.item()
