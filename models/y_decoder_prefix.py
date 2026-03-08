@@ -108,22 +108,21 @@ class YDecoderPrefix(nn.Module):
         if labels is not None:
             # Tokenize the target text separately
             label_inputs = self.tokenizer(labels, return_tensors="pt", padding=True).to(device)
-            # -100 is the standard PyTorch ignore_index for CrossEntropyLoss
-            # We must ignore the K continuous prefix latents, since they are not textual targets
-            ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
-            
-            # The prompt text should ideally be ignored as well if we are strictly training NEXT token prediction 
-            # for the answer, but for simplicity we'll let the model calculate loss over the whole text_prompts + labels sequence.
-            # To be precise, extended_labels = [ -100 * K ] + [ tokenized text ]
-            # Note: For strict seq2seq fine-tuning, you would mask out `text_prompts` too.
-            extended_labels = torch.cat([ignore_prefix, label_inputs.input_ids], dim=1)
-            
-            # Update inputs_embeds to include the label embeddings instead of just prompts
             label_embeddings = self.decoder.get_input_embeddings()(label_inputs.input_ids)
-            inputs_embeds = torch.cat([soft_prefixes, label_embeddings], dim=1)
             
-            # Recompute attention mask for the new extended sequence
-            extended_attention_mask = torch.cat([prefix_mask, label_inputs.attention_mask], dim=1)
+            # Combine everything: [Soft Prefixes] + [Text Prompts] + [Target Labels]
+            inputs_embeds = torch.cat([soft_prefixes, text_embeddings, label_embeddings], dim=1)
+            
+            # Update attention mask
+            extended_attention_mask = torch.cat([prefix_mask, attention_mask, label_inputs.attention_mask], dim=1)
+            
+            # -100 is the standard PyTorch ignore_index for CrossEntropyLoss
+            # We must ignore the K continuous prefix latents AND the text prompts (e.g. "Answer: ")
+            ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
+            ignore_prompts = torch.full_like(input_ids, -100)
+            
+            # Only the final target answers factor into the loss calculation
+            extended_labels = torch.cat([ignore_prefix, ignore_prompts, label_inputs.input_ids], dim=1)
 
         # 6. Forward pass through frozen LLM using `inputs_embeds` instead of integer IDs
         outputs = self.decoder(
