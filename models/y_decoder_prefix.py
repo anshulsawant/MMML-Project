@@ -168,7 +168,7 @@ class YDecoderPrefix(nn.Module):
         soft_prefixes = self.prefix_projection(predicted_latents.to(device))
         
         if text_prompts is None:
-            text_prompts = ["Answer: "] * soft_prefixes.shape[0]
+            text_prompts = [""] * soft_prefixes.shape[0]
             
         inputs = self.tokenizer(text_prompts, return_tensors="pt", padding=True).to(device)
         
@@ -183,8 +183,11 @@ class YDecoderPrefix(nn.Module):
             attention_mask=extended_attention_mask,
             max_new_tokens=max_new_tokens,
             pad_token_id=self.tokenizer.pad_token_id,
-            eos_token_id=self.tokenizer.eos_token_id
+            eos_token_id=self.tokenizer.eos_token_id,
+            do_sample=False
         )
+        
+        print(f"DEBUG OUTPUT SHAPE: {outputs.shape} | RAW TOKENS: {outputs.tolist()}")
         
         # Decode the output tokens back to strings
         decoded_answers = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
