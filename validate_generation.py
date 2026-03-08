@@ -73,7 +73,8 @@ def generate_answers():
             img_path = item["image_path"]
             try:
                 image = Image.open(img_path).convert("RGB")
-            except:
+            except Exception as e:
+                print(f"Error loading image {img_path}: {e}")
                 continue
                 
             question = item["question"]
