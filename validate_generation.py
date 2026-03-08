@@ -40,7 +40,15 @@ def generate_answers():
     ).to(device)
     
     # Load projection head weights
-    y_decoder.prefix_projection.load_state_dict(torch.load(args.decoder_weights, map_location="cpu"))
+    decoder_state_dict = torch.load(args.decoder_weights, map_location="cpu")
+    
+    # Backward compatibility: Check if the saved checkpoint is from before the MLP upgrade
+    if "weight" in decoder_state_dict and "0.weight" not in decoder_state_dict:
+        import torch.nn as nn
+        print("Detected old-style single Linear layer checkpoint. Downgrading architecture for evaluation...")
+        y_decoder.prefix_projection = nn.Linear(y_decoder.embedding_dim, y_decoder.embedding_dim).to(torch.bfloat16).to(device)
+        
+    y_decoder.prefix_projection.load_state_dict(decoder_state_dict)
     y_decoder.eval()
 
     print("Loading Validation Dataset...")
