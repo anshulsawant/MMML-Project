@@ -73,8 +73,10 @@ flowchart TB
 
 ### **Phase 4: Decoding and Inference ($Y$-Decoder)**
 
-* **Test-Time Execution:** During inference, the visual input, question, and `<thought>` tokens are passed through the network in one shot to yield the 4 latent vectors.
-* **Soft Prompt Prefix Tuning:** The readout mechanism uses a highly lightweight Decoder matching the LLM-native embedding space used in Phase 1 (e.g., Qwen3-0.6B). We treat the 4 predicted vectors $[\hat{S}_{y1}, ..., \hat{S}_{y4}]$ as **Soft Prompts**. By linearly projecting the vectors to match the decoder's token embedding dimension, they are prepended directly to the decoder's embedding sequence. Conditioned natively on these continuous latent prefixes, the frozen decoder autoregressively generates the final short numerical string.
+* **Test-Time Execution:** During inference, the visual input, question, and `<thought>` tokens are passed through the network in one shot to yield the $K=4$ latent vectors.
+* **Soft Prompt Prefix Tuning:** The readout mechanism uses a robust Base LLM (e.g., `Qwen3-4B-Base`). We treat the 4 predicted vectors $[\hat{S}_{y1}, ..., \hat{S}_{y4}]$ as **Soft Prompts**. A 2-layer MLP linearly projects these vectors to match the decoder's token embedding dimension. Crucially, to provide semantic context, the target model is conditioned on the full structure: we prepend the textual question embeddings *before* the continuous geometry prefixes, and append a specific delimiter (`\nAnswer: `) immediately after.
+* **Autoregressive Generation:** Conditioned natively on the unified sequence `[Text Embeddings (Question)] + [Soft Prefixes (Geometry)] + [\nAnswer:]`, the frozen base model autoregressively generates the final short numerical string, strictly halting via parsed `eos_token_id`s (e.g. `<|im_end|>`).
+* **Validation:** Early testing reveals ~20% validation accuracy generated *purely* via mathematical geometric encoding being parsed by the Y-Decoder MLP, empirically validating the viability of the macro-JEPA topology.
 
 ## **3. Evaluation & Probing Strategy**
 

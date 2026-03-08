@@ -88,7 +88,27 @@ python -m training.train_x_encoder \
 
 *Note: For `vicreg`, our pipeline natively utilizes structurally safe geometry augmentations (Affine transformations like shearing, rotation, scaling) and avoids destructive random cropping via `training/augmentation.py`.*
 
-### Phase 5: Probing & Inference Evaluation
+### Phase 4.5: Y-Decoder Prefix Projection (Training)
+
+Once the X-Encoder is heavily trained to map images to geometry, we execute Phase 4.5 to link the continuous topology into discretely generated targets using a new Base LLM (e.g., `Qwen3-4B-Base`). This teaches a 2-layer MLP to map the frozen $X$-Encoder geometric thoughts into the structural embedding layer of the $Y$-Decoder, allowing standard autoregressive mathematical generation.
+
+```bash
+python -m training.train_decoder_projection \
+    --config training/config_decoder.yaml \
+    --x_encoder_weights checkpoints/x_encoder_best.pt
+```
+
+For experimental End-to-End alignment unfreezing the X-Encoder limits, append `--end_to_end`.
+
+### Phase 5: Generative Inference Validation
+
+To test whether the Target Decoder has successfully learned how to unwrap the geometric logic from the continuous Prefix Tensors, run the generative suite. This computes purely offline predictions of the test split numbers formatted to explicitly cue the `<|im_end|>` termination tokens.
+
+```bash
+python -m validate_generation
+```
+
+### Phase 6: Probing & Structural Evaluation
 
 The evaluation suite contains scripts measuring exact time-to-answer latency reductions. It runs the primary "Visual Forgetting" thesis probe, calculating cosine similarity and Euclidean drift of the `LatentEuclid` predicted thought vectors against baseline generative representations across deep layers.
 
