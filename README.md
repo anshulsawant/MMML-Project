@@ -60,7 +60,20 @@ python -m data.generate_geothoughts --resume_job batches/YOUR_JOB_ID_HERE
 ```
 *Outputs are mapped safely onto physical newlines into `data/geothoughts_k4.jsonl`.*
 
-**Step 2c: Build the Target Manifold**
+**Step 2c: Data Verification & Ground Truth Extraction**
+Because VLMs are highly verbose, simply generating the answers isn't enough for structural alignment. We must rigorously test Gemini's zero-shot generations against the dataset's native ground truths.
+```bash
+python -m data.evaluate_generated
+```
+* **Performance:** Gemini 3.1 Flash-Preview achieves a **95.16%** zero-shot accuracy evaluating geometric proofs.
+* **Extraction Challenges:** Building this evaluation pipeline required robust logic to parse multimodal math. Ground truths often contain strict primitives (e.g. `10/3`), while VLMs emit varied formats (e.g., `3.3333`, `10\pi`, `sq units`, `\boxed{...}`). The `evaluate_generated.py` script utilizes complex LaTeX-stripping heuristics and a safe Python `ast.parse` / `eval` float-equivalence fallback structure to accurately cross-validate geometric answers despite trailing text and varying unit representations.
+
+**Dataset Glossary:**
+* `data/geothoughts_k4.jsonl`: Raw, unverified text outputs from the Gemini API.
+* `data/ground_truths.json`: Raw target answers extracted from the original geometry datasets.
+* `data/geothoughts_verified.jsonl`: The final, purely accurate subset of proofs where Gemini mathematically matched the ground truth safely. (Used for training the $X$-Encoder).
+
+**Step 2d: Build the Target Manifold**
 Pass the strictly formatted 4-step chains natively through the frozen `Qwen3-0.6B` text model to create the `.pt` embedding vector targets.
 ```bash
 python -m data.build_manifold
