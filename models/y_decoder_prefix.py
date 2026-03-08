@@ -93,19 +93,19 @@ class YDecoderPrefix(nn.Module):
         # Shape: [batch, seq_len, embedding_dim]
         text_embeddings = self.decoder.get_input_embeddings()(input_ids)
         
-        # 3. Concatenate: [Soft Prefixes] + [Text Embeddings]
-        # Shape: [batch, K + seq_len, embedding_dim]
-        inputs_embeds = torch.cat([soft_prefixes, text_embeddings], dim=1)
+        # 3. Concatenate: [Text Embeddings (Question)] + [Soft Prefixes]
+        # Shape: [batch, seq_len + K, embedding_dim]
+        inputs_embeds = torch.cat([text_embeddings, soft_prefixes], dim=1)
         
-        # 4. Expand the attention mask to cover the K soft prompt tokens
+        # 4. Expand the attention mask to cover the K soft prompt tokens appended *after* the text
         # Shape: [batch, K] of 1s
         prefix_mask = torch.ones(
             (soft_prefixes.shape[0], self.k_steps), 
             dtype=attention_mask.dtype, 
             device=attention_mask.device
         )
-        # Shape: [batch, K + seq_len]
-        extended_attention_mask = torch.cat([prefix_mask, attention_mask], dim=1)
+        # Shape: [batch, seq_len + K]
+        extended_attention_mask = torch.cat([attention_mask, prefix_mask], dim=1)
         
         # 5. Handle Target Labels for Training (Phase 4.5)
         extended_labels = None
@@ -114,23 +114,23 @@ class YDecoderPrefix(nn.Module):
             label_inputs = self.tokenizer(labels, return_tensors="pt", padding=True).to(device)
             label_embeddings = self.decoder.get_input_embeddings()(label_inputs.input_ids)
             
-            # Combine everything: [Soft Prefixes] + [Text Prompts] + [Target Labels]
-            inputs_embeds = torch.cat([soft_prefixes, text_embeddings, label_embeddings], dim=1)
+            # Combine everything: [Text Prompts] + [Soft Prefixes] + [Target Labels]
+            inputs_embeds = torch.cat([text_embeddings, soft_prefixes, label_embeddings], dim=1)
             
             # Update attention mask
-            extended_attention_mask = torch.cat([prefix_mask, attention_mask, label_inputs.attention_mask], dim=1)
+            extended_attention_mask = torch.cat([attention_mask, prefix_mask, label_inputs.attention_mask], dim=1)
             
             # -100 is the standard PyTorch ignore_index for CrossEntropyLoss
-            # We must ignore the K continuous prefix latents AND the text prompts (e.g. "Answer: ")
-            ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
+            # We must ignore the K continuous prefix latents AND the text prompts (e.g. "Question: Find x...")
             ignore_prompts = torch.full_like(input_ids, -100)
+            ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
             
             # Mask out padding tokens in the target labels so we only compute CE loss on the actual answer bytes
             masked_label_ids = label_inputs.input_ids.clone()
             masked_label_ids[label_inputs.attention_mask == 0] = -100
             
             # Only the final target answers factor into the loss calculation
-            extended_labels = torch.cat([ignore_prefix, ignore_prompts, masked_label_ids], dim=1)
+            extended_labels = torch.cat([ignore_prompts, ignore_prefix, masked_label_ids], dim=1)
 
             # --- TEMPORARY DEBUG BLOCK ---
             if not hasattr(self, '_debug_printed'):
@@ -177,10 +177,10 @@ class YDecoderPrefix(nn.Module):
         inputs = self.tokenizer(text_prompts, return_tensors="pt", padding=True).to(device)
         
         text_embeddings = self.decoder.get_input_embeddings()(inputs.input_ids)
-        inputs_embeds = torch.cat([soft_prefixes, text_embeddings], dim=1)
+        inputs_embeds = torch.cat([text_embeddings, soft_prefixes], dim=1)
         
         prefix_mask = torch.ones((soft_prefixes.shape[0], self.k_steps), dtype=inputs.attention_mask.dtype, device=device)
-        extended_attention_mask = torch.cat([prefix_mask, inputs.attention_mask], dim=1)
+        extended_attention_mask = torch.cat([inputs.attention_mask, prefix_mask], dim=1)
         
         outputs = self.decoder.generate(
             inputs_embeds=inputs_embeds,

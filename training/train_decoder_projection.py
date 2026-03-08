@@ -194,8 +194,14 @@ def train():
             
             inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
             
-            # Empty prompt text, we just want the model to directly output the answer dynamically
-            decoder_prompts = [""] * len(images)
+            # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
+            # The geometric latents will be concatenated seamlessly at the end
+            decoder_prompts = []
+            for t in texts:
+                clean_t = t
+                for i in range(config["model"]["k_steps"]):
+                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                decoder_prompts.append(clean_t.strip())
             
             # If Method A: X-Encoder is frozen, no gradients track through it
             if not args.end_to_end:
@@ -236,7 +242,12 @@ def train():
                 inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
                 predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
                 
-                val_prompts = [""] * len(images)
+                val_prompts = []
+                for t in texts:
+                    clean_t = t
+                    for i in range(config["model"]["k_steps"]):
+                        clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                    val_prompts.append(clean_t.strip() + " ")
                 
                 outputs = y_decoder(
                     predicted_latents=predicted_latents, 

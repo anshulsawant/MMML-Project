@@ -89,8 +89,16 @@ def generate_answers():
             predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
             
             # 2. Generate Discrete Text [String]
-            # y_decoder_prefix.generate() assumes empty prompt unless specified
-            generated_text = y_decoder.generate(predicted_latents=predicted_latents, max_new_tokens=15)[0]
+            # Strip the <thought> tags so the Y-Decoder just receives the pure question text
+            clean_question = question
+            for i in range(config["model"]["k_steps"]):
+                clean_question = clean_question.replace(f"<thought_{i+1}>", "")
+                
+            generated_text = y_decoder.generate(
+                predicted_latents=predicted_latents, 
+                text_prompts=[clean_question.strip() + " "],
+                max_new_tokens=15
+            )[0]
             
             print(f"Image: {img_path}")
             print(f"Question: {question.split('<image>')[0][:100]}...")
