@@ -79,7 +79,7 @@ class YDecoderPrefix(nn.Module):
         # 2. Get embed weights for the text tokens
         if text_prompts is None:
             # Default generation prompt
-            text_prompts = ["Answer: "] * soft_prefixes.shape[0]
+            text_prompts = [""] * soft_prefixes.shape[0]
             
         inputs = self.tokenizer(text_prompts, return_tensors="pt", padding=True).to(device)
         input_ids = inputs.input_ids

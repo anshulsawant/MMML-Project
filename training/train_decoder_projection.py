@@ -60,8 +60,7 @@ class GeoThoughtsTextDataset(Dataset):
         
         # 3. Final Target Answer for the Y-Decoder to learn to generate
         # In this dataset, the dictionary has an `answer` field. 
-        # The Qwen model typically formats this text out cleanly.
-        target_answer = " \\boxed{" + str(item.get("answer", "0")) + "}"
+        target_answer = str(item.get("answer", "0"))
         target_answer += "<|im_end|>" # Ensure it learns to stop
 
         return {
@@ -191,9 +190,8 @@ def train():
             
             inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
             
-            # Form Prompt Text for Decoder: "Answer:"
-            # We want the decoder to generate the `target_answers` (e.g. \boxed{45})
-            decoder_prompts = ["Answer: "] * len(images)
+            # Empty prompt text, we just want the model to directly output the answer dynamically
+            decoder_prompts = [""] * len(images)
             
             # If Method A: X-Encoder is frozen, no gradients track through it
             if not args.end_to_end:
@@ -234,7 +232,7 @@ def train():
                 inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
                 predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
                 
-                val_prompts = ["Answer: "] * len(images)
+                val_prompts = [""] * len(images)
                 
                 outputs = y_decoder(
                     predicted_latents=predicted_latents, 
