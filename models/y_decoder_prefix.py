@@ -124,6 +124,26 @@ class YDecoderPrefix(nn.Module):
             # Only the final target answers factor into the loss calculation
             extended_labels = torch.cat([ignore_prefix, ignore_prompts, label_inputs.input_ids], dim=1)
 
+            # --- TEMPORARY DEBUG BLOCK ---
+            if not hasattr(self, '_debug_printed'):
+                print("\n=== DEBUG: Token Leakage Check ===")
+                try:
+                    # Decode the raw input prompt text tokens
+                    prompt_str = self.tokenizer.decode(input_ids[0], skip_special_tokens=False)
+                    print(f"RAW PROMPT TOKENS: {prompt_str}")
+                    
+                    # Decode the raw answer text tokens
+                    label_str = self.tokenizer.decode(label_inputs.input_ids[0], skip_special_tokens=False)
+                    print(f"RAW LABEL TOKENS: {label_str}")
+                    
+                    # Print the exact shape of the vectors
+                    print(f"Prefix Shape: {soft_prefixes.shape} | Prompt Shape: {text_embeddings.shape} | Label Shape: {label_embeddings.shape}")
+                    print(f"Extended Labels Tensor: {extended_labels[0].tolist()}")
+                except Exception as e:
+                    print(f"Debug print failed: {e}")
+                print("==================================\n")
+                self._debug_printed = True
+
         # 6. Forward pass through frozen LLM using `inputs_embeds` instead of integer IDs
         outputs = self.decoder(
             inputs_embeds=inputs_embeds,
