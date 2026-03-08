@@ -33,8 +33,9 @@ class AlignmentLossFactory(nn.Module):
         total_loss = 0.0
         metrics = {
             "loss/vicreg_total": 0.0,
-            "loss/invariance_mse": 0.0,
-            "loss/variance_std": 0.0,
+            "loss/invariance_cos": 0.0,
+            "loss/variance_loss": 0.0,
+            "loss/variance_std_physical": 0.0,
             "loss/covariance_cor": 0.0,
             "loss/info_nce": 0.0
         }
@@ -56,8 +57,9 @@ class AlignmentLossFactory(nn.Module):
                 loss_val, vicreg_metrics = self.compute_vicreg(pred_k, targ_k)
                 total_loss += loss_val
                 metrics["loss/vicreg_total"] += loss_val.item()
-                metrics["loss/invariance_mse"] += vicreg_metrics["invariance_mse"]
-                metrics["loss/variance_std"] += vicreg_metrics["variance_std"]
+                metrics["loss/invariance_cos"] += vicreg_metrics["invariance_cos"]
+                metrics["loss/variance_loss"] += vicreg_metrics["variance_loss"]
+                metrics["loss/variance_std_physical"] += vicreg_metrics["variance_std_physical"]
                 metrics["loss/covariance_cor"] += vicreg_metrics["covariance_cor"]
                 
         # Average loss and metrics over the K reasoning steps
