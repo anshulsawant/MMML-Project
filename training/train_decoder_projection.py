@@ -195,13 +195,12 @@ def train():
             inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
             
             # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
-            # The geometric latents will be concatenated seamlessly at the end
             decoder_prompts = []
             for t in texts:
                 clean_t = t
                 for i in range(config["model"]["k_steps"]):
                     clean_t = clean_t.replace(f"<thought_{i+1}>", "")
-                decoder_prompts.append(clean_t.strip())
+                decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
             
             # If Method A: X-Encoder is frozen, no gradients track through it
             if not args.end_to_end:
@@ -247,7 +246,7 @@ def train():
                     clean_t = t
                     for i in range(config["model"]["k_steps"]):
                         clean_t = clean_t.replace(f"<thought_{i+1}>", "")
-                    val_prompts.append(clean_t.strip() + " ")
+                    val_prompts.append(clean_t.strip() + "\nAnswer: ")
                 
                 outputs = y_decoder(
                     predicted_latents=predicted_latents, 

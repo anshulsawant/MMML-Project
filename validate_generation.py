@@ -96,7 +96,7 @@ def generate_answers():
                 
             generated_text = y_decoder.generate(
                 predicted_latents=predicted_latents, 
-                text_prompts=[clean_question.strip() + " "],
+                text_prompts=[clean_question.strip() + "\nAnswer: "],
                 max_new_tokens=15
             )[0]
             
