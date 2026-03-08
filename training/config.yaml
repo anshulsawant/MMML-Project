@@ -1,6 +1,6 @@
 model:
   base_model_id: "Qwen/Qwen3-VL-4B-Instruct"
-  target_model_id: "Qwen/Qwen3-0.6B"
+  target_model_id: "Qwen/Qwen3-VL-4B-Instruct"
   k_steps: 4
   
 training:

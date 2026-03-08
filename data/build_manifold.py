@@ -11,7 +11,7 @@ to `<output_dir>` as PyTorch tensor files (`.pt`) for Continuous Alignment via `
 '''
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForImageTextToText
 import json
 import re
 
@@ -22,14 +22,19 @@ import os
 def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_available() else "cpu"):
     print(f"Loading {model_id} for Target Manifold extraction on {device}...")
     tokenizer = AutoTokenizer.from_pretrained(model_id)
+    
+    # Select the correct model class based on whether it is a VLM or a pure LLM
+    is_vlm = "VL" in model_id
+    ModelClass = AutoModelForImageTextToText if is_vlm else AutoModelForCausalLM
+    
     # CPU fallback compatible loading
     if device == "cpu":
-        model = AutoModelForCausalLM.from_pretrained(
+        model = ModelClass.from_pretrained(
             model_id, 
             torch_dtype=torch.float32
         )
     else:
-        model = AutoModelForCausalLM.from_pretrained(
+        model = ModelClass.from_pretrained(
             model_id, 
             torch_dtype=torch.bfloat16,
             device_map="auto"
@@ -61,7 +66,13 @@ def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda"):
     inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
     
     with torch.no_grad():
-        outputs = model(**inputs, output_hidden_states=True)
+        # VLM models might expect specific keyword arguments even for text-only inference
+        outputs = model(
+            input_ids=inputs.input_ids,
+            attention_mask=inputs.attention_mask,
+            output_hidden_states=True,
+            return_dict=True
+        )
         # Extract the hidden states from the last layer [batch, seq_len, hidden_dim]
         last_hidden_states = outputs.hidden_states[-1]
         
