@@ -56,7 +56,7 @@ flowchart TB
 
 * **Dataset:** Geometric reasoning datasets (GeoThought) consisting of an image and a short mathematical prompt (e.g., *"Find x"*).
 * **Expert Teacher Pipeline:** We pass the dataset through a frontier API (Gemini 3 Flash Preview). The API is strictly prompted to output a structured reasoning chain with exactly $K=4$ steps: 1. Visual Parsing, 2. Theorem Retrieval, 3. Calculation, 4. Final Conclusion.
-* **Target Manifold Creation:** To ensure the target space explicitly retains the arithmetic and syntactic nuances required for text generation, we use an LLM-native embedding space (such as Qwen3-0.6B) rather than generic semantic retrievers like BGE-m3. We pass each of the $K$ textual steps independently through this frozen textual model, extracting its final hidden states. For each problem, the ground-truth target is a sequence of $K$ dense, continuous vectors: $[S_{y1}, S_{y2}, S_{y3}, S_{y4}]$.
+* **Target Manifold Creation:** To ensure the target space explicitly retains the arithmetic and syntactic nuances required for text generation, we use an LLM-native embedding space (such as Qwen3-4B-Base) rather than generic semantic retrievers like BGE-m3. We pass each of the $K$ textual steps independently through this frozen textual model, extracting its final hidden states. For each problem, the ground-truth target is a sequence of $K$ dense, continuous vectors: $[S_{y1}, S_{y2}, S_{y3}, S_{y4}]$.
 
 ### **Phase 2: LatentEuclid Architecture ($X$-Encoder & Predictor)**
 

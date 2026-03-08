@@ -74,7 +74,7 @@ python -m data.evaluate_generated
 * `data/geothoughts_verified.jsonl`: The final, purely accurate subset of proofs where Gemini mathematically matched the ground truth safely. (Used for training the $X$-Encoder).
 
 **Step 2d: Build the Target Manifold**
-Pass the strictly formatted 4-step chains natively through the frozen `Qwen3-0.6B` text model to create the `.pt` embedding vector targets.
+Pass the strictly formatted 4-step chains natively through the frozen `Qwen3-4B-Base` text model to create the `.pt` embedding vector targets.
 ```bash
 python -m data.build_manifold
 ```
