@@ -186,8 +186,8 @@ class YDecoderPrefix(nn.Module):
             inputs_embeds=inputs_embeds,
             attention_mask=extended_attention_mask,
             max_new_tokens=max_new_tokens,
+            eos_token_id=[self.tokenizer.eos_token_id, 151645], # 151645 = <|im_end|>
             pad_token_id=self.tokenizer.pad_token_id,
-            eos_token_id=self.tokenizer.eos_token_id,
             do_sample=False
         )
         
