@@ -166,6 +166,16 @@ This project builds upon previous work in structured geometric reasoning and mul
 ---
 
 ## 🕒 Complete Commit History
+- **adf4c71** docs: Add ground truth extraction challenges, dataset glossary, and Gemini zero-shot performance to README (Anshul Sawant)
+- **e82a3fe** docs: Update LatentEuclid pipeline to reflect base model prefix integration and validation instructions (Anshul Sawant)
+- **b63f0eee** Pass eos_token_id properly to generation output (Anshul Sawant)
+- **3a673f7** Pass eos_token_id properly to generation output (Anshul Sawant)
+- **7aefebbe** Reduce learning rate and add Answer delimiter to prompt to cue Qwen base model (Anshul Sawant)
+- **371a4bf** Reduce learning rate and add Answer delimiter to prompt to cue Qwen base model (Anshul Sawant)
+- **06ae8ce** Remove thought removal to verify pure zero shot capability of base models without syntax leakage (Anshul Sawant)
+- **184d09f** Add Qwen3-4B base target and explicitly bypass empty string hallucination prompt bugs (Anshul Sawant)
+- **abcedf0** Fix token padding loop leakage in CE loss calculation and fix text/geom concatenation alignment (Anshul Sawant)
+- **66a7b73** Fix GeoThought gitignore path blocking multimodal image reads (Anshul Sawant)
 - **a16fedc** docs: Add LatentEuclid whitepaper artifact formalizing VL-JEPA methodology (Anshul Sawant)
 - **e1973e1** docs: Completely expand step-by-step documentation for LatentEuclid architecture, data engine, and training lifecycle (Anshul Sawant)
 - **4c597b9** docs: Append recent project commit history to README (Anshul Sawant)
@@ -193,6 +203,7 @@ This project builds upon previous work in structured geometric reasoning and mul
 - **9266924** Fix typo (Joanna Smolska)
 - **b4b7737** Add Qwen 25 Laguage Only (Joanna Smolska)
 - **671e701** add colab (SMa2021)
+- **dc3cbfb** Merge branch 'main' into Qwen3-Baseline (stl008)
 - **36219ed** Merge branch 'main' of https://github.com/anshulsawant/MMML-Project (SMa2021)
 - **e6a877a** add more results (SMa2021)
 - **9241873** Generate missing evaluation stats for base model (Anshul Sawant)
@@ -212,6 +223,7 @@ This project builds upon previous work in structured geometric reasoning and mul
 - **d38f717** Increase max_workers to 32 for higher inference throughput (Anshul Sawant)
 - **c5f5f20** Enhance run_benchmark_remote.sh to exit early on vLLM server crash (Anshul Sawant)
 - **ebeed6d** Add benchmark scripts and convert GeoThought to standard directory (Anshul Sawant)
+- **a2bc243** added Qwen3-VL baselines + processed dataset (stl008)
 - **1af197a** add analytics (SMa2021)
 - **e6b3703** results (SMa2021)
 - **c9061a7** molmo2 full results (SMa2021)
