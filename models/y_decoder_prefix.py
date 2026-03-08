@@ -125,8 +125,12 @@ class YDecoderPrefix(nn.Module):
             ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
             ignore_prompts = torch.full_like(input_ids, -100)
             
+            # Mask out padding tokens in the target labels so we only compute CE loss on the actual answer bytes
+            masked_label_ids = label_inputs.input_ids.clone()
+            masked_label_ids[label_inputs.attention_mask == 0] = -100
+            
             # Only the final target answers factor into the loss calculation
-            extended_labels = torch.cat([ignore_prefix, ignore_prompts, label_inputs.input_ids], dim=1)
+            extended_labels = torch.cat([ignore_prefix, ignore_prompts, masked_label_ids], dim=1)
 
             # --- TEMPORARY DEBUG BLOCK ---
             if not hasattr(self, '_debug_printed'):
