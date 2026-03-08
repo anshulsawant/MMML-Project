@@ -12,7 +12,7 @@ via autoregressive extraction.
 
 import torch
 import torch.nn as nn
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForCausalLM, AutoModelForImageTextToText, AutoTokenizer, AutoConfig
 
 class YDecoderPrefix(nn.Module):
     """
@@ -28,13 +28,30 @@ class YDecoderPrefix(nn.Module):
         
         # Load Frozen Decoder
         self.tokenizer = AutoTokenizer.from_pretrained(target_model_id)
-        self.decoder = AutoModelForCausalLM.from_pretrained(
-            target_model_id,
-            torch_dtype=torch.bfloat16,
-            device_map="auto"
-        )
         
-        # Freeze the base LLM weights entirely
+        # Determine device
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+        # Load model config to check for VL architecture
+        config = AutoConfig.from_pretrained(target_model_id, trust_remote_code=True)
+        
+        # Load the base model correctly depending on architecture
+        if "VL" in config.model_type.upper() or "VL" in target_model_id.upper():
+            self.decoder = AutoModelForImageTextToText.from_pretrained(
+                target_model_id,
+                trust_remote_code=True,
+                torch_dtype=torch.bfloat16,
+                device_map="auto" if device == "cuda" else None
+            )
+        else:
+            self.decoder = AutoModelForCausalLM.from_pretrained(
+                target_model_id,
+                trust_remote_code=True,
+                torch_dtype=torch.bfloat16,
+                device_map="auto" if device == "cuda" else None
+            )
+
+        # Freeze the entire underlying LLM/VLM
         for param in self.decoder.parameters():
             param.requires_grad = False
             
