@@ -8,7 +8,7 @@ from PIL import Image
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import Dataset, DataLoader, DistributedSampler
-from sklearn.model_selection import train_test_split
+import random
 
 from models.latent_euclid import LatentEuclid
 from models.y_decoder_prefix import YDecoderPrefix
@@ -153,8 +153,12 @@ def train():
     with open(config["data"]["jsonl_path"], 'r') as f:
         full_data = [json.loads(line) for line in f]
         
-    # 90/10 Train/Val Split for overfitting protection
-    train_data, val_data = train_test_split(full_data, test_size=0.1, random_state=42)
+    # 90/10 Train/Val Split for overfitting protection without sklearn
+    random.seed(42)
+    random.shuffle(full_data)
+    split_idx = int(0.9 * len(full_data))
+    train_data = full_data[:split_idx]
+    val_data = full_data[split_idx:]
     
     if is_master:
         print(f"Train split: {len(train_data)} | Val split: {len(val_data)}")
