@@ -103,13 +103,13 @@ def train():
     )
     
     # Load VICReg weights
-    if os.path.exists(config["training"].get("checkpoint_dir", "/workspace/checkpoints") + "/x_encoder_best.pt"):
-        weight_path = config["training"].get("checkpoint_dir", "/workspace/checkpoints") + "/x_encoder_best.pt"
+    weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
+    if os.path.exists(weight_path):
         state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)
         x_encoder.load_state_dict(state_dict["model_state_dict"])
         print(f"[{local_rank}] Successfully loaded pre-aligned geometry from {weight_path}")
     else:
-        print(f"Error: Could not find '{args.x_encoder_weights}'. You must complete Phase 3 VICReg first!")
+        print(f"Error: Could not find '{weight_path}'. You must complete Phase 3 VICReg first!")
         exit(1)
 
     if not args.end_to_end:
