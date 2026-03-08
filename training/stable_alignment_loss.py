@@ -124,7 +124,8 @@ class AlignmentLossFactory(nn.Module):
         total_vicreg_loss = (self.sim_coeff * sim_loss) + (self.var_coeff * var_loss) + (self.cov_coeff * cov_loss)
         metrics = {
             "invariance_mse": sim_loss.item(),
-            "variance_std": var_loss.item(),
+            "variance_loss": var_loss.item(),
+            "variance_std_physical": torch.mean(std_x).item(),
             "covariance_cor": cov_loss.item()
         }
         
