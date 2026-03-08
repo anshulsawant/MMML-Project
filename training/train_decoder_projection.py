@@ -36,8 +36,9 @@ class GeoThoughtsTextDataset(Dataset):
     """
     Extends the dataset to expose target answer texts for Perplexity Loss.
     """
-    def __init__(self, data_list, tokenizer, k_steps=4):
+    def __init__(self, data_list, ground_truths, tokenizer, k_steps=4):
         self.data = data_list
+        self.ground_truths = ground_truths
         self.tokenizer = tokenizer
         self.k_steps = k_steps
 
@@ -59,8 +60,8 @@ class GeoThoughtsTextDataset(Dataset):
         full_text = item["question"] + " " + thought_string
         
         # 3. Final Target Answer for the Y-Decoder to learn to generate
-        # In this dataset, the dictionary has an `answer` field. 
-        target_answer = str(item.get("answer", "0"))
+        # Lookup the true answer string dynamically from ground_truths.json
+        target_answer = str(self.ground_truths.get(img_path, "0"))
         target_answer += "<|im_end|>" # Ensure it learns to stop
 
         return {
@@ -152,6 +153,9 @@ def train():
     with open(config["data"]["jsonl_path"], 'r') as f:
         full_data = [json.loads(line) for line in f]
         
+    with open("data/ground_truths.json", 'r') as f:
+        ground_truths = json.load(f)
+        
     # 90/10 Train/Val Split for overfitting protection without sklearn
     random.seed(42)
     random.shuffle(full_data)
@@ -164,8 +168,8 @@ def train():
 
     x_tokenizer = x_encoder.module.tokenizer if is_distributed else x_encoder.tokenizer
 
-    train_dataset = GeoThoughtsTextDataset(train_data, x_tokenizer, config["model"]["k_steps"])
-    val_dataset = GeoThoughtsTextDataset(val_data, x_tokenizer, config["model"]["k_steps"])
+    train_dataset = GeoThoughtsTextDataset(train_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
+    val_dataset = GeoThoughtsTextDataset(val_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
 
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     train_loader = DataLoader(train_dataset, batch_size=int(config["training"]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None))
