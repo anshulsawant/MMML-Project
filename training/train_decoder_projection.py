@@ -15,7 +15,7 @@ from models.y_decoder_prefix import YDecoderPrefix
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid Phase 4.5: Train Prefix Projection")
-    parser.add_argument("--config", type=str, default="training/config.yaml",
+    parser.add_argument("--config", type=str, default="training/config_decoder.yaml",
                         help="Path to YAML training configuration")
     parser.add_argument("--x_encoder_weights", type=str, default="checkpoints/x_encoder_best.pt",
                         help="Path to the frozen VICReg-aligned X-Encoder weights")
@@ -247,14 +247,22 @@ def train():
         if is_master:
             print(f"=== Epoch {epoch} Validation CE Loss: {avg_val_loss:.4f} ===")
             wandb.log({"val/ce_loss": avg_val_loss, "epoch": epoch})
+            
+            # Save epoch checkpoint
+            checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints/decoder")
+            os.makedirs(checkpoint_dir, exist_ok=True)
+            
+            save_decoder = y_decoder.module if is_distributed else y_decoder
+            checkpoint_path = os.path.join(checkpoint_dir, f"decoder_epoch_{epoch}.pt")
+            torch.save(save_decoder.prefix_projection.state_dict(), checkpoint_path)
+            print(f"[cuda] Saved checkpoint: {checkpoint_path}")
+            
+            if args.end_to_end:
+                save_encoder = x_encoder.module if is_distributed else x_encoder
+                encoder_path = os.path.join(checkpoint_dir, f"x_encoder_e2e_epoch_{epoch}.pt")
+                torch.save(save_encoder.state_dict(), encoder_path)
 
     if is_master:
-        save_decoder = y_decoder.module if is_distributed else y_decoder
-        torch.save(save_decoder.prefix_projection.state_dict(), "prefix_projection_final.pt")
-        if args.end_to_end:
-            save_encoder = x_encoder.module if is_distributed else x_encoder
-            torch.save(save_encoder.state_dict(), "latent_euclid_x_encoder_e2e_final.pt")
-            
         print("Training successfully finished!")
         wandb.finish()
 

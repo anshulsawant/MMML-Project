@@ -1,0 +1,16 @@
+model:
+  base_model_id: "Qwen/Qwen3-VL-4B-Instruct"
+  target_model_id: "Qwen/Qwen3-VL-4B-Instruct"
+  k_steps: 4
+  
+training:
+  epochs: 20
+  batch_size: 16
+  gradient_accumulation_steps: 4
+  learning_rate: 1.0e-3
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  checkpoint_dir: "/workspace/checkpoints/decoder"
+
+data:
+  jsonl_path: "data/geothoughts_verified.jsonl"
