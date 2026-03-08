@@ -100,8 +100,8 @@ class AlignmentLossFactory(nn.Module):
         x: Predicted representations
         y: Target representations or Augmented view representations
         """
-        # Invariance (Similarity): MSE between X and Y
-        sim_loss = F.mse_loss(x, y)
+        # Invariance (Similarity): Cosine Distance between X and Y
+        sim_loss = 1.0 - F.cosine_similarity(x, y, dim=-1).mean()
         
         # Center representations
         x = x - x.mean(dim=0)
@@ -123,7 +123,7 @@ class AlignmentLossFactory(nn.Module):
                    
         total_vicreg_loss = (self.sim_coeff * sim_loss) + (self.var_coeff * var_loss) + (self.cov_coeff * cov_loss)
         metrics = {
-            "invariance_mse": sim_loss.item(),
+            "invariance_cos": sim_loss.item(),
             "variance_loss": var_loss.item(),
             "variance_std_physical": torch.mean(std_x).item(),
             "covariance_cor": cov_loss.item()

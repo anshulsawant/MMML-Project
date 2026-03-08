@@ -276,8 +276,8 @@ def train():
                         
                         v_loss, v_metrics = criterion(val_pred, val_targ)
                         total_val_loss += v_loss.item()
-                        if "loss/invariance_mse" in v_metrics:
-                            total_val_mse += v_metrics["loss/invariance_mse"]
+                        if "loss/invariance_cos" in v_metrics:
+                            total_val_mse += v_metrics["loss/invariance_cos"]
                         
                 avg_val_loss = total_val_loss / max(1, len(val_dataloader))
                 avg_val_mse = total_val_mse / max(1, len(val_dataloader))
@@ -288,15 +288,15 @@ def train():
                     grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
                     var_loss_val = metrics_dict.get("loss/variance_loss", 0.0) if type(metrics_dict) is dict else 0.0
-                    train_mse_val = metrics_dict.get("loss/invariance_mse", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train MSE: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val MSE: {avg_val_mse:.4f}")
+                    train_mse_val = metrics_dict.get("loss/invariance_cos", 0.0) if type(metrics_dict) is dict else 0.0
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train Cos: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val Cos: {avg_val_mse:.4f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
                     metrics_dict["val/total_loss"] = avg_val_loss
-                    metrics_dict["val/invariance_mse"] = avg_val_mse
+                    metrics_dict["val/invariance_cos"] = avg_val_mse
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
