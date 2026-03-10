@@ -50,15 +50,13 @@ In true autoregressive generation, the hidden state of Step 1 is computed throug
 * **Recurrent Latent Routing:** Instead of predicting all $K$ targets in one pass, introduce a recurrent latent loop. Process the image, output $\\hat{S}\_{y1}$. Feed $\\hat{S}\_{y1}$ back into the model to conditionally produce $\\hat{S}\_{y2}$.  
 * **Dynamic Halting:** Train the model to emit an \<end\_of\_thought\> latent vector to dynamically halt the reasoning sequence, masking padded steps out of the alignment loss using a \-100 ignore index.
 
-### **5\. Evaluation Anti-Patterns: The Non-Linear Probing Fallacy**
+### **5\. Evaluation: Probing Strategy and Causal Tracing**
 
-**The Flaw:** In eval/temporal\_probing.py, the code implements a NonLinearProbe (a 2-layer MLP with ReLU and Dropout). Furthermore, the TODO.md explicitly advocates migrating away from linear probes.
-
-This invalidates the scientific premise of the "Grounding Claim." The standard for proving that a neural network has *natively* structured information is **linear separability**. If a probe requires hidden layers and non-linearities, it has enough capacity to "learn the task itself" using the VLM's embeddings as noisy raw data, rather than proving the VLM explicitly untangled the geometry into the latent vector.
+**The Issue:** In eval/temporal\_probing.py, the code implements a NonLinearProbe (a 2-layer MLP with ReLU and Dropout). While Non-Linear probes can extract information, they often have enough capacity to "learn the task itself", which can weaken the "Grounding Claim." The gold standard for proving a network has *natively* structured information is **linear separability**, though non-linear probes are still valuable analysis tools.
 
 **Alternatives & Improvements:**
 
-* **Strict Linear Probing:** You must stick to Logistic Regression or SVMs without hidden layers (nn.Linear). If a linear probe fails, the representation has not successfully modeled the geometry.  
+* **Implement Progressive Probing:** Implementing a robust probing pipeline is a key task. We shouldn't strictly enforce linear probing as the *only* valid metric, but it should obviously be the **first thing to try** (e.g., Logistic Regression or SVMs without hidden layers). If a linear probe succeeds, it's strong causal evidence. If it fails, fallback to non-linear probes but with the caveat that the embeddings are less naturally disentangled.
 * **Causal Tracing:** To definitively prove the continuous vector houses the logic, patch a predicted \<thought\> vector from a *correct* image sequence into the forward pass of an *incorrect* image sequence. If the Y-Decoder subsequently generates the correct mathematical theorem for the first image, you have causally proven the claim.
 
 ### **6\. Data Engineering: Brittle Evaluation & Unused Hard Negatives**
