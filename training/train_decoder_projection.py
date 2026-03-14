@@ -52,9 +52,8 @@ class GeoThoughtsTextDataset(Dataset):
         img_path = item["image_path"]
         try:
             image = Image.open(img_path).convert("RGB")
-            image = image.resize((512, 512), Image.Resampling.LANCZOS)
         except:
-            image = Image.new('RGB', (512, 512), color = (73, 109, 137))
+            image = Image.new('RGB', (224, 224), color = (73, 109, 137))
             
         # 2. Base VLM Input Text
         thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])

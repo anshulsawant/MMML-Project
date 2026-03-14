@@ -67,13 +67,11 @@ class GeoThoughtsDataset(Dataset):
         img_path = item["image_path"]
         try:
             image = Image.open(img_path).convert("RGB")
-            # Brutally clamp dimensions to prevent HuggingFace CPU tokenization bottleneck (Memory leak out to 100GB)
-            image = image.resize((512, 512), Image.Resampling.LANCZOS)
             if self.augmentor is not None:
                 image = self.augmentor(image)
         except:
             # Fallback mock image if path is broken
-            image = Image.new('RGB', (512, 512), color = (73, 109, 137))
+            image = Image.new('RGB', (224, 224), color = (73, 109, 137))
             
         # 2. Text Prompts (appended with K thoughts natively)
         # Note: the prompt needs the specialized <thought> sequences generated inside
@@ -287,6 +285,26 @@ def train():
                 optimizer.step()
                 optimizer.zero_grad()
                 
+                # --- RUN VALIDATION ON STEP ---
+                model.eval()
+                total_val_loss = 0.0
+                total_val_mse = 0.0
+                with torch.no_grad():
+                    for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+                        tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
+                        val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
+                        
+                        val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
+                        val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                        
+                        v_loss, v_metrics = criterion(val_pred, val_targ)
+                        total_val_loss += v_loss.item()
+                        if "loss/invariance_cos" in v_metrics:
+                            total_val_mse += v_metrics["loss/invariance_cos"]
+                
+                avg_val_loss = total_val_loss / max(1, len(val_dataloader))
+                avg_val_mse = total_val_mse / max(1, len(val_dataloader))
+                
                 if is_master:
                     step_duration = time.time() - step_start_time
                     current_lr = optimizer.param_groups[0]['lr']
@@ -294,47 +312,23 @@ def train():
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
                     var_loss_val = metrics_dict.get("loss/variance_loss", 0.0) if type(metrics_dict) is dict else 0.0
                     train_mse_val = metrics_dict.get("loss/invariance_cos", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train Cos: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Val Loss: {avg_val_loss:.4f} | Train Cos: {train_mse_val:.4f} | Val Cos: {avg_val_mse:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
+                    metrics_dict["val/total_loss"] = avg_val_loss
+                    metrics_dict["val/invariance_cos"] = avg_val_mse
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
+                
+                model.train() # Return to training mode
                 # ------------------------------
                 
             else:
                 pass # Just accumulating gradients
-
-        # --- RUN VALIDATION ON EPOCH ---
-        model.eval()
-        total_val_loss = 0.0
-        total_val_mse = 0.0
-        with torch.no_grad():
-            for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
-                tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
-                val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
-                
-                val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
-                val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
-                
-                v_loss, v_metrics = criterion(val_pred, val_targ)
-                total_val_loss += v_loss.item()
-                if "loss/invariance_cos" in v_metrics:
-                    total_val_mse += v_metrics["loss/invariance_cos"]
-                
-        avg_val_loss = total_val_loss / max(1, len(val_dataloader))
-        avg_val_mse = total_val_mse / max(1, len(val_dataloader))
-        
-        if is_master:
-            print(f"=== Epoch {epoch} Validation Loss: {avg_val_loss:.4f} | Val Cos: {avg_val_mse:.4f} ===")
-            wandb.log({
-                "val/total_loss": avg_val_loss,
-                "val/invariance_cos": avg_val_mse,
-                "epoch": epoch
-            })
 
         # --- SAVE CHECKPOINT PER EPOCH ---
         if is_master:
