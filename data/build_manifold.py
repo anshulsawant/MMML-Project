@@ -74,17 +74,18 @@ def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda"):
             return_dict=True
         )
         # Extract the hidden states from the last layer [batch, seq_len, hidden_dim]
-        last_hidden_states = outputs.hidden_states[-1]
+        hidden_states = outputs.hidden_states[-1]
         
-        # We need the embedding of the final actual token for each sequence in the batch (ignoring padding)
-        # We can find the length of each sequence by summing the attention mask
-        seq_lengths = inputs.attention_mask.sum(dim=1) - 1 # 0-indexed position of final token
-        
-        batch_size = last_hidden_states.size(0)
-        # Shape: [batch, 1, hidden_dim] -> [batch, hidden_dim]
-        final_token_embeddings = last_hidden_states[torch.arange(batch_size, device=device), seq_lengths]
+        # Instead of extracting the anisotropic final token, apply Attention-Weighted Mean Pooling
+        # to capture the holistic bidirectional semantic embedding of the entire reasoning step
+        attention_mask = inputs.attention_mask.unsqueeze(-1).to(hidden_states.dtype)
+        # Multiply states by mask to zero out padded tokens, then sum
+        sum_embeddings = torch.sum(hidden_states * attention_mask, dim=1)
+        # Divide by the actual sequence length (sum of mask) to get the mean
+        sum_mask = torch.clamp(attention_mask.sum(dim=1), min=1e-9)
+        mean_pooled_embeddings = sum_embeddings / sum_mask
     
-    return final_token_embeddings.cpu()
+    return mean_pooled_embeddings.cpu()
 
 def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
     """Processes K4 text and saves continuous target tensors."""
