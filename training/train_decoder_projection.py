@@ -86,6 +86,13 @@ def train():
     is_distributed = isinstance(local_rank, int)
     is_master = (local_rank == 0 if is_distributed else True)
     
+    if is_master:
+        print("\n" + "="*50)
+        print("LatentEuclid Phase 4.5 (Y-Decoder Projection)")
+        print("Executing with Configuration:")
+        print(yaml.dump(config, default_flow_style=False))
+        print("="*50 + "\n")
+    
     device = local_rank if is_distributed else local_rank
 
     if is_master:

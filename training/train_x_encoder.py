@@ -104,6 +104,13 @@ def train():
     is_master = (local_rank == 0 if is_distributed else True)
     
     if is_master:
+        print("\n" + "="*50)
+        print("LatentEuclid Phase 4 (Continuous Alignment)")
+        print("Executing with Configuration:")
+        print(yaml.dump(config, default_flow_style=False))
+        print("="*50 + "\n")
+    
+    if is_master:
         wandb.init(
             project="LatentEuclid",
             name=f"LatentEuclid-{config['training']['loss_type']}",
