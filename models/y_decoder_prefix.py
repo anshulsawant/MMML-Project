@@ -191,8 +191,6 @@ class YDecoderPrefix(nn.Module):
             do_sample=False
         )
         
-        print(f"DEBUG OUTPUT SHAPE: {outputs.shape} | RAW TOKENS: {outputs.tolist()}")
-        
         # Decode the output tokens back to strings
         decoded_answers = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         return decoded_answers

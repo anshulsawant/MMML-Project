@@ -103,7 +103,8 @@ def e2e_evaluate():
     mismatches = []
     
     with torch.no_grad():
-        for item in tqdm(val_data, desc="Evaluating"):
+        pbar = tqdm(val_data, desc="Evaluating")
+        for item in pbar:
             img_path = item["image_path"]
             try:
                 # Load image for processing
@@ -178,6 +179,9 @@ def e2e_evaluate():
                     'pred_norm': pred_norm,
                     'model_generation': generated_text.strip()
                 })
+            
+            acc_so_far = correct / total * 100
+            pbar.set_postfix({"Correct": f"{correct}/{total}", "Accuracy": f"{acc_so_far:.2f}%"})
                 
     acc = correct / total * 100 if total > 0 else 0.0
     print(f"\n+++ RESULTS +++")
