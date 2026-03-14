@@ -106,9 +106,12 @@ def train():
         print("="*50 + "\n")
 
     if is_master:
+        import time
+        run_timestamp = time.strftime("%Y%m%d_%H%M%S")
         wandb.init(
             project="LatentEuclid",
-            name=f"{experiment_name}-Decoder-E2E-{args.end_to_end}",
+            name=f"{experiment_name}_Decoder_{run_timestamp}",
+            group=experiment_name,
             config=config
         )
 

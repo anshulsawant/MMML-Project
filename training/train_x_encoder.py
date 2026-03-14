@@ -122,9 +122,12 @@ def train():
         print("="*50 + "\n")
     
     if is_master:
+        import time
+        run_timestamp = time.strftime("%Y%m%d_%H%M%S")
         wandb.init(
             project="LatentEuclid",
-            name=f"{experiment_name}-{config['train_x_encoder']['loss_type']}",
+            name=f"{experiment_name}_XEncoder_{run_timestamp}",
+            group=experiment_name,
             config=config
         )
     
