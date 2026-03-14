@@ -192,9 +192,14 @@ def train():
     # ---------------------------------------------------------
     
     # Instantiate Data Loader
+    targets_dir = config.get("data", {}).get("targets_dir")
+    if targets_dir is None:
+        targets_dir = f"/workspace/target_tensors/target_tensors_{experiment_name}/"
+        print(f"[{local_rank}] Dynamically mapped Target Tensors from namespace: {targets_dir}")
+        
     full_dataset = GeoThoughtsDataset(
         jsonl_path=config["data"]["jsonl_path"],
-        targets_dir=config["data"]["targets_dir"],
+        targets_dir=targets_dir,
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
         k_steps=config["model"]["k_steps"],
         augment=True # Apply affine geometry-safe augmentations dynamically

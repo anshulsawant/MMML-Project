@@ -18,6 +18,7 @@ import re
 
 import argparse
 import os
+import yaml
 
 def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_available() else "cpu"):
     print(f"Loading {model_id} for Target Manifold extraction on {device}...")
@@ -109,9 +110,35 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
-    parser.add_argument("--model_id", type=str, default="Qwen/Qwen3-0.6B")
-    parser.add_argument("--input_jsonl", type=str, default="data/geothoughts_k4_gemini3.1.jsonl")
-    parser.add_argument("--output_dir", type=str, default="/workspace/target_tensors/target_tensors_v2_huber_mean_pooled/")
+    parser.add_argument("--config", type=str, default="training/config.yaml")
+    parser.add_argument("--model_id", type=str, default=None, help="Explicit target base LLM override.")
+    parser.add_argument("--input_jsonl", type=str, default=None, help="Explicit JSONL source override.")
+    parser.add_argument("--output_dir", type=str, default=None, help="Explicit target tensor save dir override.")
     args = parser.parse_args()
     
-    build_manifold(args.model_id, args.input_jsonl, args.output_dir)
+    with open(args.config, 'r') as f:
+        config = yaml.safe_load(f)
+        
+    print("\n" + "="*50)
+    print("LatentEuclid Phase 3 (Continuous Manifold Target Generation)")
+    print("Executing with Configuration:")
+    print(yaml.dump(config, default_flow_style=False))
+    print("="*50 + "\n")
+    
+    experiment_name = config.get("experiment", {}).get("name", "default")
+    
+    # 1. Prioritize explicit runtime overrides.
+    # 2. Fetch from unified config.yaml.
+    model_id = args.model_id or config["model"]["target_model_id"]
+    input_jsonl = args.input_jsonl or config["data"]["jsonl_path"]
+    
+    output_dir = args.output_dir
+    if output_dir is None:
+        output_dir = config.get("data", {}).get("targets_dir")
+    
+    # 3. Dynamic experiment mapping fallback.
+    if output_dir is None:
+        output_dir = f"/workspace/target_tensors/target_tensors_{experiment_name}/"
+        
+    print(f"Dynamically routing Target Tensors to: {output_dir}")
+    build_manifold(model_id, input_jsonl, output_dir)
