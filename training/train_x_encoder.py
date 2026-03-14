@@ -67,11 +67,13 @@ class GeoThoughtsDataset(Dataset):
         img_path = item["image_path"]
         try:
             image = Image.open(img_path).convert("RGB")
+            # Brutally clamp dimensions to prevent HuggingFace CPU tokenization bottleneck (Memory leak out to 100GB)
+            image = image.resize((512, 512), Image.Resampling.LANCZOS)
             if self.augmentor is not None:
                 image = self.augmentor(image)
         except:
             # Fallback mock image if path is broken
-            image = Image.new('RGB', (224, 224), color = (73, 109, 137))
+            image = Image.new('RGB', (512, 512), color = (73, 109, 137))
             
         # 2. Text Prompts (appended with K thoughts natively)
         # Note: the prompt needs the specialized <thought> sequences generated inside
