@@ -195,13 +195,17 @@ class YDecoderPrefix(nn.Module):
             do_sample=False
         )
         
-        # Slice out the input prompt from the generated sequence to return only the answer
-        # The prompt size is the number of text tokens + number of prefix tokens
-        prompt_length = inputs.input_ids.shape[1] + self.k_steps
-        generated_tokens = outputs[:, prompt_length:]
+        # Decode the output tokens back to strings (contains both prompt and generated answer)
+        full_decoded = self.tokenizer.batch_decode(outputs, skip_special_tokens=True)
         
-        # Decode the generated tokens back to strings
-        decoded_answers = self.tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)
+        # Split off the predicted sequence safely using the "Answer:" string anchor
+        decoded_answers = []
+        for text in full_decoded:
+            if "Answer:" in text:
+                decoded_answers.append(text.split("Answer:")[-1])
+            else:
+                decoded_answers.append(text)
+                
         return decoded_answers
 
 if __name__ == "__main__":
