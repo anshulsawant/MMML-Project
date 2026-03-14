@@ -197,10 +197,10 @@ def train():
     val_dataset = GeoThoughtsTextDataset(val_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
 
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
-    train_loader = DataLoader(train_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None), num_workers=0, pin_memory=True)
+    train_loader = DataLoader(train_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None))
     
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
-    val_loader = DataLoader(val_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False, num_workers=0, pin_memory=True)
+    val_loader = DataLoader(val_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
 
     epochs = int(config["train_decoder"]["epochs"])
     best_val_loss = float('inf')
