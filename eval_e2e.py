@@ -101,7 +101,7 @@ def e2e_evaluate():
     
     correct = 0
     total = 0
-    mismatches = []
+    results = []
     
     # Chunk the data into batches
     batches = [val_data[i:i + args.batch_size] for i in range(0, len(val_data), args.batch_size)]
@@ -190,24 +190,25 @@ def e2e_evaluate():
                 total += 1
                 if is_correct:
                     correct += 1
-                else:
-                    mismatches.append({
-                        'image': img_path,
-                        'gt_raw': str(true_answer_raw),
-                        'pred_raw': pred_raw,
-                        'gt_norm': gt_norm,
-                        'pred_norm': pred_norm,
-                        'model_generation': gen_text.strip()
-                    })
+                    
+                results.append({
+                    'image': img_path,
+                    'is_correct': is_correct,
+                    'gt_raw': str(true_answer_raw),
+                    'pred_raw': pred_raw,
+                    'gt_norm': gt_norm,
+                    'pred_norm': pred_norm,
+                    'model_generation': gen_text.strip()
+                })
                     
             if total > 0:
                 acc_so_far = correct / total * 100
                 pbar.set_postfix({"Correct": f"{correct}/{total}", "Accuracy": f"{acc_so_far:.2f}%"})
                 
-            # Periodically save mismatches mid-run so they can be inspected if cancelled early
-            if mismatches:
+            # Periodically save results mid-run so they can be inspected if cancelled early
+            if results:
                 with open(args.out, 'w') as f:
-                    json.dump(mismatches, f, indent=2)
+                    json.dump(results, f, indent=2)
                 
     acc = correct / total * 100 if total > 0 else 0.0
     print(f"\n+++ RESULTS +++")
@@ -215,10 +216,10 @@ def e2e_evaluate():
     print(f"Correct: {correct}")
     print(f"Accuracy: {acc:.2f}%")
     
-    if mismatches:
+    if results:
         with open(args.out, 'w') as f:
-            json.dump(mismatches, f, indent=2)
-        print(f"Saved {len(mismatches)} mismatches to {args.out}")
+            json.dump(results, f, indent=2)
+        print(f"Saved {len(results)} evaluated samples to {args.out}")
 
 if __name__ == "__main__":
     e2e_evaluate()
