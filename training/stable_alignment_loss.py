@@ -11,7 +11,7 @@ class AlignmentLossFactory(nn.Module):
                  vicreg_cov_coeff: float = 1.0,
                  temperature: float = 0.07):
         super().__init__()
-        valid_types = ["info_nce_vanilla", "info_nce_threshold", "vicreg"]
+        valid_types = ["info_nce_vanilla", "info_nce_threshold", "vicreg", "huber_cosine"]
         if loss_type not in valid_types:
             raise ValueError(f"Unknown loss_type. Must be one of {valid_types}")
             
@@ -61,6 +61,16 @@ class AlignmentLossFactory(nn.Module):
                 metrics["loss/variance_loss"] += vicreg_metrics["variance_loss"]
                 metrics["loss/variance_std_physical"] += vicreg_metrics["variance_std_physical"]
                 metrics["loss/covariance_cor"] += vicreg_metrics["covariance_cor"]
+            elif self.loss_type == "huber_cosine":
+                loss_val, hc_metrics = self.compute_huber_cosine(pred_k, targ_k)
+                total_loss += loss_val
+                if "loss/huber_cosine_total" not in metrics:
+                    metrics["loss/huber_cosine_total"] = 0.0
+                    metrics["loss/cosine_angular"] = 0.0
+                    metrics["loss/huber_magnitude"] = 0.0
+                metrics["loss/huber_cosine_total"] += loss_val.item()
+                metrics["loss/cosine_angular"] += hc_metrics["cosine_angular"]
+                metrics["loss/huber_magnitude"] += hc_metrics["huber_magnitude"]
                 
         # Average loss and metrics over the K reasoning steps
         total_loss = total_loss / k_steps
@@ -95,6 +105,29 @@ class AlignmentLossFactory(nn.Module):
             sim_matrix = sim_matrix.masked_fill(false_neg_mask, -1e9)
             
         return F.cross_entropy(sim_matrix, labels)
+
+    def compute_huber_cosine(self, x, y):
+        """
+        Supervised Continuous Alignment Loss.
+        Because Target Y is a frozen LLM, we strictly enforce both angular 
+        direction (Cosine) and scale magnitude (Huber).
+        """
+        # Directional alignment: Target 1 means "make these vectors point the same way"
+        target_ones = torch.ones(x.shape[0], device=x.device)
+        cos_loss = F.cosine_embedding_loss(x, y, target_ones)
+        
+        # Magnitude/Scale alignment: Smooth L1 treats small errors as L2 and large errors as L1
+        huber_loss = F.smooth_l1_loss(x, y, beta=1.0)
+        
+        # Balance coefficients (magnitude loss is typically slightly larger natively)
+        total_loss = (10.0 * cos_loss) + huber_loss
+        
+        metrics = {
+            "cosine_angular": cos_loss.item(),
+            "huber_magnitude": huber_loss.item()
+        }
+        
+        return total_loss, metrics
 
     def compute_vicreg(self, x, y):
         """
