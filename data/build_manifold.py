@@ -111,7 +111,7 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
     parser.add_argument("--model_id", type=str, default="Qwen/Qwen3-0.6B")
     parser.add_argument("--input_jsonl", type=str, default="data/geothoughts_k4_gemini3.1.jsonl")
-    parser.add_argument("--output_dir", type=str, default="data/target_tensors_v2_mean_pooled/")
+    parser.add_argument("--output_dir", type=str, default="/workspace/target_tensors/v2_mean_pooled/")
     args = parser.parse_args()
     
     build_manifold(args.model_id, args.input_jsonl, args.output_dir)
