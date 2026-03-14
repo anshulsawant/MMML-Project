@@ -63,7 +63,15 @@ class LatentEuclid(nn.Module):
         
         # Dynamically fetch the target model's hidden dimension
         target_config = AutoConfig.from_pretrained(target_model_id)
-        target_dim = getattr(target_config, "hidden_size", getattr(getattr(target_config, "text_config", None), "hidden_size", 1024))
+        if hasattr(target_config, "hidden_size"):
+            target_dim = target_config.hidden_size
+        elif hasattr(target_config, "text_config"):
+            if isinstance(target_config.text_config, dict):
+                target_dim = target_config.text_config.get("hidden_size", 1024)
+            else:
+                target_dim = getattr(target_config.text_config, "hidden_size", 1024)
+        else:
+            target_dim = 1024
         
         # 1. Setup Tokenizer & Model
         self.tokenizer, self.thought_ids = setup_latent_euclid_tokenizer(base_model_id, k_steps)
@@ -87,7 +95,15 @@ class LatentEuclid(nn.Module):
         
         # 2. Resize Embeddings to accommodate the new <thought> tokens
         self.vlm.resize_token_embeddings(len(self.tokenizer))
-        base_hidden_size = getattr(self.vlm.config, "hidden_size", getattr(getattr(self.vlm.config, "text_config", None), "hidden_size", None))
+        if hasattr(self.vlm.config, "hidden_size"):
+            base_hidden_size = self.vlm.config.hidden_size
+        elif hasattr(self.vlm.config, "text_config"):
+            if isinstance(self.vlm.config.text_config, dict):
+                base_hidden_size = self.vlm.config.text_config.get("hidden_size", 2560)
+            else:
+                base_hidden_size = getattr(self.vlm.config.text_config, "hidden_size", 2560)
+        else:
+            base_hidden_size = 2560
         
         # 3. Predictor Head
         # Maps the VLM's massive hidden state down to the small target LLM's dimensionality
