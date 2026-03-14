@@ -123,8 +123,18 @@ def e2e_evaluate():
             thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
             full_text = question + " " + thought_string
             
-            # Pass raw image and constructed text through the native VLM processor
-            inputs = x_encoder.processor(text=[full_text], images=[image], padding=True, return_tensors="pt").to(device)
+            # Construct standard message format for the Qwen VL processor so it injects <|image_pad|> tokens
+            messages = [{
+                "role": "user",
+                "content": [
+                    {"type": "image", "image": image},
+                    {"type": "text", "text": full_text}
+                ]
+            }]
+            
+            # Apply chat template and let processor handle image tags automatically
+            rendered_text = x_encoder.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            inputs = x_encoder.processor(text=[rendered_text], images=[image], padding=True, return_tensors="pt").to(device)
             
             # Get continuous vectors
             predicted_latents = x_encoder(
