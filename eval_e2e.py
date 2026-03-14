@@ -204,6 +204,11 @@ def e2e_evaluate():
                 acc_so_far = correct / total * 100
                 pbar.set_postfix({"Correct": f"{correct}/{total}", "Accuracy": f"{acc_so_far:.2f}%"})
                 
+            # Periodically save mismatches mid-run so they can be inspected if cancelled early
+            if mismatches:
+                with open(args.out, 'w') as f:
+                    json.dump(mismatches, f, indent=2)
+                
     acc = correct / total * 100 if total > 0 else 0.0
     print(f"\n+++ RESULTS +++")
     print(f"Evaluated {total} samples.")
