@@ -86,16 +86,24 @@ def train():
     is_distributed = isinstance(local_rank, int)
     is_master = (local_rank == 0 if is_distributed else True)
     
+    device = local_rank if is_distributed else local_rank
+
+    experiment_name = config.get("experiment", {}).get("name", "default")
+
+    # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
+    base_checkpoint_dir = config.get("train_decoder", {}).get("checkpoint_dir", "/workspace/checkpoints/decoder")
+    if base_checkpoint_dir.endswith("decoder"):
+        checkpoint_dir = os.path.join(os.path.dirname(base_checkpoint_dir), experiment_name, "decoder")
+    else:
+        checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name, "decoder")
+    config.setdefault("train_decoder", {})["checkpoint_dir"] = checkpoint_dir
+
     if is_master:
         print("\n" + "="*50)
         print("LatentEuclid Phase 4.5 (Y-Decoder Projection)")
         print("Executing with Configuration:")
         print(yaml.dump(config, default_flow_style=False))
         print("="*50 + "\n")
-    
-    device = local_rank if is_distributed else local_rank
-
-    experiment_name = config.get("experiment", {}).get("name", "default")
 
     if is_master:
         wandb.init(
@@ -276,13 +284,7 @@ def train():
             
             # Save epoch checkpoint to experiment namespace
             # Save epoch checkpoint to experiment namespace
-            experiment_name = config.get("experiment", {}).get("name", "default")
             checkpoint_dir = config.get("train_decoder", {}).get("checkpoint_dir")
-            if checkpoint_dir is None:
-                checkpoint_dir = f"/workspace/checkpoints/{experiment_name}/decoder"
-            else:
-                base_dir = os.path.dirname(checkpoint_dir) if "decoder" in checkpoint_dir else checkpoint_dir
-                checkpoint_dir = os.path.join(base_dir, experiment_name, "decoder")
             os.makedirs(checkpoint_dir, exist_ok=True)
             
             save_decoder = y_decoder.module if is_distributed else y_decoder

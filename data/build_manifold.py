@@ -133,26 +133,24 @@ if __name__ == "__main__":
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
         
-    print("\n" + "="*50)
-    print("LatentEuclid Phase 3 (Continuous Manifold Target Generation)")
-    print("Executing with Configuration:")
-    print(yaml.dump(config, default_flow_style=False))
-    print("="*50 + "\n")
-    
     experiment_name = config.get("experiment", {}).get("name", "default")
-    
-    # 1. Prioritize explicit runtime overrides.
-    # 2. Fetch from unified config.yaml.
     model_id = args.model_id or config["model"]["target_model_id"]
     input_jsonl = args.input_jsonl or config["data"]["jsonl_path"]
     
     output_dir = args.output_dir
     if output_dir is None:
-        output_dir = config.get("data", {}).get("targets_dir")
-    
-    # 3. Dynamic experiment mapping fallback.
-    if output_dir is None:
-        output_dir = f"/workspace/target_tensors/target_tensors_{experiment_name}/"
+        base_dir = config.get("data", {}).get("targets_dir", "/workspace/target_tensors")
+        output_dir = os.path.join(base_dir, f"target_tensors_{experiment_name}")
+        
+    # Inject directly into config dictionary for transparent logging
+    if "data" not in config: config["data"] = {}
+    config["data"]["targets_dir"] = output_dir
+
+    print("\n" + "="*50)
+    print("LatentEuclid Phase 3 (Continuous Manifold Target Generation)")
+    print("Executing with Configuration:")
+    print(yaml.dump(config, default_flow_style=False))
+    print("="*50 + "\n")
         
     print(f"Dynamically routing Target Tensors to: {output_dir}")
     build_manifold(model_id, input_jsonl, output_dir)

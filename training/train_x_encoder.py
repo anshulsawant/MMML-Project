@@ -103,14 +103,23 @@ def train():
     is_distributed = isinstance(local_rank, int)
     is_master = (local_rank == 0 if is_distributed else True)
     
+    experiment_name = config.get("experiment", {}).get("name", "default")
+    
+    # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
+    base_checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir", "/workspace/checkpoints")
+    checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name)
+    config.setdefault("train_x_encoder", {})["checkpoint_dir"] = checkpoint_dir
+    
+    base_targets_dir = config.get("data", {}).get("targets_dir", "/workspace/target_tensors")
+    targets_dir = os.path.join(base_targets_dir, f"target_tensors_{experiment_name}")
+    config.setdefault("data", {})["targets_dir"] = targets_dir
+
     if is_master:
         print("\n" + "="*50)
         print("LatentEuclid Phase 4 (Continuous Alignment)")
         print("Executing with Configuration:")
         print(yaml.dump(config, default_flow_style=False))
         print("="*50 + "\n")
-    
-    experiment_name = config.get("experiment", {}).get("name", "default")
     
     if is_master:
         wandb.init(
@@ -149,16 +158,9 @@ def train():
     )
     
     # ---------------------------------------------------------
-    # Checkpointing Logic (Load)
-    # ---------------------------------------------------------
     start_epoch = 0
     best_val_loss = float('inf')
-    checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir")
     
-    if checkpoint_dir is None:
-        checkpoint_dir = f"/workspace/checkpoints/{experiment_name}"
-    else:
-        checkpoint_dir = os.path.join(checkpoint_dir, experiment_name)
     os.makedirs(checkpoint_dir, exist_ok=True)
     
     latest_cp_path = None
@@ -197,14 +199,9 @@ def train():
     # ---------------------------------------------------------
     
     # Instantiate Data Loader
-    targets_dir = config.get("data", {}).get("targets_dir")
-    if targets_dir is None:
-        targets_dir = f"/workspace/target_tensors/target_tensors_{experiment_name}/"
-        print(f"[{local_rank}] Dynamically mapped Target Tensors from namespace: {targets_dir}")
-        
     full_dataset = GeoThoughtsDataset(
         jsonl_path=config["data"]["jsonl_path"],
-        targets_dir=targets_dir,
+        targets_dir=config["data"]["targets_dir"],
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
         k_steps=config["model"]["k_steps"],
         augment=True # Apply affine geometry-safe augmentations dynamically
