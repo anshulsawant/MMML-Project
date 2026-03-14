@@ -97,6 +97,9 @@ To prevent overwriting checkpoints and evaluation metrics when testing architect
 experiment:
   name: "v2_huber_mean_pooled"  # Master tracker
   
+build_manifold:
+  batch_size: 4  # Prevent OOMs when generating Target Tensor subsets
+
 train_x_encoder:
   loss_type: "huber_cosine"  # Alignment constraint
   ...
@@ -105,7 +108,7 @@ train_decoder:
   ...
 ```
 
-Executing the pipeline modules cleanly tracks all `.pt` saves into their dedicated namespace (`checkpoints/[experiment_name]/`), retaining only the 4 most recent (and the singular overall best) checkpoints.
+Executing the pipeline modules cleanly tracks all `x_encoder` `.pt` model weights, `decoder` states, `eval_mismatches`, and `target_tensors` into dedicated namespaces seamlessly bound to the `experiment: name` parameter, retaining only the 4 most recent (and the singular overall best) checkpoints.
 
 ```bash
 # 1. Regenerates the unified topology 
