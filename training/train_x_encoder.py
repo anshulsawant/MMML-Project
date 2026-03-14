@@ -151,9 +151,13 @@ def train():
     # ---------------------------------------------------------
     start_epoch = 0
     best_val_loss = float('inf')
-    checkpoint_dir = config["train_x_encoder"].get("checkpoint_dir", "/workspace/checkpoints")
     experiment_name = config.get("experiment", {}).get("name", "default")
-    checkpoint_dir = os.path.join(checkpoint_dir, experiment_name)
+    checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir")
+    
+    if checkpoint_dir is None:
+        checkpoint_dir = f"/workspace/checkpoints/{experiment_name}"
+    else:
+        checkpoint_dir = os.path.join(checkpoint_dir, experiment_name)
     os.makedirs(checkpoint_dir, exist_ok=True)
     
     latest_cp_path = None

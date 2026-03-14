@@ -6,6 +6,9 @@ model:
 
 experiment:
   name: "v2_huber_mean_pooled"
+
+build_manifold:
+  batch_size: 4
   
 train_x_encoder:
   experiment_name: "v2_huber_mean_pooled"
@@ -19,7 +22,6 @@ train_x_encoder:
   vicreg_sim_coeff: 1.0
   vicreg_var_coeff: 1.0
   vicreg_cov_coeff: 0.0
-  checkpoint_dir: "/workspace/checkpoints"
 
 train_decoder:
   epochs: 20
@@ -28,8 +30,6 @@ train_decoder:
   learning_rate: 1.0e-4
   weight_decay: 0.01
   max_grad_norm: 5.0
-  checkpoint_dir: "/workspace/checkpoints/decoder"
-  x_encoder_weights: "/workspace/checkpoints/x_encoder_best.pt"
 
 data:
   jsonl_path: "data/geothoughts_verified.jsonl"

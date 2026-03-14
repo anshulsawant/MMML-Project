@@ -58,10 +58,9 @@ def e2e_evaluate():
     ).to(device)
     
     # Load VICReg weights
-    weight_path = args.x_encoder_weights if args.x_encoder_weights else config["model"].get("x_encoder_weights")
-    if weight_path == "/workspace/checkpoints/x_encoder_best.pt":
+    weight_path = args.x_encoder_weights
+    if not weight_path:
         weight_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
-        
     if weight_path and torch.cuda.is_available() or '{' not in weight_path:
         try:
             state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)

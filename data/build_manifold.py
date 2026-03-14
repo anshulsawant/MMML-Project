@@ -94,19 +94,33 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     tokenizer, model = load_qwen_target_model(model_id, device)
     
+    batch_size = config.get("build_manifold", {}).get("batch_size", 4)
+    print(f"Processing with chunked batch_size: {batch_size}")
+    
     with open(input_jsonl, 'r') as f:
-        for idx, line in enumerate(f):
-            data = json.loads(line)
-            steps = parse_k4_steps(data["reasoning"])
+        lines = f.readlines()
+        
+    for i in range(0, len(lines), batch_size):
+        batch_lines = lines[i:i+batch_size]
+        batch_data = [json.loads(line) for line in batch_lines]
+        
+        flat_steps = []
+        for data in batch_data:
+            flat_steps.extend(parse_k4_steps(data["reasoning"]))
             
-            # Process all 4 steps in a single batched matrix multiplication
-            target_tensor = embed_steps_batch(steps, tokenizer, model, device=device)
+        # Process all steps in a single batched matrix multiplication
+        target_tensors_flat = embed_steps_batch(flat_steps, tokenizer, model, device=device)
+        
+        # Reshape isolated K-thought vectors back into exact topological instances
+        target_tensors = target_tensors_flat.view(len(batch_data), 4, -1)
+        
+        # Save the isolated .pt files for Phase 3 training
+        for j, tensor in enumerate(target_tensors):
+            idx = i + j
+            torch.save(tensor.clone(), os.path.join(output_dir, f"problem_{idx}_targets.pt"))
             
-            # Save the .pt file for Phase 3 training
-            torch.save(target_tensor, os.path.join(output_dir, f"problem_{idx}_targets.pt"))
-            
-            if (idx + 1) % 50 == 0:
-                print(f"Generated manifolds for {idx + 1} problems...")
+        if (i + len(batch_data)) % 50 < batch_size:
+            print(f"Generated manifolds for {i + len(batch_data)} problems...")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
