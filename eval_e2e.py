@@ -22,6 +22,7 @@ def e2e_evaluate():
     parser.add_argument("--x_encoder_weights", type=str, default=None, help="Override path to X-encoder weights")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of samples to evaluate")
     parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
+    parser.add_argument("--batch_size", type=int, default=8, help="Batch size for generating answers.")
     parser.add_argument("--split", type=float, default=0.9, help="Validation split index ratio (default: 0.9, i.e. last 10%)")
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
     args = parser.parse_args()
@@ -102,42 +103,61 @@ def e2e_evaluate():
     total = 0
     mismatches = []
     
+    # Chunk the data into batches
+    batches = [val_data[i:i + args.batch_size] for i in range(0, len(val_data), args.batch_size)]
+    
     with torch.no_grad():
-        pbar = tqdm(val_data, desc="Evaluating")
-        for item in pbar:
-            img_path = item["image_path"]
-            try:
-                # Load image for processing
-                image = Image.open(img_path).convert("RGB")
-            except Exception as e:
-                print(f"Skipping {img_path} due to image load error: {e}")
+        pbar = tqdm(batches, desc="Evaluating Batches")
+        for batch in pbar:
+            images = []
+            valid_items = []
+            
+            # 1. Load images dynamically inside batch
+            for item in batch:
+                img_path = item["image_path"]
+                try:
+                    images.append(Image.open(img_path).convert("RGB"))
+                    valid_items.append(item)
+                except Exception as e:
+                    print(f"Skipping {img_path} due to image load error: {e}")
+            
+            if not valid_items:
                 continue
                 
-            question = item["question"]
-            true_answer_raw = ground_truths.get(img_path)
+            batch_messages = []
+            questions = []
+            true_answers = []
             
-            if true_answer_raw is None:
+            # 2. Extract valid items
+            for item, img in zip(valid_items, images):
+                question = item["question"]
+                true_answer_raw = ground_truths.get(item["image_path"])
+                
+                if true_answer_raw is None:
+                    continue
+                    
+                thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
+                full_text = question + " " + thought_string
+                
+                messages = [{
+                    "role": "user",
+                    "content": [
+                        {"type": "image", "image": img},
+                        {"type": "text", "text": full_text}
+                    ]
+                }]
+                batch_messages.append(messages)
+                questions.append(question)
+                true_answers.append((item["image_path"], true_answer_raw))
+                
+            if not batch_messages:
                 continue
+                
+            rendered_texts = [x_encoder.processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
             
-            # Format X-encoder input - LatentEuclid natively expects the `<thought>` tokens appended 
-            # to the end of the text sequence so it can extract the final hidden representations from those exact positions.
-            thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
-            full_text = question + " " + thought_string
+            # The processor automatically pads dynamic resolution images across the batch 
+            inputs = x_encoder.processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
             
-            # Construct standard message format for the Qwen VL processor so it injects <|image_pad|> tokens
-            messages = [{
-                "role": "user",
-                "content": [
-                    {"type": "image", "image": image},
-                    {"type": "text", "text": full_text}
-                ]
-            }]
-            
-            # Apply chat template and let processor handle image tags automatically
-            rendered_text = x_encoder.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
-            inputs = x_encoder.processor(text=[rendered_text], images=[image], padding=True, return_tensors="pt").to(device)
-            
-            # Get continuous vectors
             predicted_latents = x_encoder(
                 input_ids=inputs.input_ids, 
                 pixel_values=inputs.get("pixel_values"), 
@@ -145,43 +165,44 @@ def e2e_evaluate():
                 image_grid_thw=inputs.get("image_grid_thw")
             )
             
-            # Format Y-decoder clean prompt
-            # Auto-regressively generate the textual answer
-            generated_text = y_decoder.generate(
+            # Format clean prompts for y-decoder
+            prompts = [q.strip() + "\nAnswer: " for q in questions]
+            generated_texts = y_decoder.generate(
                 predicted_latents=predicted_latents, 
-                text_prompts=[question.strip() + "\nAnswer: "],
+                text_prompts=prompts,
                 max_new_tokens=15
-            )[0]
+            )
             
-            pred_raw = clean_gen_ans(generated_text)
-            
-            gt_norm = normalize(true_answer_raw)
-            pred_norm = normalize(pred_raw)
-            
-            is_correct = (gt_norm == pred_norm)
-            
-            # Math fallback test
-            if not is_correct:
-                gt_val = safe_math_eval(true_answer_raw)
-                pred_val = safe_math_eval(pred_raw)
-                if gt_val is not None and pred_val is not None:
-                    is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
-            
-            total += 1
-            if is_correct:
-                correct += 1
-            else:
-                mismatches.append({
-                    'image': img_path,
-                    'gt_raw': str(true_answer_raw),
-                    'pred_raw': pred_raw,
-                    'gt_norm': gt_norm,
-                    'pred_norm': pred_norm,
-                    'model_generation': generated_text.strip()
-                })
-            
-            acc_so_far = correct / total * 100
-            pbar.set_postfix({"Correct": f"{correct}/{total}", "Accuracy": f"{acc_so_far:.2f}%"})
+            # 3. Calculate metrics per generation
+            for gen_text, (img_path, true_answer_raw), q in zip(generated_texts, true_answers, questions):
+                pred_raw = clean_gen_ans(gen_text)
+                gt_norm = normalize(true_answer_raw)
+                pred_norm = normalize(pred_raw)
+                
+                is_correct = (gt_norm == pred_norm)
+                
+                if not is_correct:
+                    gt_val = safe_math_eval(true_answer_raw)
+                    pred_val = safe_math_eval(pred_raw)
+                    if gt_val is not None and pred_val is not None:
+                        is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
+                        
+                total += 1
+                if is_correct:
+                    correct += 1
+                else:
+                    mismatches.append({
+                        'image': img_path,
+                        'gt_raw': str(true_answer_raw),
+                        'pred_raw': pred_raw,
+                        'gt_norm': gt_norm,
+                        'pred_norm': pred_norm,
+                        'model_generation': gen_text.strip()
+                    })
+                    
+            if total > 0:
+                acc_so_far = correct / total * 100
+                pbar.set_postfix({"Correct": f"{correct}/{total}", "Accuracy": f"{acc_so_far:.2f}%"})
                 
     acc = correct / total * 100 if total > 0 else 0.0
     print(f"\n+++ RESULTS +++")

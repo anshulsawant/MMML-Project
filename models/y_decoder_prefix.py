@@ -174,7 +174,11 @@ class YDecoderPrefix(nn.Module):
         if text_prompts is None:
             text_prompts = [""] * soft_prefixes.shape[0]
             
+        # Switch padding to left for batched generation, then restore
+        original_padding_side = self.tokenizer.padding_side
+        self.tokenizer.padding_side = "left"
         inputs = self.tokenizer(text_prompts, return_tensors="pt", padding=True).to(device)
+        self.tokenizer.padding_side = original_padding_side
         
         text_embeddings = self.decoder.get_input_embeddings()(inputs.input_ids)
         inputs_embeds = torch.cat([text_embeddings, soft_prefixes], dim=1)
