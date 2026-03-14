@@ -222,7 +222,9 @@ def train():
         sampler=train_sampler,
         collate_fn=custom_collate,
         shuffle=(train_sampler is None),
-        drop_last=True
+        drop_last=True,
+        num_workers=0,
+        pin_memory=True
     )
     
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
@@ -231,7 +233,9 @@ def train():
         batch_size=int(config["train_x_encoder"]["batch_size"]), 
         sampler=val_sampler,
         collate_fn=custom_collate,
-        shuffle=False
+        shuffle=False,
+        num_workers=0,
+        pin_memory=True
     )
     
     gradient_accumulation_steps = int(config["train_x_encoder"].get("gradient_accumulation_steps", 1))
