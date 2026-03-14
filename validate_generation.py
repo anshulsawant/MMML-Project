@@ -58,10 +58,13 @@ def generate_answers():
     with open("data/ground_truths.json", 'r') as f:
         ground_truths = json.load(f)
 
-    random.seed(42)
+    random.seed(42)  # Maintain identical validation split index as training
     random.shuffle(full_data)
     split_idx = int(0.9 * len(full_data))
     val_data = full_data[split_idx:]
+    
+    # Re-seed with system time so `samples` are different every run
+    random.seed()
     
     # Take 5 random validation samples to inspect
     samples = random.sample(val_data, 5)
