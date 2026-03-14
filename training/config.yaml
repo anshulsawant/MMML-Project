@@ -18,4 +18,4 @@ training:
 
 data:
   jsonl_path: "data/geothoughts_verified.jsonl"
-  targets_dir: "data/target_tensors_verified/"
+  targets_dir: "data/target_tensors_v2_mean_pooled/"
