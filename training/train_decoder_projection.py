@@ -184,6 +184,7 @@ def train():
     val_loader = DataLoader(val_dataset, batch_size=int(config["training"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
 
     epochs = int(config["training"]["epochs"])
+    best_val_loss = float('inf')
     
     for epoch in range(epochs):
         if train_sampler:
@@ -284,6 +285,37 @@ def train():
                 save_encoder = x_encoder.module if is_distributed else x_encoder
                 encoder_path = os.path.join(checkpoint_dir, f"x_encoder_e2e_epoch_{epoch}.pt")
                 torch.save(save_encoder.state_dict(), encoder_path)
+
+            import shutil
+            if avg_val_loss < best_val_loss:
+                best_val_loss = avg_val_loss
+                best_cp_path = os.path.join(checkpoint_dir, "decoder_best.pt")
+                shutil.copy2(checkpoint_path, best_cp_path)
+                print(f"[{device}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                if args.end_to_end:
+                    best_encoder_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
+                    shutil.copy2(encoder_path, best_encoder_path)
+
+            # Keep only latest 4 checkpoints
+            old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
+            if len(old_epochs) > 4:
+                old_epochs.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                for old_f in old_epochs[:-4]:
+                    try:
+                        os.remove(os.path.join(checkpoint_dir, old_f))
+                        print(f"[{device}] Auto-deleted ancient checkpoint {old_f}.")
+                    except OSError:
+                        pass
+                        
+            if args.end_to_end:
+                old_e2e = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_e2e_epoch_") and f.endswith(".pt")]
+                if len(old_e2e) > 4:
+                    old_e2e.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                    for old_f in old_e2e[:-4]:
+                        try:
+                            os.remove(os.path.join(checkpoint_dir, old_f))
+                        except OSError:
+                            pass
 
     if is_master:
         print("Training successfully finished!")

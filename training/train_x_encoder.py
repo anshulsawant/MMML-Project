@@ -331,11 +331,11 @@ def train():
                 shutil.copy2(cp_path, best_cp_path)
                 print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
             
-            # Keep only latest 15 checkpoints to safely utilize the 500GB RunPod MooseFS disk quota
+            # Keep only latest 4 checkpoints to safely utilize the 500GB RunPod MooseFS disk quota
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
-            if len(old_epochs) > 15:
+            if len(old_epochs) > 4:
                 old_epochs.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
-                for old_f in old_epochs[:-15]: # Keep the latest 15 checkpoints (approx 360GB total)
+                for old_f in old_epochs[:-4]: # Keep the latest 4 checkpoints
                     try:
                         os.remove(os.path.join(checkpoint_dir, old_f))
                         print(f"[{local_rank}] Auto-deleted ancient checkpoint {old_f} to preserve disk space.")
