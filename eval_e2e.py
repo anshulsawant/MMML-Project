@@ -127,7 +127,12 @@ def e2e_evaluate():
             inputs = x_encoder.processor(text=[full_text], images=[image], padding=True, return_tensors="pt").to(device)
             
             # Get continuous vectors
-            predicted_latents = x_encoder(input_ids=inputs.input_ids, pixel_values=inputs.pixel_values, attention_mask=inputs.attention_mask)
+            predicted_latents = x_encoder(
+                input_ids=inputs.input_ids, 
+                pixel_values=inputs.get("pixel_values"), 
+                attention_mask=inputs.attention_mask,
+                image_grid_thw=inputs.get("image_grid_thw")
+            )
             
             # Format Y-decoder clean prompt
             # Auto-regressively generate the textual answer
