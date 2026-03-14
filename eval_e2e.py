@@ -13,7 +13,7 @@ from models.y_decoder_prefix import YDecoderPrefix
 
 # Import robust evaluation metrics
 sys.path.append('data')
-from evaluate_generated import clean_gen_ans, safe_math_eval, normalize
+from evaluate_generated import clean_base_model_ans, safe_math_eval, normalize
 
 def e2e_evaluate():
     parser = argparse.ArgumentParser(description="End-to-End Evaluation for LatentEuclid")
@@ -175,7 +175,7 @@ def e2e_evaluate():
             
             # 3. Calculate metrics per generation
             for gen_text, (img_path, true_answer_raw), q in zip(generated_texts, true_answers, questions):
-                pred_raw = clean_gen_ans(gen_text)
+                pred_raw = clean_base_model_ans(gen_text)
                 gt_norm = normalize(true_answer_raw)
                 pred_norm = normalize(pred_raw)
                 
