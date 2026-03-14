@@ -95,10 +95,12 @@ def train():
     
     device = local_rank if is_distributed else local_rank
 
+    experiment_name = config.get("experiment", {}).get("name", "default")
+
     if is_master:
         wandb.init(
             project="LatentEuclid",
-            name=f"DecoderProjection-E2E-{args.end_to_end}",
+            name=f"{experiment_name}-Decoder-E2E-{args.end_to_end}",
             config=config
         )
 
@@ -110,8 +112,6 @@ def train():
     )
     
     # Load X-encoder weights tracked by experiment
-    experiment_name = config.get("experiment", {}).get("name", "default")
-    
     # Try the exact config override first, otherwise fall back to parsing the experiment namespace
     weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
     if weight_path == "/workspace/checkpoints/x_encoder_best.pt":

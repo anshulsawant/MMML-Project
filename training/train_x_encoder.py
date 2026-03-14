@@ -110,10 +110,12 @@ def train():
         print(yaml.dump(config, default_flow_style=False))
         print("="*50 + "\n")
     
+    experiment_name = config.get("experiment", {}).get("name", "default")
+    
     if is_master:
         wandb.init(
             project="LatentEuclid",
-            name=f"LatentEuclid-{config['training']['loss_type']}",
+            name=f"{experiment_name}-{config['train_x_encoder']['loss_type']}",
             config=config
         )
     
@@ -151,7 +153,6 @@ def train():
     # ---------------------------------------------------------
     start_epoch = 0
     best_val_loss = float('inf')
-    experiment_name = config.get("experiment", {}).get("name", "default")
     checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir")
     
     if checkpoint_dir is None:
