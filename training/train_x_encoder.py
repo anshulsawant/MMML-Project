@@ -291,7 +291,6 @@ def train():
                 total_val_mse = 0.0
                 with torch.no_grad():
                     for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
-                        tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
                         val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
                         
                         val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
