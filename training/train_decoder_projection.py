@@ -15,7 +15,7 @@ from models.y_decoder_prefix import YDecoderPrefix
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid Phase 4.5: Train Prefix Projection")
-    parser.add_argument("--config", type=str, default="training/config_decoder.yaml",
+    parser.add_argument("--config", type=str, default="training/config.yaml",
                         help="Path to YAML training configuration")
     parser.add_argument("--x_encoder_weights", type=str, default="checkpoints/x_encoder_best.pt",
                         help="Path to the frozen VICReg-aligned X-Encoder weights")
@@ -103,7 +103,7 @@ def train():
     )
     
     # Load X-encoder weights tracked by experiment
-    experiment_name = config["training"].get("experiment_name", "default")
+    experiment_name = config.get("experiment", {}).get("name", "default")
     
     # Try the exact config override first, otherwise fall back to parsing the experiment namespace
     weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
@@ -151,8 +151,8 @@ def train():
 
     optimizer = torch.optim.AdamW(
         filter(lambda p: p.requires_grad, trainable_params), 
-        lr=float(config["training"]["learning_rate"]), 
-        weight_decay=float(config["training"]["weight_decay"])
+        lr=float(config["train_decoder"]["learning_rate"]), 
+        weight_decay=float(config["train_decoder"]["weight_decay"])
     )
 
     # ------------------ Data Split ------------------
@@ -178,12 +178,12 @@ def train():
     val_dataset = GeoThoughtsTextDataset(val_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
 
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
-    train_loader = DataLoader(train_dataset, batch_size=int(config["training"]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None))
+    train_loader = DataLoader(train_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None))
     
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
-    val_loader = DataLoader(val_dataset, batch_size=int(config["training"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
+    val_loader = DataLoader(val_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
 
-    epochs = int(config["training"]["epochs"])
+    epochs = int(config["train_decoder"]["epochs"])
     best_val_loss = float('inf')
     
     for epoch in range(epochs):
@@ -228,7 +228,7 @@ def train():
             loss = outputs.loss
             loss.backward()
             
-            torch.nn.utils.clip_grad_norm_(trainable_params, float(config["training"]["max_grad_norm"]))
+            torch.nn.utils.clip_grad_norm_(trainable_params, float(config["train_decoder"]["max_grad_norm"]))
             optimizer.step()
             
             total_train_loss += loss.item()
@@ -268,8 +268,8 @@ def train():
             wandb.log({"val/ce_loss": avg_val_loss, "epoch": epoch})
             
             # Save epoch checkpoint to experiment namespace
-            checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints/decoder")
-            experiment_name = config["training"].get("experiment_name", "default")
+            checkpoint_dir = config["train_decoder"].get("checkpoint_dir", "/workspace/checkpoints/decoder")
+            experiment_name = config.get("experiment", {}).get("name", "default")
             
             # Re-route /workspace/checkpoints/decoder -> /workspace/checkpoints/{experiment_name}/decoder
             base_dir = os.path.dirname(checkpoint_dir) if "decoder" in checkpoint_dir else checkpoint_dir

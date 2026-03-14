@@ -125,18 +125,18 @@ def train():
         model = model.to(local_rank) # cpu/cuda
         
     criterion = AlignmentLossFactory(
-        loss_type=config["training"]["loss_type"],
-        vicreg_sim_coeff=float(config["training"].get("vicreg_sim_coeff", 25.0)),
-        vicreg_var_coeff=float(config["training"].get("vicreg_var_coeff", 25.0)),
-        vicreg_cov_coeff=float(config["training"].get("vicreg_cov_coeff", 1.0))
+        loss_type=config["train_x_encoder"]["loss_type"],
+        vicreg_sim_coeff=float(config["train_x_encoder"].get("vicreg_sim_coeff", 25.0)),
+        vicreg_var_coeff=float(config["train_x_encoder"].get("vicreg_var_coeff", 25.0)),
+        vicreg_cov_coeff=float(config["train_x_encoder"].get("vicreg_cov_coeff", 1.0))
     )
     if is_distributed:
         criterion = criterion.to(local_rank)
         
     optimizer = torch.optim.AdamW(
         model.parameters(), 
-        lr=float(config["training"]["learning_rate"]), 
-        weight_decay=float(config["training"]["weight_decay"])
+        lr=float(config["train_x_encoder"]["learning_rate"]), 
+        weight_decay=float(config["train_x_encoder"]["weight_decay"])
     )
     
     # ---------------------------------------------------------
@@ -144,8 +144,8 @@ def train():
     # ---------------------------------------------------------
     start_epoch = 0
     best_val_loss = float('inf')
-    checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints")
-    experiment_name = config["training"].get("experiment_name", "default")
+    checkpoint_dir = config["train_x_encoder"].get("checkpoint_dir", "/workspace/checkpoints")
+    experiment_name = config.get("experiment", {}).get("name", "default")
     checkpoint_dir = os.path.join(checkpoint_dir, experiment_name)
     os.makedirs(checkpoint_dir, exist_ok=True)
     
@@ -174,7 +174,7 @@ def train():
             
             # Explicitly override the loaded learning rate with the config value
             # (optimizer.load_state_dict will otherwise overwrite the new lr with the old saved lr)
-            target_lr = float(config["training"]["learning_rate"])
+            target_lr = float(config["train_x_encoder"]["learning_rate"])
             for param_group in optimizer.param_groups:
                 param_group['lr'] = target_lr
             print(f"[{local_rank}] Checkpoint Optimizer LR manually overridden to {target_lr}")
@@ -201,7 +201,7 @@ def train():
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     train_dataloader = DataLoader(
         train_dataset, 
-        batch_size=int(config["training"]["batch_size"]), 
+        batch_size=int(config["train_x_encoder"]["batch_size"]), 
         sampler=train_sampler,
         collate_fn=custom_collate,
         shuffle=(train_sampler is None),
@@ -211,17 +211,17 @@ def train():
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
     val_dataloader = DataLoader(
         val_dataset, 
-        batch_size=int(config["training"]["batch_size"]), 
+        batch_size=int(config["train_x_encoder"]["batch_size"]), 
         sampler=val_sampler,
         collate_fn=custom_collate,
         shuffle=False
     )
     
-    gradient_accumulation_steps = int(config["training"].get("gradient_accumulation_steps", 1))
+    gradient_accumulation_steps = int(config["train_x_encoder"].get("gradient_accumulation_steps", 1))
     print(f"[{local_rank}] Successfully initialized epoch pipelines! Train: {len(train_dataset)}, Val: {len(val_dataset)}")
     
-    epochs = int(config["training"]["epochs"])
-    max_steps_per_epoch = config["training"].get("max_steps_per_epoch", None)
+    epochs = int(config["train_x_encoder"]["epochs"])
+    max_steps_per_epoch = config["train_x_encoder"].get("max_steps_per_epoch", None)
     device = local_rank if is_distributed else local_rank
     
     for epoch in range(start_epoch, epochs):
@@ -264,7 +264,7 @@ def train():
             
             # Step conditionally based on batch_idx and accumulation steps
             if ((batch_idx + 1) % gradient_accumulation_steps == 0) or (batch_idx + 1 == len(train_dataloader)):
-                grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["training"]["max_grad_norm"]))
+                grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["train_x_encoder"]["max_grad_norm"]))
                 optimizer.step()
                 optimizer.zero_grad()
                 

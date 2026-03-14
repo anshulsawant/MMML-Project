@@ -17,7 +17,7 @@ from evaluate_generated import clean_base_model_ans, safe_math_eval, normalize
 
 def e2e_evaluate():
     parser = argparse.ArgumentParser(description="End-to-End Evaluation for LatentEuclid")
-    parser.add_argument("--config", type=str, default="training/config_decoder.yaml")
+    parser.add_argument("--config", type=str, default="training/config.yaml")
     parser.add_argument("--decoder_weights", type=str, default=None, help="Path to decoder_epoch_X.pt (defaults to best experiment checkpoint)")
     parser.add_argument("--x_encoder_weights", type=str, default=None, help="Override path to X-encoder weights")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of samples to evaluate")
@@ -32,7 +32,7 @@ def e2e_evaluate():
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
         
-    experiment_name = config["training"].get("experiment_name", "default")
+    experiment_name = config.get("experiment", {}).get("name", "default")
     
     if args.out == "data/e2e_mismatches.json":
         args.out = f"data/eval_{experiment_name}.json"

@@ -1,9 +1,13 @@
 model:
   base_model_id: "Qwen/Qwen3-VL-4B-Instruct"
   target_model_id: "Qwen/Qwen3-VL-4B-Instruct"
+  decoder_base_model_id: "Qwen/Qwen3-4B-Base"
   k_steps: 4
+
+experiment:
+  name: "v2_huber_mean_pooled"
   
-training:
+train_x_encoder:
   experiment_name: "v2_huber_mean_pooled"
   epochs: 100
   batch_size: 32
@@ -16,6 +20,16 @@ training:
   vicreg_var_coeff: 1.0
   vicreg_cov_coeff: 0.0
   checkpoint_dir: "/workspace/checkpoints"
+
+train_decoder:
+  epochs: 20
+  batch_size: 32
+  gradient_accumulation_steps: 8
+  learning_rate: 1.0e-4
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  checkpoint_dir: "/workspace/checkpoints/decoder"
+  x_encoder_weights: "/workspace/checkpoints/x_encoder_best.pt"
 
 data:
   jsonl_path: "data/geothoughts_verified.jsonl"
