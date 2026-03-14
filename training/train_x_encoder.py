@@ -261,12 +261,28 @@ def train():
                 
             # Since VLMs (like Qwen3) usually require a complex processor for their images rather than raw PIL...
             # We extract them utilizing the associated model processor dynamically:
-            tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
-            inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
+            processor = model.module.processor if is_distributed else model.processor
+            
+            batch_messages = []
+            for img, txt in zip(images, texts):
+                batch_messages.append([
+                    {"role": "user", "content": [
+                        {"type": "image", "image": img},
+                        {"type": "text", "text": txt}
+                    ]}
+                ])
+                
+            rendered_texts = [processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+            inputs = processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
             
             # Note: For strict Qwen3-VL, you pass 'pixel_values' explicitly from its `Processor`. 
             # If `pixel_values` aren't defined, the model dynamically routes to text-only mode processing.
-            predicted_latents = model(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+            predicted_latents = model(
+                input_ids=inputs.input_ids, 
+                attention_mask=inputs.attention_mask,
+                pixel_values=inputs.get("pixel_values"),
+                image_grid_thw=inputs.get("image_grid_thw")
+            )
             
             targets = targets.to(device=device, dtype=predicted_latents.dtype)
             
@@ -289,24 +305,6 @@ def train():
                 optimizer.step()
                 optimizer.zero_grad()
                 
-                # --- RUN VALIDATION ON STEP ---
-                model.eval()
-                total_val_loss = 0.0
-                total_val_mse = 0.0
-                with torch.no_grad():
-                    for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
-                        val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
-                        val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
-                        val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
-                        
-                        v_loss, v_metrics = criterion(val_pred, val_targ)
-                        total_val_loss += v_loss.item()
-                        if "loss/invariance_cos" in v_metrics:
-                            total_val_mse += v_metrics["loss/invariance_cos"]
-                        
-                avg_val_loss = total_val_loss / max(1, len(val_dataloader))
-                avg_val_mse = total_val_mse / max(1, len(val_dataloader))
-                
                 if is_master:
                     step_duration = time.time() - step_start_time
                     current_lr = optimizer.param_groups[0]['lr']
@@ -314,23 +312,57 @@ def train():
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
                     var_loss_val = metrics_dict.get("loss/variance_loss", 0.0) if type(metrics_dict) is dict else 0.0
                     train_mse_val = metrics_dict.get("loss/invariance_cos", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train Cos: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f} | Val Loss: {avg_val_loss:.4f} | Val Cos: {avg_val_mse:.4f}")
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train Cos: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
-                    metrics_dict["val/total_loss"] = avg_val_loss
-                    metrics_dict["val/invariance_cos"] = avg_val_mse
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
-                
-                model.train() # Return to training mode
                 # ------------------------------
                 
             else:
                 pass # Just accumulating gradients
+
+        # --- RUN VALIDATION ON EPOCH ---
+        model.eval()
+        total_val_loss = 0.0
+        total_val_mse = 0.0
+        with torch.no_grad():
+            for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+                processor = model.module.processor if is_distributed else model.processor
+                val_messages = []
+                for img, txt in zip(val_img, val_txt):
+                    val_messages.append([{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}])
+                
+                val_rendered = [processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in val_messages]
+                val_inputs = processor(text=val_rendered, images=val_img, padding=True, return_tensors="pt").to(device)
+                
+                val_pred = model(
+                    input_ids=val_inputs.input_ids, 
+                    attention_mask=val_inputs.attention_mask,
+                    pixel_values=val_inputs.get("pixel_values"),
+                    image_grid_thw=val_inputs.get("image_grid_thw")
+                )
+                val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                
+                v_loss, v_metrics = criterion(val_pred, val_targ)
+                total_val_loss += v_loss.item()
+                if "loss/invariance_cos" in v_metrics:
+                    total_val_mse += v_metrics["loss/invariance_cos"]
+                
+        avg_val_loss = total_val_loss / max(1, len(val_dataloader))
+        avg_val_mse = total_val_mse / max(1, len(val_dataloader))
+        
+        if is_master:
+            print(f"=== Epoch {epoch} Validation Loss: {avg_val_loss:.4f} | Val Cos: {avg_val_mse:.4f} ===")
+            wandb.log({
+                "val/total_loss": avg_val_loss,
+                "val/invariance_cos": avg_val_mse,
+                "epoch": epoch
+            })
 
         # --- SAVE CHECKPOINT PER EPOCH ---
         if is_master:
