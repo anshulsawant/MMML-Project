@@ -15,7 +15,7 @@ Key Architectural Properties:
 
 import torch
 import torch.nn as nn
-from transformers import AutoModelForImageTextToText, AutoTokenizer, AutoConfig
+from transformers import AutoModelForImageTextToText, AutoTokenizer, AutoConfig, AutoProcessor
 
 class LatentPredictor(nn.Module):
     """
@@ -68,6 +68,15 @@ class LatentEuclid(nn.Module):
         # 1. Setup Tokenizer & Model
         self.tokenizer, self.thought_ids = setup_latent_euclid_tokenizer(base_model_id, k_steps)
         self.k_steps = k_steps
+        
+        # Load the multimodal processor to handle image/text inputs, embedding the custom tokenizer
+        try:
+            self.processor = AutoProcessor.from_pretrained(base_model_id)
+            self.processor.tokenizer = self.tokenizer
+        except Exception as e:
+            print(f"Warning: Could not load AutoProcessor for {base_model_id}: {e}")
+            self.processor = None
+            
         
         print(f"Loading Base LatentEuclid Vision-Language Model ({base_model_id})...")
         self.vlm = AutoModelForImageTextToText.from_pretrained(
