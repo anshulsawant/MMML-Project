@@ -5,6 +5,7 @@ model:
   x_encoder_weights: "/workspace/checkpoints/x_encoder_best.pt"
   
 training:
+  experiment_name: "v2_huber_mean_pooled"
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 8

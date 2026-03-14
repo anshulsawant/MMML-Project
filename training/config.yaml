@@ -4,6 +4,7 @@ model:
   k_steps: 4
   
 training:
+  experiment_name: "v2_huber_mean_pooled"
   epochs: 100
   batch_size: 32
   gradient_accumulation_steps: 16

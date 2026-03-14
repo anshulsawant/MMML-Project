@@ -18,7 +18,7 @@ from evaluate_generated import clean_base_model_ans, safe_math_eval, normalize
 def e2e_evaluate():
     parser = argparse.ArgumentParser(description="End-to-End Evaluation for LatentEuclid")
     parser.add_argument("--config", type=str, default="training/config_decoder.yaml")
-    parser.add_argument("--decoder_weights", type=str, required=True, help="Path to decoder_epoch_X.pt")
+    parser.add_argument("--decoder_weights", type=str, default=None, help="Path to decoder_epoch_X.pt (defaults to best experiment checkpoint)")
     parser.add_argument("--x_encoder_weights", type=str, default=None, help="Override path to X-encoder weights")
     parser.add_argument("--limit", type=int, default=None, help="Limit number of samples to evaluate")
     parser.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
@@ -31,6 +31,24 @@ def e2e_evaluate():
 
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
+        
+    experiment_name = config["training"].get("experiment_name", "default")
+    
+    if args.out == "data/e2e_mismatches.json":
+        args.out = f"data/eval_{experiment_name}.json"
+        
+    # Auto-resolve latest decoder weights for this experiment if missing
+    import os
+    if args.decoder_weights is None:
+        ckpt_dir = f"/workspace/checkpoints/{experiment_name}/decoder"
+        if os.path.exists(ckpt_dir):
+            checkpoints = [f for f in os.listdir(ckpt_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
+            if checkpoints:
+                checkpoints.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                args.decoder_weights = os.path.join(ckpt_dir, checkpoints[-1])
+        if args.decoder_weights is None:
+            print(f"Error: No decoder weights provided and none found in {ckpt_dir}")
+            sys.exit(1)
 
     print("Loading X-Encoder...")
     x_encoder = LatentEuclid(
@@ -41,6 +59,9 @@ def e2e_evaluate():
     
     # Load VICReg weights
     weight_path = args.x_encoder_weights if args.x_encoder_weights else config["model"].get("x_encoder_weights")
+    if weight_path == "/workspace/checkpoints/x_encoder_best.pt":
+        weight_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
+        
     if weight_path and torch.cuda.is_available() or '{' not in weight_path:
         try:
             state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)

@@ -102,8 +102,14 @@ def train():
         k_steps=config["model"]["k_steps"]
     )
     
-    # Load VICReg weights
+    # Load X-encoder weights tracked by experiment
+    experiment_name = config["training"].get("experiment_name", "default")
+    
+    # Try the exact config override first, otherwise fall back to parsing the experiment namespace
     weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
+    if weight_path == "/workspace/checkpoints/x_encoder_best.pt":
+        weight_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
+        
     if os.path.exists(weight_path):
         state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)
         x_encoder.load_state_dict(state_dict["model_state_dict"])
@@ -260,8 +266,13 @@ def train():
             print(f"=== Epoch {epoch} Validation CE Loss: {avg_val_loss:.4f} ===")
             wandb.log({"val/ce_loss": avg_val_loss, "epoch": epoch})
             
-            # Save epoch checkpoint
+            # Save epoch checkpoint to experiment namespace
             checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints/decoder")
+            experiment_name = config["training"].get("experiment_name", "default")
+            
+            # Re-route /workspace/checkpoints/decoder -> /workspace/checkpoints/{experiment_name}/decoder
+            base_dir = os.path.dirname(checkpoint_dir) if "decoder" in checkpoint_dir else checkpoint_dir
+            checkpoint_dir = os.path.join(base_dir, experiment_name, "decoder")
             os.makedirs(checkpoint_dir, exist_ok=True)
             
             save_decoder = y_decoder.module if is_distributed else y_decoder

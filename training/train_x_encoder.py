@@ -145,6 +145,10 @@ def train():
     start_epoch = 0
     best_val_loss = float('inf')
     checkpoint_dir = config["training"].get("checkpoint_dir", "/workspace/checkpoints")
+    experiment_name = config["training"].get("experiment_name", "default")
+    checkpoint_dir = os.path.join(checkpoint_dir, experiment_name)
+    os.makedirs(checkpoint_dir, exist_ok=True)
+    
     latest_cp_path = None
     
     if os.path.exists(checkpoint_dir):
