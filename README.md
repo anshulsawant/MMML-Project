@@ -87,41 +87,38 @@ python -m tests.test_architecture
 python -m tests.test_data_pipeline
 ```
 
-### Phase 4: Training (Continuous Alignment)
+### Phase 4: Training & Experiment Tracking
 
-Training relies heavily on `training/config.yaml` to configure data paths and learning rates, and uses a dynamic loss factory natively implementing **Vanilla InfoNCE**, **Thresholded InfoNCE**, and **VICReg**.
+The entire LatentEuclid pipeline is driven by a single unified configuration file: **`training/config.yaml`**.
 
-```bash
-# Example training run using VICReg (Variance-Invariance-Covariance Regularization)
-python -m training.train_x_encoder \
-    --model_id "Qwen/Qwen3-VL-4B-Instruct" \
-    --loss_type "vicreg" \
-    --batch_size 4
+To prevent overwriting checkpoints and evaluation metrics when testing architectural hypotheses, you simply alter the **`experiment_name`** key.
+
+```yaml
+experiment:
+  name: "v2_huber_mean_pooled"  # Master tracker
+  
+train_x_encoder:
+  loss_type: "huber_cosine"  # Alignment constraint
+  ...
+train_decoder:
+  epochs: 20
+  ...
 ```
 
-*Note: For `vicreg`, our pipeline natively utilizes structurally safe geometry augmentations (Affine transformations like shearing, rotation, scaling) and avoids destructive random cropping via `training/augmentation.py`.*
-
-### Phase 4.5: Y-Decoder Prefix Projection (Training)
-
-Once the X-Encoder is heavily trained to map images to geometry, we execute Phase 4.5 to link the continuous topology into discretely generated targets using a new Base LLM (e.g., `Qwen3-4B-Base`). This teaches a 2-layer MLP to map the frozen $X$-Encoder geometric thoughts into the structural embedding layer of the $Y$-Decoder, allowing standard autoregressive mathematical generation.
+Executing the pipeline modules cleanly tracks all `.pt` saves into their dedicated namespace (`checkpoints/[experiment_name]/`), retaining only the 4 most recent (and the singular overall best) checkpoints.
 
 ```bash
-python -m training.train_decoder_projection \
-    --config training/config_decoder.yaml \
-    --x_encoder_weights checkpoints/x_encoder_best.pt
+# 1. Regenerates the unified topology 
+python -m data.build_manifold
+# 2. Continuous Structural Alignment (saves x_encoder_best.pt to namespace)
+python -m training.train_x_encoder
+# 3. Target Decoder Projection (autosyncs to x_encoder_best.pt dependencies)
+python -m training.train_decoder_projection
+# 4. Generate Zero-Shot metrics (outputs to data/eval_[experiment_name].json)
+python eval_e2e.py
 ```
 
-For experimental End-to-End alignment unfreezing the X-Encoder limits, append `--end_to_end`.
-
-### Phase 5: Generative Inference Validation
-
-To test whether the Target Decoder has successfully learned how to unwrap the geometric logic from the continuous Prefix Tensors, run the generative suite. This computes purely offline predictions of the test split numbers formatted to explicitly cue the `<|im_end|>` termination tokens.
-
-```bash
-python -m validate_generation
-```
-
-### Phase 6: Probing & Structural Evaluation
+### Phase 5: Probing & Structural Evaluation
 
 The evaluation suite contains scripts measuring exact time-to-answer latency reductions. It runs the primary "Visual Forgetting" thesis probe, calculating cosine similarity and Euclidean drift of the `LatentEuclid` predicted thought vectors against baseline generative representations across deep layers.
 
