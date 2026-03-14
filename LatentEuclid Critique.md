@@ -4,9 +4,8 @@
 
 **Alternatives & Improvements:**
 
-* **Switch to Supervised Knowledge Distillation:** VICReg is designed for *Self-Supervised Learning* to prevent representation collapse when both networks are updating. Because your Target Y-Encoder is **frozen**, representation collapse is mathematically impossible. Drop VICReg entirely.
-
-* **Hybrid Alignment Loss:** Use a combination of Cosine Embedding Loss (for angular alignment) and a Smooth L1 / Huber Loss (for magnitude/scale alignment). This ensures the continuous vectors perfectly mimic the expected distribution of the frozen LLM.
+* **Complete VICReg Replacement:** VICReg is fundamentally the wrong approach for this architecture. It is designed for *Self-Supervised Learning* to prevent representation collapse when both networks are updating. Because your Target Y-Encoder is **frozen**, representation collapse is mathematically impossible. We are entirely replacing VICReg.
+* **Supervised Alignment Loss:** Implement a direct supervised alignment loss, such as a combination of Cosine Embedding Loss (for angular alignment) and a Smooth L1 / Huber Loss (for magnitude/scale alignment). This ensures the continuous vectors perfectly mimic the expected distribution of the frozen LLM.
 
 ### **2\. The Target Manifold "Last Token" Bottleneck**
 
