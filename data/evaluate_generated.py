@@ -52,21 +52,6 @@ def clean_gen_ans(text):
     if '=' in ans:
         ans = ans.split('=')[-1]
         
-    ans = ans.strip()
-    
-    # Strip known Base Model un-aligned hallucination loops that follow valid numbers
-    ans = re.sub(r'[*]*angstroms.*', '', ans, flags=re.DOTALL)
-    ans = re.sub(r'[*]*wsj.*', '', ans, flags=re.DOTALL)
-    
-    # Stop parsing at the first Chinese/Japanese/Korean token or newline
-    ans = re.split(r'[\n\u4e00-\u9fff\u3040-\u30ff]', ans)[0]
-    
-    # Finally, robustly extract just the leading math sequence 
-    # This prevents sentences like "5.0 is the exact number" from failing evaluation
-    match = re.match(r'^([-+]?[\d\./\s*+\-()pisqrt]+)', ans)
-    if match:
-        ans = match.group(1)
-
     return ans.strip()
 
 def safe_math_eval(expr_str):
