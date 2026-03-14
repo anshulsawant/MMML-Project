@@ -193,7 +193,7 @@ def train():
     train_size = int(0.9 * len(full_dataset))
     val_size = len(full_dataset) - train_size
     train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
-    
+    print(config)
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     train_dataloader = DataLoader(
         train_dataset, 
