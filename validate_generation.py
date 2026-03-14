@@ -80,13 +80,29 @@ def generate_answers():
             question = item["question"]
             true_answer = ground_truths.get(img_path, "UNKNOWN")
             
-            # Format X-encoder input
+            # Construct standard message format for the Qwen VL processor so it injects <|image_pad|> tokens
             thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
             full_text = question + " " + thought_string
-            inputs = x_encoder.tokenizer([full_text], return_tensors="pt", padding=True).to(device)
+            
+            messages = [{
+                "role": "user",
+                "content": [
+                    {"type": "image", "image": image},
+                    {"type": "text", "text": full_text}
+                ]
+            }]
+            
+            # Apply chat template and let processor handle image tags automatically
+            rendered_text = x_encoder.processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            inputs = x_encoder.processor(text=[rendered_text], images=[image], padding=True, return_tensors="pt").to(device)
             
             # 1. Get Geometric Continuous vectors [1, K, 4096]
-            predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+            predicted_latents = x_encoder(
+                input_ids=inputs.input_ids, 
+                pixel_values=inputs.get("pixel_values"), 
+                attention_mask=inputs.attention_mask,
+                image_grid_thw=inputs.get("image_grid_thw")
+            )
             
             # 2. Generate Discrete Text [String]
             # Strip the <thought> tags so the Y-Decoder just receives the pure question text
@@ -103,7 +119,8 @@ def generate_answers():
             print(f"Image: {img_path}")
             print(f"Question: {question.split('<image>')[0][:100]}...")
             print(f"Ground Truth : {true_answer}")
-            print(f"Model Gen    : {generated_text.strip()}")
+            print(f"Pure Extract : {generated_text.strip()}")
+            print(f"RAW Sequence : {generated_text}")
             print("-" * 50)
 
 if __name__ == "__main__":
