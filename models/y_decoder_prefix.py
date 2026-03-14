@@ -186,12 +186,15 @@ class YDecoderPrefix(nn.Module):
         prefix_mask = torch.ones((soft_prefixes.shape[0], self.k_steps), dtype=inputs.attention_mask.dtype, device=device)
         extended_attention_mask = torch.cat([inputs.attention_mask, prefix_mask], dim=1)
         
+        # Qwen3-4B-Base is not instruction-tuned, so without strict repetition penalties 
+        # it can easily enter infinite loops (e.g. "10000" or "angstroms*angstroms").
         outputs = self.decoder.generate(
             inputs_embeds=inputs_embeds,
             attention_mask=extended_attention_mask,
             max_new_tokens=max_new_tokens,
-            eos_token_id=[self.tokenizer.eos_token_id, 151645], # 151645 = <|im_end|>
+            eos_token_id=[self.tokenizer.eos_token_id, 151645, 151643], # 151645 = <|im_end|>, 151643 = <|endoftext|>
             pad_token_id=self.tokenizer.pad_token_id,
+            repetition_penalty=1.1,
             do_sample=False
         )
         
