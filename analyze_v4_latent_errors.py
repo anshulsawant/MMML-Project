@@ -1,0 +1,106 @@
+import json
+import torch
+import torch.nn.functional as F
+from tqdm import tqdm
+import os
+import yaml
+import sys
+
+# Ensure MMML-Project is in path if running from within it
+sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+from models.x_encoder import XEncoder
+
+def main():
+    # 1. Load V4 Eval json
+    with open("/workspace/MMML-Project/data/eval_v4_projection_and_unfrozen_layers.json", "r") as f:
+        v4_eval = json.load(f)
+        
+    print(f"Loaded {len(v4_eval)} V4 evaluations.")
+    
+    # 2. Load Config
+    with open("/workspace/MMML-Project/training/config.yaml", "r") as f:
+        config = yaml.safe_load(f)
+        
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Using device {device}")
+    
+    # Initialize X-Encoder
+    x_encoder = XEncoder(
+        model_id=config["model"]["base_model_id"],
+        k_steps=config["model"]["k_steps"]
+    ).to(device)
+    
+    # Load V2 weights because V4 used the perfectly frozen V2 X-Encoder
+    weight_path = "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+    print(f"Loading X-Encoder weights from {weight_path}")
+    x_encoder.load_state_dict(torch.load(weight_path, map_location=device, weights_only=True))
+    x_encoder.eval()
+    
+    import numpy as np
+    from PIL import Image
+    
+    correct_mses = []
+    correct_coss = []
+    failed_mses = []
+    failed_coss = []
+    
+    with torch.no_grad():
+        for item in tqdm(v4_eval, desc="Computing Prediction Latent Errors"):
+            img_path = "/workspace/MMML-Project/" + item["image"]
+            is_correct = item["is_correct"]
+            
+            # Load True Target Tensor
+            basename = os.path.splitext(os.path.basename(img_path))[0]
+            target_path = f"/workspace/target_tensors/target_tensors_verified/{basename}.pt"
+            
+            if not os.path.exists(target_path):
+                continue
+                
+            target_tensor = torch.load(target_path, map_location=device, weights_only=True) # [K, 3584]
+            target_tensor = target_tensor.unsqueeze(0) # [1, K, 3584]
+            
+            # Run X-Encoder to get Predicted Latents
+            try:
+                img = Image.open(img_path).convert("RGB")
+            except:
+                continue
+            
+            # We append the exact same prompt sequence it was trained on
+            msg = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": "dummy"}]}]
+            text_prompt = x_encoder.processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True)
+            inputs = x_encoder.processor(text=[text_prompt], images=[img], padding=True, return_tensors="pt").to(device)
+            
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                pred_latents = x_encoder(
+                    input_ids=inputs.input_ids,
+                    attention_mask=inputs.attention_mask,
+                    pixel_values=inputs.get("pixel_values"),
+                    image_grid_thw=inputs.get("image_grid_thw")
+                ) # [1, K, 3584]
+            
+            # Compute MSE and Cosine
+            mse = F.mse_loss(pred_latents.float(), target_tensor.float()).item()
+            cos = F.cosine_similarity(pred_latents.float(), target_tensor.float(), dim=2).mean().item()
+            
+            if is_correct:
+                correct_mses.append(mse)
+                correct_coss.append(cos)
+            else:
+                failed_mses.append(mse)
+                failed_coss.append(cos)
+                
+    print("\n" + "="*50)
+    print("=== Latent Vector Prediction Error Analysis ===")
+    print("="*50)
+    print(f"Correct Samples ({len(correct_mses)}):")
+    print(f"  Avg MSE Loss:   {np.mean(correct_mses):.4f}")
+    print(f"  Avg Cosine Sim: {np.mean(correct_coss):.4f}")
+    
+    print(f"\nFailed Samples ({len(failed_mses)}):")
+    print(f"  Avg MSE Loss:   {np.mean(failed_mses):.4f}")
+    print(f"  Avg Cosine Sim: {np.mean(failed_coss):.4f}")
+    print("\nConclusion: If the distance metrics between Failed and Correct samples are statically identical, the fault lies entirely with the Language Model decoding capacity, rather than the Image Processor generating visually faulty geometries.")
+
+if __name__ == "__main__":
+    main()
