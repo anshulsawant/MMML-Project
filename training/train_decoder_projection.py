@@ -88,15 +88,18 @@ def train():
     
     device = local_rank if is_distributed else local_rank
 
-    experiment_name = config.get("experiment", {}).get("name", "default")
+    # Select active configuration block based on mode
+    active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    
+    experiment_name = config.get(active_block, {}).get("experiment_name", "default")
 
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
-    base_checkpoint_dir = config.get("train_decoder", {}).get("checkpoint_dir", "/workspace/checkpoints/decoder")
+    base_checkpoint_dir = config.get(active_block, {}).get("checkpoint_dir", "/workspace/checkpoints/decoder")
     if base_checkpoint_dir.endswith("decoder"):
         checkpoint_dir = os.path.join(os.path.dirname(base_checkpoint_dir), experiment_name, "decoder")
     else:
         checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name, "decoder")
-    config.setdefault("train_decoder", {})["checkpoint_dir"] = checkpoint_dir
+    config.setdefault(active_block, {})["checkpoint_dir"] = checkpoint_dir
 
     if is_master:
         print("\n" + "="*50)
@@ -124,7 +127,7 @@ def train():
     
     # Load X-encoder weights tracked by experiment
     # Allow an explicit cross-experiment fallback override in Phase 4/5
-    override_path = config.get("train_decoder", {}).get("x_encoder_weights_override")
+    override_path = config.get(active_block, {}).get("x_encoder_weights_override")
     if override_path and os.path.exists(override_path):
         weight_path = override_path
     else:
@@ -156,10 +159,24 @@ def train():
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
         k_steps=config["model"]["k_steps"],
-        unfreeze_layers=config["train_decoder"].get("unfreeze_layers", 0),
-        use_projection_mlp=config["train_decoder"].get("use_projection_mlp", True)
+        unfreeze_layers=config[active_block].get("unfreeze_layers", 0),
+        use_projection_mlp=config[active_block].get("use_projection_mlp", True)
     )
     y_decoder = y_decoder.to(local_rank)
+    
+    # ------------------ Impedance Mismatch Hotfix ------------------
+    # E2E co-training must initialize from the bridged SOTA weights, 
+    # not random noise, to prevent destroying the text manifold again.
+    decoder_override = config.get(active_block, {}).get("decoder_weights_override")
+    if decoder_override and os.path.exists(decoder_override):
+        if is_master:
+            print(f"[{local_rank}] EAGER INIT: Loading SOTA Decoder Override -> {decoder_override}")
+        state_dict = torch.load(decoder_override, map_location="cpu")
+        is_named_params = any(k.startswith("prefix_projection.") or k.startswith("decoder.") for k in state_dict)
+        if is_named_params:
+            y_decoder.load_state_dict(state_dict, strict=False)
+        else:
+            y_decoder.prefix_projection.load_state_dict(state_dict)
     
     start_epoch = 0
     best_val_loss = float('inf')
@@ -210,8 +227,8 @@ def train():
 
     optimizer = torch.optim.AdamW(
         filter(lambda p: p.requires_grad, trainable_params), 
-        lr=float(config["train_decoder"]["learning_rate"]), 
-        weight_decay=float(config["train_decoder"]["weight_decay"])
+        lr=float(config[active_block]["learning_rate"]), 
+        weight_decay=float(config[active_block]["weight_decay"])
     )
 
     # ------------------ Data Split ------------------
@@ -237,13 +254,14 @@ def train():
     val_dataset = GeoThoughtsTextDataset(val_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
 
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
-    train_loader = DataLoader(train_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None), drop_last=True)
+    train_loader = DataLoader(train_dataset, batch_size=int(config[active_block]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None), drop_last=True)
     
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
-    val_loader = DataLoader(val_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
+    val_loader = DataLoader(val_dataset, batch_size=int(config[active_block]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
 
-    epochs = int(config["train_decoder"]["epochs"])
-    grad_accum_steps = int(config.get("train_decoder", {}).get("gradient_accumulation_steps", 1))
+    epochs = int(config[active_block]["epochs"])
+    grad_accum_steps = int(config.get(active_block, {}).get("gradient_accumulation_steps", 1))
+    save_every_n_steps = int(config.get(active_block, {}).get("save_every_n_steps", 0))
     
     for epoch in range(start_epoch, epochs):
         if train_sampler:
@@ -288,7 +306,7 @@ def train():
             loss.backward()
             
             if (batch_idx + 1) % grad_accum_steps == 0 or (batch_idx + 1) == len(train_loader):
-                torch.nn.utils.clip_grad_norm_(trainable_params, float(config["train_decoder"]["max_grad_norm"]))
+                torch.nn.utils.clip_grad_norm_(trainable_params, float(config[active_block]["max_grad_norm"]))
                 optimizer.step()
                 optimizer.zero_grad()
             
@@ -299,6 +317,38 @@ def train():
             if is_master and batch_idx % grad_accum_steps == 0:
                 print(f"Epoch {epoch} | Effective Batch {batch_idx // grad_accum_steps} | CE Training Loss: {unscaled_loss:.4f}")
                 wandb.log({"train/ce_loss": unscaled_loss, "epoch": epoch})
+                
+            # --- Mid-Epoch Validation Trigger ---
+            effective_step = batch_idx // grad_accum_steps
+            if save_every_n_steps > 0 and is_master and (batch_idx + 1) % grad_accum_steps == 0 and effective_step > 0 and effective_step % save_every_n_steps == 0:
+                print(f"\n[{device}] Running Mid-Epoch Validation (Step {effective_step})...")
+                os.makedirs(checkpoint_dir, exist_ok=True)
+                
+                # 1. Save Intermediate Weights
+                save_decoder = y_decoder.module if is_distributed else y_decoder
+                step_decoder_path = os.path.join(checkpoint_dir, f"decoder_epoch_{epoch}_step_{effective_step}.pt")
+                state_dict = {k: v for k, v in save_decoder.named_parameters() if v.requires_grad}
+                torch.save(state_dict, step_decoder_path)
+                
+                step_encoder_path = os.path.join(checkpoint_dir, f"x_encoder_e2e_epoch_{epoch}_step_{effective_step}.pt")
+                if args.end_to_end:
+                    save_encoder = x_encoder.module if is_distributed else x_encoder
+                    torch.save(save_encoder.state_dict(), step_encoder_path)
+                
+                # 2. Fire Async Evaluation Subprocess
+                import subprocess
+                eval_cmd = [
+                    "python", "eval_e2e.py",
+                    "--config", args.config,
+                    "--limit", "100",
+                    "--decoder_weights", step_decoder_path
+                ]
+                if args.end_to_end:
+                    eval_cmd.extend(["--x_encoder_weights", step_encoder_path])
+                    
+                print(f"[{device}] Launching background evaluation: {' '.join(eval_cmd)}")
+                subprocess.Popen(eval_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                print(f"[{device}] Resuming training immediately...\n")
                 
         # ------------------ Validation Loop ------------------
         y_decoder.eval()
