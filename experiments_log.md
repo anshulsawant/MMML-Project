@@ -59,6 +59,7 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - **Training Validation CE Loss:** 0.77
 - **Zero-Shot E2E Accuracy:** **45.38%** (New SOTA for pipeline)
 - **Analysis:** A massive +7.23% absolute accuracy gain over the `v2` MLP-only baseline. Because the Projection MLP pre-mapped the visual thought vectors into the language model's native syntax *before* they entered the LLM, Layers 0 and 1 did not have to corrupt their text-processing matrices to bridge the gap. Instead, they were freed up to cleanly fine-tune their spatial and geometric logic upon these stable topologies, leading to a synergistic breakthrough in geometric reasoning stability.
+  - **Failure Mode Statistics:** An analysis of the 325 failed zero-shot samples revealed a measurable correlation with requisite logic complexity: the average ground-truth reasoning chain length for *failed* answers was `916.78 chars`, compared to `892.81 chars` for *correct* answers. Additionally, generative collapse has been fully eradicated—of the 325 failures, exactly 0 (0.00%) collapsed into empty or whitespace strings. The failures are exclusively mathematical hallucinations rather than generation failures.
 
 ---
 

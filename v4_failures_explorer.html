@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LatentEuclid V4 Failure Mode Explorer</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: #f5f7fa;
+            color: #333;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            margin-bottom: 20px;
+        }
+
+        .controls button {
+            padding: 8px 16px;
+            margin-left: 10px;
+            border: none;
+            background: #0066cc;
+            color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .controls button:hover {
+            background: #0052a3;
+        }
+
+        .controls button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        .container {
+            display: flex;
+            gap: 20px;
+            height: calc(100vh - 120px);
+        }
+
+        .panel {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 20px;
+            overflow-y: auto;
+            flex: 1;
+        }
+
+        .image-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+        }
+
+        .image-panel img {
+            max-width: 100%;
+            max-height: 80%;
+            object-fit: contain;
+            border: 1px solid #eaeaea;
+            border-radius: 4px;
+            margin-top: 20px;
+        }
+
+        .image-path {
+            font-family: monospace;
+            color: #666;
+            font-size: 0.9em;
+            margin-top: 10px;
+            word-break: break-all;
+        }
+
+        .section {
+            margin-bottom: 25px;
+        }
+
+        h3 {
+            margin-top: 0;
+            color: #2c3e50;
+            border-bottom: 2px solid #f0f2f5;
+            padding-bottom: 8px;
+        }
+
+        .qa-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #0066cc;
+            font-family: Georgia, serif;
+            line-height: 1.6;
+        }
+
+        .thought-box {
+            background: #fdfbf7;
+            padding: 15px;
+            border-radius: 6px;
+            border-left: 4px solid #f39c12;
+            font-family: monospace;
+            white-space: pre-wrap;
+            font-size: 0.95em;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .metric-card {
+            background: #fff;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #eaeaea;
+            text-align: center;
+        }
+
+        .metric-card.wrong {
+            border-top: 4px solid #e74c3c;
+        }
+
+        .metric-card.correct {
+            border-top: 4px solid #27ae60;
+        }
+
+        .metric-card.model {
+            border-top: 4px solid #9b59b6;
+        }
+
+        .metric-title {
+            font-size: 0.85em;
+            color: #7f8c8d;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .metric-value {
+            font-size: 1.4em;
+            font-weight: bold;
+            color: #2c3e50;
+            word-break: break-all;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header">
+        <h2>LatentEuclid V4 Failures (100 Random Samples)</h2>
+        <div class="controls">
+            <span id="counter">Loading...</span>
+            <button id="prevBtn" onclick="navigate(-1)" disabled>Previous</button>
+            <button id="nextBtn" onclick="navigate(1)" disabled>Next</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="panel image-panel">
+            <h3>Geometry Image</h3>
+            <img id="sampleImage" src="" alt="Geometry Problem Image">
+            <div class="image-path" id="imagePath"></div>
+        </div>
+
+        <div class="panel text-panel">
+            <div class="section">
+                <h3>Question</h3>
+                <div class="qa-box" id="questionText"></div>
+            </div>
+
+            <div class="section metrics-grid">
+                <div class="metric-card correct">
+                    <div class="metric-title">Ground Truth (Norm)</div>
+                    <div class="metric-value" id="gtNorm"></div>
+                </div>
+                <div class="metric-card wrong">
+                    <div class="metric-title">Predicted (Norm)</div>
+                    <div class="metric-value" id="predNorm"></div>
+                </div>
+                <div class="metric-card model" style="grid-column: span 2;">
+                    <div class="metric-title">Raw Model Generation</div>
+                    <div class="metric-value" id="modelGen" style="color: #8e44ad; font-family: monospace;"></div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h3>Target Reasoning (Ground Truth)</h3>
+                <div class="thought-box" id="targetThought"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let samples = [];
+        let currentIndex = 0;
+
+        // Load the JSON data generated by analyze_v4_failures.py
+        fetch('data/v4_failures_explorer.json')
+            .then(response => response.json())
+            .then(data => {
+                samples = data;
+                renderSample(0);
+            })
+            .catch(error => {
+                document.getElementById('questionText').innerHTML = `<span style="color: red;">Failed to load data/v4_failures_explorer.json: ${error}. <br>Make sure you are running a local HTTP server (e.g., python -m http.server)</span>`;
+                document.getElementById('counter').innerText = 'Error';
+            });
+
+        function navigate(direction) {
+            let newIndex = currentIndex + direction;
+            if (newIndex >= 0 && newIndex < samples.length) {
+                currentIndex = newIndex;
+                renderSample(currentIndex);
+            }
+        }
+
+        function renderSample(index) {
+            const sample = samples[index];
+
+            // Update Buttons & Counters
+            document.getElementById('counter').innerText = `Sample ${index + 1} of ${samples.length}`;
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === samples.length - 1;
+
+            // Update Image
+            document.getElementById('sampleImage').src = sample.image;
+            document.getElementById('imagePath').innerText = sample.image;
+
+            // Update Text Fields
+            let rawQuestion = sample.question.replace("<image>", "").replace("</image>", "").trim();
+            document.getElementById('questionText').innerText = rawQuestion;
+
+            document.getElementById('gtNorm').innerText = sample.gt_norm;
+            document.getElementById('predNorm').innerText = sample.pred_norm;
+
+            let genStr = sample.model_generation !== null && sample.model_generation !== undefined ? sample.model_generation : "[EMPTY/NULL]";
+            if (String(genStr).trim() === "") genStr = "[WHITESPACE ONLY]";
+            document.getElementById('modelGen').innerText = genStr;
+
+            document.getElementById('targetThought').innerText = sample.target_thought;
+        }
+    </script>
+
+</body>
+
+</html>
