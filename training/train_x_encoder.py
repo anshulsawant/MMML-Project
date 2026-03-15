@@ -398,8 +398,8 @@ def train():
                     current_lr = optimizer.param_groups[0]['lr']
                     grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
-                    huber_val = metrics_dict.get("huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
-                    train_mse_val = metrics_dict.get("cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
+                    huber_val = metrics_dict.get("loss/huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
+                    train_mse_val = metrics_dict.get("loss/cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
                     print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
@@ -444,8 +444,8 @@ def train():
                 micro_step = (batch_idx % gradient_accumulation_steps) + 1
                 if is_master:
                     # Accurately extract the partial step metrics mapped from stable_alignment_loss
-                    huber_val = metrics_dict.get("huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
-                    train_mse_val = metrics_dict.get("cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
+                    huber_val = metrics_dict.get("loss/huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
+                    train_mse_val = metrics_dict.get("loss/cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
                     
                     # Approximated gradient norm requires calculation prior to step if we want it continuously logged
                     temp_grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["train_x_encoder"]["max_grad_norm"])).item()
