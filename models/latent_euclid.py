@@ -126,6 +126,7 @@ class LatentEuclid(nn.Module):
             pixel_values=pixel_values,
             image_grid_thw=image_grid_thw,
             output_hidden_states=True,
+            use_cache=False,
             return_dict=True
         )
         
