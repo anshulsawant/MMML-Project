@@ -5,13 +5,13 @@ model:
   k_steps: 4
 
 experiment:
-  name: "v2_huber_mean_pooled"
+  name: "v3_unfrozen_decoder_layers"
 
 build_manifold:
   batch_size: 4
   
 train_x_encoder:
-  experiment_name: "v2_huber_mean_pooled"
+  experiment_name: "v3_unfrozen_decoder_layers"
   epochs: 100
   batch_size: 16
   gradient_accumulation_steps: 8
@@ -26,6 +26,7 @@ train_x_encoder:
   vicreg_cov_coeff: 0.0
 
 train_decoder:
+  unfreeze_layers: 2
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 8

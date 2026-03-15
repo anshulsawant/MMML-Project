@@ -150,7 +150,8 @@ def train():
     print(f"[{local_rank}] Loading Phase 4 Y-Decoder Prefix...")
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        k_steps=config["model"]["k_steps"],
+        unfreeze_layers=config["train_decoder"].get("unfreeze_layers", 0)
     )
     y_decoder = y_decoder.to(local_rank)
     

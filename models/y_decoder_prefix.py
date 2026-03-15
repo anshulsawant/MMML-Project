@@ -21,7 +21,8 @@ class YDecoderPrefix(nn.Module):
     """
     def __init__(self, 
                  target_model_id: str = "Qwen/Qwen3-0.6B", 
-                 k_steps: int = 4):
+                 k_steps: int = 4,
+                 unfreeze_layers: int = 0):
         super().__init__()
         
         self.k_steps = k_steps
@@ -54,6 +55,24 @@ class YDecoderPrefix(nn.Module):
         # Freeze the entire underlying LLM/VLM
         for param in self.decoder.parameters():
             param.requires_grad = False
+            
+        # Optional Experiment: Unfreeze the first N layers of the target decoder
+        if unfreeze_layers > 0:
+            print(f"Experimental: Unfreezing the first {unfreeze_layers} layers of the base decoder!")
+            layers = None
+            if hasattr(self.decoder, "language_model") and hasattr(self.decoder.language_model, "model") and hasattr(self.decoder.language_model.model, "layers"):
+                # Qwen-VL architecture layout
+                layers = self.decoder.language_model.model.layers
+            elif hasattr(self.decoder, "model") and hasattr(self.decoder.model, "layers"):
+                # Standard causal LM layout
+                layers = self.decoder.model.layers
+                
+            if layers is not None:
+                for i in range(min(unfreeze_layers, len(layers))):
+                    for param in layers[i].parameters():
+                        param.requires_grad = True
+            else:
+                print("Warning: Could not locate transformer layers. Early layer unfreezing failed.")
             
         self.embedding_dim = getattr(self.decoder.config, "hidden_size", getattr(getattr(self.decoder.config, "text_config", None), "hidden_size", None))
         
