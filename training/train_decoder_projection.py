@@ -162,6 +162,7 @@ def train():
     y_decoder = y_decoder.to(local_rank)
     
     start_epoch = 0
+    best_val_loss = float('inf')
     # Attempt to gracefully resume from the latest checkpoint
     if os.path.exists(checkpoint_dir):
         existing_cps = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
@@ -181,8 +182,15 @@ def train():
                     y_decoder.prefix_projection.load_state_dict(state_dict)
                     
                 start_epoch = parse_cp_name(latest_cp) + 1
+                
+                # Attempt to retrieve historical best_val_loss
+                loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                if os.path.exists(loss_tracker_path):
+                    with open(loss_tracker_path, 'r') as f:
+                        best_val_loss = float(json.load(f)["best_loss"])
+                        
                 if is_master:
-                    print(f"[{local_rank}] Resumed Y-Decoder from {latest_path} (Starting at Epoch {start_epoch})")
+                    print(f"[{local_rank}] Resumed Y-Decoder from {latest_path} (Starting at Epoch {start_epoch}) | Historic Best Loss: {best_val_loss:.4f}")
             except Exception as e:
                 if is_master:
                     print(f"[{local_rank}] Failed to load resume checkpoint from {latest_path}: {e}")
@@ -235,7 +243,6 @@ def train():
     val_loader = DataLoader(val_dataset, batch_size=int(config["train_decoder"]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
 
     epochs = int(config["train_decoder"]["epochs"])
-    best_val_loss = float('inf')
     grad_accum_steps = int(config.get("train_decoder", {}).get("gradient_accumulation_steps", 1))
     
     for epoch in range(start_epoch, epochs):
@@ -350,6 +357,11 @@ def train():
                 if args.end_to_end:
                     best_encoder_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
                     shutil.copy2(encoder_path, best_encoder_path)
+                
+                # Track numerically
+                loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                with open(loss_tracker_path, 'w') as f:
+                    json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
 
             # Keep only latest 4 checkpoints
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
