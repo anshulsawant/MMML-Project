@@ -45,7 +45,7 @@ train_end_to_end:
   save_every_n_steps: 10
   batch_size: 2
   gradient_accumulation_steps: 16
-  learning_rate: 1.0e-5
+  learning_rate: 2.0e-6
   weight_decay: 0.01
   max_grad_norm: 5.0
   unfreeze_layers: 36
