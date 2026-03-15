@@ -10,4 +10,3 @@ google-genai
 wheel
 packaging
 ninja
-flash-attn
