@@ -180,12 +180,18 @@ def train():
     
     start_epoch = 0
     best_val_loss = float('inf')
+    best_eval_acc = 0.0
     # Attempt to gracefully resume from the latest checkpoint
     if os.path.exists(checkpoint_dir):
         existing_cps = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
         if len(existing_cps) > 0:
             def parse_cp_name(f):
-                return int(f.split('epoch_')[1].split('.pt')[0])
+                base = f.split('epoch_')[1].split('.pt')[0]
+                if "_step_" in base:
+                    ep, st = base.split("_step_")
+                    return (int(ep), int(st))
+                return (int(base), 0)
+                
             existing_cps.sort(key=parse_cp_name)
             latest_cp = existing_cps[-1]
             latest_path = os.path.join(checkpoint_dir, latest_cp)
@@ -275,9 +281,23 @@ def train():
         optimizer.zero_grad()
         
         for batch_idx, (images, texts, target_answers) in enumerate(train_loader):
-            
-            inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
-            
+            # --- CRITICAL BUGFIX: PROCESSOR IMAGE PASSING ---
+            # DO NOT REVERT: The base Qwen3-VL processor MUST receive the images here explicitly.
+            # If `pixel_values` are omitted, the VLM natively falls back to blind text-only logic 
+            # and completely ignores the geometric diagrams, destroying metric validity.
+            x_processor = x_encoder.module.processor if is_distributed else x_encoder.processor
+            batch_messages = []
+            for img, txt in zip(images, texts):
+                batch_messages.append([
+                    {"role": "user", "content": [
+                        {"type": "image", "image": img},
+                        {"type": "text", "text": txt}
+                    ]}
+                ])
+                
+            rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+            inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
+            # ------------------------------------------------
             # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
             decoder_prompts = []
             for t in texts:
@@ -289,11 +309,22 @@ def train():
             # If Method A: X-Encoder is frozen, no gradients track through it
             if not args.end_to_end:
                 with torch.no_grad():
-                    # predicted_latents shape: [batch, K, hidden_dim]
-                    predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+                    with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                        predicted_latents = x_encoder(
+                            input_ids=inputs.input_ids, 
+                            attention_mask=inputs.attention_mask,
+                            pixel_values=inputs.get("pixel_values"),
+                            image_grid_thw=inputs.get("image_grid_thw")
+                        )
             else:
                 # Method B: Gradients track all the way back to the VLM image processor
-                predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+                with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                    predicted_latents = x_encoder(
+                        input_ids=inputs.input_ids, 
+                        attention_mask=inputs.attention_mask,
+                        pixel_values=inputs.get("pixel_values"),
+                        image_grid_thw=inputs.get("image_grid_thw")
+                    )
             
             # Forward pass through Decoder (computes Cross Entropy against `target_answers`)
             outputs = y_decoder(
@@ -335,8 +366,10 @@ def train():
                     save_encoder = x_encoder.module if is_distributed else x_encoder
                     torch.save(save_encoder.state_dict(), step_encoder_path)
                 
-                # 2. Fire Async Evaluation Subprocess
+                # 2. Fire Synchronous Evaluation Subprocess
                 import subprocess
+                import re
+                
                 eval_cmd = [
                     "python", "eval_e2e.py",
                     "--config", args.config,
@@ -346,8 +379,35 @@ def train():
                 if args.end_to_end:
                     eval_cmd.extend(["--x_encoder_weights", step_encoder_path])
                     
-                print(f"[{device}] Launching background evaluation: {' '.join(eval_cmd)}")
-                subprocess.Popen(eval_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                print(f"[{device}] Running synchronous evaluation (100 samples): {' '.join(eval_cmd)}")
+                
+                try:
+                    result = subprocess.run(eval_cmd, capture_output=True, text=True, check=False)
+                    out_text = result.stdout
+                    acc_match = re.search(r"Accuracy: \s*([\d\.]+)%", out_text)
+                    if acc_match:
+                        acc_val = float(acc_match.group(1))
+                        print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
+                        wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
+                        
+                        # Save Best SOTA Checkpoint based strictly on evaluation accuracy
+                        if acc_val > best_eval_acc:
+                            best_eval_acc = acc_val
+                            best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
+                            import shutil
+                            shutil.copy2(step_decoder_path, best_dec_path)
+                            print(f"[{device}] New Best Eval Accuracy! Saved {best_dec_path}")
+                            
+                            if args.end_to_end:
+                                best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
+                                shutil.copy2(step_encoder_path, best_enc_path)
+                                print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
+                    else:
+                        print(f"[{device}] Warning: Evaluation succeeded but failed to parse accuracy string.")
+                        print(out_text[-500:])
+                except Exception as e:
+                    print(f"[{device}] Sync Eval failed: {e}")
+                    
                 print(f"[{device}] Resuming training immediately...\n")
                 
         # ------------------ Validation Loop ------------------
@@ -358,8 +418,25 @@ def train():
         total_val_loss = 0.0
         with torch.no_grad():
             for val_idx, (images, texts, target_answers) in enumerate(val_loader):
-                inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
-                predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+                x_processor = x_encoder.module.processor if is_distributed else x_encoder.processor
+                batch_messages = []
+                for img, txt in zip(images, texts):
+                    batch_messages.append([
+                        {"role": "user", "content": [
+                            {"type": "image", "image": img},
+                            {"type": "text", "text": txt}
+                        ]}
+                    ])
+                    
+                rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+                inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
+                with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                    predicted_latents = x_encoder(
+                        input_ids=inputs.input_ids, 
+                        attention_mask=inputs.attention_mask,
+                        pixel_values=inputs.get("pixel_values"),
+                        image_grid_thw=inputs.get("image_grid_thw")
+                    )
                 
                 val_prompts = []
                 for t in texts:

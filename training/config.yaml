@@ -43,12 +43,12 @@ train_end_to_end:
   experiment_name: "v5_end_to_end_v4_base"
   epochs: 1
   save_every_n_steps: 10
-  batch_size: 16
-  gradient_accumulation_steps: 2
+  batch_size: 2
+  gradient_accumulation_steps: 16
   learning_rate: 1.0e-5
   weight_decay: 0.01
   max_grad_norm: 5.0
-  unfreeze_layers: 2
+  unfreeze_layers: 36
   use_projection_mlp: True
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
   decoder_weights_override: "/workspace/checkpoints/v4_projection_and_unfrozen_layers/decoder/decoder_best.pt"
