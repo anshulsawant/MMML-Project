@@ -300,6 +300,18 @@ def train():
                 ep, st = parse_cp_name(latest_cp)
                 start_epoch = ep if st > 0 else ep + 1
                 
+                if args.end_to_end:
+                    enc_name = f"x_encoder_e2e_epoch_{ep}_step_{st}.pt" if st > 0 else f"x_encoder_e2e_epoch_{ep}.pt"
+                    enc_path = os.path.join(checkpoint_dir, enc_name)
+                    if os.path.exists(enc_path):
+                        enc_state = torch.load(enc_path, map_location="cpu")
+                        if "model_state_dict" in enc_state:
+                            x_encoder.load_state_dict(enc_state["model_state_dict"])
+                        else:
+                            x_encoder.load_state_dict(enc_state)
+                        if is_master:
+                            print(f"[{local_rank}] Symmetrically resumed X-Encoder from {enc_path}")
+                
                 # Attempt to retrieve historical best_val_loss
                 loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
                 if os.path.exists(loss_tracker_path):
