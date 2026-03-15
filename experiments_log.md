@@ -59,3 +59,17 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - **Training Validation CE Loss:** 0.77
 - **Zero-Shot E2E Accuracy:** **45.38%** (New SOTA for pipeline)
 - **Analysis:** A massive +7.23% absolute accuracy gain over the `v2` MLP-only baseline. Because the Projection MLP pre-mapped the visual thought vectors into the language model's native syntax *before* they entered the LLM, Layers 0 and 1 did not have to corrupt their text-processing matrices to bridge the gap. Instead, they were freed up to cleanly fine-tune their spatial and geometric logic upon these stable topologies, leading to a synergistic breakthrough in geometric reasoning stability.
+
+---
+
+## 5. `v5_end_to_end_v4_base` (Massive Co-Training)
+**Hypothesis & Modifications:**
+- Testing if opening the 4B parameter Qwen3-VL X-Encoder architecture to end-to-end backpropagation can further align the spatial representation with the math-heavy reasoning demands of the unfrozen base decoder.
+- **Teacher Loss Formulation:** End-to-End Cross Entropy
+- **Decoder Configuration:** `unfreeze_layers: 36`, `use_projection_mlp: True`
+- **Encoder Configuration:** `unfreeze_layers: 36` (Transformer blocks only)
+- **Throughput:** ~5s per micro-step (~2.6 minutes per global accumulated step of 32) on A100.
+
+**Failure Modes & Results:**
+- **Zero-Shot E2E Accuracy:** **44.54%** (Slight Regression vs V4)
+- **Analysis:** Despite achieving a stellar 49% accuracy on the localized training slice, test-set generalizability actually suffered a slight regression compared to the isolated V4 run (45.38%). This indicates that the initial V4 configuration with 36 unfrozen base decoder layers was already fully saturating the maximum possible geometric reasoning capacity extractable from the Qwen3-VL embeddings. Subjecting the massive, fragile image processor to deep end-to-end mathematical backpropagation caused slight validation overfitting/forgetting of its foundational spatial representations rather than discovering new heuristic alignments. Future gains will likely require scaling the target base model's logic capacity itself rather than further tuning the image processor.
