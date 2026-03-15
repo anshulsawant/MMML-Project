@@ -318,9 +318,9 @@ def train():
                     current_lr = optimizer.param_groups[0]['lr']
                     grad_norm_val = grad_norm.item() if isinstance(grad_norm, torch.Tensor) else grad_norm
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
-                    var_loss_val = metrics_dict.get("loss/variance_loss", 0.0) if type(metrics_dict) is dict else 0.0
-                    train_mse_val = metrics_dict.get("loss/invariance_cos", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train Cos: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
+                    huber_val = metrics_dict.get("huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
+                    train_mse_val = metrics_dict.get("cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
@@ -334,7 +334,25 @@ def train():
                 # Provide a live micro-batch progress indicator to the user
                 micro_step = (batch_idx % gradient_accumulation_steps) + 1
                 if is_master:
-                    print(f"Epoch {epoch} | Accumulating Gradients ({micro_step}/{gradient_accumulation_steps}) | Micro Loss: {loss.item() * current_accumulation_steps:.4f}", end='\r')
+                    # Accurately extract the partial step metrics mapped from stable_alignment_loss
+                    huber_val = metrics_dict.get("huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
+                    train_mse_val = metrics_dict.get("cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
+                    
+                    # Approximated gradient norm requires calculation prior to step if we want it continuously logged
+                    temp_grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["train_x_encoder"]["max_grad_norm"])).item()
+                    
+                    print(f"Epoch {epoch} | Accumulating ({micro_step}/{gradient_accumulation_steps}) | Micro Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Temp Grad: {temp_grad_norm:.2f}", end='\r')
+                    
+                    # Push tracked partial metrics to WandB securely
+                    current_lr = optimizer.param_groups[0]['lr']
+                    # Use a separate wandb step metric so it doesn't overwrite the global accumulation steps
+                    micro_metrics_dict = metrics_dict.copy()
+                    micro_metrics_dict["train_micro/total_loss"] = loss.item() * current_accumulation_steps
+                    micro_metrics_dict["train_micro/temp_grad_norm"] = temp_grad_norm
+                    micro_metrics_dict["train_micro/learning_rate"] = current_lr
+                    micro_metrics_dict["epoch"] = epoch
+                    
+                    wandb.log(micro_metrics_dict)
 
         # --- RUN VALIDATION EXPERIMENT ---
         model.eval()
