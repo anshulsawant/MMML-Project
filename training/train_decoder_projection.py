@@ -280,7 +280,7 @@ def train():
             loss = outputs.loss / grad_accum_steps
             loss.backward()
             
-            if (batch_idx + 1) % grad_accum_steps == 0 or (batch_idx + 1) == len(train_loader):
+            if (batch_idx + 1) % grad_accum_steps == 0:
                 torch.nn.utils.clip_grad_norm_(trainable_params, float(config["train_decoder"]["max_grad_norm"]))
                 optimizer.step()
                 optimizer.zero_grad()
