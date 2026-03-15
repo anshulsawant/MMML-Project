@@ -28,6 +28,7 @@ train_x_encoder:
 train_decoder:
   unfreeze_layers: 2
   use_projection_mlp: False
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 8

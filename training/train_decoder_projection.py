@@ -123,11 +123,16 @@ def train():
     )
     
     # Load X-encoder weights tracked by experiment
-    # Try the exact config override first, otherwise fall back to parsing the experiment namespace
-    weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
-    if "x_encoder_best.pt" in weight_path and experiment_name != "default":
-        # Ensure it checks the namespaced folder from Phase 3 natively
-        weight_path = os.path.join("/workspace/checkpoints", experiment_name, "x_encoder_best.pt")
+    # Allow an explicit cross-experiment fallback override in Phase 4/5
+    override_path = config.get("train_decoder", {}).get("x_encoder_weights_override")
+    if override_path and os.path.exists(override_path):
+        weight_path = override_path
+    else:
+        weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
+        if "x_encoder_best.pt" in weight_path and experiment_name != "default":
+            # Ensure it checks the namespaced folder from Phase 3 natively
+            weight_path = os.path.join("/workspace/checkpoints", experiment_name, "x_encoder_best.pt")
+            
     if os.path.exists(weight_path):
         state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)
         x_encoder.load_state_dict(state_dict["model_state_dict"])
