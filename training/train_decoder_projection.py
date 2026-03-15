@@ -236,6 +236,7 @@ def train():
 
     epochs = int(config["train_decoder"]["epochs"])
     best_val_loss = float('inf')
+    grad_accum_steps = int(config.get("train_decoder", {}).get("gradient_accumulation_steps", 1))
     
     for epoch in range(start_epoch, epochs):
         if train_sampler:
@@ -246,9 +247,9 @@ def train():
             x_encoder.train()
             
         total_train_loss = 0.0
+        optimizer.zero_grad()
         
         for batch_idx, (images, texts, target_answers) in enumerate(train_loader):
-            optimizer.zero_grad()
             
             inputs = x_tokenizer(texts, padding=True, return_tensors="pt").to(device)
             
@@ -276,17 +277,21 @@ def train():
                 labels=target_answers
             )
             
-            loss = outputs.loss
+            loss = outputs.loss / grad_accum_steps
             loss.backward()
             
-            torch.nn.utils.clip_grad_norm_(trainable_params, float(config["train_decoder"]["max_grad_norm"]))
-            optimizer.step()
+            if (batch_idx + 1) % grad_accum_steps == 0 or (batch_idx + 1) == len(train_loader):
+                torch.nn.utils.clip_grad_norm_(trainable_params, float(config["train_decoder"]["max_grad_norm"]))
+                optimizer.step()
+                optimizer.zero_grad()
             
-            total_train_loss += loss.item()
+            # Reconstruct original unscaled loss value for logging
+            unscaled_loss = loss.item() * grad_accum_steps
+            total_train_loss += unscaled_loss
             
-            if is_master and batch_idx % 2 == 0:
-                print(f"Epoch {epoch} | Batch {batch_idx} | CE Training Loss: {loss.item():.4f}")
-                wandb.log({"train/ce_loss": loss.item(), "epoch": epoch})
+            if is_master and batch_idx % grad_accum_steps == 0:
+                print(f"Epoch {epoch} | Effective Batch {batch_idx // grad_accum_steps} | CE Training Loss: {unscaled_loss:.4f}")
+                wandb.log({"train/ce_loss": unscaled_loss, "epoch": epoch})
                 
         # ------------------ Validation Loop ------------------
         y_decoder.eval()
