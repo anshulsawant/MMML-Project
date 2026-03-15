@@ -9,6 +9,17 @@ import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel as DDP
 from torch.utils.data import Dataset, DataLoader, DistributedSampler
 import random
+import sys
+import math
+
+sys.path.append('data')
+try:
+    from evaluate_generated import clean_base_model_ans, safe_math_eval, normalize
+except ImportError:
+    print("Warning: Could not import robust evaluation metrics, defaulting to strict equality.")
+    def clean_base_model_ans(x): return x.strip()
+    def safe_math_eval(x): return None
+    def normalize(x): return x.strip().lower()
 
 from models.latent_euclid import LatentEuclid
 from models.y_decoder_prefix import YDecoderPrefix
@@ -75,6 +86,81 @@ def custom_collate(batch):
     texts = [item["text"] for item in batch]
     answers = [item["target_answer"] for item in batch]
     return images, texts, answers
+
+def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=100):
+    val_decoder = y_decoder.module if isinstance(y_decoder, DDP) else y_decoder
+    val_encoder = x_encoder.module if isinstance(x_encoder, DDP) else x_encoder
+    
+    val_decoder.eval()
+    val_encoder.eval()
+        
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():
+        for batch_idx, (images, texts, target_answers) in enumerate(val_loader):
+            if total >= limit:
+                break
+                
+            x_processor = val_encoder.processor
+            batch_messages = []
+            for img, txt in zip(images, texts):
+                batch_messages.append([
+                    {"role": "user", "content": [
+                        {"type": "image", "image": img},
+                        {"type": "text", "text": txt}
+                    ]}
+                ])
+                
+            rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+            inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
+            
+            decoder_prompts = []
+            for t in texts:
+                clean_t = t
+                for i in range(k_steps):
+                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
+                
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                predicted_latents = val_encoder(
+                    input_ids=inputs.input_ids, 
+                    attention_mask=inputs.attention_mask,
+                    pixel_values=inputs.get("pixel_values"),
+                    image_grid_thw=inputs.get("image_grid_thw")
+                )
+                
+            generated_texts = val_decoder.generate(
+                predicted_latents=predicted_latents, 
+                text_prompts=decoder_prompts,
+                max_new_tokens=15
+            )
+            
+            for gen_text, gt_ans in zip(generated_texts, target_answers):
+                gt_raw = gt_ans.replace("<|im_end|>", "").strip()
+                pred_raw = clean_base_model_ans(gen_text)
+                
+                gt_norm = normalize(gt_raw)
+                pred_norm = normalize(pred_raw)
+                
+                is_correct = (gt_norm == pred_norm)
+                if not is_correct:
+                    gt_val = safe_math_eval(gt_raw)
+                    pred_val = safe_math_eval(pred_raw)
+                    if gt_val is not None and pred_val is not None:
+                        is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
+                        
+                total += 1
+                if is_correct:
+                    correct += 1
+                    
+            if total >= limit:
+                break
+                
+    val_decoder.train()
+    val_encoder.train()
+        
+    return (correct / total * 100) if total > 0 else 0.0
 
 def train():
     args = parse_args()
@@ -380,51 +466,28 @@ def train():
                     save_encoder = x_encoder.module if is_distributed else x_encoder
                     torch.save(save_encoder.state_dict(), step_encoder_path)
                 
-                # 2. Fire Synchronous Evaluation Subprocess
-                import subprocess
-                import re
-                
-                eval_cmd = [
-                    "python", "eval_e2e.py",
-                    "--config", args.config,
-                    "--limit", "100",
-                    "--decoder_weights", step_decoder_path,
-                    "--experiment_name_override", experiment_name
-                ]
-                if args.end_to_end:
-                    eval_cmd.extend(["--x_encoder_weights", step_encoder_path, "--end_to_end"])
-                    
-                print(f"[{device}] Running synchronous evaluation (100 samples): {' '.join(eval_cmd)}")
-                
+                # 2. Fire Synchronous Evaluation Native Function
+                print(f"[{device}] Running synchronous evaluation (limit 100 samples) IN-MEMORY...")
                 try:
-                    result = subprocess.run(eval_cmd, capture_output=True, text=True, check=False)
-                    out_text = (result.stdout or "") + "\n" + (result.stderr or "")
-                    acc_match = re.search(r"Accuracy:\s*([\d\.]+)%", out_text)
-                    if acc_match:
-                        acc_val = float(acc_match.group(1))
-                        print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
-                        wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
+                    acc_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], limit=100)
+                    print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
+                    wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
+                    
+                    # Save Best SOTA Checkpoint based strictly on evaluation accuracy
+                    if acc_val > best_eval_acc:
+                        best_eval_acc = acc_val
+                        best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
+                        import shutil
+                        shutil.copy2(step_decoder_path, best_dec_path)
+                        print(f"[{device}] New Best Eval Accuracy! Saved {best_dec_path}")
                         
-                        # Save Best SOTA Checkpoint based strictly on evaluation accuracy
-                        if acc_val > best_eval_acc:
-                            best_eval_acc = acc_val
-                            best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
-                            import shutil
-                            shutil.copy2(step_decoder_path, best_dec_path)
-                            print(f"[{device}] New Best Eval Accuracy! Saved {best_dec_path}")
+                        if args.end_to_end:
+                            best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
+                            shutil.copy2(step_encoder_path, best_enc_path)
+                            print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
                             
-                            if args.end_to_end:
-                                best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
-                                shutil.copy2(step_encoder_path, best_enc_path)
-                                print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
-                    else:
-                        print(f"[{device}] Warning: Evaluation succeeded but failed to parse accuracy string.")
-                        print("--- STDOUT/STDERR HEAD ---")
-                        print(out_text[:500])
-                        print("--- STDOUT/STDERR TAIL ---")
-                        print(out_text[-500:])
                 except Exception as e:
-                    print(f"[{device}] Sync Eval failed: {e}")
+                    print(f"[{device}] Sync In-Memory Eval failed: {e}")
                     
                 print(f"[{device}] Resuming training immediately...\n")
                 
