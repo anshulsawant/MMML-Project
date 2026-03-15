@@ -139,6 +139,9 @@ def train():
         k_steps=config["model"]["k_steps"]
     )
     
+    # Activation Checkpointing trades 20% compute time for massive memory savings by dropping intermediate activations
+    model.vlm.gradient_checkpointing_enable()
+    
     if is_distributed:
         model = model.to(local_rank)
         model = DDP(model, device_ids=[local_rank])
@@ -255,28 +258,50 @@ def train():
             if batch_idx % gradient_accumulation_steps == 0:
                 step_start_time = time.time()
                 
-            # Since VLMs (like Qwen3) usually require a complex processor for their images rather than raw PIL...
             # We extract them utilizing the associated model processor dynamically:
-            tokenizer = model.module.tokenizer if is_distributed else model.tokenizer
-            inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
+            processor = model.module.processor if is_distributed else model.processor
             
-            # Note: For strict Qwen3-VL, you pass 'pixel_values' explicitly from its `Processor`. 
-            # If `pixel_values` aren't defined, the model dynamically routes to text-only mode processing.
-            predicted_latents = model(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask)
+            messages = [
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "image", "image": img},
+                        {"type": "text", "text": txt},
+                    ],
+                }
+                for img, txt in zip(images, texts)
+            ]
             
-            targets = targets.to(device=device, dtype=predicted_latents.dtype)
+            text_prompts = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            inputs = processor(
+                text=text_prompts,
+                images=images,
+                return_tensors="pt",
+                padding=True
+            ).to(device)
             
-            # Loss alignment mapping
-            loss, metrics_dict = criterion(predicted_latents, targets)
-            
-            # Scale loss by accumulation steps
-            # Dynamically handle the remainder of the epoch if the last accumulation step isn't full
-            if (batch_idx + 1 == len(train_dataloader)) and (len(train_dataloader) % gradient_accumulation_steps != 0):
-                current_accumulation_steps = len(train_dataloader) % gradient_accumulation_steps
-            else:
-                current_accumulation_steps = gradient_accumulation_steps
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                predicted_latents = model(
+                    input_ids=inputs.input_ids, 
+                    attention_mask=inputs.attention_mask,
+                    pixel_values=inputs.get("pixel_values"),
+                    image_grid_thw=inputs.get("image_grid_thw")
+                )
                 
-            loss = loss / current_accumulation_steps
+                targets = targets.to(device=device, dtype=predicted_latents.dtype)
+                
+                # Loss alignment mapping
+                loss, metrics_dict = criterion(predicted_latents, targets)
+                
+                # Scale loss by accumulation steps
+                # Dynamically handle the remainder of the epoch if the last accumulation step isn't full
+                if (batch_idx + 1 == len(train_dataloader)) and (len(train_dataloader) % gradient_accumulation_steps != 0):
+                    current_accumulation_steps = len(train_dataloader) % gradient_accumulation_steps
+                else:
+                    current_accumulation_steps = gradient_accumulation_steps
+                    
+                loss = loss / current_accumulation_steps
+
             loss.backward()
             
             # Step conditionally based on batch_idx and accumulation steps
@@ -291,12 +316,30 @@ def train():
                 total_val_mse = 0.0
                 with torch.no_grad():
                     for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
-                        val_inputs = tokenizer(val_txt, padding=True, return_tensors="pt").to(device)
+                        val_msgs = [
+                            {"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}
+                            for img, txt in zip(val_img, val_txt)
+                        ]
+                        processor = model.module.processor if is_distributed else model.processor
+                        val_text_prompts = processor.apply_chat_template(val_msgs, tokenize=False, add_generation_prompt=True)
+                        val_inputs = processor(
+                            text=val_text_prompts,
+                            images=val_img,
+                            return_tensors="pt",
+                            padding=True
+                        ).to(device)
                         
-                        val_pred = model(input_ids=val_inputs.input_ids, attention_mask=val_inputs.attention_mask)
-                        val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                        with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                            val_pred = model(
+                                input_ids=val_inputs.input_ids, 
+                                attention_mask=val_inputs.attention_mask,
+                                pixel_values=val_inputs.get("pixel_values"),
+                                image_grid_thw=val_inputs.get("image_grid_thw")
+                            )
+                            val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                            
+                            v_loss, v_metrics = criterion(val_pred, val_targ)
                         
-                        v_loss, v_metrics = criterion(val_pred, val_targ)
                         total_val_loss += v_loss.item()
                         if "loss/invariance_cos" in v_metrics:
                             total_val_mse += v_metrics["loss/invariance_cos"]
