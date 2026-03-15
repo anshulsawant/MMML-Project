@@ -15,7 +15,7 @@ train_x_encoder:
   epochs: 100
   batch_size: 16
   gradient_accumulation_steps: 8
-  learning_rate: 2.0e-5
+  learning_rate: 1.0e-4
   weight_decay: 0.01
   loss_type: "huber_cosine"  # supports: info_nce_vanilla, info_nce_threshold, vicreg, huber_cosine
   max_grad_norm: 50.0
