@@ -152,6 +152,8 @@ def train():
     else:
         print(f"[{local_rank}] Unfreezing X-Encoder for End-to-End Co-Training (Method B)...")
         x_encoder.train()
+        print(f"[{local_rank}] Enabling Gradient Checkpointing on X-Encoder VLM for VRAM savings...")
+        x_encoder.vlm.gradient_checkpointing_enable()
         
     x_encoder = x_encoder.to(local_rank)
 
@@ -163,6 +165,11 @@ def train():
         use_projection_mlp=config[active_block].get("use_projection_mlp", True)
     )
     y_decoder = y_decoder.to(local_rank)
+    
+    if config[active_block].get("unfreeze_layers", 0) > 0:
+        print(f"[{local_rank}] Enabling Gradient Checkpointing on Y-Decoder for VRAM savings...")
+        # Add kwargs to ensure gradient checkpointing doesn't complain about unused inputs if some layers are frozen
+        y_decoder.decoder.gradient_checkpointing_enable(gradient_checkpointing_kwargs={'use_reentrant': False})
     
     # ------------------ Impedance Mismatch Hotfix ------------------
     # E2E co-training must initialize from the bridged SOTA weights, 
