@@ -31,7 +31,7 @@ train_decoder:
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
   epochs: 20
   batch_size: 32
-  gradient_accumulation_steps: 8
+  gradient_accumulation_steps: 1
   learning_rate: 1.0e-5
   weight_decay: 0.01
   max_grad_norm: 5.0
