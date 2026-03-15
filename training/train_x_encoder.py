@@ -297,6 +297,7 @@ def train():
                 )
                 
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)
+                
                 # Loss alignment mapping
                 loss, metrics_dict = criterion(predicted_latents, targets)
                 
@@ -307,8 +308,9 @@ def train():
                 else:
                     current_accumulation_steps = gradient_accumulation_steps
                     
-                scaled_loss = loss / current_accumulation_steps
-                scaled_loss.backward()
+                loss = loss / current_accumulation_steps
+
+            loss.backward()
             
             # Step conditionally based on batch_idx and accumulation steps
             if ((batch_idx + 1) % gradient_accumulation_steps == 0) or (batch_idx + 1 == len(train_dataloader)):
@@ -375,13 +377,13 @@ def train():
                     temp_grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["train_x_encoder"]["max_grad_norm"])).item()
                     micro_duration = time.time() - micro_start_time
                     
-                    print(f"Epoch {epoch} | Accumulating ({micro_step}/{gradient_accumulation_steps}) | Time: {micro_duration:.2f}s | Micro Loss: {loss.item():.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Temp Grad: {temp_grad_norm:.2f}", end='\r')
+                    print(f"Epoch {epoch} | Accumulating ({micro_step}/{gradient_accumulation_steps}) | Time: {micro_duration:.2f}s | Micro Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Temp Grad: {temp_grad_norm:.2f}", end='\r')
                     
                     # Push tracked partial metrics to WandB securely
                     current_lr = optimizer.param_groups[0]['lr']
                     # Use a separate wandb step metric so it doesn't overwrite the global accumulation steps
                     micro_metrics_dict = metrics_dict.copy()
-                    micro_metrics_dict["train_micro/total_loss"] = loss.item()
+                    micro_metrics_dict["train_micro/total_loss"] = loss.item() * current_accumulation_steps
                     micro_metrics_dict["train_micro/temp_grad_norm"] = temp_grad_norm
                     micro_metrics_dict["train_micro/learning_rate"] = current_lr
                     micro_metrics_dict["train_micro/step_time"] = micro_duration
