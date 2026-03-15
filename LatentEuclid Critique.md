@@ -76,8 +76,8 @@ In true autoregressive generation, the hidden state of Step 1 is computed throug
 
 **Proposed Architecture:**
 Instead of using two separate disjoint parameter blocks (or routing from Layer $N$ back to Layer $1$), split a single massive transformer (e.g., Qwen3-4B) roughly in half:
-1. **The X-Encoder (Layers 1 to $N/2$):** Processes visual topological inputs and generates the intermediate contextualized continuous thought vectors natively.
-2. **The Projection Module (Layers $(N/2) + 1$ to $(N/2) + M$):** Re-purpose 1-2 native transformer layers (initialized as pure identity layers initially) directly in the middle of the stack explicitly serving as the trainable projection logic.
-3. **The Y-Decoder (Layers to $N$):** Receives the aligned latent vector outputs from the middle projector and resumes processing entirely normally as the text generator.
+1. **The X-Encoder (Layers 1 to $N/2$):** Processes visual topological inputs and generates the intermediate contextualized continuous thought vectors natively. Let's say $N/2 = 18$.
+2. **The Projection Module (Layers 19 and 20):** Insert two new transformer layers. Layer 19 is an exact copy of Layer 18's attention and MLP weights, but with its final output projections explicitly initialized to $0$. Layer 20 is likewise a copy of Layer 18 (or 19) with $0$-initialized output projections. This ensures they begin as pure identity functions, allowing gradients to safely carve out the necessary topological shift.
+3. **The Y-Decoder (Layers 21 to $N$):** Receives the aligned latent vector outputs from the middle projector and resumes processing entirely normally as the text generator.
 
 **Advantages:** This allows the geometric latents to seamlessly leverage the deeply composed cross-attention heads that already exist halfway through the sequence, dramatically reducing the friction of mapping visual topology into natural language.
