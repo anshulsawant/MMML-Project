@@ -5,13 +5,13 @@ model:
   k_steps: 4
 
 experiment:
-  name: "v3_unfrozen_decoder_layers"
+  name: "v4_projection_and_unfrozen_layers"
 
 build_manifold:
   batch_size: 4
   
 train_x_encoder:
-  experiment_name: "v3_unfrozen_decoder_layers"
+  experiment_name: "v4_projection_and_unfrozen_layers"
   epochs: 100
   batch_size: 16
   gradient_accumulation_steps: 8
@@ -27,7 +27,7 @@ train_x_encoder:
 
 train_decoder:
   unfreeze_layers: 2
-  use_projection_mlp: False
+  use_projection_mlp: True
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
   epochs: 20
   batch_size: 32

@@ -43,17 +43,20 @@ def e2e_evaluate():
     if args.decoder_weights is None:
         ckpt_dir = f"/workspace/checkpoints/{experiment_name}/decoder"
         if os.path.exists(ckpt_dir):
-            def parse_cp_name(f):
-                base = f.split('epoch_')[1].split('.pt')[0]
-                if "_step_" in base:
-                    ep, st = base.split("_step_")
-                    return (int(ep), int(st))
-                return (int(base), 0)
-                
-            checkpoints = [f for f in os.listdir(ckpt_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
-            if checkpoints:
-                checkpoints.sort(key=parse_cp_name)
-                args.decoder_weights = os.path.join(ckpt_dir, checkpoints[-1])
+            if os.path.exists(os.path.join(ckpt_dir, "decoder_best.pt")):
+                args.decoder_weights = os.path.join(ckpt_dir, "decoder_best.pt")
+            else:
+                def parse_cp_name(f):
+                    base = f.split('epoch_')[1].split('.pt')[0]
+                    if "_step_" in base:
+                        ep, st = base.split("_step_")
+                        return (int(ep), int(st))
+                    return (int(base), 0)
+                    
+                checkpoints = [f for f in os.listdir(ckpt_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
+                if checkpoints:
+                    checkpoints.sort(key=parse_cp_name)
+                    args.decoder_weights = os.path.join(ckpt_dir, checkpoints[-1])
         if args.decoder_weights is None:
             print(f"Error: No decoder weights provided and none found in {ckpt_dir}")
             sys.exit(1)
@@ -67,15 +70,35 @@ def e2e_evaluate():
     
     # Load VICReg weights
     weight_path = args.x_encoder_weights
+    
+    # 1. Fallback 1: check explicit override in config (Method A)
+    if not weight_path:
+        override_path = config.get("train_decoder", {}).get("x_encoder_weights_override")
+        if override_path and os.path.exists(override_path):
+            weight_path = override_path
+            
+    # 2. Fallback 2: check if e2e weights were saved in this experiment (Method B)
+    if not weight_path:
+        e2e_weight_path = f"/workspace/checkpoints/{experiment_name}/decoder/x_encoder_e2e_best.pt"
+        if os.path.exists(e2e_weight_path):
+            weight_path = e2e_weight_path
+
+    # 3. Fallback 3: X-encoder specific folder (Phase 3)
     if not weight_path:
         weight_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
-    if weight_path and torch.cuda.is_available() or '{' not in weight_path:
+        
+    if weight_path and os.path.exists(weight_path):
         try:
             state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)
-            x_encoder.load_state_dict(state_dict["model_state_dict"])
+            if "model_state_dict" in state_dict:
+                x_encoder.load_state_dict(state_dict["model_state_dict"])
+            else:
+                x_encoder.load_state_dict(state_dict)
             print(f"Loaded X-Encoder weights from {weight_path}")
         except Exception as e:
             print(f"Warning: Could not load X-encoder weights from {weight_path}: {e}. Evaluating with untrained projections.")
+    else:
+        print(f"Warning: Could not find X-encoder weights at {weight_path}. Evaluating with untrained projections.")
     x_encoder.eval()
 
     print("Loading Y-Decoder...")
