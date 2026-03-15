@@ -329,6 +329,31 @@ def train():
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
+                    
+                    # --- SAVE CHECKPOINT EVERY N STEPS ---
+                    save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
+                    global_step = (batch_idx + 1) // gradient_accumulation_steps
+                    if save_every_n_steps > 0 and global_step % save_every_n_steps == 0:
+                        step_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_step_{global_step}.pt")
+                        save_model = model.module if is_distributed else model
+                        torch.save({
+                            'epoch': epoch,
+                            'step': global_step,
+                            'model_state_dict': save_model.state_dict(),
+                            'optimizer_state_dict': optimizer.state_dict(),
+                            'loss': loss.item(),
+                            'val_loss': best_val_loss
+                        }, step_cp_path)
+                        print(f"[{local_rank}] Saved mid-epoch checkpoint: {step_cp_path}")
+                        
+                        # Keep only latest 4 mid-epoch checkpoints to save disk space
+                        old_steps = [f for f in os.listdir(checkpoint_dir) if f.startswith(f"x_encoder_epoch_{epoch}_step_") and f.endswith(".pt")]
+                        if len(old_steps) > 4:
+                            old_steps.sort(key=lambda x: int(x.split('_step_')[1].split('.')[0]))
+                            for old_f in old_steps[:-4]:
+                                try:
+                                    os.remove(os.path.join(checkpoint_dir, old_f))
+                                except: pass
                 
             else:
                 # Provide a live micro-batch progress indicator to the user
