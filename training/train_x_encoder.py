@@ -370,7 +370,10 @@ def train():
                 # ------------------------------
                 
             else:
-                pass # Just accumulating gradients
+                # Provide a live micro-batch progress indicator to the user
+                micro_step = (batch_idx % gradient_accumulation_steps) + 1
+                if is_master:
+                    print(f"Epoch {epoch} | Accumulating Gradients ({micro_step}/{gradient_accumulation_steps}) | Micro Loss: {loss.item() * current_accumulation_steps:.4f}", end='\r')
 
         # --- SAVE CHECKPOINT PER EPOCH ---
         if is_master:
