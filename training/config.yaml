@@ -27,6 +27,7 @@ train_x_encoder:
 
 train_decoder:
   unfreeze_layers: 2
+  use_projection_mlp: False
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 8

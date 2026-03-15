@@ -22,7 +22,8 @@ class YDecoderPrefix(nn.Module):
     def __init__(self, 
                  target_model_id: str = "Qwen/Qwen3-0.6B", 
                  k_steps: int = 4,
-                 unfreeze_layers: int = 0):
+                 unfreeze_layers: int = 0,
+                 use_projection_mlp: bool = True):
         super().__init__()
         
         self.k_steps = k_steps
@@ -78,11 +79,15 @@ class YDecoderPrefix(nn.Module):
         
         # In our pipeline, the X-Encoder predictor outputs strictly to self.embedding_dim.
         # This 2-layer MLP maps the structural non-linearities between the modalities.
-        self.prefix_projection = nn.Sequential(
-            nn.Linear(self.embedding_dim, self.embedding_dim * 2).to(torch.bfloat16),
-            nn.GELU().to(torch.bfloat16),
-            nn.Linear(self.embedding_dim * 2, self.embedding_dim).to(torch.bfloat16)
-        )
+        if use_projection_mlp:
+            self.prefix_projection = nn.Sequential(
+                nn.Linear(self.embedding_dim, self.embedding_dim * 2).to(torch.bfloat16),
+                nn.GELU().to(torch.bfloat16),
+                nn.Linear(self.embedding_dim * 2, self.embedding_dim).to(torch.bfloat16)
+            )
+        else:
+            self.prefix_projection = nn.Identity()
+            print("Notice: Linear Projection MLP is completely skipped. Using pure Identity routing into decoder.")
 
     def forward(self, predicted_latents, text_prompts=None, labels=None):
         """

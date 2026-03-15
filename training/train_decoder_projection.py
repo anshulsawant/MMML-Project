@@ -151,7 +151,8 @@ def train():
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
         k_steps=config["model"]["k_steps"],
-        unfreeze_layers=config["train_decoder"].get("unfreeze_layers", 0)
+        unfreeze_layers=config["train_decoder"].get("unfreeze_layers", 0),
+        use_projection_mlp=config["train_decoder"].get("use_projection_mlp", True)
     )
     y_decoder = y_decoder.to(local_rank)
     
@@ -293,7 +294,10 @@ def train():
             
             save_decoder = y_decoder.module if is_distributed else y_decoder
             checkpoint_path = os.path.join(checkpoint_dir, f"decoder_epoch_{epoch}.pt")
-            torch.save(save_decoder.prefix_projection.state_dict(), checkpoint_path)
+            
+            # Dynamically save ALL parameters that require gradients (to capture newly unfrozen base LLM layers)
+            state_dict = {k: v for k, v in save_decoder.named_parameters() if v.requires_grad}
+            torch.save(state_dict, checkpoint_path)
             print(f"[cuda] Saved checkpoint: {checkpoint_path}")
             
             if args.end_to_end:

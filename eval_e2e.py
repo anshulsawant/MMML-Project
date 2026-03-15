@@ -81,20 +81,28 @@ def e2e_evaluate():
     print("Loading Y-Decoder...")
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        k_steps=config["model"]["k_steps"],
+        unfreeze_layers=config.get("train_decoder", {}).get("unfreeze_layers", 0),
+        use_projection_mlp=config.get("train_decoder", {}).get("use_projection_mlp", True)
     ).to(device)
     
-    # Load projection head weights
+    # Load projection head / decoder weights
     try:
         decoder_state_dict = torch.load(args.decoder_weights, map_location="cpu")
         
-        # Backward compatibility: Check if the saved checkpoint is from before the MLP upgrade
-        if "weight" in decoder_state_dict and "0.weight" not in decoder_state_dict:
+        is_named_params = any(k.startswith("prefix_projection.") or k.startswith("decoder.") for k in decoder_state_dict)
+        is_old_linear = "weight" in decoder_state_dict and "0.weight" not in decoder_state_dict and not is_named_params
+        
+        if is_old_linear:
             import torch.nn as nn
             print("Detected old-style single Linear layer checkpoint. Downgrading architecture for evaluation...")
             y_decoder.prefix_projection = nn.Linear(y_decoder.embedding_dim, y_decoder.embedding_dim).to(torch.bfloat16).to(device)
+            y_decoder.prefix_projection.load_state_dict(decoder_state_dict)
+        elif is_named_params:
+            y_decoder.load_state_dict(decoder_state_dict, strict=False)
+        else:
+            y_decoder.prefix_projection.load_state_dict(decoder_state_dict)
             
-        y_decoder.prefix_projection.load_state_dict(decoder_state_dict)
         print(f"Loaded Y-Decoder weights from {args.decoder_weights}")
     except Exception as e:
         print(f"Warning: Could not load Y-decoder weights from {args.decoder_weights}: {e}")
