@@ -199,6 +199,12 @@ def train():
             if "val_loss" in cp:
                 best_val_loss = cp.get("val_loss", float('inf'))
                 
+            # Attempt to retrieve strictly tracked best_val_loss
+            loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+            if os.path.exists(loss_tracker_path):
+                with open(loss_tracker_path, 'r') as f:
+                    best_val_loss = float(json.load(f)["best_loss"])
+                
             if is_distributed:
                 model.module.load_state_dict(cp["model_state_dict"])
             else:
@@ -490,6 +496,11 @@ def train():
                 best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
                 shutil.copy2(cp_path, best_cp_path)
                 print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                
+            # Track numerically
+            loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+            with open(loss_tracker_path, 'w') as f:
+                json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
             
             # Keep only latest 4 checkpoints to safely utilize the 500GB RunPod MooseFS disk quota
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
