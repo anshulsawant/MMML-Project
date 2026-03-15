@@ -33,3 +33,29 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 
 **Failure Modes & Results:**
 - **Zero-Shot E2E Accuracy:** 38.15% (Up from 27.5% baseline)
+
+## 3. `v3_unfrozen_decoder_layers` (Ablation: Replacing MLP)
+**Hypothesis & Modifications:**
+- Testing if the LLM's early mathematical reasoning layers can inherently bridge the modality gap better than a dedicated Projection MLP.
+- **Manifold Construction:** `target_tensors_v2_mean_pooled`
+- **Teacher Loss Formulation:** `huber_cosine`
+- **Decoder Configuration:** `unfreeze_layers: 2`, `use_projection_mlp: False`
+
+**Failure Modes & Results:**
+- **Training Validation CE Loss:** 0.81 (Deceptively low)
+- **Zero-Shot E2E Accuracy:** 6.67% (Catastrophic Failure)
+- **Analysis:** Demonstrates the necessity of a dedicated bridging manifold. Without the MLP, Unfrozen Layers 0 and 1 warped their self-attention matrices to translate the raw visual continuous vectors directly, which corrupted their ability to process regular text tokens. During evaluation generation, these corrupted layers fed mangled text embeddings into the 30 subsequent frozen language layers, leading to catastrophic text hallucination loops (e.g. ``"```json\n"``, `"To find the measure..."`). The low training loss was an illusion caused by the layers overfitting purely to the `<|im_end|>` termination token, which dominates the short target answers.
+
+---
+
+## 4. `v4_projection_and_unfrozen_layers` (The Synthesis)
+**Hypothesis & Modifications:**
+- Combining the modality-bridging stability of the Projection MLP with the logic-refining capacity of unfrozen LLM layers to prevent Catastrophic Forgetting.
+- **Manifold Construction:** `target_tensors_v2_mean_pooled`
+- **Teacher Loss Formulation:** `huber_cosine`
+- **Decoder Configuration:** `unfreeze_layers: 2`, `use_projection_mlp: True`
+
+**Failure Modes & Results:**
+- **Training Validation CE Loss:** 0.77
+- **Zero-Shot E2E Accuracy:** **45.38%** (New SOTA for pipeline)
+- **Analysis:** A massive +7.23% absolute accuracy gain over the `v2` MLP-only baseline. Because the Projection MLP pre-mapped the visual thought vectors into the language model's native syntax *before* they entered the LLM, Layers 0 and 1 did not have to corrupt their text-processing matrices to bridge the gap. Instead, they were freed up to cleanly fine-tune their spatial and geometric logic upon these stable topologies, leading to a synergistic breakthrough in geometric reasoning stability.
