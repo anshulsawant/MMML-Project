@@ -90,7 +90,6 @@ class LatentEuclid(nn.Module):
         self.vlm = AutoModelForImageTextToText.from_pretrained(
             base_model_id,
             torch_dtype=torch.bfloat16,
-            attn_implementation="flash_attention_2",
             device_map="auto"
         )
         
