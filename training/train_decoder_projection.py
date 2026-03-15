@@ -161,6 +161,32 @@ def train():
     )
     y_decoder = y_decoder.to(local_rank)
     
+    start_epoch = 0
+    # Attempt to gracefully resume from the latest checkpoint
+    if os.path.exists(checkpoint_dir):
+        existing_cps = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
+        if len(existing_cps) > 0:
+            def parse_cp_name(f):
+                return int(f.split('epoch_')[1].split('.pt')[0])
+            existing_cps.sort(key=parse_cp_name)
+            latest_cp = existing_cps[-1]
+            latest_path = os.path.join(checkpoint_dir, latest_cp)
+            
+            try:
+                state_dict = torch.load(latest_path, map_location="cpu")
+                is_named_params = any(k.startswith("prefix_projection.") or k.startswith("decoder.") for k in state_dict)
+                if is_named_params:
+                    y_decoder.load_state_dict(state_dict, strict=False)
+                else:
+                    y_decoder.prefix_projection.load_state_dict(state_dict)
+                    
+                start_epoch = parse_cp_name(latest_cp) + 1
+                if is_master:
+                    print(f"[{local_rank}] Resumed Y-Decoder from {latest_path} (Starting at Epoch {start_epoch})")
+            except Exception as e:
+                if is_master:
+                    print(f"[{local_rank}] Failed to load resume checkpoint from {latest_path}: {e}")
+    
     # y_decoder base LLM is always frozen in `__init__`.
     # `prefix_projection` intrinsically has requires_grad=True
     
@@ -211,7 +237,7 @@ def train():
     epochs = int(config["train_decoder"]["epochs"])
     best_val_loss = float('inf')
     
-    for epoch in range(epochs):
+    for epoch in range(start_epoch, epochs):
         if train_sampler:
             train_sampler.set_epoch(epoch)
             
