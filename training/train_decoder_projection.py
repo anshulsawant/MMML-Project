@@ -390,8 +390,8 @@ def train():
                 
                 try:
                     result = subprocess.run(eval_cmd, capture_output=True, text=True, check=False)
-                    out_text = result.stdout
-                    acc_match = re.search(r"Accuracy: \s*([\d\.]+)%", out_text)
+                    out_text = (result.stdout or "") + "\n" + (result.stderr or "")
+                    acc_match = re.search(r"Accuracy:\s*([\d\.]+)%", out_text)
                     if acc_match:
                         acc_val = float(acc_match.group(1))
                         print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
@@ -411,6 +411,9 @@ def train():
                                 print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
                     else:
                         print(f"[{device}] Warning: Evaluation succeeded but failed to parse accuracy string.")
+                        print("--- STDOUT/STDERR HEAD ---")
+                        print(out_text[:500])
+                        print("--- STDOUT/STDERR TAIL ---")
                         print(out_text[-500:])
                 except Exception as e:
                     print(f"[{device}] Sync Eval failed: {e}")
