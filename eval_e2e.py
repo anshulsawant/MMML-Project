@@ -38,13 +38,21 @@ def e2e_evaluate():
         args.out = f"data/eval_{experiment_name}.json"
         
     # Auto-resolve latest decoder weights for this experiment if missing
+    # Auto-resolve latest decoder weights for this experiment if missing
     import os
     if args.decoder_weights is None:
         ckpt_dir = f"/workspace/checkpoints/{experiment_name}/decoder"
         if os.path.exists(ckpt_dir):
+            def parse_cp_name(f):
+                base = f.split('epoch_')[1].split('.pt')[0]
+                if "_step_" in base:
+                    ep, st = base.split("_step_")
+                    return (int(ep), int(st))
+                return (int(base), 0)
+                
             checkpoints = [f for f in os.listdir(ckpt_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
             if checkpoints:
-                checkpoints.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                checkpoints.sort(key=parse_cp_name)
                 args.decoder_weights = os.path.join(ckpt_dir, checkpoints[-1])
         if args.decoder_weights is None:
             print(f"Error: No decoder weights provided and none found in {ckpt_dir}")

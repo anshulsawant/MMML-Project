@@ -29,8 +29,6 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - Addressing the anisotropic `<eos>` bottleneck in Phase 3 by computing Attention-Weighted Mean Pooling across the entire 4096-dimensional hidden state sequence.
 - **Manifold Construction:** `target_tensors_v2_mean_pooled`
 - **Teacher Loss Formulation:** `huber_cosine` (Cosine weighted 10x)
-- **Micro-Batch Size:** 32 (Gradient Checkpointing Enabled)
-- **Gradient Accumulation:** 4 (Global Batch Size: 128)
 - **Throughput:** ~75s per global step on A100.
 
 **Failure Modes & Results:**
