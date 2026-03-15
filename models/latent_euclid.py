@@ -154,15 +154,9 @@ class LatentEuclid(nn.Module):
         # Shape: [batch, K, hidden_size]
         predicted_targets = torch.stack(predicted_targets)
         
-        # 3. Project to Target Manifold
         # Shape: [batch, K, target_dim]
         projected_latents = self.predictor(predicted_targets)
         
-        # When training against mean-pooled datasets, dynamically crush the temporal K dimension
-        # into a single robust geometry scalar to prevent metric broadcasting errors
-        if len(projected_latents.shape) == 3:
-            projected_latents = projected_latents.mean(dim=1)
-            
         return projected_latents
 
 if __name__ == "__main__":

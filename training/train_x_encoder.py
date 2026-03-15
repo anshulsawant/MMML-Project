@@ -262,17 +262,19 @@ def train():
             processor = model.module.processor if is_distributed else model.processor
             
             messages = [
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "image", "image": img},
-                        {"type": "text", "text": txt},
-                    ],
-                }
+                [
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "image", "image": img},
+                            {"type": "text", "text": txt},
+                        ],
+                    }
+                ]
                 for img, txt in zip(images, texts)
             ]
             
-            text_prompts = processor.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
+            text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in messages]
             inputs = processor(
                 text=text_prompts,
                 images=images,
@@ -317,11 +319,11 @@ def train():
                 with torch.no_grad():
                     for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
                         val_msgs = [
-                            {"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}
+                            [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
                             for img, txt in zip(val_img, val_txt)
                         ]
                         processor = model.module.processor if is_distributed else model.processor
-                        val_text_prompts = processor.apply_chat_template(val_msgs, tokenize=False, add_generation_prompt=True)
+                        val_text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in val_msgs]
                         val_inputs = processor(
                             text=val_text_prompts,
                             images=val_img,
