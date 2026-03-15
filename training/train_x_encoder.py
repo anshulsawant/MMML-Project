@@ -175,12 +175,25 @@ def train():
     if os.path.exists(checkpoint_dir):
         checkpoints = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
         if checkpoints:
-            checkpoints.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+            def parse_cp_name(f):
+                # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt"
+                base = f.split('epoch_')[1].split('.pt')[0]
+                if "_step_" in base:
+                    ep, st = base.split("_step_")
+                    return (int(ep), int(st))
+                return (int(base), 0)
+                
+            checkpoints.sort(key=parse_cp_name)
             latest_cp_file = checkpoints[-1]
             latest_cp_path = os.path.join(checkpoint_dir, latest_cp_file)
-            start_epoch = int(latest_cp_file.split('epoch_')[1].split('.')[0]) + 1
             
-            print(f"[{local_rank}] Found checkpoint {latest_cp_file}. Resuming from epoch {start_epoch}...")
+            ep, st = parse_cp_name(latest_cp_file)
+            start_epoch = ep
+            # Note: We do not natively skip the steps already completed in the epoch yet
+            # because the current DataLoader isn't easily offset mid-loop without skipping data.
+            # Start epoch just maps to the currently running epoch.
+            
+            print(f"[{local_rank}] Found checkpoint {latest_cp_file}. Resuming from epoch {start_epoch} (Step Offsets will re-accumulate)...")
             
             # Load states
             cp = torch.load(latest_cp_path, map_location="cpu")
