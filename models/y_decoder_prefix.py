@@ -60,15 +60,23 @@ class YDecoderPrefix(nn.Module):
         # Optional Experiment: Unfreeze the first N layers of the target decoder
         if unfreeze_layers > 0:
             print(f"Experimental: Unfreezing the first {unfreeze_layers} layers of the base decoder!")
-            layers = None
-            if hasattr(self.decoder, "language_model") and hasattr(self.decoder.language_model, "model") and hasattr(self.decoder.language_model.model, "layers"):
-                # Qwen-VL architecture layout
-                layers = self.decoder.language_model.model.layers
-            elif hasattr(self.decoder, "model") and hasattr(self.decoder.model, "layers"):
-                # Standard causal LM layout
-                layers = self.decoder.model.layers
+            
+            def _find_layers(module):
+                # Recursively search for a ModuleList commonly used for transformer layers
+                if hasattr(module, "layers") and isinstance(module.layers, nn.ModuleList):
+                    return module.layers
+                if hasattr(module, "block") and isinstance(module.block, nn.ModuleList):
+                    return module.block
+                for name, child in module.named_children():
+                    res = _find_layers(child)
+                    if res is not None:
+                        return res
+                return None
                 
+            layers = _find_layers(self.decoder)
+            
             if layers is not None:
+                print(f"Located {len(layers)} total transformer layers. Unfreezing first {unfreeze_layers}...")
                 for i in range(min(unfreeze_layers, len(layers))):
                     for param in layers[i].parameters():
                         param.requires_grad = True
