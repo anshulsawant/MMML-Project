@@ -69,3 +69,15 @@ In true autoregressive generation, the hidden state of Step 1 is computed throug
 
 * **Contrastive Hard Negatives:** Use the DestroyGeometryAugmentation to explicitly generate ruined geometries. Pass these as hard negative pairs in an InfoNCE loss. This forces the continuous vectors to learn valid topological logic rather than taking a shortcut by memorizing image color histograms or textures.  
 * **Re-evaluating SymPy (RL Prerequisite):** While migrating to a robust algebraic engine like `sympy` fixes brittle `eval()` logic for offline evaluation, it introduces a separate architectural bottleneck: SymPy is fundamentally non-differentiable. Because it cannot be directly integrated into an end-to-end gradient-based loss function, keeping SymPy implies that optimizing the model directly on answer correctness will require a Reinforcement Learning formulation (e.g., using SymPy purely as a discrete reward function for PPO/GRPO).
+
+### **7\. Single-Model Splitting (Mid-Layer Projection)**
+
+**The Hypothesis:** Currently, LatentEuclid extracts continuous representations from the *final* layer (encoder) and injects them back into the *first* layer (decoder embeddings). This forces the network to completely restart its deep feature composition sequence from scratch.
+
+**Proposed Architecture:**
+Instead of using two separate disjoint parameter blocks (or routing from Layer $N$ back to Layer $1$), split a single massive transformer (e.g., Qwen3-4B) roughly in half:
+1. **The X-Encoder (Layers 1 to $N/2$):** Processes visual topological inputs and generates the intermediate contextualized continuous thought vectors natively.
+2. **The Projection Module (Layers $(N/2) + 1$ to $(N/2) + M$):** Re-purpose 1-2 native transformer layers (initialized as pure identity layers initially) directly in the middle of the stack explicitly serving as the trainable projection logic.
+3. **The Y-Decoder (Layers to $N$):** Receives the aligned latent vector outputs from the middle projector and resumes processing entirely normally as the text generator.
+
+**Advantages:** This allows the geometric latents to seamlessly leverage the deeply composed cross-attention heads that already exist halfway through the sequence, dramatically reducing the friction of mapping visual topology into natural language.
