@@ -13,8 +13,8 @@ build_manifold:
 train_x_encoder:
   experiment_name: "v2_huber_mean_pooled"
   epochs: 100
-  batch_size: 32
-  gradient_accumulation_steps: 16
+  batch_size: 16
+  gradient_accumulation_steps: 8
   learning_rate: 2.0e-5
   weight_decay: 0.01
   loss_type: "huber_cosine"  # supports: info_nce_vanilla, info_nce_threshold, vicreg, huber_cosine
