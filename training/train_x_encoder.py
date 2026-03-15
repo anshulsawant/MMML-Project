@@ -312,42 +312,6 @@ def train():
                 optimizer.step()
                 optimizer.zero_grad()
                 
-                # --- RUN VALIDATION ON STEP ---
-                model.eval()
-                total_val_loss = 0.0
-                total_val_mse = 0.0
-                with torch.no_grad():
-                    for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
-                        val_msgs = [
-                            [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
-                            for img, txt in zip(val_img, val_txt)
-                        ]
-                        processor = model.module.processor if is_distributed else model.processor
-                        val_text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in val_msgs]
-                        val_inputs = processor(
-                            text=val_text_prompts,
-                            images=val_img,
-                            return_tensors="pt",
-                            padding=True
-                        ).to(device)
-                        
-                        with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-                            val_pred = model(
-                                input_ids=val_inputs.input_ids, 
-                                attention_mask=val_inputs.attention_mask,
-                                pixel_values=val_inputs.get("pixel_values"),
-                                image_grid_thw=val_inputs.get("image_grid_thw")
-                            )
-                            val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
-                            
-                            v_loss, v_metrics = criterion(val_pred, val_targ)
-                        
-                        total_val_loss += v_loss.item()
-                        if "loss/invariance_cos" in v_metrics:
-                            total_val_mse += v_metrics["loss/invariance_cos"]
-                
-                avg_val_loss = total_val_loss / max(1, len(val_dataloader))
-                avg_val_mse = total_val_mse / max(1, len(val_dataloader))
                 
                 if is_master:
                     step_duration = time.time() - step_start_time
@@ -356,26 +320,64 @@ def train():
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
                     var_loss_val = metrics_dict.get("loss/variance_loss", 0.0) if type(metrics_dict) is dict else 0.0
                     train_mse_val = metrics_dict.get("loss/invariance_cos", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Val Loss: {avg_val_loss:.4f} | Train Cos: {train_mse_val:.4f} | Val Cos: {avg_val_mse:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Train Cos: {train_mse_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
-                    metrics_dict["val/total_loss"] = avg_val_loss
-                    metrics_dict["val/invariance_cos"] = avg_val_mse
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
-                
-                model.train() # Return to training mode
-                # ------------------------------
                 
             else:
                 # Provide a live micro-batch progress indicator to the user
                 micro_step = (batch_idx % gradient_accumulation_steps) + 1
                 if is_master:
                     print(f"Epoch {epoch} | Accumulating Gradients ({micro_step}/{gradient_accumulation_steps}) | Micro Loss: {loss.item() * current_accumulation_steps:.4f}", end='\r')
+
+        # --- RUN VALIDATION EXPERIMENT ---
+        model.eval()
+        total_val_loss = 0.0
+        total_val_mse = 0.0
+        if is_master:
+            print(f"Epoch {epoch} completed. Running exhaustive validation inference...")
+            
+        with torch.no_grad():
+            for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+                val_msgs = [
+                    [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
+                    for img, txt in zip(val_img, val_txt)
+                ]
+                processor = model.module.processor if is_distributed else model.processor
+                val_text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in val_msgs]
+                val_inputs = processor(
+                    text=val_text_prompts,
+                    images=val_img,
+                    return_tensors="pt",
+                    padding=True
+                ).to(device)
+                
+                with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                    val_pred = model(
+                        input_ids=val_inputs.input_ids, 
+                        attention_mask=val_inputs.attention_mask,
+                        pixel_values=val_inputs.get("pixel_values"),
+                        image_grid_thw=val_inputs.get("image_grid_thw")
+                    )
+                    val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                    
+                    v_loss, v_metrics = criterion(val_pred, val_targ)
+                
+                total_val_loss += v_loss.item()
+                if "loss/invariance_cos" in v_metrics:
+                    total_val_mse += v_metrics["loss/invariance_cos"]
+        
+        avg_val_loss = total_val_loss / max(1, len(val_dataloader))
+        avg_val_mse = total_val_mse / max(1, len(val_dataloader))
+        if is_master:
+            print(f"[{local_rank}] Epoch {epoch} Validation | Avg Loss: {avg_val_loss:.4f} | Avg Cosine: {avg_val_mse:.4f}")
+            wandb.log({"val/epoch_loss": avg_val_loss, "val/epoch_cos": avg_val_mse, "epoch": epoch})
 
         # --- SAVE CHECKPOINT PER EPOCH ---
         if is_master:
