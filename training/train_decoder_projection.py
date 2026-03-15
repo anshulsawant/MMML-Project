@@ -211,7 +211,8 @@ def train():
                 else:
                     y_decoder.prefix_projection.load_state_dict(state_dict)
                     
-                start_epoch = parse_cp_name(latest_cp) + 1
+                ep, st = parse_cp_name(latest_cp)
+                start_epoch = ep if st > 0 else ep + 1
                 
                 # Attempt to retrieve historical best_val_loss
                 loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
