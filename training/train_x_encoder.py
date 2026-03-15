@@ -140,8 +140,7 @@ def train():
     )
     
     # Activation Checkpointing trades 20-30% compute time for massive memory savings by dropping intermediate activations.
-    # Disabled per User request (A100 VRAM is only 60% utilized, prioritize speed).
-    # model.vlm.gradient_checkpointing_enable()
+    model.vlm.gradient_checkpointing_enable()
     
     if is_distributed:
         model = model.to(local_rank)
