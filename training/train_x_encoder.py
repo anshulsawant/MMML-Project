@@ -226,6 +226,8 @@ def train():
         sampler=train_sampler,
         collate_fn=custom_collate,
         shuffle=(train_sampler is None),
+        num_workers=4,
+        pin_memory=True,
         drop_last=True
     )
     
@@ -235,6 +237,8 @@ def train():
         batch_size=int(config["train_x_encoder"]["batch_size"]), 
         sampler=val_sampler,
         collate_fn=custom_collate,
+        num_workers=4,
+        pin_memory=True,
         shuffle=False
     )
     
