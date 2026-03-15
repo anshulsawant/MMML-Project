@@ -381,10 +381,11 @@ def train():
                     "python", "eval_e2e.py",
                     "--config", args.config,
                     "--limit", "100",
-                    "--decoder_weights", step_decoder_path
+                    "--decoder_weights", step_decoder_path,
+                    "--experiment_name_override", experiment_name
                 ]
                 if args.end_to_end:
-                    eval_cmd.extend(["--x_encoder_weights", step_encoder_path])
+                    eval_cmd.extend(["--x_encoder_weights", step_encoder_path, "--end_to_end"])
                     
                 print(f"[{device}] Running synchronous evaluation (100 samples): {' '.join(eval_cmd)}")
                 

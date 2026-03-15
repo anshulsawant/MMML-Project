@@ -25,6 +25,8 @@ def e2e_evaluate():
     parser.add_argument("--batch_size", type=int, default=8, help="Batch size for generating answers.")
     parser.add_argument("--split", type=float, default=0.9, help="Validation split index ratio (default: 0.9, i.e. last 10%)")
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
+    parser.add_argument("--end_to_end", action="store_true", help="Use train_end_to_end configuration instead of train_decoder")
+    parser.add_argument("--experiment_name_override", type=str, default=None, help="Override experiment name")
     args = parser.parse_args()
 
     device = args.device
@@ -32,7 +34,8 @@ def e2e_evaluate():
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
         
-    experiment_name = config.get("experiment", {}).get("name", "default")
+    experiment_name = args.experiment_name_override or config.get("experiment", {}).get("name", "default")
+    active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
     
     if args.out == "data/e2e_mismatches.json":
         args.out = f"data/eval_{experiment_name}.json"
@@ -73,7 +76,7 @@ def e2e_evaluate():
     
     # 1. Fallback 1: check explicit override in config (Method A)
     if not weight_path:
-        override_path = config.get("train_decoder", {}).get("x_encoder_weights_override")
+        override_path = config.get(active_block, {}).get("x_encoder_weights_override")
         if override_path and os.path.exists(override_path):
             weight_path = override_path
             
@@ -105,8 +108,8 @@ def e2e_evaluate():
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
         k_steps=config["model"]["k_steps"],
-        unfreeze_layers=config.get("train_decoder", {}).get("unfreeze_layers", 0),
-        use_projection_mlp=config.get("train_decoder", {}).get("use_projection_mlp", True)
+        unfreeze_layers=config.get(active_block, {}).get("unfreeze_layers", 0),
+        use_projection_mlp=config.get(active_block, {}).get("use_projection_mlp", True)
     ).to(device)
     
     # Load projection head / decoder weights
