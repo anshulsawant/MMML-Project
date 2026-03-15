@@ -249,6 +249,68 @@ def train():
     max_steps_per_epoch = config["train_x_encoder"].get("max_steps_per_epoch", None)
     device = local_rank if is_distributed else local_rank
     
+    # --- VALIDATION FUNCTION ---
+    def run_validation(step_label, current_epoch, current_step):
+        model.eval()
+        total_val_loss = 0.0
+        total_val_mse = 0.0
+        val_samples_processed = 0
+        max_val_samples = int(config["train_x_encoder"].get("max_val_samples", 0))
+        
+        if is_master:
+            print(f"{step_label} | Running validation inference...")
+            
+        with torch.no_grad():
+            for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+                # Stop early if we hit the requested validation subset size
+                if max_val_samples > 0 and val_samples_processed >= max_val_samples:
+                    break
+                    
+                current_batch_size = len(val_img)
+                val_samples_processed += current_batch_size
+                
+                val_msgs = [
+                    [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
+                    for img, txt in zip(val_img, val_txt)
+                ]
+                
+                processor = model.module.processor if is_distributed else model.processor
+                val_text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in val_msgs]
+                val_inputs = processor(
+                    text=val_text_prompts,
+                    images=val_img,
+                    return_tensors="pt",
+                    padding=True
+                ).to(device)
+                
+                with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                    val_pred = model(
+                        input_ids=val_inputs.input_ids, 
+                        attention_mask=val_inputs.attention_mask,
+                        pixel_values=val_inputs.get("pixel_values"),
+                        image_grid_thw=val_inputs.get("image_grid_thw")
+                    )
+                    val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
+                    v_loss, v_metrics = criterion(val_pred, val_targ)
+                
+                total_val_loss += v_loss.item()
+                if "loss/invariance_cos" in v_metrics:
+                    total_val_mse += v_metrics["loss/invariance_cos"]
+        
+        # Note: val_idx corresponds to the number of batches actually processed (0-indexed)
+        batches_processed = val_idx if (max_val_samples > 0 and val_samples_processed >= max_val_samples) else len(val_dataloader)
+        avg_val_loss = total_val_loss / max(1, batches_processed)
+        avg_val_mse = total_val_mse / max(1, batches_processed)
+        
+        if is_master:
+            print(f"[{local_rank}] {step_label} Validation | Eval Samples: {val_samples_processed} | Avg Loss: {avg_val_loss:.4f} | Avg Cosine: {avg_val_mse:.4f}")
+            wandb.log({"val/epoch_loss": avg_val_loss, "val/epoch_cos": avg_val_mse, "epoch": current_epoch, "step": current_step})
+            
+        model.train()
+        return avg_val_loss
+        
+    # ------------------------------------
+
     for epoch in range(start_epoch, epochs):
         if train_sampler:
             train_sampler.set_epoch(epoch)
@@ -343,7 +405,7 @@ def train():
                         step_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_step_{global_step}.pt")
                         
                         # Run Mid-Epoch Validation
-                        mid_val_loss = run_validation(f"Mid-Epoch {epoch} (Step {global_step})")
+                        mid_val_loss = run_validation(f"Mid-Epoch {epoch} (Step {global_step})", epoch, global_step)
                         
                         save_model = model.module if is_distributed else model
                         torch.save({
@@ -391,71 +453,13 @@ def train():
                     
                     wandb.log(micro_metrics_dict)
 
-        # --- VALIDATION FUNCTION ---
-        def run_validation(step_label):
-            model.eval()
-            total_val_loss = 0.0
-            total_val_mse = 0.0
-            val_samples_processed = 0
-            max_val_samples = int(config["train_x_encoder"].get("max_val_samples", 0))
-            
-            if is_master:
-                print(f"{step_label} | Running validation inference...")
-                
-            with torch.no_grad():
-                for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
-                    # Stop early if we hit the requested validation subset size
-                    if max_val_samples > 0 and val_samples_processed >= max_val_samples:
-                        break
-                        
-                    current_batch_size = len(val_img)
-                    val_samples_processed += current_batch_size
-                    
-                    val_msgs = [
-                        [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
-                        for img, txt in zip(val_img, val_txt)
-                    ]
-                    
-                    processor = model.module.processor if is_distributed else model.processor
-                    val_text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in val_msgs]
-                    val_inputs = processor(
-                        text=val_text_prompts,
-                        images=val_img,
-                        return_tensors="pt",
-                        padding=True
-                    ).to(device)
-                    
-                    with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-                        val_pred = model(
-                            input_ids=val_inputs.input_ids, 
-                            attention_mask=val_inputs.attention_mask,
-                            pixel_values=val_inputs.get("pixel_values"),
-                            image_grid_thw=val_inputs.get("image_grid_thw")
-                        )
-                        val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
-                        v_loss, v_metrics = criterion(val_pred, val_targ)
-                    
-                    total_val_loss += v_loss.item()
-                    if "loss/invariance_cos" in v_metrics:
-                        total_val_mse += v_metrics["loss/invariance_cos"]
-            
-            # Note: val_idx corresponds to the number of batches actually processed (0-indexed)
-            batches_processed = val_idx if (max_val_samples > 0 and val_samples_processed >= max_val_samples) else len(val_dataloader)
-            avg_val_loss = total_val_loss / max(1, batches_processed)
-            avg_val_mse = total_val_mse / max(1, batches_processed)
-            
-            if is_master:
-                print(f"[{local_rank}] {step_label} Validation | Eval Samples: {val_samples_processed} | Avg Loss: {avg_val_loss:.4f} | Avg Cosine: {avg_val_mse:.4f}")
-                wandb.log({"val/epoch_loss": avg_val_loss, "val/epoch_cos": avg_val_mse, "epoch": epoch, "step": global_step})
-                
-            model.train()
-            return avg_val_loss
-            
-        # ------------------------------------
+                    wandb.log(micro_metrics_dict)
+
         # --- SAVE CHECKPOINT PER EPOCH ---
         if is_master:
             # Run Exhaustive End-of-Epoch Validation
-            avg_val_loss = run_validation(f"End-of-Epoch {epoch}")
+            global_step_end = len(train_dataloader) // gradient_accumulation_steps
+            avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
             
             cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}.pt")
             save_model = model.module if is_distributed else model
