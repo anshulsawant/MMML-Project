@@ -15,6 +15,14 @@ from models.latent_euclid import LatentEuclid
 from training.stable_alignment_loss import AlignmentLossFactory
 from training.augmentation import GeometrySafeAugmentation
 
+def parse_cp_name(f):
+    # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt"
+    base = f.split('epoch_')[1].split('.pt')[0]
+    if "_step_" in base:
+        ep, st = base.split("_step_")
+        return (int(ep), int(st))
+    return (int(base), 0)
+
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
     parser.add_argument("--config", type=str, default="training/config.yaml",
@@ -174,14 +182,6 @@ def train():
     if os.path.exists(checkpoint_dir):
         checkpoints = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
         if checkpoints:
-            def parse_cp_name(f):
-                # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt"
-                base = f.split('epoch_')[1].split('.pt')[0]
-                if "_step_" in base:
-                    ep, st = base.split("_step_")
-                    return (int(ep), int(st))
-                return (int(base), 0)
-                
             checkpoints.sort(key=parse_cp_name)
             latest_cp_file = checkpoints[-1]
             latest_cp_path = os.path.join(checkpoint_dir, latest_cp_file)
@@ -433,7 +433,7 @@ def train():
                         # Keep only latest 4 mid-epoch checkpoints to save disk space
                         old_steps = [f for f in os.listdir(checkpoint_dir) if f.startswith(f"x_encoder_epoch_{epoch}_step_") and f.endswith(".pt")]
                         if len(old_steps) > 4:
-                            old_steps.sort(key=lambda x: int(x.split('_step_')[1].split('.')[0]))
+                            old_steps.sort(key=parse_cp_name)
                             for old_f in old_steps[:-4]:
                                 try:
                                     os.remove(os.path.join(checkpoint_dir, old_f))
@@ -494,7 +494,7 @@ def train():
             # Keep only latest 4 checkpoints to safely utilize the 500GB RunPod MooseFS disk quota
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
             if len(old_epochs) > 4:
-                old_epochs.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                old_epochs.sort(key=parse_cp_name)
                 for old_f in old_epochs[:-4]: # Keep the latest 4 checkpoints
                     try:
                         os.remove(os.path.join(checkpoint_dir, old_f))
