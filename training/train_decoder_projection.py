@@ -285,6 +285,7 @@ def train():
             x_encoder.train()
             
         total_train_loss = 0.0
+        accumulated_loss = 0.0
         optimizer.zero_grad()
         
         for batch_idx, (images, texts, target_answers) in enumerate(train_loader):
@@ -343,18 +344,23 @@ def train():
             loss = outputs.loss / grad_accum_steps
             loss.backward()
             
+            unscaled_loss = loss.item() * grad_accum_steps
+            total_train_loss += unscaled_loss
+            accumulated_loss += unscaled_loss
+            
             if (batch_idx + 1) % grad_accum_steps == 0 or (batch_idx + 1) == len(train_loader):
                 torch.nn.utils.clip_grad_norm_(trainable_params, float(config[active_block]["max_grad_norm"]))
                 optimizer.step()
                 optimizer.zero_grad()
-            
-            # Reconstruct original unscaled loss value for logging
-            unscaled_loss = loss.item() * grad_accum_steps
-            total_train_loss += unscaled_loss
-            
-            if is_master and batch_idx % grad_accum_steps == 0:
-                print(f"Epoch {epoch} | Effective Batch {batch_idx // grad_accum_steps} | CE Training Loss: {unscaled_loss:.4f}")
-                wandb.log({"train/ce_loss": unscaled_loss, "epoch": epoch})
+                
+                effective_step = batch_idx // grad_accum_steps
+                avg_effective_loss = accumulated_loss / grad_accum_steps
+                
+                if is_master:
+                    print(f"Epoch {epoch} | Effective Batch {effective_step} | CE Training Loss: {avg_effective_loss:.4f}")
+                    wandb.log({"train/ce_loss": avg_effective_loss, "epoch": epoch, "step": effective_step})
+                    
+                accumulated_loss = 0.0
                 
             # --- Mid-Epoch Validation Trigger ---
             effective_step = batch_idx // grad_accum_steps
