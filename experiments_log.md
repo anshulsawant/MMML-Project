@@ -18,7 +18,7 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - **Teacher Loss Formulation:** Handled via vanilla `VICReg`, which artificially scales predictor magnitudes to force a pseudo-variance rather than preserving true representation magnitudes.
 
 **Failure Modes & Results:**
-- **Zero-Shot Accuracy:** ~25%
+- **Zero-Shot Accuracy:** ~25% *(Note: Discovered this was actually a "blind" text-only run due to a dataloader bug that completely dropped image inputs. The language model guessed answers based heavily on leaked deterministic math in the text prompts).*
 - Continuous magnitudes shattered LLM LayerNorm stability upon projection.
 ---
 
