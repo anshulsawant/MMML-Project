@@ -7,3 +7,4 @@ wandb
 Pillow
 pyyaml
 google-genai
+flash-attn
