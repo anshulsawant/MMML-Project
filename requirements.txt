@@ -10,5 +10,4 @@ google-genai
 wheel
 packaging
 ninja
---no-build-isolation
 flash-attn
