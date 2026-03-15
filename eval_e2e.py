@@ -34,8 +34,8 @@ def e2e_evaluate():
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
         
-    experiment_name = args.experiment_name_override or config.get("experiment", {}).get("name", "default")
     active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    experiment_name = args.experiment_name_override or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     if args.out == "data/e2e_mismatches.json":
         args.out = f"data/eval_{experiment_name}.json"
@@ -74,21 +74,23 @@ def e2e_evaluate():
     # Load VICReg weights
     weight_path = args.x_encoder_weights
     
-    # 1. Fallback 1: check explicit override in config (Method A)
-    if not weight_path:
-        override_path = config.get(active_block, {}).get("x_encoder_weights_override")
-        if override_path and os.path.exists(override_path):
-            weight_path = override_path
-            
-    # 2. Fallback 2: check if e2e weights were saved in this experiment (Method B)
+    # 1. Primary: check if e2e weights were saved in this experiment (Method B)
     if not weight_path:
         e2e_weight_path = f"/workspace/checkpoints/{experiment_name}/decoder/x_encoder_e2e_best.pt"
         if os.path.exists(e2e_weight_path):
             weight_path = e2e_weight_path
 
-    # 3. Fallback 3: X-encoder specific folder (Phase 3)
+    # 2. Secondary: X-encoder specific folder (Phase 3)
     if not weight_path:
-        weight_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
+        local_encoder_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
+        if os.path.exists(local_encoder_path):
+            weight_path = local_encoder_path
+            
+    # 3. Fallback: check explicit override in config (Method A)
+    if not weight_path:
+        override_path = config.get(active_block, {}).get("x_encoder_weights_override")
+        if override_path and os.path.exists(override_path):
+            weight_path = override_path
         
     if weight_path and os.path.exists(weight_path):
         try:
