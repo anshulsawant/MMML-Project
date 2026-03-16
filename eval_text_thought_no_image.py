@@ -26,8 +26,8 @@ def e2e_evaluate():
     parser.add_argument("--split", type=float, default=0.9, help="Validation split index ratio (default: 0.9, i.e. last 10%)")
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
     parser.add_argument("--end_to_end", action="store_true", help="Use train_end_to_end configuration instead of train_decoder")
-    parser.add_argument("--experiment_name_override", type=str, default=None, help="Override experiment name")
-    parser.add_argument("--zero_thoughts", action="store_true", help="Ablation: Force predicted_latents to pure zeros to prove if thoughts actually matter")
+    parser.add_argument("--zero_thoughts", action="store_true", help="Ablation: Force all predicted_latents to pure zeros")
+    parser.add_argument("--zero_thought_indices", type=int, nargs="+", help="Ablation: Force specific predicted_latents indices (0 to k_steps-1) to pure zeros")
     args = parser.parse_args()
 
     device = args.device
@@ -39,7 +39,11 @@ def e2e_evaluate():
     experiment_name = args.experiment_name_override or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     if args.out == "data/e2e_mismatches.json":
-        suffix = "_zero_thoughts" if args.zero_thoughts else ""
+        suffix = ""
+        if args.zero_thoughts:
+            suffix = "_zero_all_thoughts"
+        elif args.zero_thought_indices:
+            suffix = f"_zero_thoughts_{'_'.join(map(str, args.zero_thought_indices))}"
         args.out = f"data/eval_{experiment_name}{suffix}.json"
         
     # Auto-resolve latest decoder weights for this experiment if missing
@@ -232,6 +236,10 @@ def e2e_evaluate():
             
             if args.zero_thoughts:
                 predicted_latents = torch.zeros_like(predicted_latents)
+            elif args.zero_thought_indices:
+                for idx in args.zero_thought_indices:
+                    if 0 <= idx < predicted_latents.shape[1]:
+                        predicted_latents[:, idx, :] = 0.0
             
             # Format clean prompts for y-decoder, completely starving it of the image pixels
             # The decoder sees the text question, the <thought>s, but NOT the raw images!
