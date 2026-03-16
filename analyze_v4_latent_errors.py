@@ -35,7 +35,11 @@ def main():
     # Load V2 weights because V4 used the perfectly frozen V2 vision alignment
     weight_path = "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
     print(f"Loading X-Encoder weights from {weight_path}")
-    latent_euclid.load_state_dict(torch.load(weight_path, map_location=device, weights_only=True))
+    state_dict = torch.load(weight_path, map_location=device, weights_only=False)
+    if "model_state_dict" in state_dict:
+        latent_euclid.load_state_dict(state_dict["model_state_dict"])
+    else:
+        latent_euclid.load_state_dict(state_dict)
     latent_euclid.eval()
     
     import numpy as np
