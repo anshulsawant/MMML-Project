@@ -177,10 +177,17 @@ def train():
     device = local_rank if is_distributed else local_rank
 
     # Select active configuration block based on mode or explicit override
-    if args.experiment_name_override and args.experiment_name_override in config:
-        active_block = args.experiment_name_override
-    else:
-        active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    
+    if args.experiment_name_override:
+        if args.experiment_name_override in config:
+            active_block = args.experiment_name_override
+        else:
+            # Search for block containing this experiment_name
+            for key, val in config.items():
+                if isinstance(val, dict) and val.get("experiment_name") == args.experiment_name_override:
+                    active_block = key
+                    break
     
     experiment_name = config.get(active_block, {}).get("experiment_name", "default")
 
