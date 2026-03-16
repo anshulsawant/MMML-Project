@@ -172,10 +172,10 @@ def e2e_evaluate():
     if args.limit:
         val_data = val_data[:args.limit]
 
-    print(f"\n================ VISION-ONLY LOSS EVALUATION ({len(val_data)} samples) ================\n")
+    print(f"\n================ VISION-ONLY GENERATION EVALUATION ({len(val_data)} samples) ================\n")
     
-    total_loss = 0.0
-    total_batches = 0
+    correct = 0
+    total = 0
     results = []
     
     # Chunk the data into batches
@@ -239,27 +239,56 @@ def e2e_evaluate():
                 attention_mask=inputs.attention_mask,
                 image_grid_thw=inputs.get("image_grid_thw")
             )
-            
-            # Ensure the decoder computes loss against the expected ground truth sequence
-            target_answers = [ans + "<|im_end|>" for _, ans in true_answers]
-            
-            outputs = y_decoder(
+            # Format clean prompts for y-decoder, completely starving it of the arithmetic text
+            prompts = ["Extract answer from this thought. Answer: " for _ in questions]
+            generated_texts = y_decoder.generate(
                 predicted_latents=predicted_latents, 
                 text_prompts=prompts,
-                labels=target_answers
+                max_new_tokens=15
             )
             
-            batch_loss = outputs.loss.item()
-            total_loss += batch_loss
-            total_batches += 1
-            
-            avg_loss_so_far = total_loss / total_batches
-            pbar.set_postfix({"Batch CE Loss": f"{batch_loss:.4f}", "Avg CE Loss": f"{avg_loss_so_far:.4f}"})
+            # 3. Calculate metrics per generation
+            for gen_text, (img_path, true_answer_raw), q in zip(generated_texts, true_answers, questions):
+                pred_raw = clean_base_model_ans(gen_text)
+                gt_norm = normalize(true_answer_raw)
+                pred_norm = normalize(pred_raw)
                 
-    final_avg_loss = total_loss / max(1, total_batches)
+                is_correct = (gt_norm == pred_norm)
+                
+                if not is_correct:
+                    gt_val = safe_math_eval(true_answer_raw)
+                    pred_val = safe_math_eval(pred_raw)
+                    if gt_val is not None and pred_val is not None:
+                        is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
+                        
+                total += 1
+                if is_correct:
+                    correct += 1
+                    
+                results.append({
+                    'image': img_path,
+                    'is_correct': is_correct,
+                    'gt_raw': str(true_answer_raw),
+                    'pred_raw': pred_raw,
+                    'gt_norm': gt_norm,
+                    'pred_norm': pred_norm,
+                    'model_generation': gen_text.strip()
+                })
+                    
+            if total > 0:
+                acc_so_far = correct / total * 100
+                pbar.set_postfix({"Correct": f"{correct}/{total}", "Accuracy": f"{acc_so_far:.2f}%"})
+                
+            # Periodically save results mid-run so they can be inspected if cancelled early
+            if results:
+                with open(args.out, 'w') as f:
+                    json.dump(results, f, indent=2)
+                
+    acc = correct / total * 100 if total > 0 else 0.0
     print(f"\n+++ RESULTS +++")
-    print(f"Evaluated {total_batches} batches.")
-    print(f"Final Average Vision-Only CE Loss: {final_avg_loss:.4f}")
+    print(f"Evaluated {total} samples.")
+    print(f"Correct: {correct}")
+    print(f"Accuracy: {acc:.2f}%")
     
     if results:
         with open(args.out, 'w') as f:
