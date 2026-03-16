@@ -57,7 +57,7 @@ def main():
             
             # Load True Target Tensor
             basename = os.path.splitext(os.path.basename(img_path))[0]
-            target_path = f"/workspace/target_tensors/target_tensors_verified/{basename}.pt"
+            target_path = f"/workspace/target_tensors/target_tensors_v2_huber_mean_pooled/{basename}.pt"
             
             if not os.path.exists(target_path):
                 continue
