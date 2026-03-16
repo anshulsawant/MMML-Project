@@ -23,7 +23,8 @@ class YDecoderPrefix(nn.Module):
                  target_model_id: str = "Qwen/Qwen3-0.6B", 
                  k_steps: int = 4,
                  unfreeze_layers: int = 0,
-                 use_projection_mlp: bool = True):
+                 use_projection_mlp: bool = True,
+                 latent_dim: int = None):
         super().__init__()
         
         self.k_steps = k_steps
@@ -85,15 +86,20 @@ class YDecoderPrefix(nn.Module):
             
         self.embedding_dim = getattr(self.decoder.config, "hidden_size", getattr(getattr(self.decoder.config, "text_config", None), "hidden_size", None))
         
+        # Override incoming latent spatial dimensions if provided, otherwise assume identity match
+        actual_latent_dim = latent_dim if latent_dim is not None else self.embedding_dim
+
         # In our pipeline, the X-Encoder predictor outputs strictly to self.embedding_dim.
         # This 2-layer MLP maps the structural non-linearities between the modalities.
         if use_projection_mlp:
             self.prefix_projection = nn.Sequential(
-                nn.Linear(self.embedding_dim, self.embedding_dim * 2).to(torch.bfloat16),
+                nn.Linear(actual_latent_dim, self.embedding_dim * 2).to(torch.bfloat16),
                 nn.GELU().to(torch.bfloat16),
                 nn.Linear(self.embedding_dim * 2, self.embedding_dim).to(torch.bfloat16)
             )
         else:
+            if actual_latent_dim != self.embedding_dim:
+                raise ValueError(f"Cannot use Identity routing if latent_dim ({actual_latent_dim}) != embedding_dim ({self.embedding_dim})")
             self.prefix_projection = nn.Identity()
             print("Notice: Linear Projection MLP is completely skipped. Using pure Identity routing into decoder.")
 

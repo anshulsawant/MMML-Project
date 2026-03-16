@@ -205,7 +205,7 @@ def train():
     print(f"[{local_rank}] Loading Phase 3 LatentEuclid X-Encoder...")
     x_encoder = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
-        target_model_id=target_model_id,
+        target_model_id=config["model"]["target_model_id"],  # CRITICAL: Must be 4B to match checkpoint dims (2560)
         k_steps=config["model"]["k_steps"]
     )
     
@@ -246,7 +246,8 @@ def train():
         target_model_id=target_model_id,
         k_steps=config["model"]["k_steps"],
         unfreeze_layers=config[active_block].get("unfreeze_layers", 0),
-        use_projection_mlp=config[active_block].get("use_projection_mlp", True)
+        use_projection_mlp=config[active_block].get("use_projection_mlp", True),
+        latent_dim=2560  # Bridge dimensional mismatch (4b: 2560 -> 0.6b: 1024)
     )
     y_decoder = y_decoder.to(local_rank)
     
