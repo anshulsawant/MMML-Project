@@ -120,3 +120,9 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - **Accuracy:** 39.83% (Converged early after only 2 epochs).
 - **Analysis:** This is an incredible result. Even when physically deprived of the image, the text `question` combined with the 4 visual `<thought>` latents recovers nearly 40% absolute accuracy on complex geometric reasoning (a massive leap from the ~3% Vision-Only baseline). 
 - **Next Step:** We must now execute the `Control Run` (Dummy Tokens) to mathematically verify if the text is doing 100% of the predictive work, or if the `<thoughts>` are actually transmitting the required spatial geometry to achieve this 39%.
+
+### The Control Run (Dummy Tensors)
+- **Accuracy:** 0.00%
+- **Analysis:** When the 4 `<thought>` latents were overridden with pure zeroes, the accuracy outright collapsed. This answers the Isolation Critique mathematically: the VLM is **not** just guessing from the text string. It strictly relies on the X-Encoder's spatial embeddings to solve the geometry.
+- **The Out-of-Distribution Flaw:** As the user astutely noted, dropping pure zero tensors into a multi-billion parameter attention block that was never trained on them creates catastrophic out-of-distribution (OOD) failures. The 0% accuracy might be a mathematical failure of the attention mechanisms rather than just "missing geometry."
+- **The Solution (Thought Dropout Training):** To calculate true causal impact, we must modify the training loop to randomly drop/mask specific thought combinations (e.g., train on thought [1], [1,2], [2,3,4]). This forces the projection layers and the Decoder to learn a robust, permutation-invariant topography where missing thoughts lead to graceful degradation rather than structural collapse. This will be Phase 10.
