@@ -76,3 +76,16 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 **Failure Modes & Results:**
 - **Zero-Shot E2E Accuracy:** **44.54%** (Slight Regression vs V4)
 - **Analysis:** Despite achieving a stellar 49% accuracy on the localized training slice, test-set generalizability actually suffered a slight regression compared to the isolated V4 run (45.38%). This indicates that the initial V4 configuration with 36 unfrozen base decoder layers was already fully saturating the maximum possible geometric reasoning capacity extractable from the Qwen3-VL embeddings. Subjecting the massive, fragile image processor to deep end-to-end mathematical backpropagation caused slight validation overfitting/forgetting of its foundational spatial representations rather than discovering new heuristic alignments. Future gains will likely require scaling the target base model's logic capacity itself rather than further tuning the image processor.
+
+---
+
+## 6. `v6_vision_only_0.6B_translator` (Phase 8 Vision-Only Ablation)
+**Hypothesis & Modifications:**
+- Testing if the LatentEuclid continuous visual thought topologies contain *enough natively disentangled semantic logic* to be "translated" directly into the mathematical answer by a tiny 0.6B parameter neural network, stripped of the massive linguistic heuristic priors embedded in the 4B text decoder.
+- **Micro-Translator:** `Qwen/Qwen3-0.6B` (Unfrozen completely, 24/24 layers)
+- **Prompt:** Stripped mathematical text entirely. Input: `[Thought 1]...[Thought 4]\nExtract answer from this thought. Answer: `
+- **Throughput:** VRAM dynamically saturated with Batch Size 32 / Accumulation 2.
+
+**Failure Modes & Results:**
+- **Zero-Shot Accuracy:** **~3.00%** (Catastrophic Collapse)
+- **Analysis:** The experiment definitively disproved the Hypothesis. The `Qwen3-VL-4B-Instruct` X-Encoder does not naturally compress standard geometric reasoning into a standalone, linear "Answer Space" across its 4 target vectors. Instead, it natively learned to map continuous visual topologies into *heuristic hints* compatible with the dense logic networks of the 4B parameter language decoder. A 600M parameter model lacks the underlying computational graph complexity to reinvent geometric reasoning purely from spatial matrices. LatentEuclid natively *requires* the heavy arithmetic priors of the large text decoder to bridge vision into symbolic math.
