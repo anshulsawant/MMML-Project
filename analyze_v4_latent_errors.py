@@ -45,6 +45,15 @@ def main():
     import numpy as np
     from PIL import Image
     
+    # Build image_path to index mapping
+    image_to_idx = {}
+    with open("/workspace/MMML-Project/data/geothoughts_verified.jsonl", "r") as f:
+        for idx, line in enumerate(f):
+            item = json.loads(line)
+            # Normalize path securely using basename
+            img_path_key = os.path.basename(item["image_path"])
+            image_to_idx[img_path_key] = idx
+            
     correct_mses = []
     correct_coss = []
     failed_mses = []
@@ -52,12 +61,18 @@ def main():
     
     with torch.no_grad():
         for item in tqdm(v4_eval, desc="Computing Prediction Latent Errors"):
-            img_path = "/workspace/MMML-Project/" + item["image"]
+            raw_img_path = item["image"] # e.g. "data/playground/..."
+            img_path = "/workspace/MMML-Project/" + raw_img_path
             is_correct = item["is_correct"]
             
+            img_path_key = os.path.basename(raw_img_path)
+            if img_path_key not in image_to_idx:
+                continue
+                
+            idx = image_to_idx[img_path_key]
+            
             # Load True Target Tensor
-            basename = os.path.splitext(os.path.basename(img_path))[0]
-            target_path = f"/workspace/target_tensors/target_tensors_v2_huber_mean_pooled/{basename}.pt"
+            target_path = f"/workspace/target_tensors/target_tensors_v2_huber_mean_pooled/problem_{idx}_targets.pt"
             
             if not os.path.exists(target_path):
                 continue
