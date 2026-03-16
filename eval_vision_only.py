@@ -38,7 +38,7 @@ def e2e_evaluate():
     experiment_name = args.experiment_name_override or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     if args.out == "data/e2e_mismatches.json":
-        args.out = f"data/eval_vision_only_{experiment_name}.json"
+        args.out = f"data/eval_{experiment_name}.json"
         
     # Auto-resolve latest decoder weights for this experiment if missing
     # Auto-resolve latest decoder weights for this experiment if missing
@@ -229,7 +229,7 @@ def e2e_evaluate():
                 image_grid_thw=inputs.get("image_grid_thw")
             )
             
-            # Format clean prompts for y-decoder
+            # Format clean prompts for y-decoder, completely starving it of the arithmetic text
             prompts = ["Extract answer from this thought. Answer: " for _ in questions]
             generated_texts = y_decoder.generate(
                 predicted_latents=predicted_latents, 
