@@ -27,6 +27,7 @@ def e2e_evaluate():
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
     parser.add_argument("--end_to_end", action="store_true", help="Use train_end_to_end configuration instead of train_decoder")
     parser.add_argument("--experiment_name_override", type=str, default=None, help="Override experiment name")
+    parser.add_argument("--zero_thoughts", action="store_true", help="Ablation: Force predicted_latents to pure zeros to prove if thoughts actually matter")
     args = parser.parse_args()
 
     device = args.device
@@ -38,7 +39,8 @@ def e2e_evaluate():
     experiment_name = args.experiment_name_override or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     if args.out == "data/e2e_mismatches.json":
-        args.out = f"data/eval_{experiment_name}.json"
+        suffix = "_zero_thoughts" if args.zero_thoughts else ""
+        args.out = f"data/eval_{experiment_name}{suffix}.json"
         
     # Auto-resolve latest decoder weights for this experiment if missing
     # Auto-resolve latest decoder weights for this experiment if missing
@@ -227,6 +229,9 @@ def e2e_evaluate():
                 attention_mask=inputs.attention_mask,
                 image_grid_thw=inputs.get("image_grid_thw")
             )
+            
+            if args.zero_thoughts:
+                predicted_latents = torch.zeros_like(predicted_latents)
             
             # Format clean prompts for y-decoder, completely starving it of the image pixels
             # The decoder sees the text question, the <thought>s, but NOT the raw images!

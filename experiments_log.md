@@ -100,3 +100,18 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 **Failure Modes & Results:**
 - **Zero-Shot Accuracy:** **Terrible** (Converged into failure state by Step 50)
 - **Analysis:** This definitively answers the core critique: LatentEuclid's visual topologies are *fundamentally anchored* to linguistic context. Even with 4 Billion parameters of dense mathematical processing power, the Target Decoder is completely paralyzed and blind without the original arithmetic question text. The visual `<thought>` tensors act purely as "algebraic hints" that modify pre-existing text matrices during attention pooling—they do *not* contain natively isolated, end-to-end geometry logic. Bypassing the language bottleneck is structurally impossible under this cross-attention projection manifold.
+
+---
+
+## 8. `v8_text_thought_no_image_4b` (Phase 8 Question+Thought Ablation)
+**Hypothesis & Modifications:**
+- Since the visual-only model starved of text collapsed completely, we flipped the ablation: starve the model of the raw image pixels, providing only the text `question` and the X-Encoder visual `<thought>` latents.
+- **Throughput:** Training CE loss plummeted significantly faster (dropping cleanly to ~1.0, whereas the Vision-Only ablation flatlined near 2.0).
+- **Analysis:** This confirms the Target Decoder's massive mathematical logic circuits are triggered natively by language.
+
+### The Isolation Critique
+- **The Problem:** As the user astutely noted, if the Target Decoder is highly language-capable, how can we prove the `<thought>` latents are *actually* transmitting geometric logic? The model might just be guessing the answer strictly from linguistic text patterns while completely ignoring the visual thought tensors.
+- **The Solution (Dummy Token Control):** To mathematically isolate the contribution of the `<thought>` latents, we must run a continuous interpolation ablation. We will evaluate the trained Phase 8 model on the validation set *twice*.
+  1. **Action:** Evaluate with the text question + the true `x_encoder` thought vectors.
+  2. **Control:** Evaluate with the exact same text question, but overwrite the 4 `<thought>` latents with static **Zero Tensors** (or pure Gaussian noise).
+- **Conclusion Metric:** If the accuracy is identical across both Action and Control, the X-Encoder is useless noise and LatentEuclid is functionally a text-only guessing model. If the Action accuracy is significantly higher than the Control, the `<thought>` vectors are successfully compressing and transmitting necessary spatial logic across the visual-textual bottleneck!
