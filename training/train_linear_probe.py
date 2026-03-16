@@ -439,7 +439,8 @@ def train():
             
             # Parse target_answers to floats
             # TODO(Anshul): Handle non-numeric symbolic answers (e.g. 'n+3') and constants ('2pi'). 
-            # These currently fail float casting and fall back to 0.0. Linear Probe may need an auxiliary classification head or symbol-parsing vocabulary dict later.
+            # These currently fail float casting and fall back to 0.0. 
+            # ALTERNATIVE: Re-frame the linear probe as a multiple-choice or Yes/No classifier over discrete text options instead of continuous regression mapping.
             target_floats = []
             for ans in target_answers:
                 clean_ans = ans.replace("<|im_end|>", "").strip()

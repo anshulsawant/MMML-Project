@@ -141,4 +141,5 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 Created `train_linear_probe.py` to freeze the target LLM out of the loop and strictly run a tiny PyTorch `nn.Linear` regression directly on Token 3 + the question embeddings. This will isolate the raw mathematical encoding precision of the geometry without zero-shot semantic LLM priors.
 
 **Next Steps (TODOs for Tomorrow):**
+- **Alternative Linear Probe Framing (Multiple-Choice):** To completely avoid dealing with numeric scaling (MSE vs Z-score) and symbolic (`n+3`, `2\pi`) mappings, we can re-frame the Linear Probe as a classification task: pass in the question + answer options (A, B, C, D, etc.) and predict the index, or formulate a true/false (Yes/No) question about the geometric relations.
 - **Symbolic & Constant Mapping:** The ground truth answers include mathematical expressions (`n+3`, `2\pi`, `\sqrt{3}`) which cannot be natively cast into basic un-tokenized linear float regression. We will need to either add an auxiliary classification head for the symbolic alphabet, or implement a discrete vocabulary dictionary for transcendental answers in the probe.
