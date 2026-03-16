@@ -35,10 +35,20 @@ def e2e_evaluate():
         config = yaml.safe_load(f)
         
     active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    
+    # Auto-resolve block overriding for evaluations
+    if args.experiment_name_override:
+        # Scan blocks to find which block this experiment belongs to 
+        for block in ["train_decoder", "train_end_to_end", "train_vision_only_translator"]:
+            if config.get(block, {}).get("experiment_name") == args.experiment_name_override:
+                active_block = block
+                break
+                
     experiment_name = args.experiment_name_override or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
+    target_model_id = config.get(active_block, {}).get("target_model_id_override", config["model"]["target_model_id"])
     
     if args.out == "data/e2e_mismatches.json":
-        args.out = f"data/eval_{experiment_name}.json"
+        args.out = f"data/eval_vision_only_{experiment_name}.json"
         
     # Auto-resolve latest decoder weights for this experiment if missing
     # Auto-resolve latest decoder weights for this experiment if missing
@@ -64,10 +74,10 @@ def e2e_evaluate():
             print(f"Error: No decoder weights provided and none found in {ckpt_dir}")
             sys.exit(1)
 
-    print("Loading X-Encoder...")
+    print(f"Loading X-Encoder (Target: {target_model_id})...")
     x_encoder = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
-        target_model_id=config["model"]["target_model_id"],
+        target_model_id=config["model"]["target_model_id"], # X-Encoder output projection ALWAYS targets 4B base dims (2560)
         k_steps=config["model"]["k_steps"]
     ).to(device)
     
@@ -108,10 +118,11 @@ def e2e_evaluate():
 
     print("Loading Y-Decoder...")
     y_decoder = YDecoderPrefix(
-        target_model_id=config["model"]["target_model_id"],
+        target_model_id=target_model_id,
         k_steps=config["model"]["k_steps"],
         unfreeze_layers=config.get(active_block, {}).get("unfreeze_layers", 0),
-        use_projection_mlp=config.get(active_block, {}).get("use_projection_mlp", True)
+        use_projection_mlp=config.get(active_block, {}).get("use_projection_mlp", True),
+        latent_dim=2560 # Bridge geometric cross-modal dimensions seamlessly
     ).to(device)
     
     # Load projection head / decoder weights
