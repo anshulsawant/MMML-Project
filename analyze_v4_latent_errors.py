@@ -58,10 +58,8 @@ def main():
             
     correct_mses = []
     correct_coss = []
-    correct_q_lens = []
     failed_mses = []
     failed_coss = []
-    failed_q_lens = []
     
     with torch.no_grad():
         for item in tqdm(v4_eval, desc="Computing Prediction Latent Errors"):
@@ -109,16 +107,13 @@ def main():
             # Compute MSE and Cosine
             mse = F.mse_loss(pred_latents.float(), target_tensor.float()).item()
             cos = F.cosine_similarity(pred_latents.float(), target_tensor.float(), dim=2).mean().item()
-            q_len = len(question.split())
             
             if is_correct:
                 correct_mses.append(mse)
                 correct_coss.append(cos)
-                correct_q_lens.append(q_len)
             else:
                 failed_mses.append(mse)
                 failed_coss.append(cos)
-                failed_q_lens.append(q_len)
                 
     print("\n" + "="*50)
     print("=== Latent Vector Prediction Error Analysis ===")
@@ -126,12 +121,10 @@ def main():
     print(f"Correct Samples ({len(correct_mses)}):")
     print(f"  Avg MSE Loss:   {np.mean(correct_mses):.4f}")
     print(f"  Avg Cosine Sim: {np.mean(correct_coss):.4f}")
-    print(f"  Avg Question Len: {np.mean(correct_q_lens):.1f} words")
     
     print(f"\nFailed Samples ({len(failed_mses)}):")
     print(f"  Avg MSE Loss:   {np.mean(failed_mses):.4f}")
     print(f"  Avg Cosine Sim: {np.mean(failed_coss):.4f}")
-    print(f"  Avg Question Len: {np.mean(failed_q_lens):.1f} words")
     print("\nConclusion: If the distance metrics between Failed and Correct samples are statically identical, the fault lies entirely with the Language Model decoding capacity, rather than the Image Processor generating visually faulty geometries.")
 
 if __name__ == "__main__":
