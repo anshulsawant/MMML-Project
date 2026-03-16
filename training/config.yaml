@@ -58,8 +58,8 @@ train_vision_only_translator:
   target_model_id_override: "Qwen/Qwen3-0.6B"
   epochs: 50
   save_every_n_steps: 10
-  batch_size: 2
-  gradient_accumulation_steps: 32
+  batch_size: 32
+  gradient_accumulation_steps: 2
   learning_rate: 5.0e-5
   weight_decay: 0.01
   max_grad_norm: 5.0
