@@ -47,12 +47,14 @@ def main():
     
     # Build image_path to index mapping
     image_to_idx = {}
+    image_to_question = {}
     with open("/workspace/MMML-Project/data/geothoughts_verified.jsonl", "r") as f:
         for idx, line in enumerate(f):
             item = json.loads(line)
             # Normalize path securely using basename
             img_path_key = os.path.basename(item["image_path"])
             image_to_idx[img_path_key] = idx
+            image_to_question[img_path_key] = item["question"]
             
     correct_mses = []
     correct_coss = []
@@ -87,7 +89,10 @@ def main():
                 continue
             
             # We append the exact same prompt sequence it was trained on
-            msg = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": "dummy"}]}]
+            question = image_to_question[img_path_key]
+            thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
+            full_prompt = question + " " + thought_string
+            msg = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": full_prompt}]}]
             text_prompt = latent_euclid.processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True)
             inputs = latent_euclid.processor(text=[text_prompt], images=[img], padding=True, return_tensors="pt").to(device)
             
