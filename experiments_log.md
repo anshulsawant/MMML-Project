@@ -89,3 +89,14 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 **Failure Modes & Results:**
 - **Zero-Shot Accuracy:** **~3.00%** (Catastrophic Collapse)
 - **Analysis:** The experiment definitively disproved the Hypothesis. The `Qwen3-VL-4B-Instruct` X-Encoder does not naturally compress standard geometric reasoning into a standalone, linear "Answer Space" across its 4 target vectors. Instead, it natively learned to map continuous visual topologies into *heuristic hints* compatible with the dense logic networks of the 4B parameter language decoder. A 600M parameter model lacks the underlying computational graph complexity to reinvent geometric reasoning purely from spatial matrices. LatentEuclid natively *requires* the heavy arithmetic priors of the large text decoder to bridge vision into symbolic math.
+
+---
+
+## 7. `v7_vision_only_4b` (Phase 7 Vision-Only 4B Re-Ablation)
+**Hypothesis & Modifications:**
+- The user hypothesized the `v6` collapse was strictly a parameter scaling issue (0.6B is simply too tiny to do math at all). To control for this, we re-ran the exact same text-stripped generation evaluation (`Extract answer from this thought. Answer: `) against the massive Target Decoder (4B parameters, `v4` architecture).
+- **Throughput:** Trained from scratch using the baseline V4 architecture (2 unfrozen layers). Convergence plateaued incredibly fast (around 50 steps).
+
+**Failure Modes & Results:**
+- **Zero-Shot Accuracy:** **Terrible** (Converged into failure state by Step 50)
+- **Analysis:** This definitively answers the core critique: LatentEuclid's visual topologies are *fundamentally anchored* to linguistic context. Even with 4 Billion parameters of dense mathematical processing power, the Target Decoder is completely paralyzed and blind without the original arithmetic question text. The visual `<thought>` tensors act purely as "algebraic hints" that modify pre-existing text matrices during attention pooling—they do *not* contain natively isolated, end-to-end geometry logic. Bypassing the language bottleneck is structurally impossible under this cross-attention projection manifold.
