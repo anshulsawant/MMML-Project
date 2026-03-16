@@ -440,7 +440,8 @@ def train():
             # Parse target_answers to floats
             # TODO(Anshul): Handle non-numeric symbolic answers (e.g. 'n+3') and constants ('2pi'). 
             # These currently fail float casting and fall back to 0.0. 
-            # ALTERNATIVE: Re-frame the linear probe as a multiple-choice or Yes/No classifier over discrete text options instead of continuous regression mapping.
+            # ALTERNATIVE 1: Re-frame the linear probe as a multiple-choice or Yes/No classifier over discrete text options instead of continuous regression mapping.
+            # ALTERNATIVE 2: Re-frame the linear probe dynamically using a simplified discrete vocabulary (digits [0-9] and math symbols +, -, *, etc.) to sequence-decode.
             target_floats = []
             for ans in target_answers:
                 clean_ans = ans.replace("<|im_end|>", "").strip()
