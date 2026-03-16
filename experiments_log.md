@@ -115,3 +115,8 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
   1. **Action:** Evaluate with the text question + the true `x_encoder` thought vectors.
   2. **Control:** Evaluate with the exact same text question, but overwrite the 4 `<thought>` latents with static **Zero Tensors** (or pure Gaussian noise).
 - **Conclusion Metric:** If the accuracy is identical across both Action and Control, the X-Encoder is useless noise and LatentEuclid is functionally a text-only guessing model. If the Action accuracy is significantly higher than the Control, the `<thought>` vectors are successfully compressing and transmitting necessary spatial logic across the visual-textual bottleneck!
+
+### The Action Run (True Thoughts Baseline)
+- **Accuracy:** 39.83% (Converged early after only 2 epochs).
+- **Analysis:** This is an incredible result. Even when physically deprived of the image, the text `question` combined with the 4 visual `<thought>` latents recovers nearly 40% absolute accuracy on complex geometric reasoning (a massive leap from the ~3% Vision-Only baseline). 
+- **Next Step:** We must now execute the `Control Run` (Dummy Tokens) to mathematically verify if the text is doing 100% of the predictive work, or if the `<thoughts>` are actually transmitting the required spatial geometry to achieve this 39%.
