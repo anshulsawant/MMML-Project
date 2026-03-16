@@ -90,7 +90,7 @@ def custom_collate(batch):
     answers = [item["target_answer"] for item in batch]
     return images, texts, answers
 
-def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=100):
+def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, target_mean=0.0, target_std=1.0, limit=100):
     val_decoder = y_decoder.module if isinstance(y_decoder, DDP) else y_decoder
     val_encoder = x_encoder.module if isinstance(x_encoder, DDP) else x_encoder
     
@@ -143,7 +143,8 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
                 except ValueError:
                     continue # Skip invalid GTs for metric purity
                 
-                pred_val = float(pred_val_tensor.item())
+                # Un-normalize logic to evaluate exact numeric match on the original ground truth scale
+                pred_val = (float(pred_val_tensor.item()) * target_std) + target_mean
                 
                 gt_norm = normalize(gt_raw)
                 pred_norm = normalize(pred_raw)
@@ -354,8 +355,25 @@ def train():
     train_data = full_data[:split_idx]
     val_data = full_data[split_idx:]
     
+    # --- Target Normalization ---
+    valid_floats = []
+    for item in train_data:
+        gt_str = str(ground_truths.get(item["image_path"], "0")).replace("<|im_end|>", "").strip()
+        try:
+            valid_floats.append(float(gt_str))
+        except ValueError:
+            pass
+            
+    if len(valid_floats) > 0:
+        target_mean = sum(valid_floats) / len(valid_floats)
+        target_variance = sum((x - target_mean) ** 2 for x in valid_floats) / len(valid_floats)
+        target_std = max(1e-8, math.sqrt(target_variance))
+    else:
+        target_mean, target_std = 0.0, 1.0
+        
     if is_master:
         print(f"Train split: {len(train_data)} | Val split: {len(val_data)}")
+        print(f"Target Normalization Constants -> Mean: {target_mean:.4f} | Std: {target_std:.4f}")
 
     x_tokenizer = x_encoder.module.tokenizer if is_distributed else x_encoder.tokenizer
 
@@ -449,6 +467,9 @@ def train():
             
             target_tensor = torch.tensor(target_floats, device=device, dtype=predicted_scalars.dtype)
             
+            # Standardize targets to prevent large angle errors from dominating the gradient updates
+            target_tensor = (target_tensor - target_mean) / target_std
+            
             # Use MSE Loss for regression
             loss = F.mse_loss(predicted_scalars, target_tensor) / grad_accum_steps
             loss.backward()
@@ -491,7 +512,7 @@ def train():
                 # 2. Fire Synchronous Evaluation Native Function
                 print(f"[{device}] Running synchronous evaluation (limit 100 samples) IN-MEMORY...")
                 try:
-                    acc_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], limit=100)
+                    acc_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], target_mean, target_std, limit=100)
                     print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
                     wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
                     
@@ -560,6 +581,8 @@ def train():
                     target_floats.append(val)
                 
                 target_tensor = torch.tensor(target_floats, device=device, dtype=predicted_scalars.dtype)
+                # Standardize validation targets
+                target_tensor = (target_tensor - target_mean) / target_std
                 loss = F.mse_loss(predicted_scalars, target_tensor)
                 
                 total_val_loss += loss.item()
