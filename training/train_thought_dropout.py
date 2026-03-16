@@ -441,17 +441,19 @@ def train():
                         image_grid_thw=inputs.get("image_grid_thw")
                     )
             
-            # --- PHASE 10: THOUGHT DROPOUT CAUSAL TRACING ---
-            # Randomly mask combinations of thoughts with 0.0 tensors to prevent OOD failure during evaluation
-            # 1. 20% chance to mask ALL thoughts (forces base LLM robust interpolation)
-            # 2. 50% chance to mask a random single thought index (teaches permutation invariance)
-            # 3. 30% chance to keep all thoughts intact
-            rand_val = random.random()
-            if rand_val < 0.20:
-                predicted_latents = torch.zeros_like(predicted_latents)
-            elif rand_val < 0.70:
-                mask_idx = random.randint(0, config["model"]["k_steps"] - 1)
-                predicted_latents[:, mask_idx, :] = 0.0
+            # --- PHASE 10: CAUSAL PREFIX DROPOUT ---
+            # The thoughts are NOT permutation-invariant; they encode the sequential Chain-of-Thought (Question -> Retrieval -> Calc -> Answer).
+            # To teach the model to generate the rest of the answer from any valid CoT stopping point, 
+            # we truncate the sequence by masking ALL thoughts after a randomly chosen step `i`.
+            # Options (probability uniformly distributed):
+            # i=0: [0, 0, 0, 0] (Model must generate entire CoT from just the question)
+            # i=1: [1, 0, 0, 0] 
+            # i=2: [1, 1, 0, 0]
+            # i=3: [1, 1, 1, 0]
+            # i=4: [1, 1, 1, 1] (Keep all thoughts intact)
+            dropout_idx = random.randint(0, config["model"]["k_steps"])
+            if dropout_idx < config["model"]["k_steps"]:
+                predicted_latents[:, dropout_idx:, :] = 0.0
             
             # Forward pass through Decoder (computes Cross Entropy against `target_answers`)
             # Text Only! No pixels passed down.

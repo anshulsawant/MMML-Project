@@ -132,5 +132,5 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - **Token 1 Zeroed:** Accuracy dropped from 39.83% to 37.65%.
 - **Token 2 Zeroed:** Accuracy dropped from 39.83% to 38.32%.
 - **Token 3 Zeroed:** Accuracy catastrophically dropped from 39.83% to 8.74%.
-- **Analysis:** This is a profound architectural discovery. Masking early tokens (0, 1, 2) barely impacts the model because the Transformer can interpolate their missing information from later tokens. But masking the *final* token (Token 3) causes the geometric logic to collapse down to 8.7%. Because the visual `<thought>` tokens are fed sequentially `[0]->[1]->[2]->[3]`, the target decoder heavily bottlenecks its geometric extraction onto that final vector right before the text generation begins. Token 3 acts as the master summary variable!
+- **Analysis (Corrected):** The architecture relies heavily on Token 3 because it maps directly to `Step 4 [Final Conclusion]` from the GeoThoughts dataset. The 4 `<thought>` tokens are not a permutation-invariant bag of spatial features; they are a direct mathematical compression of the sequential Chain-of-Thought (Question -> Retrieval -> Calculation -> Answer). Therefore, when we zero out Token 3, we are literally deleting the encoded answer, causing the massive accuracy dive. The model requires sequential CoT validity.
 []
