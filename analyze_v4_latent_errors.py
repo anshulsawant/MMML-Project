@@ -9,7 +9,7 @@ import sys
 # Ensure MMML-Project is in path if running from within it
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from models.x_encoder import XEncoder
+from models.latent_euclid import LatentEuclid
 
 def main():
     # 1. Load V4 Eval json
@@ -25,17 +25,18 @@ def main():
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(f"Using device {device}")
     
-    # Initialize X-Encoder
-    x_encoder = XEncoder(
-        model_id=config["model"]["base_model_id"],
+    # Initialize the full LatentEuclid wrapper
+    latent_euclid = LatentEuclid(
+        base_model_id=config["model"]["base_model_id"],
+        target_model_id=config["model"]["target_model_id"],
         k_steps=config["model"]["k_steps"]
     ).to(device)
     
-    # Load V2 weights because V4 used the perfectly frozen V2 X-Encoder
+    # Load V2 weights because V4 used the perfectly frozen V2 vision alignment
     weight_path = "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
     print(f"Loading X-Encoder weights from {weight_path}")
-    x_encoder.load_state_dict(torch.load(weight_path, map_location=device, weights_only=True))
-    x_encoder.eval()
+    latent_euclid.load_state_dict(torch.load(weight_path, map_location=device, weights_only=True))
+    latent_euclid.eval()
     
     import numpy as np
     from PIL import Image
@@ -60,7 +61,7 @@ def main():
             target_tensor = torch.load(target_path, map_location=device, weights_only=True) # [K, 3584]
             target_tensor = target_tensor.unsqueeze(0) # [1, K, 3584]
             
-            # Run X-Encoder to get Predicted Latents
+            # Run LatentEuclid to get Predicted Latents
             try:
                 img = Image.open(img_path).convert("RGB")
             except:
@@ -68,11 +69,11 @@ def main():
             
             # We append the exact same prompt sequence it was trained on
             msg = [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": "dummy"}]}]
-            text_prompt = x_encoder.processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True)
-            inputs = x_encoder.processor(text=[text_prompt], images=[img], padding=True, return_tensors="pt").to(device)
+            text_prompt = latent_euclid.processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True)
+            inputs = latent_euclid.processor(text=[text_prompt], images=[img], padding=True, return_tensors="pt").to(device)
             
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-                pred_latents = x_encoder(
+                pred_latents = latent_euclid(
                     input_ids=inputs.input_ids,
                     attention_mask=inputs.attention_mask,
                     pixel_values=inputs.get("pixel_values"),
