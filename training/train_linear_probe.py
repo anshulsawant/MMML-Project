@@ -438,6 +438,8 @@ def train():
             predicted_scalars = linear_probe(thought_3).squeeze(-1) # [Batch]
             
             # Parse target_answers to floats
+            # TODO(Anshul): Handle non-numeric symbolic answers (e.g. 'n+3') and constants ('2pi'). 
+            # These currently fail float casting and fall back to 0.0. Linear Probe may need an auxiliary classification head or symbol-parsing vocabulary dict later.
             target_floats = []
             for ans in target_answers:
                 clean_ans = ans.replace("<|im_end|>", "").strip()
