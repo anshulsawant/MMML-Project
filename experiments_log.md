@@ -126,3 +126,8 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 - **Analysis:** When the 4 `<thought>` latents were overridden with pure zeroes, the accuracy outright collapsed. This answers the Isolation Critique mathematically: the VLM is **not** just guessing from the text string. It strictly relies on the X-Encoder's spatial embeddings to solve the geometry.
 - **The Out-of-Distribution Flaw:** As the user astutely noted, dropping pure zero tensors into a multi-billion parameter attention block that was never trained on them creates catastrophic out-of-distribution (OOD) failures. The 0% accuracy might be a mathematical failure of the attention mechanisms rather than just "missing geometry."
 - **The Solution (Thought Dropout Training):** To calculate true causal impact, we must modify the training loop to randomly drop/mask specific thought combinations (e.g., train on thought [1], [1,2], [2,3,4]). This forces the projection layers and the Decoder to learn a robust, permutation-invariant topography where missing thoughts lead to graceful degradation rather than structural collapse. This will be Phase 10.
+
+### Individual Thought Ablation (Single Token Analysis)
+- **Token 0 Zeroed:** Accuracy dropped from 39.83% to 38.66%.
+- **Token 2 Zeroed:** Accuracy dropped from 39.83% to 38.32%.
+- **Analysis:** A minor 1.1% to 1.5% drop proves that disabling single thought tokens does not trigger the catastrophic OOD failure seen when zeroing all tokens simultaneously. Furthermore, it implies the geometric density is likely highly inter-distributed across all 4 tokens; missing one token allows the model to interpolate the remaining 3 to generate the reasoning path with only minor performance degradation.
