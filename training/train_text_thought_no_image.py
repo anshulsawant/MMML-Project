@@ -32,6 +32,8 @@ def parse_args():
                         help="Path to the frozen VICReg-aligned X-Encoder weights")
     parser.add_argument("--end_to_end", action="store_true",
                         help="Experimental: Unfreeze X-Encoder to train end-to-end (Method B)")
+    parser.add_argument("--experiment_name_override", type=str, default=None,
+                        help="Override to dynamically select a specific training block from config.yaml (e.g. train_vision_only_translator)")
     return parser.parse_args()
 
 def setup_ddp():
@@ -174,8 +176,11 @@ def train():
     
     device = local_rank if is_distributed else local_rank
 
-    # Select active configuration block based on mode
-    active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    # Select active configuration block based on mode or explicit override
+    if args.experiment_name_override and args.experiment_name_override in config:
+        active_block = args.experiment_name_override
+    else:
+        active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
     
     experiment_name = config.get(active_block, {}).get("experiment_name", "default")
 
