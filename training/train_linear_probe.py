@@ -1,0 +1,631 @@
+import argparse
+import yaml
+import json
+import os
+import torch
+import wandb
+from PIL import Image
+import torch.distributed as dist
+from torch.nn.parallel import DistributedDataParallel as DDP
+from torch.utils.data import Dataset, DataLoader, DistributedSampler
+import random
+import sys
+import math
+
+sys.path.append('data')
+try:
+    from evaluate_generated import clean_base_model_ans, safe_math_eval, normalize
+except ImportError:
+    print("Warning: Could not import robust evaluation metrics, defaulting to strict equality.")
+    def clean_base_model_ans(x): return x.strip()
+    def safe_math_eval(x): return None
+    def normalize(x): return x.strip().lower()
+
+from models.latent_euclid import LatentEuclid
+import torch.nn as nn
+import torch.nn.functional as F
+
+def parse_args():
+    parser = argparse.ArgumentParser(description="LatentEuclid Phase 4.5: Train Prefix Projection")
+    parser.add_argument("--config", type=str, default="training/config.yaml",
+                        help="Path to YAML training configuration")
+    parser.add_argument("--x_encoder_weights", type=str, default="checkpoints/x_encoder_best.pt",
+                        help="Path to the frozen VICReg-aligned X-Encoder weights")
+    parser.add_argument("--end_to_end", action="store_true",
+                        help="Experimental: Unfreeze X-Encoder to train end-to-end (Method B)")
+    parser.add_argument("--experiment_name_override", type=str, default=None,
+                        help="Override to dynamically select a specific training block from config.yaml (e.g. train_vision_only_translator)")
+    return parser.parse_args()
+
+def setup_ddp():
+    if "LOCAL_RANK" in os.environ:
+        dist.init_process_group("nccl")
+        local_rank = int(os.environ["LOCAL_RANK"])
+        torch.cuda.set_device(local_rank)
+        return local_rank
+    else:
+        return "cuda" if torch.cuda.is_available() else "cpu"
+
+class GeoThoughtsTextDataset(Dataset):
+    """
+    Extends the dataset to expose target answer texts for Perplexity Loss.
+    """
+    def __init__(self, data_list, ground_truths, tokenizer, k_steps=4):
+        self.data = data_list
+        self.ground_truths = ground_truths
+        self.tokenizer = tokenizer
+        self.k_steps = k_steps
+
+    def __len__(self):
+        return len(self.data)
+
+    def __getitem__(self, idx):
+        item = self.data[idx]
+        
+        # 1. Image
+        img_path = item["image_path"]
+        try:
+            image = Image.open(img_path).convert("RGB")
+        except:
+            image = Image.new('RGB', (224, 224), color = (73, 109, 137))
+            
+        # 2. Base VLM Input Text
+        thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])
+        full_text = item["question"] + " " + thought_string
+        
+        # 3. Final Target Answer for the Y-Decoder to learn to generate
+        # Lookup the true answer string dynamically from ground_truths.json
+        target_answer = str(self.ground_truths.get(img_path, "0"))
+        target_answer += "<|im_end|>" # Ensure it learns to stop
+
+        return {
+            "image": image,
+            "text": full_text,
+            "target_answer": target_answer
+        }
+
+def custom_collate(batch):
+    images = [item["image"] for item in batch]
+    texts = [item["text"] for item in batch]
+    answers = [item["target_answer"] for item in batch]
+    return images, texts, answers
+
+def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=100):
+    val_decoder = y_decoder.module if isinstance(y_decoder, DDP) else y_decoder
+    val_encoder = x_encoder.module if isinstance(x_encoder, DDP) else x_encoder
+    
+    val_decoder.eval()
+    val_encoder.eval()
+        
+    correct = 0
+    total = 0
+    
+    with torch.no_grad():
+        for batch_idx, (images, texts, target_answers) in enumerate(val_loader):
+            if total >= limit:
+                break
+                
+            x_processor = val_encoder.processor
+            batch_messages = []
+            for img, txt in zip(images, texts):
+                batch_messages.append([
+                    {"role": "user", "content": [
+                        {"type": "text", "text": txt}
+                    ]}
+                ])
+                
+            rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+            inputs = x_processor(text=rendered_texts, padding=True, return_tensors="pt").to(device)
+            
+            decoder_prompts = []
+            for t in texts:
+                clean_t = t
+                for i in range(k_steps):
+                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
+                
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                predicted_latents = val_encoder(
+                    input_ids=inputs.input_ids, 
+                    attention_mask=inputs.attention_mask,
+                    pixel_values=inputs.get("pixel_values"),
+                    image_grid_thw=inputs.get("image_grid_thw")
+                )
+                
+            thought_3 = predicted_latents[:, 3, :]
+            predicted_scalars = val_decoder(thought_3).squeeze(-1)
+            
+            for i, gt_ans in enumerate(target_answers):
+                pred_val_tensor = predicted_scalars[i]
+                gt_raw = gt_ans.replace("<|im_end|>", "").strip()
+                try:
+                    gt_val = float(gt_raw)
+                except ValueError:
+                    continue # Skip invalid GTs for metric purity
+                
+                pred_val = float(pred_val_tensor.item())
+                
+                gt_norm = normalize(gt_raw)
+                pred_norm = normalize(pred_raw)
+                
+                is_correct = (gt_norm == pred_norm)
+                if not is_correct:
+                    gt_val = safe_math_eval(gt_raw)
+                    pred_val = safe_math_eval(pred_raw)
+                    if gt_val is not None and pred_val is not None:
+                        is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
+                        
+                total += 1
+                if is_correct:
+                    correct += 1
+                    
+            if total >= limit:
+                break
+                
+    val_decoder.train()
+    val_encoder.train()
+        
+    return (correct / total * 100) if total > 0 else 0.0
+
+def train():
+    args = parse_args()
+    
+    with open(args.config, 'r') as f:
+        config = yaml.safe_load(f)
+        
+    local_rank = setup_ddp()
+    is_distributed = isinstance(local_rank, int)
+    is_master = (local_rank == 0 if is_distributed else True)
+    
+    device = local_rank if is_distributed else local_rank
+
+    # Select active configuration block based on mode or explicit override
+    active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    
+    if args.experiment_name_override:
+        if args.experiment_name_override in config:
+            active_block = args.experiment_name_override
+        else:
+            # Search for block containing this experiment_name
+            for key, val in config.items():
+                if isinstance(val, dict) and val.get("experiment_name") == args.experiment_name_override:
+                    active_block = key
+                    break
+    
+    experiment_name = config.get(active_block, {}).get("experiment_name", "default")
+
+    # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
+    base_checkpoint_dir = config.get(active_block, {}).get("checkpoint_dir", "/workspace/checkpoints/decoder")
+    if base_checkpoint_dir.endswith("decoder"):
+        checkpoint_dir = os.path.join(os.path.dirname(base_checkpoint_dir), experiment_name, "decoder")
+    else:
+        checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name, "decoder")
+    config.setdefault(active_block, {})["checkpoint_dir"] = checkpoint_dir
+
+    if is_master:
+        print("\n" + "="*50)
+        print("LatentEuclid Phase 4.5 (Y-Decoder Projection)")
+        print("Executing with Configuration:")
+        print(yaml.dump(config, default_flow_style=False))
+        print("="*50 + "\n")
+
+    if is_master:
+        import time
+        run_timestamp = time.strftime("%Y%m%d_%H%M%S")
+        wandb.init(
+            project="LatentEuclid",
+            name=f"{experiment_name}_Decoder_{run_timestamp}",
+            group=experiment_name,
+            config=config
+        )
+
+    print(f"[{local_rank}] Loading Phase 3 LatentEuclid X-Encoder...")
+    x_encoder = LatentEuclid(
+        base_model_id=config["model"]["base_model_id"],
+        target_model_id=config["model"]["target_model_id"],
+        k_steps=config["model"]["k_steps"]
+    )
+    
+    # Load X-encoder weights tracked by experiment
+    # Allow an explicit cross-experiment fallback override in Phase 4/5
+    override_path = config.get(active_block, {}).get("x_encoder_weights_override")
+    if override_path and os.path.exists(override_path):
+        weight_path = override_path
+    else:
+        weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
+        if "x_encoder_best.pt" in weight_path and experiment_name != "default":
+            # Ensure it checks the namespaced folder from Phase 3 natively
+            weight_path = os.path.join("/workspace/checkpoints", experiment_name, "x_encoder_best.pt")
+            
+    if os.path.exists(weight_path):
+        state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)
+        x_encoder.load_state_dict(state_dict["model_state_dict"])
+        print(f"[{local_rank}] Successfully loaded pre-aligned geometry from {weight_path}")
+    else:
+        print(f"Error: Could not find '{weight_path}'. You must complete Phase 3 VICReg first!")
+        exit(1)
+
+    if not args.end_to_end:
+        print(f"[{local_rank}] Freezing X-Encoder (Method A)...")
+        for param in x_encoder.parameters():
+            param.requires_grad = False
+        x_encoder.eval() # Ensure dropout/BN is frozen
+    else:
+        print(f"[{local_rank}] Unfreezing X-Encoder for End-to-End Co-Training (Method B)...")
+        x_encoder.train()
+        print(f"[{local_rank}] Enabling Gradient Checkpointing on X-Encoder VLM for VRAM savings...")
+        x_encoder.vlm.gradient_checkpointing_enable()
+        
+    x_encoder = x_encoder.to(local_rank)
+
+    print(f"[{local_rank}] Loading Phase 11 Linear Probe...")
+    # The X-Encoder outputs 3584 dimensional embeddings.
+    # We will slice out `thought3` (the 4th k_step) and attempt to project it linearly to a single scalar float answer.
+    linear_probe = nn.Sequential(
+        nn.Linear(3584, 1024),
+        nn.GELU(),
+        nn.Linear(1024, 1)
+    ).to(device)
+    y_decoder = linear_probe # alias for compatibility
+    
+    start_epoch = 0
+    best_val_loss = float('inf')
+    best_eval_acc = 0.0
+    # Attempt to gracefully resume from the latest checkpoint
+    if os.path.exists(checkpoint_dir):
+        existing_cps = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
+        if len(existing_cps) > 0:
+            def parse_cp_name(f):
+                base = f.split('epoch_')[1].split('.pt')[0]
+                if "_step_" in base:
+                    ep, st = base.split("_step_")
+                    return (int(ep), int(st))
+                return (int(base), 0)
+                
+            existing_cps.sort(key=parse_cp_name)
+            latest_cp = existing_cps[-1]
+            latest_path = os.path.join(checkpoint_dir, latest_cp)
+            
+            try:
+                state_dict = torch.load(latest_path, map_location="cpu")
+                is_named_params = any(k.startswith("prefix_projection.") or k.startswith("decoder.") for k in state_dict)
+                if is_named_params:
+                    y_decoder.load_state_dict(state_dict, strict=False)
+                else:
+                    y_decoder.prefix_projection.load_state_dict(state_dict)
+                    
+                ep, st = parse_cp_name(latest_cp)
+                start_epoch = ep if st > 0 else ep + 1
+                
+                if args.end_to_end:
+                    enc_name = f"x_encoder_e2e_epoch_{ep}_step_{st}.pt" if st > 0 else f"x_encoder_e2e_epoch_{ep}.pt"
+                    enc_path = os.path.join(checkpoint_dir, enc_name)
+                    if os.path.exists(enc_path):
+                        enc_state = torch.load(enc_path, map_location="cpu")
+                        if "model_state_dict" in enc_state:
+                            x_encoder.load_state_dict(enc_state["model_state_dict"])
+                        else:
+                            x_encoder.load_state_dict(enc_state)
+                        if is_master:
+                            print(f"[{local_rank}] Symmetrically resumed X-Encoder from {enc_path}")
+                
+                # Attempt to retrieve historical best_val_loss
+                loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                if os.path.exists(loss_tracker_path):
+                    with open(loss_tracker_path, 'r') as f:
+                        best_val_loss = float(json.load(f)["best_loss"])
+                        
+                if is_master:
+                    print(f"[{local_rank}] Resumed Y-Decoder from {latest_path} (Starting at Epoch {start_epoch}) | Historic Best Loss: {best_val_loss:.4f}")
+            except Exception as e:
+                if is_master:
+                    print(f"[{local_rank}] Failed to load resume checkpoint from {latest_path}: {e}")
+    
+    # y_decoder base LLM is always frozen in `__init__`.
+    # `prefix_projection` intrinsically has requires_grad=True
+    
+    if is_distributed:
+        if args.end_to_end:
+            x_encoder = DDP(x_encoder, device_ids=[local_rank])
+        y_decoder = DDP(y_decoder, device_ids=[local_rank])
+
+    # Filter trainable parameters
+    trainable_params = list(y_decoder.parameters())
+    if args.end_to_end:
+        trainable_params += list(x_encoder.parameters())
+
+    optimizer = torch.optim.AdamW(
+        filter(lambda p: p.requires_grad, trainable_params), 
+        lr=float(config[active_block]["learning_rate"]), 
+        weight_decay=float(config[active_block]["weight_decay"])
+    )
+
+    # ------------------ Data Split ------------------
+    with open(config["data"]["jsonl_path"], 'r') as f:
+        full_data = [json.loads(line) for line in f]
+        
+    with open("data/ground_truths.json", 'r') as f:
+        ground_truths = json.load(f)
+        
+    # 90/10 Train/Val Split for overfitting protection without sklearn
+    random.seed(42)
+    random.shuffle(full_data)
+    split_idx = int(0.9 * len(full_data))
+    train_data = full_data[:split_idx]
+    val_data = full_data[split_idx:]
+    
+    if is_master:
+        print(f"Train split: {len(train_data)} | Val split: {len(val_data)}")
+
+    x_tokenizer = x_encoder.module.tokenizer if is_distributed else x_encoder.tokenizer
+
+    train_dataset = GeoThoughtsTextDataset(train_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
+    val_dataset = GeoThoughtsTextDataset(val_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
+
+    train_sampler = DistributedSampler(train_dataset) if is_distributed else None
+    train_loader = DataLoader(train_dataset, batch_size=int(config[active_block]["batch_size"]), sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None), drop_last=True)
+    
+    val_sampler = DistributedSampler(val_dataset, shuffle=False) if is_distributed else None
+    val_loader = DataLoader(val_dataset, batch_size=int(config[active_block]["batch_size"]), sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
+
+    epochs = int(config[active_block]["epochs"])
+    grad_accum_steps = int(config.get(active_block, {}).get("gradient_accumulation_steps", 1))
+    save_every_n_steps = int(config.get(active_block, {}).get("save_every_n_steps", 0))
+    
+    for epoch in range(start_epoch, epochs):
+        if train_sampler:
+            train_sampler.set_epoch(epoch)
+            
+        y_decoder.train() # Ensures projection layer tracks gradients
+        if args.end_to_end:
+            x_encoder.train()
+            
+        total_train_loss = 0.0
+        accumulated_loss = 0.0
+        optimizer.zero_grad()
+        
+        for batch_idx, (images, texts, target_answers) in enumerate(train_loader):
+            # --- CRITICAL BUGFIX: PROCESSOR IMAGE PASSING ---
+            # DO NOT REVERT: The base Qwen3-VL processor MUST receive the images here explicitly.
+            # If `pixel_values` are omitted, the VLM natively falls back to blind text-only logic 
+            # and completely ignores the geometric diagrams, destroying metric validity.
+            x_processor = x_encoder.module.processor if is_distributed else x_encoder.processor
+            batch_messages = []
+            for img, txt in zip(images, texts):
+                batch_messages.append([
+                    {"role": "user", "content": [
+                        {"type": "text", "text": txt}
+                    ]}
+                ])
+                
+            rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+            inputs = x_processor(text=rendered_texts, padding=True, return_tensors="pt").to(device)
+            # ------------------------------------------------
+            # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
+            decoder_prompts = []
+            for t in texts:
+                clean_t = t
+                for i in range(config["model"]["k_steps"]):
+                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
+            
+            # If Method A: X-Encoder is frozen, no gradients track through it
+            if not args.end_to_end:
+                with torch.no_grad():
+                    with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                        predicted_latents = x_encoder(
+                            input_ids=inputs.input_ids, 
+                            attention_mask=inputs.attention_mask,
+                            pixel_values=inputs.get("pixel_values"),
+                            image_grid_thw=inputs.get("image_grid_thw")
+                        )
+            else:
+                # Method B: Gradients track all the way back to the VLM image processor
+                with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                    predicted_latents = x_encoder(
+                        input_ids=inputs.input_ids, 
+                        attention_mask=inputs.attention_mask,
+                        pixel_values=inputs.get("pixel_values"),
+                        image_grid_thw=inputs.get("image_grid_thw")
+                    )
+            
+            # Forward pass through Linear Probe
+            # predicted_latents shape: [Batch, k_steps, 3584]
+            # Since the user stated thought3 mathematically encodes the answer, we slice it out:
+            thought_3 = predicted_latents[:, 3, :] # Get the 4th token
+            
+            # Predict a single scalar float answer
+            predicted_scalars = linear_probe(thought_3).squeeze(-1) # [Batch]
+            
+            # Parse target_answers to floats
+            target_floats = []
+            for ans in target_answers:
+                clean_ans = ans.replace("<|im_end|>", "").strip()
+                try:
+                    val = float(clean_ans)
+                except ValueError:
+                    val = 0.0 # Default fallback if non-numeric
+                target_floats.append(val)
+            
+            target_tensor = torch.tensor(target_floats, device=device, dtype=predicted_scalars.dtype)
+            
+            # Use MSE Loss for regression
+            loss = F.mse_loss(predicted_scalars, target_tensor) / grad_accum_steps
+            loss.backward()
+            
+            unscaled_loss = loss.item() * grad_accum_steps
+            total_train_loss += unscaled_loss
+            accumulated_loss += unscaled_loss
+            
+            if (batch_idx + 1) % grad_accum_steps == 0 or (batch_idx + 1) == len(train_loader):
+                torch.nn.utils.clip_grad_norm_(trainable_params, float(config[active_block]["max_grad_norm"]))
+                optimizer.step()
+                optimizer.zero_grad()
+                
+                effective_step = batch_idx // grad_accum_steps
+                avg_effective_loss = accumulated_loss / grad_accum_steps
+                
+                if is_master:
+                    print(f"Epoch {epoch} | Effective Batch {effective_step} | CE Training Loss: {avg_effective_loss:.4f}")
+                    wandb.log({"train/ce_loss": avg_effective_loss, "epoch": epoch, "step": effective_step})
+                    
+                accumulated_loss = 0.0
+                
+            # --- Mid-Epoch Validation Trigger ---
+            effective_step = batch_idx // grad_accum_steps
+            if save_every_n_steps > 0 and is_master and (batch_idx + 1) % grad_accum_steps == 0 and effective_step > 0 and effective_step % save_every_n_steps == 0:
+                print(f"\n[{device}] Running Mid-Epoch Validation (Step {effective_step})...")
+                os.makedirs(checkpoint_dir, exist_ok=True)
+                
+                # 1. Save Intermediate Weights
+                save_decoder = y_decoder.module if is_distributed else y_decoder
+                step_decoder_path = os.path.join(checkpoint_dir, f"decoder_epoch_{epoch}_step_{effective_step}.pt")
+                state_dict = {k: v for k, v in save_decoder.named_parameters() if v.requires_grad}
+                torch.save(state_dict, step_decoder_path)
+                
+                step_encoder_path = os.path.join(checkpoint_dir, f"x_encoder_e2e_epoch_{epoch}_step_{effective_step}.pt")
+                if args.end_to_end:
+                    save_encoder = x_encoder.module if is_distributed else x_encoder
+                    torch.save(save_encoder.state_dict(), step_encoder_path)
+                
+                # 2. Fire Synchronous Evaluation Native Function
+                print(f"[{device}] Running synchronous evaluation (limit 100 samples) IN-MEMORY...")
+                try:
+                    acc_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], limit=100)
+                    print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
+                    wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
+                    
+                    # Save Best SOTA Checkpoint based strictly on evaluation accuracy
+                    if acc_val > best_eval_acc:
+                        best_eval_acc = acc_val
+                        best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
+                        import shutil
+                        shutil.copy2(step_decoder_path, best_dec_path)
+                        print(f"[{device}] New Best Eval Accuracy! Saved {best_dec_path}")
+                        
+                        if args.end_to_end:
+                            best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
+                            shutil.copy2(step_encoder_path, best_enc_path)
+                            print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
+                            
+                except Exception as e:
+                    print(f"[{device}] Sync In-Memory Eval failed: {e}")
+                    
+                print(f"[{device}] Resuming training immediately...\n")
+                
+        # ------------------ Validation Loop ------------------
+        y_decoder.eval()
+        if args.end_to_end:
+            x_encoder.eval()
+            
+        total_val_loss = 0.0
+        with torch.no_grad():
+            for val_idx, (images, texts, target_answers) in enumerate(val_loader):
+                x_processor = x_encoder.module.processor if is_distributed else x_encoder.processor
+                batch_messages = []
+                for img, txt in zip(images, texts):
+                    batch_messages.append([
+                        {"role": "user", "content": [
+                            {"type": "text", "text": txt}
+                        ]}
+                    ])
+                    
+                rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+                inputs = x_processor(text=rendered_texts, padding=True, return_tensors="pt").to(device)
+                with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                    predicted_latents = x_encoder(
+                        input_ids=inputs.input_ids, 
+                        attention_mask=inputs.attention_mask,
+                        pixel_values=inputs.get("pixel_values"),
+                        image_grid_thw=inputs.get("image_grid_thw")
+                    )
+                
+                val_prompts = []
+                for t in texts:
+                    clean_t = t
+                    for i in range(config["model"]["k_steps"]):
+                        clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                    val_prompts.append(clean_t.strip() + "\nAnswer: ")
+                
+                thought_3 = predicted_latents[:, 3, :]
+                predicted_scalars = y_decoder(thought_3).squeeze(-1)
+                
+                target_floats = []
+                for ans in target_answers:
+                    clean_ans = ans.replace("<|im_end|>", "").strip()
+                    try:
+                        val = float(clean_ans)
+                    except ValueError:
+                        val = 0.0
+                    target_floats.append(val)
+                
+                target_tensor = torch.tensor(target_floats, device=device, dtype=predicted_scalars.dtype)
+                loss = F.mse_loss(predicted_scalars, target_tensor)
+                
+                total_val_loss += loss.item()
+                
+        avg_val_loss = total_val_loss / max(1, len(val_loader))
+        if is_master:
+            print(f"=== Epoch {epoch} Validation CE Loss: {avg_val_loss:.4f} ===")
+            wandb.log({"val/ce_loss": avg_val_loss, "epoch": epoch})
+            
+            # Save epoch checkpoint to experiment namespace
+            # Save epoch checkpoint to experiment namespace
+            checkpoint_dir = config.get("train_decoder", {}).get("checkpoint_dir")
+            os.makedirs(checkpoint_dir, exist_ok=True)
+            
+            save_decoder = y_decoder.module if is_distributed else y_decoder
+            checkpoint_path = os.path.join(checkpoint_dir, f"decoder_epoch_{epoch}.pt")
+            
+            # Dynamically save ALL parameters that require gradients (to capture newly unfrozen base LLM layers)
+            state_dict = {k: v for k, v in save_decoder.named_parameters() if v.requires_grad}
+            torch.save(state_dict, checkpoint_path)
+            print(f"[cuda] Saved checkpoint: {checkpoint_path}")
+            
+            if args.end_to_end:
+                save_encoder = x_encoder.module if is_distributed else x_encoder
+                encoder_path = os.path.join(checkpoint_dir, f"x_encoder_e2e_epoch_{epoch}.pt")
+                torch.save(save_encoder.state_dict(), encoder_path)
+
+            import shutil
+            if avg_val_loss < best_val_loss:
+                best_val_loss = avg_val_loss
+                best_cp_path = os.path.join(checkpoint_dir, "decoder_best.pt")
+                shutil.copy2(checkpoint_path, best_cp_path)
+                print(f"[{device}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                if args.end_to_end:
+                    best_encoder_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
+                    shutil.copy2(encoder_path, best_encoder_path)
+                
+                # Track numerically
+                loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                with open(loss_tracker_path, 'w') as f:
+                    json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
+
+            # Keep only latest 4 checkpoints
+            old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
+            if len(old_epochs) > 4:
+                old_epochs.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                for old_f in old_epochs[:-4]:
+                    try:
+                        os.remove(os.path.join(checkpoint_dir, old_f))
+                        print(f"[{device}] Auto-deleted ancient checkpoint {old_f}.")
+                    except OSError:
+                        pass
+                        
+            if args.end_to_end:
+                old_e2e = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_e2e_epoch_") and f.endswith(".pt")]
+                if len(old_e2e) > 4:
+                    old_e2e.sort(key=lambda x: int(x.split('epoch_')[1].split('.')[0]))
+                    for old_f in old_e2e[:-4]:
+                        try:
+                            os.remove(os.path.join(checkpoint_dir, old_f))
+                        except OSError:
+                            pass
+
+    if is_master:
+        print("Training successfully finished!")
+        wandb.finish()
+
+if __name__ == "__main__":
+    train()
