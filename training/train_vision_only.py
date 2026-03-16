@@ -129,37 +129,23 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
                     image_grid_thw=inputs.get("image_grid_thw")
                 )
                 
-            generated_texts = val_decoder.generate(
-                predicted_latents=predicted_latents, 
-                text_prompts=decoder_prompts,
-                max_new_tokens=15
-            )
+                outputs = val_decoder(
+                    predicted_latents=predicted_latents, 
+                    text_prompts=decoder_prompts,
+                    labels=target_answers
+                )
+                
+            batch_loss = outputs.loss.item()
+            correct += batch_loss # Repurposing `correct` to accumulate loss
+            total += 1 # Repurposing `total` to track batch count
             
-            for gen_text, gt_ans in zip(generated_texts, target_answers):
-                gt_raw = gt_ans.replace("<|im_end|>", "").strip()
-                pred_raw = clean_base_model_ans(gen_text)
-                
-                gt_norm = normalize(gt_raw)
-                pred_norm = normalize(pred_raw)
-                
-                is_correct = (gt_norm == pred_norm)
-                if not is_correct:
-                    gt_val = safe_math_eval(gt_raw)
-                    pred_val = safe_math_eval(pred_raw)
-                    if gt_val is not None and pred_val is not None:
-                        is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
-                        
-                total += 1
-                if is_correct:
-                    correct += 1
-                    
-            if total >= limit:
+            if (total * len(texts)) >= limit:
                 break
                 
     val_decoder.train()
     val_encoder.train()
         
-    return (correct / total * 100) if total > 0 else 0.0
+    return (correct / total) if total > 0 else 0.0
 
 def train():
     args = parse_args()
@@ -485,17 +471,21 @@ def train():
                 # 2. Fire Synchronous Evaluation Native Function
                 print(f"[{device}] Running synchronous evaluation (limit 100 samples) IN-MEMORY...")
                 try:
-                    acc_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], limit=100)
-                    print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
-                    wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
+                    loss_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], limit=100)
+                    print(f"[{device}] Step {effective_step} Eval CE Loss: {loss_val:.4f}")
+                    wandb.log({"val/step_ce_loss": loss_val, "epoch": epoch, "step": effective_step})
                     
-                    # Save Best SOTA Checkpoint based strictly on evaluation accuracy
-                    if acc_val > best_eval_acc:
-                        best_eval_acc = acc_val
+                    # Initialize tracker if not exists
+                    if 'best_eval_loss' not in locals():
+                        best_eval_loss = float('inf')
+                        
+                    # Save Best SOTA Checkpoint based strictly on evaluation loss minimization
+                    if loss_val < best_eval_loss:
+                        best_eval_loss = loss_val
                         best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
                         import shutil
                         shutil.copy2(step_decoder_path, best_dec_path)
-                        print(f"[{device}] New Best Eval Accuracy! Saved {best_dec_path}")
+                        print(f"[{device}] New Best Eval Loss! Saved {best_dec_path}")
                         
                         if args.end_to_end:
                             best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
