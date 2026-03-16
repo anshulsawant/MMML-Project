@@ -66,3 +66,16 @@ train_vision_only_translator:
   unfreeze_layers: 24  # Completely unfreeze all layers of the 0.6B model
   use_projection_mlp: True
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+
+train_vision_only_4b:
+  experiment_name: "v7_vision_only_4b"
+  epochs: 20
+  save_every_n_steps: 10
+  batch_size: 32
+  gradient_accumulation_steps: 1
+  learning_rate: 1.0e-5
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  unfreeze_layers: 2
+  use_projection_mlp: True
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
