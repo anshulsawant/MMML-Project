@@ -48,9 +48,7 @@ class GeoThoughtsMCQDataset(Dataset):
         for line in lines[:4]:
             if len(line) > 3 and line[1] == ')':
                 letter = line[0]
-                # Embed the option structurally parallel to Phase 3 build_manifold.py target extraction
-                # Phase 3 stripped the "Step X" prefix and purely embedded \boxed{answer}
-                text_val = r"\boxed{" + line[3:].strip() + "}"
+                text_val = line[3:].strip()
                 option_map[letter] = text_val
                 
         target_letter = str(self.ground_truths.get(img_path, "A")).replace("<|im_end|>", "").strip()
