@@ -169,9 +169,8 @@ def run_evaluation():
                 )
                 
         # [Batch, 2560]
-        # We MUST route the raw thought through the learned predictor MLP 
-        # to map it into the semantic alignment space of the Y-Encoder.
-        thought_3 = x_encoder.predictor(predicted_latents[:, 3, :])
+        # LatentEuclid.forward() already routes through self.predictor natively!
+        thought_3 = predicted_latents[:, 3, :]
         
         for i in range(len(images)):
             t3_vector = thought_3[i] # [2560]
