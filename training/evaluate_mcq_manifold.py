@@ -93,8 +93,20 @@ def run_evaluation():
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"Starting Zero-Shot Manifold Evaluation on Device: {device}")
     
-    k_steps = 4
-    x_encoder = LatentEuclid(k_steps=k_steps).to(device, dtype=torch.bfloat16)
+    import yaml
+    with open(args.config, 'r') as f:
+        config = yaml.safe_load(f)
+        
+    base_model_id = config.get("model", {}).get("base_model_id", "Qwen/Qwen3-VL-4B-Instruct")
+    target_model_id = config.get("model", {}).get("target_model_id", "Qwen/Qwen3-VL-4B-Instruct")
+    decoder_base_model_id = config.get("model", {}).get("decoder_base_model_id", "Qwen/Qwen3-4B-Base")
+    k_steps = config.get("model", {}).get("k_steps", 4)
+    
+    x_encoder = LatentEuclid(
+        base_model_id=base_model_id,
+        target_model_id=target_model_id,
+        k_steps=k_steps
+    ).to(device, dtype=torch.bfloat16)
     
     if os.path.exists(args.x_encoder_weights):
         print(f"Loading X-Encoder weights from {args.x_encoder_weights}...")
@@ -108,11 +120,10 @@ def run_evaluation():
     x_processor = x_encoder.processor
     
     # Load the Y-Encoder natively to embed the text options
-    target_model_id = "Qwen/Qwen3-0.6B"
-    print(f"Loading native Y-Encoder ({target_model_id}) to embed text options...")
-    y_tokenizer = AutoTokenizer.from_pretrained(target_model_id)
+    print(f"Loading native Y-Encoder ({decoder_base_model_id}) to embed text options...")
+    y_tokenizer = AutoTokenizer.from_pretrained(decoder_base_model_id)
     y_encoder = AutoModelForCausalLM.from_pretrained(
-        target_model_id, 
+        decoder_base_model_id, 
         torch_dtype=torch.bfloat16,
         attn_implementation="sdpa",
         device_map=None
