@@ -177,7 +177,7 @@ def train():
     device = local_rank if is_distributed else local_rank
 
     # Select active configuration block based on mode or explicit override
-    active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
+    active_block = "train_linear_probe"
     
     if args.experiment_name_override:
         if args.experiment_name_override in config:
@@ -294,11 +294,15 @@ def train():
             
             try:
                 state_dict = torch.load(latest_path, map_location="cpu")
-                is_named_params = any(k.startswith("prefix_projection.") or k.startswith("decoder.") for k in state_dict)
-                if is_named_params:
+                if isinstance(y_decoder, nn.Sequential) or hasattr(y_decoder, "module") and isinstance(y_decoder.module, nn.Sequential):
+                    # Linear Probe native loading
                     y_decoder.load_state_dict(state_dict, strict=False)
                 else:
-                    y_decoder.prefix_projection.load_state_dict(state_dict)
+                    is_named_params = any(k.startswith("prefix_projection.") or k.startswith("decoder.") for k in state_dict)
+                    if is_named_params:
+                        y_decoder.load_state_dict(state_dict, strict=False)
+                    else:
+                        y_decoder.prefix_projection.load_state_dict(state_dict)
                     
                 ep, st = parse_cp_name(latest_cp)
                 start_epoch = ep if st > 0 else ep + 1
