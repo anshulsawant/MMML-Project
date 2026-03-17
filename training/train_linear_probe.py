@@ -262,7 +262,7 @@ def train():
         nn.Linear(3584, 1024),
         nn.GELU(),
         nn.Linear(1024, 4) # A, B, C, D
-    ).to(device)
+    ).to(device, dtype=torch.bfloat16)
     y_decoder = linear_probe # alias for compatibility
     
     start_epoch = 0
