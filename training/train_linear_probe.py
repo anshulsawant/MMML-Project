@@ -465,6 +465,10 @@ def train():
                 print(f"--- DEBUG BATCH 0 ---")
                 print(f"Target String Labels: {target_answers[:4]}")
                 print(f"Target Tensor Indices: {target_tensor[:4].tolist()}")
+                print(f"Input IDs (Sample 0, Last 15): {inputs.input_ids[0, -15:].tolist()}")
+                print(f"Extracted Thought_3 (Sample 0, First 5 dims): {thought_3[0, :5].tolist()}")
+                print(f"Extracted Thought_3 (Sample 1, First 5 dims): {thought_3[1, :5].tolist()}")
+                print(f"Thought_3 Batch StdDev (Variance check): {thought_3.std(dim=0).mean().item():.6f}")
                 print(f"Predicted Logits: {predicted_logits[:4].tolist()}")
                 print(f"---------------------")
                 
