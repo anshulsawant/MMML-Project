@@ -98,6 +98,7 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
     val_encoder.eval()
         
     correct = 0
+    incorrect = 0
     total = 0
     
     with torch.no_grad():
@@ -133,31 +134,24 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
                 )
                 
             thought_3 = predicted_latents[:, 3, :]
-            predicted_scalars = val_decoder(thought_3).squeeze(-1)
+            predicted_logits = val_decoder(thought_3) # [Batch, 4]
+            predicted_preds = torch.argmax(predicted_logits, dim=-1) # [Batch]
+            
+            letter_to_idx = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
             
             for i, gt_ans in enumerate(target_answers):
-                pred_val_tensor = predicted_scalars[i]
+                pred_idx = predicted_preds[i].item()
                 gt_raw = gt_ans.replace("<|im_end|>", "").strip()
-                try:
-                    gt_val = float(gt_raw)
-                except ValueError:
+                gt_idx = letter_to_idx.get(gt_raw, -1)
+                
+                if gt_idx == -1:
                     continue # Skip invalid GTs for metric purity
                 
-                pred_val = float(pred_val_tensor.item())
-                
-                gt_norm = normalize(gt_raw)
-                pred_norm = normalize(pred_raw)
-                
-                is_correct = (gt_norm == pred_norm)
-                if not is_correct:
-                    gt_val = safe_math_eval(gt_raw)
-                    pred_val = safe_math_eval(pred_raw)
-                    if gt_val is not None and pred_val is not None:
-                        is_correct = math.isclose(gt_val, pred_val, rel_tol=1e-3, abs_tol=0.06)
-                        
                 total += 1
-                if is_correct:
+                if pred_idx == gt_idx:
                     correct += 1
+                else:
+                    incorrect += 1
                     
             if total >= limit:
                 break
@@ -165,7 +159,10 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
     val_decoder.train()
     val_encoder.train()
         
-    return (correct / total * 100) if total > 0 else 0.0
+    # Expected Value scoring: +1 for correct, -1/3 for incorrect. Random guessing = 0.
+    # Score scaled to 100%. Max possible is total * 1
+    expected_value_score = ((correct * 1.0) - (incorrect * (1.0 / 3.0))) / total * 100.0 if total > 0 else 0.0
+    return expected_value_score
 
 def train():
     args = parse_args()
@@ -260,11 +257,11 @@ def train():
 
     print(f"[{local_rank}] Loading Phase 11 Linear Probe...")
     # The X-Encoder outputs 3584 dimensional embeddings.
-    # We will slice out `thought3` (the 4th k_step) and attempt to project it linearly to a single scalar float answer.
+    # We will slice out `thought3` (the 4th k_step) and attempt to project it linearly to a 4-choice classification.
     linear_probe = nn.Sequential(
         nn.Linear(3584, 1024),
         nn.GELU(),
-        nn.Linear(1024, 1)
+        nn.Linear(1024, 4) # A, B, C, D
     ).to(device)
     y_decoder = linear_probe # alias for compatibility
     
@@ -341,10 +338,10 @@ def train():
     )
 
     # ------------------ Data Split ------------------
-    with open(config["data"]["jsonl_path"], 'r') as f:
+    with open("data/geothoughts_mcq.jsonl", 'r') as f:
         full_data = [json.loads(line) for line in f]
         
-    with open("data/ground_truths.json", 'r') as f:
+    with open("data/ground_truths_mcq.json", 'r') as f:
         ground_truths = json.load(f)
         
     # 90/10 Train/Val Split for overfitting protection without sklearn
@@ -434,30 +431,20 @@ def train():
             # Since the user stated thought3 mathematically encodes the answer, we slice it out:
             thought_3 = predicted_latents[:, 3, :] # Get the 4th token
             
-            # Predict a single scalar float answer
-            predicted_scalars = linear_probe(thought_3).squeeze(-1) # [Batch]
+            # Predict logits for A, B, C, D
+            predicted_logits = linear_probe(thought_3) # [Batch, 4]
             
-            # Parse target_answers to floats
-            # TODO(Anshul): Handle non-numeric symbolic answers (e.g. 'n+3') and constants ('2pi'). 
-            # These currently fail float casting and fall back to 0.0. 
-            # ALTERNATIVE 1: Re-frame the linear probe as a multiple-choice or Yes/No classifier over discrete text options instead of continuous regression mapping.
-            # ALTERNATIVE 2: Project natively to a fixed-length 20-token window simultaneously over a simplified math vocabulary (digits + symbols + [PAD] token), completely bypassing step-by-step autoregression.
-            target_floats = []
+            # The ground truth answers in the MCQ dataset are exactly 'A', 'B', 'C', or 'D'
+            letter_to_idx = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
+            target_indices = []
             for ans in target_answers:
                 clean_ans = ans.replace("<|im_end|>", "").strip()
-                try:
-                    val = float(clean_ans)
-                except ValueError:
-                    val = 0.0 # Default fallback if non-numeric
-                target_floats.append(val)
+                target_indices.append(letter_to_idx.get(clean_ans, 0)) # fallback
             
-            target_tensor = torch.tensor(target_floats, device=device, dtype=predicted_scalars.dtype)
+            target_tensor = torch.tensor(target_indices, device=device, dtype=torch.long)
             
-            # Scale-Normalized Relative MSE Loss: balances gradients between large angles (115.0) and small lengths (2.5)
-            # Dividing by (abs(target) + 1.0) calculates percentage error but ensures stability and avoids divide-by-zero.
-            scale_factor = torch.abs(target_tensor) + 1.0
-            relative_error = (predicted_scalars - target_tensor) / scale_factor
-            loss = torch.mean(relative_error ** 2) / grad_accum_steps
+            # Cross Entropy Loss
+            loss = F.cross_entropy(predicted_logits, target_tensor) / grad_accum_steps
             loss.backward()
             
             unscaled_loss = loss.item() * grad_accum_steps
@@ -555,21 +542,18 @@ def train():
                     val_prompts.append(clean_t.strip() + "\nAnswer: ")
                 
                 thought_3 = predicted_latents[:, 3, :]
-                predicted_scalars = y_decoder(thought_3).squeeze(-1)
+                predicted_logits = y_decoder(thought_3) # [Batch, 4]
                 
-                target_floats = []
+                letter_to_idx = {'A': 0, 'B': 1, 'C': 2, 'D': 3}
+                target_indices = []
                 for ans in target_answers:
                     clean_ans = ans.replace("<|im_end|>", "").strip()
-                    try:
-                        val = float(clean_ans)
-                    except ValueError:
-                        val = 0.0
-                    target_floats.append(val)
+                    target_indices.append(letter_to_idx.get(clean_ans, 0)) # fallback
                 
-                target_tensor = torch.tensor(target_floats, device=device, dtype=predicted_scalars.dtype)
-                scale_factor = torch.abs(target_tensor) + 1.0
-                relative_error = (predicted_scalars - target_tensor) / scale_factor
-                loss = torch.mean(relative_error ** 2)
+                target_tensor = torch.tensor(target_indices, device=device, dtype=torch.long)
+                
+                # Cross Entropy Loss
+                loss = F.cross_entropy(predicted_logits, target_tensor)
                 
                 total_val_loss += loss.item()
                 
