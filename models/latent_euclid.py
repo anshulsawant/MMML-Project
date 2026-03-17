@@ -43,7 +43,6 @@ def setup_latent_euclid_tokenizer(model_id: str = "Qwen/Qwen3-VL-4B-Instruct", k
     Requires resizing the model embeddings afterwards.
     """
     tokenizer = AutoTokenizer.from_pretrained(model_id)
-    tokenizer.padding_side = "left" # CRITICAL: Prevent right-padding from overwriting trailing <thought> tokens
     
     thought_tokens = [f"<thought_{i+1}>" for i in range(k_steps)]
     num_added = tokenizer.add_tokens(thought_tokens, special_tokens=True)
@@ -82,7 +81,6 @@ class LatentEuclid(nn.Module):
         try:
             self.processor = AutoProcessor.from_pretrained(base_model_id)
             self.processor.tokenizer = self.tokenizer
-            self.processor.tokenizer.padding_side = "left" # Ensure the wrapper respects left-padding too
         except Exception as e:
             print(f"Warning: Could not load AutoProcessor for {base_model_id}: {e}")
             self.processor = None
