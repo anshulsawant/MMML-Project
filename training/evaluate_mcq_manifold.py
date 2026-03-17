@@ -67,15 +67,12 @@ def custom_collate(batch):
     maps = [item["option_map"] for item in batch]
     return images, texts, targets, maps
 
-def get_y_encoder_embeddings_batch(y_encoder, y_tokenizer, texts, device):
+def get_y_encoder_embedding(y_encoder, y_tokenizer, text_str, device):
     """
-    Extract the attention-weighted mean-pooled vector embeddings for a batch of strings
-    from the frozen native Y-Encoder, mathematically matching build_manifold.py Phase 3 target generation.
+    Extract the mean-pooled vector embeddings for a specific option string
+    from the frozen Y-Encoder (Qwen 0.6B).
     """
-    if y_tokenizer.pad_token is None:
-        y_tokenizer.pad_token = y_tokenizer.eos_token
-        
-    inputs = y_tokenizer(texts, padding=True, return_tensors="pt").to(device)
+    inputs = y_tokenizer(text_str, return_tensors="pt").to(device)
     with torch.no_grad():
         with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
             outputs = y_encoder(
@@ -84,15 +81,12 @@ def get_y_encoder_embeddings_batch(y_encoder, y_tokenizer, texts, device):
                 output_hidden_states=True,
                 return_dict=True
             )
-            hidden_states = outputs.hidden_states[-1] # [batch, seq_len, dim]
+            # Use the mean-pooled last hidden state of the text decoder as its representation
+            hidden = outputs.hidden_states[-1][0] # [seq_len, dim]
             
-            # Apply identical semantic pooling as the manifold target generator
-            attention_mask = inputs.attention_mask.unsqueeze(-1).to(hidden_states.dtype)
-            sum_embeddings = torch.sum(hidden_states * attention_mask, dim=1)
-            sum_mask = torch.clamp(attention_mask.sum(dim=1), min=1e-9)
-            mean_pooled_embeddings = sum_embeddings / sum_mask # [batch, dim]
-            
-    return mean_pooled_embeddings
+            # Mask out padding theoretically if batching, but we do bs=1 here so mean is safe
+            mean_hidden = hidden.mean(dim=0)
+    return mean_hidden
 
 def run_evaluation():
     args = parse_args()
@@ -125,18 +119,15 @@ def run_evaluation():
     x_encoder.eval()
     x_processor = x_encoder.processor
     
-    from transformers import AutoModelForImageTextToText
-    print(f"Loading native Target Y-Encoder ({target_model_id}) to embed text options, matched with Phase 3 Targets...")
-    y_tokenizer = AutoTokenizer.from_pretrained(target_model_id)
-    is_vlm = "VL" in target_model_id
-    ModelClass = AutoModelForImageTextToText if is_vlm else AutoModelForCausalLM
-    
-    y_encoder = ModelClass.from_pretrained(
-        target_model_id, 
+    # Load the Y-Encoder natively to embed the text options
+    print(f"Loading native Y-Encoder ({decoder_base_model_id}) to embed text options...")
+    y_tokenizer = AutoTokenizer.from_pretrained(decoder_base_model_id)
+    y_encoder = AutoModelForCausalLM.from_pretrained(
+        decoder_base_model_id, 
         torch_dtype=torch.bfloat16,
         attn_implementation="sdpa",
-        device_map="auto"
-    )
+        device_map=None
+    ).to(device)
     y_encoder.eval()
     
     with open("data/geothoughts_mcq.jsonl", 'r') as f:
@@ -181,29 +172,16 @@ def run_evaluation():
         # LatentEuclid.forward() already routes through self.predictor natively!
         thought_3 = predicted_latents[:, 3, :]
         
-        # Flatten all option texts for the current batch
-        flat_option_texts = []
-        option_letters_list = []
-        for i in range(len(images)):
-            ops = option_maps[i] # {'A': '10', 'B': '15', ...}
-            letters = list(ops.keys())
-            texts_list = [ops[l] for l in letters]
-            option_letters_list.append(letters)
-            flat_option_texts.extend(texts_list)
-            
-        # Batch-encode all text strings in a single pass to prevent horrific PCIe slowness!
-        flat_opt_vectors = get_y_encoder_embeddings_batch(y_encoder, y_tokenizer, flat_option_texts, device) # [batch*4, 2560]
-        opt_vectors_cube = flat_opt_vectors.view(len(images), 4, -1) # [batch, 4, 2560]
-        
         for i in range(len(images)):
             t3_vector = thought_3[i] # [2560]
-            letters = option_letters_list[i]
+            ops = option_maps[i] # {'A': '10', 'B': '15', ...}
             
             best_sim = -float('inf')
             best_letter = None
             
-            for j, letter in enumerate(letters):
-                opt_vector = opt_vectors_cube[i, j]
+            # Encode each option string through the target Y-Encoder
+            for letter, opt_text in ops.items():
+                opt_vector = get_y_encoder_embedding(y_encoder, y_tokenizer, opt_text, device) # [2560]
                 
                 # Compute Cosine Similarity between X-Encoder's Thought_3 and Y-Encoder's Text Option
                 sim = F.cosine_similarity(t3_vector.unsqueeze(0), opt_vector.unsqueeze(0)).item()
