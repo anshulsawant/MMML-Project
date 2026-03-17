@@ -458,6 +458,14 @@ def train():
             
             # Cross Entropy Loss
             loss = F.cross_entropy(predicted_logits, target_tensor) / grad_accum_steps
+            
+            if batch_idx == 0 and epoch == start_epoch and is_master:
+                print(f"--- DEBUG BATCH 0 ---")
+                print(f"Target String Labels: {target_answers[:4]}")
+                print(f"Target Tensor Indices: {target_tensor[:4].tolist()}")
+                print(f"Predicted Logits: {predicted_logits[:4].tolist()}")
+                print(f"---------------------")
+                
             loss.backward()
             
             unscaled_loss = loss.item() * grad_accum_steps
