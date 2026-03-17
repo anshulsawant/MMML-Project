@@ -168,11 +168,13 @@ def run_evaluation():
                     image_grid_thw=inputs.get("image_grid_thw")
                 )
                 
-        # [Batch, 1024]
-        thought_3 = predicted_latents[:, 3, :]
+        # [Batch, 2560]
+        # We MUST route the raw thought through the learned predictor MLP 
+        # to map it into the semantic alignment space of the Y-Encoder.
+        thought_3 = x_encoder.predictor(predicted_latents[:, 3, :])
         
         for i in range(len(images)):
-            t3_vector = thought_3[i] # [1024]
+            t3_vector = thought_3[i] # [2560]
             ops = option_maps[i] # {'A': '10', 'B': '15', ...}
             
             best_sim = -float('inf')
@@ -180,7 +182,7 @@ def run_evaluation():
             
             # Encode each option string through the target Y-Encoder
             for letter, opt_text in ops.items():
-                opt_vector = get_y_encoder_embedding(y_encoder, y_tokenizer, opt_text, device) # [1024]
+                opt_vector = get_y_encoder_embedding(y_encoder, y_tokenizer, opt_text, device) # [2560]
                 
                 # Compute Cosine Similarity between X-Encoder's Thought_3 and Y-Encoder's Text Option
                 sim = F.cosine_similarity(t3_vector.unsqueeze(0), opt_vector.unsqueeze(0)).item()
