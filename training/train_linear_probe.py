@@ -111,12 +111,13 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
             for img, txt in zip(images, texts):
                 batch_messages.append([
                     {"role": "user", "content": [
+                        {"type": "image", "image": img},
                         {"type": "text", "text": txt}
                     ]}
                 ])
                 
             rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
-            inputs = x_processor(text=rendered_texts, padding=True, return_tensors="pt").to(device)
+            inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
             
             decoder_prompts = []
             for t in texts:
@@ -404,12 +405,13 @@ def train():
             for img, txt in zip(images, texts):
                 batch_messages.append([
                     {"role": "user", "content": [
+                        {"type": "image", "image": img},
                         {"type": "text", "text": txt}
                     ]}
                 ])
                 
             rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
-            inputs = x_processor(text=rendered_texts, padding=True, return_tensors="pt").to(device)
+            inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
             # ------------------------------------------------
             # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
             decoder_prompts = []
@@ -541,12 +543,13 @@ def train():
                 for img, txt in zip(images, texts):
                     batch_messages.append([
                         {"role": "user", "content": [
+                            {"type": "image", "image": img},
                             {"type": "text", "text": txt}
                         ]}
                     ])
                     
                 rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
-                inputs = x_processor(text=rendered_texts, padding=True, return_tensors="pt").to(device)
+                inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
                 with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                     predicted_latents = x_encoder(
                         input_ids=inputs.input_ids, 
