@@ -268,9 +268,13 @@ def train():
     probe_dim = 1024 # intermediate projection dimension
 
     # We will slice out `thought3` (the 4th k_step) and attempt to project it linearly to a 4-choice classification.
+    # The X-Encoder outputs have extreme micro-variance (~0.002), which causes the logits to collapse identically.
+    # We MUST apply LayerNorm to stretch the hidden states back into learnable distributions.
     linear_probe = nn.Sequential(
+        nn.LayerNorm(encoder_dim),
         nn.Linear(encoder_dim, probe_dim),
         nn.GELU(),
+        nn.LayerNorm(probe_dim),
         nn.Linear(probe_dim, 4) # A, B, C, D
     ).to(device, dtype=torch.bfloat16)
     y_decoder = linear_probe # alias for compatibility
