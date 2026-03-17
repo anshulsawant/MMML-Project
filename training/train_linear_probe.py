@@ -256,12 +256,21 @@ def train():
     x_encoder = x_encoder.to(local_rank)
 
     print(f"[{local_rank}] Loading Phase 11 Linear Probe...")
-    # The X-Encoder outputs 3584 dimensional embeddings.
+    # Dynamically fetch the X-Encoder's hidden dimension size
+    if hasattr(x_encoder.vlm.config, "hidden_size"):
+        encoder_dim = x_encoder.vlm.config.hidden_size
+    elif hasattr(x_encoder.vlm.config, "text_config"):
+        encoder_dim = getattr(x_encoder.vlm.config.text_config, "hidden_size", 3584)
+    else:
+        encoder_dim = 3584  # Fallback
+
+    probe_dim = 1024 # intermediate projection dimension
+
     # We will slice out `thought3` (the 4th k_step) and attempt to project it linearly to a 4-choice classification.
     linear_probe = nn.Sequential(
-        nn.Linear(3584, 1024),
+        nn.Linear(encoder_dim, probe_dim),
         nn.GELU(),
-        nn.Linear(1024, 4) # A, B, C, D
+        nn.Linear(probe_dim, 4) # A, B, C, D
     ).to(device, dtype=torch.bfloat16)
     y_decoder = linear_probe # alias for compatibility
     
