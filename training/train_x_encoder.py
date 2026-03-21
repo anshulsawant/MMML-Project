@@ -234,7 +234,7 @@ def train():
         targets_dir=config["data"]["targets_dir"],
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
         k_steps=config["model"]["k_steps"],
-        augment=True # Apply affine geometry-safe augmentations dynamically
+        augment=config["train_x_encoder"].get("augment", False) # Read flag from config, default pure dataset
     )
     
     # 90/10 Train/Val Split
