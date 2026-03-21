@@ -317,7 +317,9 @@ def train():
                     v_loss, v_metrics = criterion(val_pred, val_targ)
                 
                 total_val_loss += v_loss.item()
-                if "loss/invariance_cos" in v_metrics:
+                if "loss/cosine_angular" in v_metrics:
+                    total_val_mse += v_metrics["loss/cosine_angular"]
+                elif "loss/invariance_cos" in v_metrics:
                     total_val_mse += v_metrics["loss/invariance_cos"]
         
         # Note: val_idx corresponds to the number of batches actually processed (0-indexed)
