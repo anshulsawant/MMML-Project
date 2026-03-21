@@ -162,6 +162,9 @@ def train():
         vicreg_var_coeff=float(config["train_x_encoder"].get("vicreg_var_coeff", 25.0)),
         vicreg_cov_coeff=float(config["train_x_encoder"].get("vicreg_cov_coeff", 1.0))
     )
+    
+    loss_target_mode = config["train_x_encoder"].get("loss_target", "guided")
+
     if is_distributed:
         criterion = criterion.to(local_rank)
         
@@ -378,8 +381,16 @@ def train():
                 
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)
                 
+                if loss_target_mode in ["direct", "pondering"]:
+                    # Only calculate loss on the final step (thought_k)
+                    predicted_latents_loss = predicted_latents[:, -1:, :]
+                    targets_loss = targets[:, -1:, :]
+                else:
+                    predicted_latents_loss = predicted_latents
+                    targets_loss = targets
+                
                 # Loss alignment mapping
-                loss, metrics_dict = criterion(predicted_latents, targets)
+                loss, metrics_dict = criterion(predicted_latents_loss, targets_loss)
                 
                 # Scale loss by accumulation steps
                 # Dynamically handle the remainder of the epoch if the last accumulation step isn't full

@@ -46,16 +46,27 @@ def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_availab
     return tokenizer, model
 
 def parse_k4_steps(reasoning_text: str):
-    """Extracts exactly 4 steps from the LLM output."""
+    """Extracts exactly 4 steps cumulatively from the LLM output."""
     steps = []
     # Simple regex to split based on "Step X:" formatting constraint
     parts = re.split(r'Step \d+.*?\]?:', reasoning_text)
+    
+    cumulative_text = ""
     for p in parts[1:]: # Skip text before Step 1
-        steps.append(p.strip())
+        clean_p = p.strip()
+        if cumulative_text:
+            cumulative_text += "\n" + clean_p
+        else:
+            cumulative_text = clean_p
+        steps.append(cumulative_text)
         
     # Validation padding
     while len(steps) < 4:
-        steps.append("Empty Step")
+        if steps:
+            steps.append(steps[-1] + "\nEmpty Step")
+        else:
+            steps.append("Empty Step")
+            
     return steps[:4]
 
 def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda"):
@@ -106,7 +117,16 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
         
         flat_steps = []
         for data in batch_data:
-            flat_steps.extend(parse_k4_steps(data["reasoning"]))
+            q_text = data["question"].replace("<image>", "").strip()
+            # Safety cleanup just in case thought tokens exist in raw data
+            for k in range(1, 5):
+                q_text = q_text.replace(f"<thought_{k}>", "")
+                
+            prefix = f"{q_text}\nAnswer: "
+            
+            cumulative_steps = parse_k4_steps(data["reasoning"])
+            for step_text in cumulative_steps:
+                flat_steps.append(f"{prefix}{step_text}")
             
         # Process all steps in a single batched matrix multiplication
         target_tensors_flat = embed_steps_batch(flat_steps, tokenizer, model, device=device)
