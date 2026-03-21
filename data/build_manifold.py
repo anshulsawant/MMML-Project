@@ -11,7 +11,7 @@ to `<output_dir>` as PyTorch tensor files (`.pt`) for Continuous Alignment via `
 '''
 
 import torch
-from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForImageTextToText
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForImageTextToText, AutoProcessor
 import json
 import re
 
@@ -43,7 +43,14 @@ def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_availab
     model.eval()
     if device == "cpu":
         model = model.to(device)
-    return tokenizer, model
+        
+    try:
+        processor = AutoProcessor.from_pretrained(model_id)
+    except Exception as e:
+        print(f"Warning: Could not load AutoProcessor for {model_id}. Text fallback only.")
+        processor = None
+        
+    return tokenizer, processor, model
 
 def parse_k4_steps(reasoning_text: str):
     """Extracts exactly 4 steps cumulatively from the LLM output."""
@@ -69,19 +76,29 @@ def parse_k4_steps(reasoning_text: str):
             
     return steps[:4]
 
-def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda"):
+def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda", images=None, processor=None):
     """Passes a batch of step texts natively through Qwen3-0.6B and extracts the final hidden states."""
     # Ensure padding is correctly applied for the batch
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         
-    inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
+    if images is not None and processor is not None and any(images):
+        messages = []
+        for txt, img in zip(texts, images):
+            messages.append([{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}])
+            
+        text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in messages]
+        inputs = processor(text=text_prompts, images=images, return_tensors="pt", padding=True).to(device)
+    else:
+        inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
     
     with torch.no_grad():
         # VLM models might expect specific keyword arguments even for text-only inference
         outputs = model(
             input_ids=inputs.input_ids,
             attention_mask=inputs.attention_mask,
+            pixel_values=inputs.get("pixel_values"),
+            image_grid_thw=inputs.get("image_grid_thw"),
             output_hidden_states=True,
             return_dict=True
         )
@@ -103,7 +120,7 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
     """Processes K4 text and saves continuous target tensors."""
     os.makedirs(output_dir, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
-    tokenizer, model = load_qwen_target_model(model_id, device)
+    tokenizer, processor, model = load_qwen_target_model(model_id, device)
     
     batch_size = config.get("build_manifold", {}).get("batch_size", 4)
     print(f"Processing with chunked batch_size: {batch_size}")
@@ -116,6 +133,7 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
         batch_data = [json.loads(line) for line in batch_lines]
         
         flat_steps = []
+        flat_images = []
         for data in batch_data:
             q_text = data["question"].replace("<image>", "").strip()
             # Safety cleanup just in case thought tokens exist in raw data
@@ -123,13 +141,15 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
                 q_text = q_text.replace(f"<thought_{k}>", "")
                 
             prefix = f"{q_text}\nAnswer: "
+            img_path = data.get("image_path")
             
             cumulative_steps = parse_k4_steps(data["reasoning"])
             for step_text in cumulative_steps:
                 flat_steps.append(f"{prefix}{step_text}")
+                flat_images.append(img_path)
             
         # Process all steps in a single batched matrix multiplication
-        target_tensors_flat = embed_steps_batch(flat_steps, tokenizer, model, device=device)
+        target_tensors_flat = embed_steps_batch(flat_steps, tokenizer, model, device=device, images=flat_images, processor=processor)
         
         # Reshape isolated K-thought vectors back into exact topological instances
         target_tensors = target_tensors_flat.view(len(batch_data), 4, -1)
