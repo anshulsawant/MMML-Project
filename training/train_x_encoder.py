@@ -27,6 +27,8 @@ def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
     parser.add_argument("--config", type=str, default="training/config.yaml",
                         help="Path to YAML training configuration")
+    parser.add_argument("--experiment_name", type=str, default=None,
+                        help="Explicit experiment namespace override")
     return parser.parse_args()
 
 def setup_ddp():
@@ -111,7 +113,7 @@ def train():
     is_distributed = isinstance(local_rank, int)
     is_master = (local_rank == 0 if is_distributed else True)
     
-    experiment_name = config.get("experiment", {}).get("name", "default")
+    experiment_name = args.experiment_name or config.get("experiment", {}).get("name", "default")
     
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
     base_checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir", "/workspace/checkpoints")

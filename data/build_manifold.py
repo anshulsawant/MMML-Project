@@ -191,6 +191,7 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
     parser.add_argument("--config", type=str, default="training/config.yaml")
+    parser.add_argument("--experiment_name", type=str, default=None, help="Explicit experiment namespace override.")
     parser.add_argument("--model_id", type=str, default=None, help="Explicit target base LLM override.")
     parser.add_argument("--input_jsonl", type=str, default=None, help="Explicit JSONL source override.")
     parser.add_argument("--output_dir", type=str, default=None, help="Explicit target tensor save dir override.")
@@ -199,7 +200,7 @@ if __name__ == "__main__":
     with open(args.config, 'r') as f:
         config = yaml.safe_load(f)
         
-    experiment_name = config.get("experiment", {}).get("name", "default")
+    experiment_name = args.experiment_name or config.get("experiment", {}).get("name", "default")
     model_id = args.model_id or config["model"]["target_model_id"]
     input_jsonl = args.input_jsonl or config["data"]["jsonl_path"]
     
