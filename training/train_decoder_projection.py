@@ -32,6 +32,8 @@ def parse_args():
                         help="Path to the frozen VICReg-aligned X-Encoder weights")
     parser.add_argument("--end_to_end", action="store_true",
                         help="Experimental: Unfreeze X-Encoder to train end-to-end (Method B)")
+    parser.add_argument("--experiment_name", type=str, default=None,
+                        help="Explicit experiment namespace override")
     return parser.parse_args()
 
 def setup_ddp():
@@ -177,7 +179,7 @@ def train():
     # Select active configuration block based on mode
     active_block = "train_end_to_end" if args.end_to_end else "train_decoder"
     
-    experiment_name = config.get(active_block, {}).get("experiment_name", "default")
+    experiment_name = args.experiment_name or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
 
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
     base_checkpoint_dir = config.get(active_block, {}).get("checkpoint_dir", "/workspace/checkpoints/decoder")
