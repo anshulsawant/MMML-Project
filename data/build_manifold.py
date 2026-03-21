@@ -76,22 +76,45 @@ def parse_k4_steps(reasoning_text: str):
             
     return steps[:4]
 
-def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda", images=None, processor=None):
+def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, device="cuda", images=None, processor=None):
     """Passes a batch of step texts natively through Qwen3-0.6B and extracts the final hidden states."""
     # Ensure padding is correctly applied for the batch
     if tokenizer.pad_token is None:
         tokenizer.pad_token = tokenizer.eos_token
         
     if images is not None and processor is not None and any(images):
-        messages = []
-        for txt, img in zip(texts, images):
-            messages.append([{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}])
+        messages_full = []
+        messages_base = []
+        for txt, base_txt, img in zip(texts, bases, images):
+            messages_full.append([{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}])
+            messages_base.append([{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": base_txt}]}])
             
-        text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in messages]
-        inputs = processor(text=text_prompts, images=images, return_tensors="pt", padding=True).to(device)
+        prompts_full = [processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in messages_full]
+        prompts_base = [processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in messages_base]
+        
+        inputs = processor(text=prompts_full, images=images, return_tensors="pt", padding=True).to(device)
+        inputs_base = processor(text=prompts_base, images=images, return_tensors="pt", padding=True).to(device)
+        
+        base_lengths = inputs_base.attention_mask.sum(dim=1)
+        full_lengths = inputs.attention_mask.sum(dim=1)
     else:
         inputs = tokenizer(texts, padding=True, return_tensors="pt").to(device)
+        inputs_base = tokenizer(bases, padding=True, return_tensors="pt").to(device)
+        base_lengths = inputs_base.attention_mask.sum(dim=1)
+        full_lengths = inputs.attention_mask.sum(dim=1)
     
+    # Calculate exact mathematical indices for the new localized step tokens
+    target_mask = torch.zeros_like(inputs.attention_mask)
+    for i in range(len(texts)):
+        b_len = int(base_lengths[i].item())
+        f_len = int(full_lengths[i].item())
+        
+        if tokenizer.padding_side == 'right':
+            target_mask[i, b_len:f_len] = 1
+        else:
+            seq_len = target_mask.shape[1]
+            target_mask[i, seq_len - f_len + b_len : seq_len] = 1
+            
     with torch.no_grad():
         # VLM models might expect specific keyword arguments even for text-only inference
         outputs = model(
@@ -105,13 +128,12 @@ def embed_steps_batch(texts: list[str], tokenizer, model, device="cuda", images=
         # Extract the hidden states from the last layer [batch, seq_len, hidden_dim]
         hidden_states = outputs.hidden_states[-1]
         
-        # Instead of extracting the anisotropic final token, apply Attention-Weighted Mean Pooling
-        # to capture the holistic bidirectional semantic embedding of the entire reasoning step
-        attention_mask = inputs.attention_mask.unsqueeze(-1).to(hidden_states.dtype)
-        # Multiply states by mask to zero out padded tokens, then sum
-        sum_embeddings = torch.sum(hidden_states * attention_mask, dim=1)
-        # Divide by the actual sequence length (sum of mask) to get the mean
-        sum_mask = torch.clamp(attention_mask.sum(dim=1), min=1e-9)
+        # Apply Attention-Weighted Mean Pooling strictly over the localized target_mask tokens
+        target_mask = target_mask.unsqueeze(-1).to(hidden_states.dtype)
+        # Multiply states by mask to isolate the new target logic tokens, then sum
+        sum_embeddings = torch.sum(hidden_states * target_mask, dim=1)
+        # Divide by the actual step sequence length to get the precise local mean
+        sum_mask = torch.clamp(target_mask.sum(dim=1), min=1e-9)
         mean_pooled_embeddings = sum_embeddings / sum_mask
     
     return mean_pooled_embeddings.cpu()
@@ -133,6 +155,7 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
         batch_data = [json.loads(line) for line in batch_lines]
         
         flat_steps = []
+        flat_bases = []
         flat_images = []
         for data in batch_data:
             q_text = data["question"].replace("<image>", "").strip()
@@ -143,13 +166,16 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
             prefix = f"{q_text}\nAnswer: "
             img_path = data.get("image_path")
             
+            base = prefix
             cumulative_steps = parse_k4_steps(data["reasoning"])
             for step_text in cumulative_steps:
+                flat_bases.append(base)
                 flat_steps.append(f"{prefix}{step_text}")
                 flat_images.append(img_path)
+                base = f"{prefix}{step_text}"
             
         # Process all steps in a single batched matrix multiplication
-        target_tensors_flat = embed_steps_batch(flat_steps, tokenizer, model, device=device, images=flat_images, processor=processor)
+        target_tensors_flat = embed_steps_batch(flat_steps, flat_bases, tokenizer, model, device=device, images=flat_images, processor=processor)
         
         # Reshape isolated K-thought vectors back into exact topological instances
         target_tensors = target_tensors_flat.view(len(batch_data), 4, -1)
