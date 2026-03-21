@@ -5,13 +5,13 @@ model:
   k_steps: 4
 
 experiment:
-  name: "v4_projection_and_unfrozen_layers"
+  name: "v7_experiment_1.1_guided"
 
 build_manifold:
   batch_size: 4
   
 train_x_encoder:
-  experiment_name: "v4_projection_and_unfrozen_layers"
+  experiment_name: "v7_experiment_1.1_guided"
   epochs: 100
   batch_size: 16
   gradient_accumulation_steps: 8
