@@ -115,6 +115,16 @@ def train():
     
     if isinstance(local_rank, int):
         y_decoder = DDP(y_decoder, device_ids=[local_rank])
+        
+    mlp_ckpt = os.path.join(checkpoint_dir, "mlp_best.pt")
+    if os.path.exists(mlp_ckpt):
+        try:
+            state = torch.load(mlp_ckpt, map_location="cpu")
+            if isinstance(y_decoder, DDP): y_decoder.module.load_state_dict(state)
+            else: y_decoder.load_state_dict(state)
+            if is_master: print(f"[{local_rank}] Resumed MLP Decoder identically from {mlp_ckpt}")
+        except Exception as e:
+            if is_master: print(f"[{local_rank}] Overwrote old {mlp_ckpt} due to tensor shape scaling (starting fresh).")
 
     optimizer = torch.optim.AdamW(
         y_decoder.parameters(), 
