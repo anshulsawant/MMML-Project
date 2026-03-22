@@ -107,9 +107,3 @@ train_mlp_decoder:
   weight_decay: 0.01
   max_grad_norm: 5.0
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
-  batch_size: 16
-  gradient_accumulation_steps: 2
-  learning_rate: 1.0e-3
-  weight_decay: 0.01
-  max_grad_norm: 5.0
-  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
