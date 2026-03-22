@@ -586,8 +586,7 @@ def train():
             wandb.log({"val/ce_loss": avg_val_loss, "epoch": epoch})
             
             # Save epoch checkpoint to experiment namespace
-            # Save epoch checkpoint to experiment namespace
-            checkpoint_dir = config.get("train_decoder", {}).get("checkpoint_dir")
+            checkpoint_dir = config.get(active_block, {}).get("checkpoint_dir")
             os.makedirs(checkpoint_dir, exist_ok=True)
             
             save_decoder = y_decoder.module if is_distributed else y_decoder
