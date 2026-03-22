@@ -456,6 +456,11 @@ def train():
                             best_val_loss = mid_val_loss
                             best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
                             shutil.copy2(step_cp_path, best_cp_path)
+                            
+                            # CRITICAL FIX: Also update the JSON tracker so resumed scripts don't revert
+                            with open(os.path.join(checkpoint_dir, "best_val_loss.json"), 'w') as f:
+                                json.dump({"best_loss": best_val_loss, "epoch": epoch, "step": global_step}, f)
+                                
                             print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Saved x_encoder_best.pt")
                         
                         
