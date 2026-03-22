@@ -95,7 +95,15 @@ def train():
     x_encoder.eval()
 
     tokenizer = Tokenizer.from_file("data/math_vocab.json")
-    y_decoder = MLPDecoder(input_dim=x_encoder.config.hidden_size, hidden_dim=2048, vocab_size=300, max_len=10, num_layers=4).to(device)
+    
+    # 2-layer MLP (dxd -> dxVocab) with d dynamically tied to X-Encoder
+    y_decoder = MLPDecoder(
+        input_dim=x_encoder.config.hidden_size, 
+        hidden_dim=x_encoder.config.hidden_size, 
+        vocab_size=300, 
+        max_len=10, 
+        num_layers=2
+    ).to(device)
     
     if isinstance(local_rank, int):
         y_decoder = DDP(y_decoder, device_ids=[local_rank])
