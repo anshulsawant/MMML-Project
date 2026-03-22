@@ -96,6 +96,9 @@ def train():
         state = torch.load(x_enc_weights, map_location="cpu")
         x_encoder.load_state_dict(state.get("model_state_dict", state))
         if is_master: print(f"[{local_rank}] Loaded frozen X-Encoder from {x_enc_weights}")
+    else:
+        raise FileNotFoundError(f"CRITICAL: Explicitly failed to find X-Encoder checkpoint at '{x_enc_weights}'! Refusing to train MLP on raw VLM topologies.")
+        
     for p in x_encoder.parameters(): p.requires_grad = False
     x_encoder.eval()
 

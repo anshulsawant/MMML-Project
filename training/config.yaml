@@ -102,7 +102,7 @@ train_linear_probe:
 train_mlp_decoder:
   experiment_name: "v10_mlp_bpe_decoder"
   epochs: 100
-  batch_size: 32
+  batch_size: 128
   learning_rate: 1.0e-4
   weight_decay: 0.01
   max_grad_norm: 5.0
