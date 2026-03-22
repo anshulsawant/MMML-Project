@@ -113,6 +113,12 @@ class LatentEuclid(nn.Module):
             out_features=target_dim
         ).to(self.vlm.device).to(torch.bfloat16)
 
+        # 4. Standardize the Config API for Downstream Pipelines 
+        # (Exposing `.config.hidden_size` correctly scaled to the Predictor Output constraints)
+        class LatentEuclidConfig: pass
+        self.config = LatentEuclidConfig()
+        self.config.hidden_size = target_dim
+
     def forward(self, input_ids, attention_mask=None, pixel_values=None, image_grid_thw=None):
         """
         Parallel Forward Pass executing the VL-JEPA extraction.
