@@ -451,6 +451,14 @@ def train():
                         }, step_cp_path)
                         print(f"[{local_rank}] Saved mid-epoch checkpoint: {step_cp_path}")
                         
+                        # Dynamically lock in Mid-Epoch validation as the 'best' checkpoint so it doesn't get lost
+                        if mid_val_loss < best_val_loss:
+                            best_val_loss = mid_val_loss
+                            best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
+                            shutil.copy2(step_cp_path, best_cp_path)
+                            print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Saved x_encoder_best.pt")
+                        
+                        
                         # Keep only latest 4 mid-epoch checkpoints to save disk space
                         old_steps = [f for f in os.listdir(checkpoint_dir) if f.startswith(f"x_encoder_epoch_{epoch}_step_") and f.endswith(".pt")]
                         if len(old_steps) > 4:
@@ -490,9 +498,14 @@ def train():
 
         # --- SAVE CHECKPOINT PER EPOCH ---
         if is_master:
-            # Run Exhaustive End-of-Epoch Validation
+            # Run Exhaustive End-of-Epoch Validation (skip if we just ran an exhaustive periodic step check)
             global_step_end = len(train_dataloader) // gradient_accumulation_steps
-            avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
+            save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
+            if save_every_n_steps > 0 and (global_step_end % save_every_n_steps) <= 2:
+                avg_val_loss = best_val_loss
+                print(f"[{local_rank}] End-of-Epoch exactly abutts Step {global_step_end - 1}. Skipping redundant validation to save time.")
+            else:
+                avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
             
             cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}.pt")
             save_model = model.module if is_distributed else model
