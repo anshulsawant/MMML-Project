@@ -189,7 +189,9 @@ def train():
             print(f"\n[Epoch {epoch}] Val Accuracy: {acc:.2f}%")
             if acc > best_acc:
                 best_acc = acc
-                torch.save(y_decoder.module.state_dict() if isinstance(local_rank, int) else y_decoder.state_dict(), os.path.join(checkpoint_dir, "mlp_best.pt"))
+                save_path = os.path.join(checkpoint_dir, "mlp_best.pt")
+                torch.save(y_decoder.module.state_dict() if isinstance(local_rank, int) else y_decoder.state_dict(), save_path)
+                print(f"[cuda] New best validation accuracy {acc:.2f}% captured! Saved {save_path}")
 
 if __name__ == "__main__":
     train()
