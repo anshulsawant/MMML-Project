@@ -480,28 +480,61 @@ def train():
                     save_encoder = x_encoder.module if is_distributed else x_encoder
                     torch.save(save_encoder.state_dict(), step_encoder_path)
                 
-                # 2. Fire Synchronous Evaluation Native Function
-                print(f"[{device}] Running synchronous evaluation (limit 100 samples) IN-MEMORY...")
-                try:
-                    acc_val = evaluate_in_memory(y_decoder, x_encoder, val_loader, device, config["model"]["k_steps"], limit=100)
-                    print(f"[{device}] Step {effective_step} Eval Accuracy: {acc_val:.2f}%")
-                    wandb.log({"val/step_accuracy": acc_val, "epoch": epoch, "step": effective_step})
+                # 2. Fire Synchronous Evaluation over Entire Holdout Set
+                print(f"[{device}] Calculating Cross-Entropy Loss over entire Validation Set...")
+                y_decoder.eval()
+                if args.end_to_end:
+                    x_encoder.eval()
                     
-                    # Save Best SOTA Checkpoint based strictly on evaluation accuracy
-                    if acc_val > best_eval_acc:
-                        best_eval_acc = acc_val
-                        best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
-                        import shutil
-                        shutil.copy2(step_decoder_path, best_dec_path)
-                        print(f"[{device}] New Best Eval Accuracy! Saved {best_dec_path}")
-                        
-                        if args.end_to_end:
-                            best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
-                            shutil.copy2(step_encoder_path, best_enc_path)
-                            print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
+                total_val_loss = 0.0
+                with torch.no_grad():
+                    for val_idx, (images, texts, target_answers) in enumerate(val_loader):
+                        x_processor = x_encoder.module.processor if is_distributed else x_encoder.processor
+                        batch_messages = []
+                        for img, txt in zip(images, texts):
+                            batch_messages.append([{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}])
                             
-                except Exception as e:
-                    print(f"[{device}] Sync In-Memory Eval failed: {e}")
+                        rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
+                        inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
+                        with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                            predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask, pixel_values=inputs.get("pixel_values"), image_grid_thw=inputs.get("image_grid_thw"))
+                        
+                        val_prompts = []
+                        for t in texts:
+                            clean_t = t
+                            for i in range(config["model"]["k_steps"]):
+                                clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                            val_prompts.append(clean_t.strip() + "\nAnswer: ")
+                        
+                        outputs = y_decoder(predicted_latents=predicted_latents, text_prompts=val_prompts, labels=target_answers)
+                        total_val_loss += outputs.loss.item()
+                        
+                avg_val_loss = total_val_loss / max(1, len(val_loader))
+                
+                print(f"[{device}] Step {effective_step} Validation CE Loss: {avg_val_loss:.4f}")
+                wandb.log({"val/ce_loss": avg_val_loss, "epoch": epoch, "step": effective_step})
+                
+                # Save Best SOTA Checkpoint based strictly on CE convergence
+                if avg_val_loss < best_val_loss:
+                    best_val_loss = avg_val_loss
+                    best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
+                    import shutil
+                    shutil.copy2(step_decoder_path, best_dec_path)
+                    print(f"[{device}] New Best Valid CE Loss {best_val_loss:.4f}! Saved {best_dec_path}")
+                    
+                    if args.end_to_end:
+                        best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
+                        shutil.copy2(step_encoder_path, best_enc_path)
+                        print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
+                        
+                    # Track numerically
+                    loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                    with open(loss_tracker_path, 'w') as f:
+                        json.dump({"best_loss": best_val_loss, "epoch": epoch, "step": effective_step}, f)
+                
+                y_decoder.train()
+                if args.end_to_end:
+                    x_encoder.train()
                     
                 print(f"[{device}] Resuming training immediately...\n")
                 
