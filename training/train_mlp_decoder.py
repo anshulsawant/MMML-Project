@@ -86,7 +86,11 @@ def train():
     if is_master: os.makedirs(checkpoint_dir, exist_ok=True)
     if is_master: wandb.init(project="LatentEuclid", name=experiment_name, config=config)
 
-    x_encoder = LatentEuclid(base_model_id=config["model"]["base_model_id"], k_steps=config["model"]["k_steps"]).to(device)
+    x_encoder = LatentEuclid(
+        base_model_id=config["model"]["base_model_id"], 
+        target_model_id=config["model"]["target_model_id"],
+        k_steps=config["model"]["k_steps"]
+    ).to(device)
     x_enc_weights = config.get(active_block, {}).get("x_encoder_weights_override", "")
     if os.path.exists(x_enc_weights):
         state = torch.load(x_enc_weights, map_location="cpu")
