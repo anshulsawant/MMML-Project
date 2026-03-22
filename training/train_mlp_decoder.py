@@ -80,13 +80,14 @@ def train():
     is_master = (local_rank == 0 if isinstance(local_rank, int) else True)
     device = local_rank
     
-    experiment_name = args.experiment_name
+    active_block = "train_mlp_decoder"
+    experiment_name = config.get(active_block, {}).get("experiment_name", args.experiment_name)
     checkpoint_dir = os.path.join("/workspace/checkpoints/mlp_decoder", experiment_name)
     if is_master: os.makedirs(checkpoint_dir, exist_ok=True)
     if is_master: wandb.init(project="LatentEuclid", name=experiment_name, config=config)
 
     x_encoder = LatentEuclid(base_model_id=config["model"]["base_model_id"], k_steps=config["model"]["k_steps"]).to(device)
-    x_enc_weights = config.get("train_decoder", {}).get("x_encoder_weights_override", "")
+    x_enc_weights = config.get(active_block, {}).get("x_encoder_weights_override", "")
     if os.path.exists(x_enc_weights):
         state = torch.load(x_enc_weights, map_location="cpu")
         x_encoder.load_state_dict(state.get("model_state_dict", state))
@@ -108,7 +109,11 @@ def train():
     if isinstance(local_rank, int):
         y_decoder = DDP(y_decoder, device_ids=[local_rank])
 
-    optimizer = torch.optim.AdamW(y_decoder.parameters(), lr=1e-4, weight_decay=0.01)
+    optimizer = torch.optim.AdamW(
+        y_decoder.parameters(), 
+        lr=float(config.get(active_block, {}).get("learning_rate", 1e-4)), 
+        weight_decay=float(config.get(active_block, {}).get("weight_decay", 0.01))
+    )
 
     with open(config["data"]["jsonl_path"], 'r') as f: full_data = [json.loads(line) for line in f]
     with open("data/ground_truths.json", 'r') as f: ground_truths = json.load(f)
@@ -122,13 +127,15 @@ def train():
     train_dataset = GeoThoughtsTextDataset(train_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
     val_dataset = GeoThoughtsTextDataset(val_data, ground_truths, x_tokenizer, config["model"]["k_steps"])
 
+    batch_size = int(config.get(active_block, {}).get("batch_size", 32))
     train_sampler = DistributedSampler(train_dataset) if isinstance(local_rank, int) else None
-    train_loader = DataLoader(train_dataset, batch_size=32, sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None), drop_last=True)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, sampler=train_sampler, collate_fn=custom_collate, shuffle=(train_sampler is None), drop_last=True)
     val_sampler = DistributedSampler(val_dataset, shuffle=False) if isinstance(local_rank, int) else None
-    val_loader = DataLoader(val_dataset, batch_size=32, sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
+    val_loader = DataLoader(val_dataset, batch_size=batch_size, sampler=val_sampler, collate_fn=custom_collate, shuffle=False)
 
     best_acc = 0.0
-    for epoch in range(100):
+    epochs = int(config.get(active_block, {}).get("epochs", 100))
+    for epoch in range(epochs):
         if train_sampler: train_sampler.set_epoch(epoch)
         y_decoder.train()
         
@@ -159,7 +166,8 @@ def train():
             outputs = y_decoder(x=predicted_latents, labels=label_tensors)
             loss = outputs.loss
             loss.backward()
-            torch.nn.utils.clip_grad_norm_(y_decoder.parameters(), 5.0)
+            max_grad = float(config.get(active_block, {}).get("max_grad_norm", 5.0))
+            torch.nn.utils.clip_grad_norm_(y_decoder.parameters(), max_grad)
             optimizer.step()
             
             if is_master:
