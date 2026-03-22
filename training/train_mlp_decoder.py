@@ -96,11 +96,12 @@ def train():
 
     tokenizer = Tokenizer.from_file("data/math_vocab.json")
     
-    # 2-layer MLP (dxd -> dxVocab) with d dynamically tied to X-Encoder
+    # 2-layer MLP (dxd -> dxVocab) seamlessly mapping the final predictor topology
+    d = x_encoder.predictor.mlp[-1].out_features
     y_decoder = MLPDecoder(
-        input_dim=x_encoder.config.hidden_size, 
-        hidden_dim=x_encoder.config.hidden_size, 
-        vocab_size=300, 
+        input_dim=d, 
+        hidden_dim=d, 
+        vocab_size=300,
         max_len=10, 
         num_layers=2
     ).to(device)
