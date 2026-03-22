@@ -501,50 +501,33 @@ def train():
 
                     wandb.log(micro_metrics_dict)
 
-        # --- SAVE CHECKPOINT PER EPOCH ---
+        # --- VALIDATION PER EPOCH ---
         if is_master:
             # Run Exhaustive End-of-Epoch Validation (skip if we just ran an exhaustive periodic step check)
             global_step_end = len(train_dataloader) // gradient_accumulation_steps
             save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
             if save_every_n_steps > 0 and (global_step_end % save_every_n_steps) <= 2:
-                avg_val_loss = best_val_loss
-                print(f"[{local_rank}] End-of-Epoch exactly abutts Step {global_step_end - 1}. Skipping redundant validation to save time.")
+                print(f"[{local_rank}] End-of-Epoch exactly abutts Step {global_step_end - 1}. Skipping redundant validation and blind checkpoint saving.")
             else:
                 avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
-            
-            cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}.pt")
-            save_model = model.module if is_distributed else model
-            
-            torch.save({
-                'epoch': epoch,
-                'model_state_dict': save_model.state_dict(),
-                'optimizer_state_dict': optimizer.state_dict(),
-                'loss': loss.item(),
-                'val_loss': avg_val_loss
-            }, cp_path)
-            print(f"[{local_rank}] Saved checkpoint: {cp_path}")
-            
-            if avg_val_loss < best_val_loss:
-                best_val_loss = avg_val_loss
-                best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
-                shutil.copy2(cp_path, best_cp_path)
-                print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
                 
-            # Track numerically
-            loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
-            with open(loss_tracker_path, 'w') as f:
-                json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
-            
-            # Keep only latest 4 checkpoints to safely utilize the 500GB RunPod MooseFS disk quota
-            old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
-            if len(old_epochs) > 4:
-                old_epochs.sort(key=parse_cp_name)
-                for old_f in old_epochs[:-4]: # Keep the latest 4 checkpoints
-                    try:
-                        os.remove(os.path.join(checkpoint_dir, old_f))
-                        print(f"[{local_rank}] Auto-deleted ancient checkpoint {old_f} to preserve disk space.")
-                    except OSError:
-                        pass
+                if avg_val_loss < best_val_loss:
+                    best_val_loss = avg_val_loss
+                    best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
+                    save_model = model.module if is_distributed else model
+                    torch.save({
+                        'epoch': epoch,
+                        'model_state_dict': save_model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'loss': loss.item(),
+                        'val_loss': avg_val_loss
+                    }, best_cp_path)
+                    print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                    
+                    # Track numerically
+                    loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                    with open(loss_tracker_path, 'w') as f:
+                        json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
     if is_master:
         save_model = model.module if is_distributed else model
         torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
