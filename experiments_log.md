@@ -157,3 +157,27 @@ Created `train_linear_probe.py` to freeze the target LLM out of the loop and str
 - **Alternative Linear Probe Framing (Simplified Vocab + Fixed Length):** Instead of continuous regression, MCQ, or autoregressive sequence-by-sequence decoding, we can project `<thought_3>` directly to a fixed-length window (e.g., 20 tokens) simultaneously over a highly restricted vocabulary (digits `[0-9]`, math symbols `+`, `-`, `*`, `/`, `\pi`, `\sqrt`, `n`, `x` and a `[PAD]` token). This allows complex symbolic answers to be generated in a single structural forward pass natively.
 - **Alternative Linear Probe Framing (Multiple-Choice):** To completely avoid dealing with numeric scaling (MSE vs Z-score) and symbolic (`n+3`, `2\pi`) mappings, we can re-frame the Linear Probe as a classification task: pass in the question + answer options (A, B, C, D, etc.) and predict the index, or formulate a true/false (Yes/No) question about the geometric relations.
 - **Symbolic & Constant Mapping:** The ground truth answers include mathematical expressions (`n+3`, `2\pi`, `\sqrt{3}`) which cannot be natively cast into basic un-tokenized linear float regression. We will need to either add an auxiliary classification head for the symbolic alphabet, or implement a discrete vocabulary dictionary for transcendental answers in the probe.
+
+---
+
+## 10. `v2_huber_mean_pooled_contextual_thoughts` (Huber-Cosine Synthesis Decoder)
+**Hypothesis & Modifications:**
+- Testing if explicitly scaling the precision of the continuous X-Encoder topological topology (via Huber+Cosine invariance convergence previously reaching `0.0385` Cosine similarity) yields structurally higher Zero-Shot language evaluation metrics natively bridging through exactly the same Target Decoder architecture (MLP + 2 Unfrozen Qwen 3 4B Blocks).
+- **Teacher Loss Formulation:** End-to-End Cross Entropy
+- **Decoder Configuration:** `unfreeze_layers: 2`, `use_projection_mlp: True`
+- **X-Encoder Anchor:** The target `v2_huber_mean_pooled_contextual_thoughts` SOTA vectors.
+
+**Failure Modes & Results:**
+- **Training Validation CE Loss:** **0.7775**
+- **Zero-Shot E2E Accuracy:** **42.18%** (Regression vs V4)
+- **Analysis:** Despite perfectly saturating the exact `0.77` syntax complexity training threshold achieved by the original V4 execution, and utilizing a numerically tighter mathematical representation vector (0.0385 Cosine), the empirical Zero-Shot end-to-end evaluation statistically regressed (~-3.2%).
+
+---
+
+## 11. `v11_e2e_huber_contextual` (Co-Training)
+**Hypothesis & Modifications:**
+- The current representations hit an empirical plateau. To formally lock the spatial mappings to the explicit reasoning syntax, we are taking the theoretically optimal baseline weights from `v2_huber_mean_pooled_contextual_thoughts` and unfreezing the *entire* continuous architecture: the Qwen3-VL Vision Encoder, the Multimodal Projection block, the Cross-Attention MLPs, and 36 foundational layers of the Base Decoder. 
+- By utilizing the `42.18%` checkpoint as literal pre-trained topological initialization weights rather than random parameters, we aim to prevent the fragile Foundation matrices from experiencing catastrophic forgetting while gradient-aligning the mathematical output natively space.
+- **Teacher Loss Formulation:** End-to-End Cross Entropy
+- **Decoder Configuration:** `unfreeze_layers: 36`, `use_projection_mlp: True`
+- **X-Encoder Configuration:** Gradient Checkpointed, FULLY unfrozen via End-to-End launch flags.
