@@ -89,3 +89,18 @@ To scientifically validate the VL-JEPA hypothesis, we execute a head-to-head com
 2. **Progressive Temporal Probing:** Expanding the probing experiment across the sequence, we train linear probes on `<thought_1>`, `<thought_2>`, `<thought_3>`, and `<thought_4>` separately. Low-level visual features (e.g., "parallel lines detected") peak in accuracy at `<thought_1>`, while high-level abstractions (e.g., "x = 45") peak at `<thought_4>`. This provides irrefutable evidence that LatentEuclid successfully structures a sequential chain of thought purely in a continuous latent space.
 3. **Efficiency Analysis (The Latency Claim):** We measure FLOPs and inference latency (Time-to-Answer), contrasting LatentEuclid (1 heavy sequential forward pass + 1 microscopic decoder pass) against a standard structured VLM (upwards of 150+ expensive autoregressive decoding passes through the massive multimodal backbone).
 4. **End-to-End Accuracy:** We benchmark the final structured mathematical accuracy against the baseline models.
+
+## **4. Future Work: Arbitrary Latent Reasoning (Continuous Implicit CoT)**
+
+LatentEuclid's initial baseline strictly enforces a **"Templated CoT"** constraint, forcefully parsing English reasoning chains into exactly $K=4$ scalar vectors. To mathematically push the architecture to the theoretical frontiers of Continuous Reasoning (Implicit CoT), we outline the multi-phase deployment of **Arbitrary Latent Recurrence**:
+
+### **Phase 1: Dynamic Continuous SFT (Latent Bootstrapping)**
+RL algorithms natively operating on functionally unbounded continuous arrays instantly collapse without massive, cleanly initialized behavioral heuristics due to mathematically sparse numeric reward boundaries. To overcome the cold-start barrier:
+* **Variable-Length target Manifolds:** Modify `build_manifold.py` to strip out explicit English regex constraints. Organically map dynamic reasoning lengths exactly as Output by the API ($N$ steps) straight into dynamic $N$-length arrays of embedding matrices using the `Qwen3-0.6B` Teacher. We strictly append a terminal `<HALT>` target state tensor.
+* **Supervised Latent Fine-Tuning:** Unroll the VLM X-Encoder natively over sequences of varying $N$ timesteps via standard autoregressive tracking arrays against batch padding masks. Train heavily utilizing exactly the unified (Huber + Cosine) optimization loop natively mapped continuous states to identical states.
+
+### **Phase 2: End-to-End Latent Reinforcement Learning**
+Once SFT physically establishes reliable topological spatial reasoning graphs mathematically tracking geometry across $N$ continuous steps without degradation:
+* **Eliminate Supervised Intermediate Topologies:** Cut out the frozen 0.6B Expert Teacher manifolds entirely. 
+* **The Pondering Loop:** During recurrent propagation, the Continuous X-Encoder naturally floats freely across $t$ arbitrary passes, building geometric abstractions until it successfully crosses the mathematical threshold predicting a native `<HALT>` target parameter state.
+* **Perplexity Reward Shaping:** Feed the accumulated continuous sequence natively into the 4B parameters of the frozen target Language Decoder structure. Compute native Textual Cross-Entropy exclusively on the terminal conclusion (`e.g., "12.5"`). Backpropagate those reward gradients seamlessly across the sequence of accumulated continuous reasoning variables, allowing LatentEuclid to mathematically invent non-English continuous recursive logic independently.
