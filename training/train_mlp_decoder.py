@@ -167,8 +167,10 @@ def train():
                 padded_targets.append(ids)
             label_tensors = torch.tensor(padded_targets, dtype=torch.long, device=device)
 
-            outputs = y_decoder(x=predicted_latents, labels=label_tensors)
-            loss = outputs.loss
+            with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+                outputs = y_decoder(x=predicted_latents, labels=label_tensors)
+                loss = outputs.loss
+                
             loss.backward()
             max_grad = float(config.get(active_block, {}).get("max_grad_norm", 5.0))
             torch.nn.utils.clip_grad_norm_(y_decoder.parameters(), max_grad)
