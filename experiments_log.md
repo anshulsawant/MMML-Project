@@ -140,6 +140,19 @@ All artifacts for an experiment map natively to its canonical `experiment_name`.
 []### Phase 11: The Translation Bottleneck (Linear Probe)
 Created `train_linear_probe.py` to freeze the target LLM out of the loop and strictly run a tiny PyTorch `nn.Linear` regression directly on Token 3 + the question embeddings. This will isolate the raw mathematical encoding precision of the geometry without zero-shot semantic LLM priors.
 
+---
+
+## 9. `v10_mlp_bpe_decoder` (Phase 14 Custom BPE Ablation)
+**Hypothesis & Modifications:**
+- Testing if a heavily compressed 300-token native mathematical BPE vocabulary and a standalone Multi-Layer Perceptron can bypass the massive 4B parameter language tracking circuits entirely.
+- **Decoder Configuration:** Custom `MLPDecoder` (Scaled massively to 4 layers, 4096 hidden units, 54 Million params) operating exclusively across 2560-dimension topological `thought_k` vectors into discrete sequential token arrays.
+- **Throughput:** Maximum matrix saturation at Batch Size 128 driven rigidly over the frozen 4B vision blocks.
+
+**Failure Modes & Results:**
+- **Zero-Shot Accuracy:** **4.5%** plateau (Cross Entropy loss saturated aggressively at exactly `~2.3` / `10%` confidence per mathematical string character despite explicit scaling vectors up to `1e-3` learning rates).
+- **Analysis:** This definitively maps the absolute physical lower bound of the translation continuum. The geometric `<thought>` tensors do not exist as independent native numerical algebra points; they are specifically formed continuous heuristic keys physically trained to unlock precise logical linguistic structures located heavily inside the massive underlying 36-layer `Qwen3-4B-Base` foundation model. A dense perception network cannot structurally reverse-engineer numeric syntax out of these high-dimensional topologies without access to those massive linguistic pre-training priors. We formally abandon geometric scaling attempts and pivot explicitly back to native Auto-Regressive language evaluation using the structural foundation LLM.
+
+
 **Next Steps (TODOs for Tomorrow):**
 - **Alternative Linear Probe Framing (Simplified Vocab + Fixed Length):** Instead of continuous regression, MCQ, or autoregressive sequence-by-sequence decoding, we can project `<thought_3>` directly to a fixed-length window (e.g., 20 tokens) simultaneously over a highly restricted vocabulary (digits `[0-9]`, math symbols `+`, `-`, `*`, `/`, `\pi`, `\sqrt`, `n`, `x` and a `[PAD]` token). This allows complex symbolic answers to be generated in a single structural forward pass natively.
 - **Alternative Linear Probe Framing (Multiple-Choice):** To completely avoid dealing with numeric scaling (MSE vs Z-score) and symbolic (`n+3`, `2\pi`) mappings, we can re-frame the Linear Probe as a classification task: pass in the question + answer options (A, B, C, D, etc.) and predict the index, or formulate a true/false (Yes/No) question about the geometric relations.
