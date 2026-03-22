@@ -107,10 +107,10 @@ def train():
     # 2-layer MLP (dxd -> dxVocab) reading directly from the unified Configuration wrapper
     y_decoder = MLPDecoder(
         input_dim=x_encoder.config.hidden_size, 
-        hidden_dim=x_encoder.config.hidden_size, 
+        hidden_dim=4096, 
         vocab_size=300,
         max_len=10, 
-        num_layers=2
+        num_layers=4
     ).to(device)
     
     if isinstance(local_rank, int):
