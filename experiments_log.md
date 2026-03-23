@@ -181,3 +181,6 @@ Created `train_linear_probe.py` to freeze the target LLM out of the loop and str
 - **Teacher Loss Formulation:** End-to-End Cross Entropy
 - **Decoder Configuration:** `unfreeze_layers: 36`, `use_projection_mlp: True`
 - **X-Encoder Configuration:** Gradient Checkpointed, FULLY unfrozen via End-to-End launch flags.
+- **Results:** 
+  - **Validation CE Loss:** **0.74732** (Absolute Pipeline SOTA)
+  - **Zero-Shot Accuracy:** *(Pending Evaluation)*
