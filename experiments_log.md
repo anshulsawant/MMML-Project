@@ -196,7 +196,7 @@ Created `train_linear_probe.py` to freeze the target LLM out of the loop and str
   - **4 Steps:** 51.43% Accuracy
   - **5 Steps:** 56.25% Accuracy
   - **6 Steps:** 38.38% Accuracy
-  - **7 Steps:** 28.30% Accuracy
-  - **8+ Steps:** ~35.00% Accuracy
-- **Analysis:** Performance peaks beautifully across the 2-to-5 step range (hitting a massive **68.75%** on 3-step problems). However, once the mathematical logic natively exceeds 5 steps, the frozen architecture violently collapses to **~28% - 38%**. This formally guarantees that enforcing a rigid  fixed-step unrolling parameter fundamentally destroys accuracy on complex geometry sequences!
-
+  - **7+ Steps:** ~28% - 36% Accuracy
+- **Analysis and Hypothesis:** 
+  The evaluation indicates that performance peaks significantly when the required reasoning length aligns closely with 3 to 5 steps, but declines steadily on significantly shorter (1-step) or longer (6+ steps) sequences. 
+  A likely structural hypothesis for this distribution is the explicit training constraint enforced during earlier phases: the model was natively trained to generate exactly `k=4` fixed reasoning steps across all problems in the dataset. Because the projection layers were strictly optimized to populate a 4-step sequence manifold, the architecture may inherently struggle to dynamically adapt its representational capacity to problems requiring instantaneous logic or deep recursive deduction.
