@@ -183,4 +183,5 @@ Created `train_linear_probe.py` to freeze the target LLM out of the loop and str
 - **X-Encoder Configuration:** Gradient Checkpointed, FULLY unfrozen via End-to-End launch flags.
 - **Results:** 
   - **Validation CE Loss:** **0.74732** (Absolute Pipeline SOTA)
-  - **Zero-Shot Accuracy:** *(Pending Evaluation)*
+  - **Zero-Shot Accuracy:** **44.71%**
+  - **Analysis:** Despite achieving mathematically the lowest validation string perplexity natively over the cross-entropy constraint across the fully unfrozen 8B foundation parameters, the empirical zero-shot geometric scoring completely plateaued exactly where the isolated V4 graph saturated natively. A critical realization emerged: generating the target topological tensors continuously intertwined with the explicit textual context (Contextual Tokens) structurally failed to provide downstream mapping performance leverage. This is natively because `thought_1` acts as a hyper-dense semantic extraction of the underlying Image Logic; its continuous representation inherently provides geometrically complete routing context for the subsequent `thoughts 2-4` automatically. Manually anchoring the later topologies to the question text introduces redundant heuristic overlap rather than mathematically new spatial insight.
