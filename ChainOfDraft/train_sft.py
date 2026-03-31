@@ -316,12 +316,40 @@ def main() -> None:
 
     # Load processor & model.
     processor = AutoProcessor.from_pretrained(args.model_id)
-    model = AutoModelForImageTextToText.from_pretrained(
-        args.model_id,
-        torch_dtype=torch.bfloat16,
-        attn_implementation="flash_attention_2",
-        low_cpu_mem_usage=True,
-    )
+    model_load_kwargs = {
+        "torch_dtype": torch.bfloat16,
+        "low_cpu_mem_usage": True,
+    }
+    try:
+        model = AutoModelForImageTextToText.from_pretrained(
+            args.model_id,
+            attn_implementation="flash_attention_2",
+            **model_load_kwargs,
+        )
+        print("Attention backend: flash_attention_2")
+    except Exception as flash_err:
+        print(
+            "flash_attention_2 unavailable "
+            f"({type(flash_err).__name__}: {flash_err}). Falling back to sdpa."
+        )
+        try:
+            model = AutoModelForImageTextToText.from_pretrained(
+                args.model_id,
+                attn_implementation="sdpa",
+                **model_load_kwargs,
+            )
+            print("Attention backend: sdpa")
+        except Exception as sdpa_err:
+            print(
+                "sdpa unavailable "
+                f"({type(sdpa_err).__name__}: {sdpa_err}). Falling back to eager."
+            )
+            model = AutoModelForImageTextToText.from_pretrained(
+                args.model_id,
+                attn_implementation="eager",
+                **model_load_kwargs,
+            )
+            print("Attention backend: eager")
 
     if args.gradient_checkpointing:
         model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
