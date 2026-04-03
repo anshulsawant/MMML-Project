@@ -372,7 +372,6 @@ def main() -> None:
     # Training arguments.
     training_args = TrainingArguments(
         output_dir=args.output_dir,
-        overwrite_output_dir=True,
         num_train_epochs=args.epochs,
         per_device_train_batch_size=args.micro_batch_size,
         gradient_accumulation_steps=grad_accum,

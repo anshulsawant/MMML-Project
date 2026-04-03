@@ -10,3 +10,5 @@ google-genai
 wheel
 packaging
 ninja
+openai
+aiohttp
