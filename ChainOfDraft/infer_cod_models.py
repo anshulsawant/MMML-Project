@@ -6,19 +6,9 @@ Uses greedy decoding (temperature=0.0), max generation length 2048.
 Output format matches molmo2/predictions_*.json.
 
 Usage:
-    # Direct (1-token answer):
     python ChainOfDraft/infer_vllm.py \
-        --model-path checkpoints/qwen25vl3b-cod-sft/final \
         --test-dir test/ \
-        --output-json ChainOfDraft/predictions_direct.json \
-        --mode direct
-
-    # Thinking (chain-of-thought then <answer>X</answer>):
-    python ChainOfDraft/infer_vllm.py \
-        --model-path checkpoints/qwen25vl3b-cod-sft/final \
-        --test-dir test/ \
-        --output-json ChainOfDraft/predictions_thinking.json \
-        --mode thinking
+        --output-json ChainOfDraft/predictions_thinking.json
 """
 
 import argparse
@@ -36,21 +26,13 @@ from transformers import AutoModelForImageTextToText, AutoProcessor
 # Prompts (same as molmo2.ipynb)
 # ---------------------------------------------------------------------------
 
-PROMPT_DIRECT = (
-    "The following problem refers to an image diagram. "
-    "Please consider the diagram to answer the question. "
-    "Your answer MUST be a single capital letter: A, B, C, or D.\n\n"
-    "{problem_text}\n\n{choices_text}\n\n"
-    "Answer:"
-)
-
 PROMPT_THINKING = (
     "You are a helpful AI assistant.\n"
     "When answering questions, you always consider the image diagram "
     "and must always show your step-by-step reasoning process first.\n"
     "Once you have reached a conclusion, you MUST answer in the following "
-    "format: <answer>A, B, C, or D.</answer>\n\n"
-    "{problem_text}\n\n{choices_text}\n\n"
+    "format: <think>[Chain of Thought]</think>[final answer]\n\n"
+    "{problem_text}"
 )
 
 
@@ -61,13 +43,12 @@ PROMPT_THINKING = (
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(
         description="Inference on Geometry3K for fine-tuned Qwen2.5-VL-3B.")
-    p.add_argument("--model-path", type=str, required=True,
-                   help="Path to fine-tuned checkpoint or HF model id.")
+    p.add_argument("--model-path", type=str,
+                   default="shilinm/cod_finetuned_qwen2.5",
+                   help="HF model id or local path (default: shilinm/cod_finetuned_qwen2.5).")
     p.add_argument("--test-dir", type=str, default="test/",
                    help="Path to Geometry3K test/ folder.")
     p.add_argument("--output-json", type=str, default="predictions.json")
-    p.add_argument("--mode", type=str, choices=["direct", "thinking"], default="direct",
-                   help="Prompt mode: 'direct' (1-token) or 'thinking' (CoT).")
     p.add_argument("--max-gen-tokens", type=int, default=2048)
     p.add_argument("--batch-size", type=int, default=16,
                    help="Batch size for batched generation.")
@@ -117,11 +98,23 @@ def load_geometry3k_test(test_dir: str) -> List[Dict[str, Any]]:
     return problems
 
 
-def extract_answer_tag(text: str) -> Optional[str]:
-    """Extract letter from <answer>X</answer>."""
-    match = re.search(r"<answer>(.*?)</answer>", text, re.IGNORECASE | re.DOTALL)
+def extract_answer(text: str) -> Optional[str]:
+    """Extract the MCQ letter (A-F) from the model output.
+
+    The prompt instructs the model to respond as:
+        <think>[Chain of Thought]</think>[final answer]
+
+    Strategy:
+    1. If </think> is present, look in the text that follows it.
+    2. Otherwise search the full text.
+    In either region, return the first standalone A-F letter found.
+    """
+    think_end = text.find("</think>")
+    region = text[think_end + len("</think>"):].strip() if think_end != -1 else text
+
+    match = re.search(r"\b([A-F])\b", region, re.IGNORECASE)
     if match:
-        return match.group(1).strip()
+        return match.group(1).upper()
     return None
 
 
@@ -135,7 +128,6 @@ def load_model_and_processor(model_path: str, quantization: str, device: str):
 
     kwargs: Dict[str, Any] = {
         "device_map": "auto" if device == "cuda" else None,
-        "low_cpu_mem_usage": True,
     }
 
     if quantization == "bf16":
@@ -170,9 +162,7 @@ def main() -> None:
     problems = load_geometry3k_test(args.test_dir)
     print(f"Loaded {len(problems)} Geometry3K test problems from {args.test_dir}")
 
-    is_direct = args.mode == "direct"
-    prompt_template = PROMPT_DIRECT if is_direct else PROMPT_THINKING
-    max_new_tokens = 1 if is_direct else args.max_gen_tokens
+    max_new_tokens = args.max_gen_tokens
 
     # Load model.
     model, processor = load_model_and_processor(args.model_path, args.quantization, args.device)
@@ -189,7 +179,7 @@ def main() -> None:
         images_batch = []
         for prob in batch:
             choices_text = "\n".join(prob["choices"])
-            prompt_text = prompt_template.format(
+            prompt_text = PROMPT_THINKING.format(
                 problem_text=prob["problem_text"],
                 choices_text=choices_text,
             )
@@ -209,9 +199,8 @@ def main() -> None:
             messages_batch,
             add_generation_prompt=True,
             tokenize=True,
-            padding=True,
             return_dict=True,
-            return_tensors="pt",
+            processor_kwargs={"padding": True, "return_tensors": "pt"},
         )
         if args.device == "cuda":
             inputs = {k: v.to("cuda") if hasattr(v, "to") else v for k, v in inputs.items()}
@@ -231,18 +220,12 @@ def main() -> None:
 
         for prob, text in zip(batch, decoded):
             text = text.strip()
-            if is_direct:
-                results.append({
-                    "problem_id": prob["problem_id"],
-                    "prediction": text,
-                })
-            else:
-                extracted = extract_answer_tag(text)
-                results.append({
-                    "problem_id": prob["problem_id"],
-                    "prediction_full": text,
-                    "prediction": extracted,
-                })
+            extracted = extract_answer(text)
+            results.append({
+                "problem_id": prob["problem_id"],
+                "prediction_full": text,
+                "prediction": extracted,
+            })
 
         done = min(batch_start + args.batch_size, len(problems))
         print(f"Processed {done}/{len(problems)}")
