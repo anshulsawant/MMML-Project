@@ -200,7 +200,8 @@ def main() -> None:
             add_generation_prompt=True,
             tokenize=True,
             return_dict=True,
-            processor_kwargs={"padding": True, "return_tensors": "pt"},
+            padding=True,
+            return_tensors="pt",
         )
         if args.device == "cuda":
             inputs = {k: v.to("cuda") if hasattr(v, "to") else v for k, v in inputs.items()}
