@@ -138,14 +138,40 @@ def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, devi
     
     return mean_pooled_embeddings.cpu()
 
-def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
-    """Processes K4 text and saves continuous target tensors."""
+def build_manifold(model_id: str, input_jsonl: str, output_dir: str,
+                   anchor_projector_path: str = None, cod_jsonl_path: str = None):
+    """Processes K4 text and saves continuous target tensors.
+    
+    If anchor_projector_path and cod_jsonl_path are provided, samples with
+    a CoD match get their targets replaced by the projected CoD embedding
+    (broadcast across all K steps). Unpaired samples keep CoT embeddings.
+    """
     os.makedirs(output_dir, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
     tokenizer, processor, model = load_qwen_target_model(model_id, device)
     
+    # Optionally load manifold anchoring components
+    projector = None
+    cod_lookup = {}
+    if anchor_projector_path and cod_jsonl_path:
+        print(f"Loading manifold anchor projector from {anchor_projector_path}...")
+        from training.train_manifold_anchor import ManifoldProjector, load_cod_lookup, extract_cod_reasoning
+        
+        ckpt = torch.load(anchor_projector_path, map_location="cpu", weights_only=False)
+        hidden_size = ckpt.get("hidden_size", model.config.hidden_size if hasattr(model.config, "hidden_size") else 2560)
+        projector = ManifoldProjector(hidden_size).to(device, dtype=torch.bfloat16)
+        projector.load_state_dict(ckpt["model_state_dict"])
+        projector.eval()
+        
+        cod_lookup = load_cod_lookup(cod_jsonl_path)
+        print(f"  Loaded projector (epoch {ckpt.get('epoch', '?')}, loss {ckpt.get('loss', '?'):.4f})")
+        print(f"  CoD lookup: {len(cod_lookup)} entries")
+    
     batch_size = config.get("build_manifold", {}).get("batch_size", 4)
     print(f"Processing with chunked batch_size: {batch_size}")
+    
+    anchored_count = 0
+    identity_count = 0
     
     with open(input_jsonl, 'r') as f:
         lines = f.readlines()
@@ -180,6 +206,45 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
         # Reshape isolated K-thought vectors back into exact topological instances
         target_tensors = target_tensors_flat.view(len(batch_data), 4, -1)
         
+        # Apply manifold anchoring for CoD-paired samples
+        if projector is not None:
+            cod_texts = []
+            cod_bases = []
+            cod_images = []
+            cod_indices = []  # which samples in the batch have CoD
+            
+            for j, data in enumerate(batch_data):
+                q_text = data["question"].replace("<image>", "").strip()
+                for k_idx in range(1, 5):
+                    q_text = q_text.replace(f"<thought_{k_idx}>", "")
+                    
+                if q_text in cod_lookup:
+                    cod_reasoning = extract_cod_reasoning(cod_lookup[q_text])
+                    if cod_reasoning:
+                        prefix = f"{q_text}\nAnswer: "
+                        cod_texts.append(f"{prefix}{cod_reasoning}")
+                        cod_bases.append(prefix)
+                        cod_images.append(data.get("image_path"))
+                        cod_indices.append(j)
+            
+            if cod_indices:
+                with torch.no_grad():
+                    cod_embeddings = embed_steps_batch(
+                        cod_texts, cod_bases, tokenizer, model, device=device,
+                        images=cod_images, processor=processor,
+                    ).to(device, dtype=torch.bfloat16)
+                    
+                    projected = projector(cod_embeddings).cpu()  # [n_cod, hidden_dim]
+                
+                # Replace: broadcast projected CoD embedding across all K=4 steps
+                for local_idx, batch_idx in enumerate(cod_indices):
+                    target_tensors[batch_idx] = projected[local_idx].unsqueeze(0).expand(4, -1)
+                    anchored_count += 1
+                    
+                identity_count += len(batch_data) - len(cod_indices)
+            else:
+                identity_count += len(batch_data)
+        
         # Save the isolated .pt files for Phase 3 training
         for j, tensor in enumerate(target_tensors):
             idx = i + j
@@ -187,6 +252,11 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
             
         if (i + len(batch_data)) % 50 < batch_size:
             print(f"Generated manifolds for {i + len(batch_data)} problems...")
+    
+    if projector is not None:
+        print("\nManifold Anchoring Summary:")
+        print(f"  Anchored (CoD projected): {anchored_count}")
+        print(f"  Identity (CoT fallback):  {identity_count}")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
@@ -195,6 +265,10 @@ if __name__ == "__main__":
     parser.add_argument("--model_id", type=str, default=None, help="Explicit target base LLM override.")
     parser.add_argument("--input_jsonl", type=str, default=None, help="Explicit JSONL source override.")
     parser.add_argument("--output_dir", type=str, default=None, help="Explicit target tensor save dir override.")
+    parser.add_argument("--anchor_projector", type=str, default=None,
+                        help="Path to trained manifold anchor projector checkpoint (.pt)")
+    parser.add_argument("--cod_dataset", type=str, default=None,
+                        help="Path to CoD JSONL for anchoring (default: from config or ChainOfDraft/qwen3_vl_cod_dataset_filtered_sc.jsonl)")
     args = parser.parse_args()
     
     with open(args.config, 'r') as f:
@@ -220,4 +294,20 @@ if __name__ == "__main__":
     print("="*50 + "\n")
         
     print(f"Dynamically routing Target Tensors to: {output_dir}")
-    build_manifold(model_id, input_jsonl, output_dir)
+    
+    # Resolve anchoring arguments
+    anchor_cfg = config.get("train_manifold_anchor", {})
+    anchor_projector = args.anchor_projector or anchor_cfg.get("projector_path")
+    cod_dataset = args.cod_dataset or anchor_cfg.get("cod_dataset")
+    
+    if anchor_projector and not cod_dataset:
+        cod_dataset = "ChainOfDraft/qwen3_vl_cod_dataset_filtered_sc.jsonl"
+    
+    if anchor_projector:
+        print(f"Manifold Anchoring ENABLED")
+        print(f"  Projector:   {anchor_projector}")
+        print(f"  CoD dataset: {cod_dataset}")
+    
+    build_manifold(model_id, input_jsonl, output_dir,
+                   anchor_projector_path=anchor_projector,
+                   cod_jsonl_path=cod_dataset)

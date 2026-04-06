@@ -107,3 +107,10 @@ train_mlp_decoder:
   weight_decay: 0.01
   max_grad_norm: 5.0
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+
+train_manifold_anchor:
+  cod_dataset: "ChainOfDraft/qwen3_vl_cod_dataset_filtered_sc.jsonl"
+  epochs: 10
+  batch_size: 4
+  learning_rate: 1.0e-4
+  mse_weight: 0.1
