@@ -12,17 +12,26 @@ After training, build_manifold.py can apply this projector to produce
 "anchored" target tensors for samples with CoD, while unpaired samples
 retain their original CoT embeddings (identity fallback).
 
+Features:
+    - RunPod S3 sync: download/upload checkpoints from RunPod object storage
+    - HuggingFace Hub auto-upload: push projector weights after training
+
 Usage:
     python training/train_manifold_anchor.py --config training/config.yaml
 
     # Quick debug run
     python training/train_manifold_anchor.py --config training/config.yaml --limit 100 --epochs 3
+
+    # With S3 sync and HF upload
+    python training/train_manifold_anchor.py --config training/config.yaml \
+        --s3-bucket 7ih6gcggwr --hf-repo anshulsawant/latent-euclid-manifold-anchor
 """
 
 import argparse
 import json
 import os
 import re
+import subprocess
 
 import torch
 import torch.nn as nn
@@ -172,6 +181,59 @@ def embed_cod_single(pairs_batch, tokenizer, model, device, processor=None):
 
 
 # ---------------------------------------------------------------------------
+# RunPod S3 helpers
+# ---------------------------------------------------------------------------
+
+RUNPOD_S3_REGION = "us-md-1"
+RUNPOD_S3_ENDPOINT = "https://s3api-us-md-1.runpod.io"
+
+
+def _s3_cmd(args: list[str], bucket: str) -> list[str]:
+    """Build an aws s3 command list with RunPod endpoint configuration."""
+    return [
+        "aws", "s3",
+        *args,
+        "--region", RUNPOD_S3_REGION,
+        "--endpoint-url", RUNPOD_S3_ENDPOINT,
+    ]
+
+
+def s3_download(bucket: str, s3_prefix: str, local_dir: str) -> None:
+    """Download files from RunPod S3 to local_dir."""
+    s3_uri = f"s3://{bucket}/{s3_prefix}"
+    os.makedirs(local_dir, exist_ok=True)
+    cmd = _s3_cmd(["sync", s3_uri, local_dir], bucket)
+    print(f"  S3 download: {s3_uri} -> {local_dir}")
+    subprocess.run(cmd, check=True)
+
+
+def s3_upload(bucket: str, local_dir: str, s3_prefix: str) -> None:
+    """Upload local_dir to RunPod S3."""
+    s3_uri = f"s3://{bucket}/{s3_prefix}"
+    cmd = _s3_cmd(["sync", local_dir, s3_uri], bucket)
+    print(f"  S3 upload: {local_dir} -> {s3_uri}")
+    subprocess.run(cmd, check=True)
+
+
+# ---------------------------------------------------------------------------
+# HuggingFace Hub upload
+# ---------------------------------------------------------------------------
+
+def hf_upload(output_dir: str, repo_id: str, commit_message: str = "Update manifold anchor projector") -> None:
+    """Upload projector checkpoint directory to HuggingFace Hub."""
+    from huggingface_hub import HfApi
+    api = HfApi()
+    print(f"  HF upload: {output_dir} -> {repo_id}")
+    api.upload_folder(
+        folder_path=output_dir,
+        repo_id=repo_id,
+        repo_type="model",
+        commit_message=commit_message,
+    )
+    print(f"  Uploaded to https://huggingface.co/{repo_id}")
+
+
+# ---------------------------------------------------------------------------
 # CLI
 # ---------------------------------------------------------------------------
 
@@ -187,6 +249,14 @@ def parse_args():
                    help="Weight for MSE component of anchoring loss (default: 0.1)")
     p.add_argument("--limit", type=int, default=None, help="Limit paired samples for debugging")
     p.add_argument("--output-dir", type=str, default=None)
+    # S3 sync
+    p.add_argument("--s3-bucket", type=str, default=None,
+                   help="RunPod S3 bucket name for checkpoint sync (e.g. 7ih6gcggwr)")
+    p.add_argument("--s3-prefix", type=str, default=None,
+                   help="S3 key prefix for checkpoints (default: manifold_anchor/<experiment_name>)")
+    # HuggingFace Hub
+    p.add_argument("--hf-repo", type=str, default=None,
+                   help="HuggingFace Hub repo ID to auto-upload projector (e.g. anshulsawant/latent-euclid-manifold-anchor)")
     return p.parse_args()
 
 
@@ -214,6 +284,19 @@ def main():
     output_dir = args.output_dir or anchor_cfg.get("output_dir") or f"/workspace/checkpoints/{experiment_name}/manifold_anchor"
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
+
+    # Resolve S3 / HF config (CLI overrides config)
+    s3_bucket = args.s3_bucket or anchor_cfg.get("s3_bucket")
+    s3_prefix = args.s3_prefix or anchor_cfg.get("s3_prefix") or f"manifold_anchor/{experiment_name}"
+    hf_repo = args.hf_repo or anchor_cfg.get("hf_repo")
+
+    # Download existing checkpoint from S3 if available
+    if s3_bucket:
+        try:
+            s3_download(s3_bucket, s3_prefix, output_dir)
+            print("  Downloaded existing checkpoints from S3")
+        except subprocess.CalledProcessError:
+            print("  No existing S3 checkpoints found (starting fresh)")
 
     # 1. Build paired dataset
     print("Building CoT-CoD paired dataset...")
@@ -342,6 +425,23 @@ def main():
     }, final_path)
     print(f"\nSaved final projector to {final_path}")
     print(f"Best loss: {best_loss:.4f}")
+
+    # Upload to RunPod S3
+    if s3_bucket:
+        print("\nUploading checkpoints to RunPod S3...")
+        try:
+            s3_upload(s3_bucket, output_dir, s3_prefix)
+        except subprocess.CalledProcessError as e:
+            print(f"  WARNING: S3 upload failed: {e}")
+
+    # Upload to HuggingFace Hub
+    if hf_repo:
+        print(f"\nUploading to HuggingFace Hub ({hf_repo})...")
+        try:
+            hf_upload(output_dir, hf_repo,
+                      commit_message=f"Manifold anchor projector (epoch {epochs}, loss {best_loss:.4f})")
+        except Exception as e:
+            print(f"  WARNING: HF upload failed: {e}")
 
 
 if __name__ == "__main__":

@@ -114,3 +114,6 @@ train_manifold_anchor:
   batch_size: 4
   learning_rate: 1.0e-4
   mse_weight: 0.1
+  s3_bucket: "7ih6gcggwr"
+  s3_prefix: null   # defaults to manifold_anchor/<experiment_name>
+  hf_repo: shilinm/latent_euclid      # e.g. "anshulsawant/latent-euclid-manifold-anchor"
