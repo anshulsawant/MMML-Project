@@ -1,0 +1,110 @@
+model:
+  base_model_id: "Qwen/Qwen3-VL-2B-Instruct"
+  target_model_id: "Qwen/Qwen3-VL-2B-Instruct"
+  decoder_base_model_id: "Qwen/Qwen3-1.7B-Base"
+  k_steps: 4
+
+data:
+  jsonl_path: "data/geothoughts_verified.jsonl"
+  targets_dir: "/content/drive/MyDrive/target_tensors_2B_model" # path to the output of the build_manifold.py with this config
+
+experiment:
+  name: "2B_model"
+
+build_manifold:
+  batch_size: 4
+  
+train_x_encoder:
+  experiment_name: "2B_model"
+  epochs: 100
+  batch_size: 16
+  gradient_accumulation_steps: 8
+  learning_rate: 1.0e-4
+  weight_decay: 0.01
+  save_every_n_steps: 20
+  max_val_samples: 0
+  loss_type: "huber_cosine"  # supports: info_nce_vanilla, info_nce_threshold, vicreg, huber_cosine
+  loss_target: "guided"      # supports: guided (all 4 steps), direct (only 1 step exists), pondering (4 steps exist but loss only on step 4)
+  max_grad_norm: 50.0
+  vicreg_sim_coeff: 1.0
+  vicreg_var_coeff: 1.0
+  vicreg_cov_coeff: 0.0
+
+train_decoder:
+  unfreeze_layers: 2
+  use_projection_mlp: True
+  x_encoder_weights_override: "/content/drive/MyDrive/x_encoder_best.pt"
+  epochs: 20
+  batch_size: 32
+  gradient_accumulation_steps: 1
+  learning_rate: 1.0e-5
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+
+train_end_to_end:
+  experiment_name: "v11_e2e_huber_contextual"
+  epochs: 1
+  save_every_n_steps: 40
+  batch_size: 1
+  gradient_accumulation_steps: 32
+  learning_rate: 1.0e-6
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  unfreeze_layers: 36
+  use_projection_mlp: True
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+  decoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/decoder/decoder_best.pt"
+
+train_vision_only_translator:
+  experiment_name: "v6_vision_only_0.6B_translator"
+  target_model_id_override: "Qwen/Qwen3-0.6B"
+  epochs: 50
+  save_every_n_steps: 10
+  batch_size: 32
+  gradient_accumulation_steps: 2
+  learning_rate: 5.0e-5
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  unfreeze_layers: 24  # Completely unfreeze all layers of the 0.6B model
+  use_projection_mlp: True
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+
+train_vision_only_4b:
+  experiment_name: "v7_vision_only_4b"
+  epochs: 20
+  save_every_n_steps: 10
+  batch_size: 32
+  gradient_accumulation_steps: 1
+  learning_rate: 1.0e-5
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  unfreeze_layers: 2
+  use_projection_mlp: True
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+
+train_text_thought_4b:
+  experiment_name: "v8_text_thought_no_image_4b"
+  epochs: 20
+  save_every_n_steps: 10
+  batch_size: 8
+  gradient_accumulation_steps: 4
+  learning_rate: 1.0e-5
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  unfreeze_layers: 2
+  use_projection_mlp: True
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+
+train_linear_probe:
+  experiment_name: "v9_linear_probe_bottleneck"
+  epochs: 50
+  save_every_n_steps: 10
+
+train_mlp_decoder:
+  experiment_name: "v10_mlp_bpe_decoder"
+  epochs: 100
+  batch_size: 128
+  learning_rate: 1.0e-3
+  weight_decay: 0.01
+  max_grad_norm: 5.0
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
