@@ -188,31 +188,57 @@ RUNPOD_S3_REGION = "us-md-1"
 RUNPOD_S3_ENDPOINT = "https://s3api-us-md-1.runpod.io"
 
 
-def _s3_cmd(args: list[str], bucket: str) -> list[str]:
-    """Build an aws s3 command list with RunPod endpoint configuration."""
-    return [
-        "aws", "s3",
-        *args,
-        "--region", RUNPOD_S3_REGION,
-        "--endpoint-url", RUNPOD_S3_ENDPOINT,
-    ]
+def _s3_base_args() -> list[str]:
+    """Common RunPod S3 endpoint flags."""
+    return ["--region", RUNPOD_S3_REGION, "--endpoint-url", RUNPOD_S3_ENDPOINT]
+
+
+def _s3_ls(bucket: str, prefix: str) -> list[str]:
+    """List object keys under a prefix. Returns relative keys (after prefix)."""
+    s3_uri = f"s3://{bucket}/{prefix}"
+    cmd = ["aws", "s3", "ls", s3_uri, *_s3_base_args()]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if result.returncode != 0:
+        return []
+    keys = []
+    for line in result.stdout.strip().splitlines():
+        # Lines look like "2026-03-15 11:16:19  137795 filename.pt" or "PRE subdir/"
+        parts = line.split()
+        if parts and parts[0] == "PRE":
+            continue  # skip sub-prefixes
+        if parts:
+            keys.append(parts[-1])
+    return keys
 
 
 def s3_download(bucket: str, s3_prefix: str, local_dir: str) -> None:
-    """Download files from RunPod S3 to local_dir."""
-    s3_uri = f"s3://{bucket}/{s3_prefix}"
+    """Download files from RunPod S3 to local_dir using per-file cp.
+
+    RunPod's S3-compatible endpoint has a pagination bug that breaks
+    ``aws s3 sync``, so we list + cp each file individually.
+    """
     os.makedirs(local_dir, exist_ok=True)
-    cmd = _s3_cmd(["sync", s3_uri, local_dir], bucket)
-    print(f"  S3 download: {s3_uri} -> {local_dir}")
-    subprocess.run(cmd, check=True)
+    keys = _s3_ls(bucket, s3_prefix.rstrip("/") + "/")
+    if not keys:
+        raise subprocess.CalledProcessError(1, "s3_ls (no objects found)")
+    print(f"  S3 download: s3://{bucket}/{s3_prefix}/ ({len(keys)} files) -> {local_dir}")
+    for key in keys:
+        src = f"s3://{bucket}/{s3_prefix.rstrip('/')}/{key}"
+        dst = os.path.join(local_dir, key)
+        subprocess.run(["aws", "s3", "cp", src, dst, *_s3_base_args()], check=True)
 
 
 def s3_upload(bucket: str, local_dir: str, s3_prefix: str) -> None:
-    """Upload local_dir to RunPod S3."""
-    s3_uri = f"s3://{bucket}/{s3_prefix}"
-    cmd = _s3_cmd(["sync", local_dir, s3_uri], bucket)
-    print(f"  S3 upload: {local_dir} -> {s3_uri}")
-    subprocess.run(cmd, check=True)
+    """Upload local_dir to RunPod S3 using per-file cp.
+
+    Avoids ``aws s3 sync`` pagination bug on RunPod's S3-compatible endpoint.
+    """
+    files = [f for f in os.listdir(local_dir) if os.path.isfile(os.path.join(local_dir, f))]
+    print(f"  S3 upload: {local_dir} ({len(files)} files) -> s3://{bucket}/{s3_prefix}/")
+    for fname in files:
+        src = os.path.join(local_dir, fname)
+        dst = f"s3://{bucket}/{s3_prefix.rstrip('/')}/{fname}"
+        subprocess.run(["aws", "s3", "cp", src, dst, *_s3_base_args()], check=True)
 
 
 # ---------------------------------------------------------------------------
