@@ -109,11 +109,12 @@ train_mlp_decoder:
   x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
 
 train_manifold_anchor:
+  experiment_name: "v12_manifold_anchor_cod"
   cod_dataset: "ChainOfDraft/qwen3_vl_cod_dataset_filtered_sc.jsonl"
   epochs: 10
   batch_size: 4
   learning_rate: 1.0e-4
   mse_weight: 0.1
   s3_bucket: "7ih6gcggwr"
-  s3_prefix: null   # defaults to manifold_anchor/<experiment_name>
+  s3_prefix: null   # defaults to manifold_anchor/v12_manifold_anchor_cod
   hf_repo: shilinm/latent_euclid      # e.g. "anshulsawant/latent-euclid-manifold-anchor"
