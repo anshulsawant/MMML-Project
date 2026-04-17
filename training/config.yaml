@@ -13,8 +13,8 @@ build_manifold:
 train_x_encoder:
   experiment_name: "v12_manifold_anchor_cod"
   epochs: 100
-  batch_size: 4
-  gradient_accumulation_steps: 64
+  batch_size: 64
+  gradient_accumulation_steps: 2
   learning_rate: 1.0e-4
   weight_decay: 0.01
   save_every_n_steps: 20
