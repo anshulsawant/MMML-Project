@@ -57,20 +57,35 @@ def _hf_upload_file(local_path: str, repo_id: str, path_in_repo: str, commit_mes
 def background_upload(local_path: str, config: dict, experiment_name: str, label: str = "checkpoint") -> None:
     """Fire-and-forget upload of a checkpoint file to S3 and HF Hub.
     
+    Snapshots the file to a temp copy first so the original can be safely
+    overwritten by the next checkpoint save without corrupting the upload.
     Runs in a daemon thread so it never blocks training.
     """
+    import tempfile
     xenc_cfg = config.get("train_x_encoder", {})
     s3_bucket = xenc_cfg.get("s3_bucket") or config.get("train_manifold_anchor", {}).get("s3_bucket")
     hf_repo = xenc_cfg.get("hf_repo") or config.get("train_manifold_anchor", {}).get("hf_repo")
     fname = os.path.basename(local_path)
 
+    # Snapshot: copy to a temp file so the source can be overwritten safely
+    tmp_dir = os.path.dirname(local_path)
+    tmp_fd, tmp_path = tempfile.mkstemp(suffix=f"_{fname}", dir=tmp_dir)
+    os.close(tmp_fd)
+    shutil.copy2(local_path, tmp_path)
+
     def _worker():
-        if s3_bucket:
-            s3_key = f"checkpoints/{experiment_name}/{fname}"
-            _s3_upload_file(local_path, s3_bucket, s3_key)
-        if hf_repo:
-            _hf_upload_file(local_path, hf_repo, f"x_encoder/{experiment_name}/{fname}",
-                            commit_message=f"[auto] {label}: {fname}")
+        try:
+            if s3_bucket:
+                s3_key = f"checkpoints/{experiment_name}/{fname}"
+                _s3_upload_file(tmp_path, s3_bucket, s3_key)
+            if hf_repo:
+                _hf_upload_file(tmp_path, hf_repo, f"x_encoder/{experiment_name}/{fname}",
+                                commit_message=f"[auto] {label}: {fname}")
+        finally:
+            try:
+                os.remove(tmp_path)
+            except OSError:
+                pass
 
     t = threading.Thread(target=_worker, daemon=True)
     t.start()
