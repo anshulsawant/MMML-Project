@@ -3,6 +3,8 @@ import yaml
 import json
 import os
 import shutil
+import subprocess
+import threading
 import time
 import torch
 import wandb
@@ -14,6 +16,75 @@ from torch.utils.data import Dataset, DataLoader, DistributedSampler
 from models.latent_euclid import LatentEuclid
 from training.stable_alignment_loss import AlignmentLossFactory
 from training.augmentation import GeometrySafeAugmentation
+
+# ---------------------------------------------------------------------------
+# RunPod S3 + HuggingFace Hub background upload helpers
+# ---------------------------------------------------------------------------
+
+RUNPOD_S3_REGION = "us-md-1"
+RUNPOD_S3_ENDPOINT = "https://s3api-us-md-1.runpod.io"
+
+_upload_threads: list[threading.Thread] = []
+
+
+def _s3_base_args() -> list[str]:
+    return ["--region", RUNPOD_S3_REGION, "--endpoint-url", RUNPOD_S3_ENDPOINT]
+
+
+def _s3_upload_file(local_path: str, bucket: str, s3_key: str) -> None:
+    """Upload a single file to RunPod S3 (per-file cp avoids pagination bug)."""
+    dst = f"s3://{bucket}/{s3_key}"
+    subprocess.run(["aws", "s3", "cp", local_path, dst, *_s3_base_args()],
+                   capture_output=True)
+
+
+def _hf_upload_file(local_path: str, repo_id: str, path_in_repo: str, commit_message: str) -> None:
+    """Upload a single file to HuggingFace Hub."""
+    try:
+        from huggingface_hub import HfApi
+        api = HfApi()
+        api.upload_file(
+            path_or_fileobj=local_path,
+            path_in_repo=path_in_repo,
+            repo_id=repo_id,
+            repo_type="model",
+            commit_message=commit_message,
+        )
+    except Exception as e:
+        print(f"  [bg] HF upload failed: {e}")
+
+
+def background_upload(local_path: str, config: dict, experiment_name: str, label: str = "checkpoint") -> None:
+    """Fire-and-forget upload of a checkpoint file to S3 and HF Hub.
+    
+    Runs in a daemon thread so it never blocks training.
+    """
+    xenc_cfg = config.get("train_x_encoder", {})
+    s3_bucket = xenc_cfg.get("s3_bucket") or config.get("train_manifold_anchor", {}).get("s3_bucket")
+    hf_repo = xenc_cfg.get("hf_repo") or config.get("train_manifold_anchor", {}).get("hf_repo")
+    fname = os.path.basename(local_path)
+
+    def _worker():
+        if s3_bucket:
+            s3_key = f"checkpoints/{experiment_name}/{fname}"
+            _s3_upload_file(local_path, s3_bucket, s3_key)
+        if hf_repo:
+            _hf_upload_file(local_path, hf_repo, f"x_encoder/{experiment_name}/{fname}",
+                            commit_message=f"[auto] {label}: {fname}")
+
+    t = threading.Thread(target=_worker, daemon=True)
+    t.start()
+    _upload_threads.append(t)
+
+
+def wait_for_uploads(timeout: float = 120.0) -> None:
+    """Wait for all background uploads to finish (called at end of training)."""
+    pending = [t for t in _upload_threads if t.is_alive()]
+    if pending:
+        print(f"Waiting for {len(pending)} background upload(s) to finish...")
+        for t in pending:
+            t.join(timeout=timeout)
+
 
 def parse_cp_name(f):
     # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt"
@@ -113,7 +184,7 @@ def train():
     is_distributed = isinstance(local_rank, int)
     is_master = (local_rank == 0 if is_distributed else True)
     
-    experiment_name = args.experiment_name or config.get("experiment", {}).get("name", "default")
+    experiment_name = args.experiment_name or config.get("train_x_encoder", {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
     base_checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir", "/workspace/checkpoints")
@@ -182,50 +253,68 @@ def train():
     
     os.makedirs(checkpoint_dir, exist_ok=True)
     
-    latest_cp_path = None
+    latest_cp_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
     
-    if os.path.exists(checkpoint_dir):
-        checkpoints = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
-        if checkpoints:
-            checkpoints.sort(key=parse_cp_name)
-            latest_cp_file = checkpoints[-1]
-            latest_cp_path = os.path.join(checkpoint_dir, latest_cp_file)
-            
-            ep, st = parse_cp_name(latest_cp_file)
-            start_epoch = ep
-            # Note: We do not natively skip the steps already completed in the epoch yet
-            # because the current DataLoader isn't easily offset mid-loop without skipping data.
-            # Start epoch just maps to the currently running epoch.
-            
-            print(f"[{local_rank}] Found checkpoint {latest_cp_file}. Resuming from epoch {start_epoch} (Step Offsets will re-accumulate)...")
-            
-            # Load states
-            cp = torch.load(latest_cp_path, map_location="cpu")
-            if "val_loss" in cp:
-                best_val_loss = cp.get("val_loss", float('inf'))
-                
-            # Attempt to retrieve strictly tracked best_val_loss
-            loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
-            if os.path.exists(loss_tracker_path):
-                with open(loss_tracker_path, 'r') as f:
-                    best_val_loss = float(json.load(f)["best_loss"])
-                
-            if is_distributed:
-                model.module.load_state_dict(cp["model_state_dict"])
-            else:
-                model.load_state_dict(cp["model_state_dict"])
-            optimizer.load_state_dict(cp["optimizer_state_dict"])
-            
-            # Explicitly override the loaded learning rate with the config value
-            # (optimizer.load_state_dict will otherwise overwrite the new lr with the old saved lr)
-            target_lr = float(config["train_x_encoder"]["learning_rate"])
-            for param_group in optimizer.param_groups:
-                param_group['lr'] = target_lr
-            print(f"[{local_rank}] Checkpoint Optimizer LR manually overridden to {target_lr}")
+    # Try loading latest checkpoint (consolidated single-file approach)
+    if os.path.exists(latest_cp_path):
+        print(f"[{local_rank}] Found x_encoder_latest.pt. Loading...")
+        cp = torch.load(latest_cp_path, map_location="cpu")
+        start_epoch = cp.get("epoch", 0)
+        if "val_loss" in cp:
+            best_val_loss = cp.get("val_loss", float('inf'))
+        
+        # Attempt to retrieve strictly tracked best_val_loss
+        loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+        if os.path.exists(loss_tracker_path):
+            with open(loss_tracker_path, 'r') as f:
+                best_val_loss = float(json.load(f)["best_loss"])
+        
+        if is_distributed:
+            model.module.load_state_dict(cp["model_state_dict"])
+        else:
+            model.load_state_dict(cp["model_state_dict"])
+        optimizer.load_state_dict(cp["optimizer_state_dict"])
+        
+        # Explicitly override the loaded learning rate with the config value
+        target_lr = float(config["train_x_encoder"]["learning_rate"])
+        for param_group in optimizer.param_groups:
+            param_group['lr'] = target_lr
+        print(f"[{local_rank}] Resumed from epoch {start_epoch} | best_val_loss={best_val_loss:.4f} | LR overridden to {target_lr}")
     else:
-        if is_master:
-            os.makedirs(checkpoint_dir, exist_ok=True)
-            print(f"[{local_rank}] Checkpoint directory {checkpoint_dir} created. Starting from scratch.")
+        # Legacy fallback: find old epoch-based checkpoints
+        if os.path.exists(checkpoint_dir):
+            checkpoints = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith(".pt")]
+            if checkpoints:
+                checkpoints.sort(key=parse_cp_name)
+                legacy_cp_file = checkpoints[-1]
+                legacy_cp_path = os.path.join(checkpoint_dir, legacy_cp_file)
+                ep, st = parse_cp_name(legacy_cp_file)
+                start_epoch = ep
+                
+                print(f"[{local_rank}] Found legacy checkpoint {legacy_cp_file}. Resuming from epoch {start_epoch}...")
+                cp = torch.load(legacy_cp_path, map_location="cpu")
+                if "val_loss" in cp:
+                    best_val_loss = cp.get("val_loss", float('inf'))
+                
+                loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+                if os.path.exists(loss_tracker_path):
+                    with open(loss_tracker_path, 'r') as f:
+                        best_val_loss = float(json.load(f)["best_loss"])
+                
+                if is_distributed:
+                    model.module.load_state_dict(cp["model_state_dict"])
+                else:
+                    model.load_state_dict(cp["model_state_dict"])
+                optimizer.load_state_dict(cp["optimizer_state_dict"])
+                
+                target_lr = float(config["train_x_encoder"]["learning_rate"])
+                for param_group in optimizer.param_groups:
+                    param_group['lr'] = target_lr
+                print(f"[{local_rank}] Checkpoint Optimizer LR manually overridden to {target_lr}")
+        else:
+            if is_master:
+                os.makedirs(checkpoint_dir, exist_ok=True)
+                print(f"[{local_rank}] Starting from scratch.")
     # ---------------------------------------------------------
     
     # Instantiate Data Loader
@@ -435,12 +524,12 @@ def train():
                     save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
                     global_step = (batch_idx + 1) // gradient_accumulation_steps
                     if save_every_n_steps > 0 and global_step % save_every_n_steps == 0:
-                        step_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_step_{global_step}.pt")
-                        
                         # Run Mid-Epoch Validation
                         mid_val_loss = run_validation(f"Mid-Epoch {epoch} (Step {global_step})", epoch, global_step)
                         
+                        # Save single consolidated latest checkpoint (overwrites previous)
                         save_model = model.module if is_distributed else model
+                        latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
                         torch.save({
                             'epoch': epoch,
                             'step': global_step,
@@ -448,30 +537,26 @@ def train():
                             'optimizer_state_dict': optimizer.state_dict(),
                             'loss': loss.item(),
                             'val_loss': mid_val_loss
-                        }, step_cp_path)
-                        print(f"[{local_rank}] Saved mid-epoch checkpoint: {step_cp_path}")
+                        }, latest_save_path)
+                        print(f"[{local_rank}] Saved latest checkpoint: {latest_save_path}")
                         
-                        # Dynamically lock in Mid-Epoch validation as the 'best' checkpoint so it doesn't get lost
+                        # Upload latest to S3/HF in background
+                        background_upload(latest_save_path, config, experiment_name, label="latest")
+                        
+                        # Update best if improved
                         if mid_val_loss < best_val_loss:
                             best_val_loss = mid_val_loss
                             best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
-                            shutil.copy2(step_cp_path, best_cp_path)
+                            shutil.copy2(latest_save_path, best_cp_path)
                             
-                            # CRITICAL FIX: Also update the JSON tracker so resumed scripts don't revert
                             with open(os.path.join(checkpoint_dir, "best_val_loss.json"), 'w') as f:
                                 json.dump({"best_loss": best_val_loss, "epoch": epoch, "step": global_step}, f)
                                 
-                            print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Saved x_encoder_best.pt")
-                        
-                        
-                        # Keep only latest 4 mid-epoch checkpoints to save disk space
-                        old_steps = [f for f in os.listdir(checkpoint_dir) if f.startswith(f"x_encoder_epoch_{epoch}_step_") and f.endswith(".pt")]
-                        if len(old_steps) > 4:
-                            old_steps.sort(key=parse_cp_name)
-                            for old_f in old_steps[:-4]:
-                                try:
-                                    os.remove(os.path.join(checkpoint_dir, old_f))
-                                except: pass
+                            print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved x_encoder_best.pt")
+                            
+                            # Upload best to S3/HF in background
+                            background_upload(best_cp_path, config, experiment_name, label="best")
+                            background_upload(os.path.join(checkpoint_dir, "best_val_loss.json"), config, experiment_name, label="best_meta")
                 
             else:
                 # Provide a live micro-batch progress indicator to the user
@@ -511,27 +596,45 @@ def train():
             else:
                 avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
                 
+                # Always save latest at end of epoch
+                save_model = model.module if is_distributed else model
+                latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
+                torch.save({
+                    'epoch': epoch + 1,  # next epoch to resume from
+                    'model_state_dict': save_model.state_dict(),
+                    'optimizer_state_dict': optimizer.state_dict(),
+                    'loss': loss.item(),
+                    'val_loss': avg_val_loss
+                }, latest_save_path)
+                print(f"[{local_rank}] Saved latest checkpoint (end of epoch {epoch})")
+                background_upload(latest_save_path, config, experiment_name, label="latest")
+                
                 if avg_val_loss < best_val_loss:
                     best_val_loss = avg_val_loss
                     best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
-                    save_model = model.module if is_distributed else model
-                    torch.save({
-                        'epoch': epoch,
-                        'model_state_dict': save_model.state_dict(),
-                        'optimizer_state_dict': optimizer.state_dict(),
-                        'loss': loss.item(),
-                        'val_loss': avg_val_loss
-                    }, best_cp_path)
+                    shutil.copy2(latest_save_path, best_cp_path)
                     print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
                     
-                    # Track numerically
                     loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
                     with open(loss_tracker_path, 'w') as f:
                         json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
+                    
+                    background_upload(best_cp_path, config, experiment_name, label="best")
+                    background_upload(loss_tracker_path, config, experiment_name, label="best_meta")
     if is_master:
         save_model = model.module if is_distributed else model
-        torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
-        print("Model state successfully saved.")
+        final_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
+        torch.save({
+            'epoch': epochs,
+            'model_state_dict': save_model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+        }, final_path)
+        print(f"Final model saved to {final_path}")
+        background_upload(final_path, config, experiment_name, label="final")
+        
+        # Wait for all background uploads before exiting
+        wait_for_uploads()
+        print("All uploads complete.")
         wandb.finish()
 
 if __name__ == "__main__":
