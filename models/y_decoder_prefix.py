@@ -21,13 +21,10 @@ class YDecoderPrefix(nn.Module):
     """
     def __init__(self, 
                  target_model_id: str = "Qwen/Qwen3-0.6B", 
-                 k_steps: int = 4,
                  unfreeze_layers: int = 0,
                  use_projection_mlp: bool = True,
                  latent_dim: int = None):
         super().__init__()
-        
-        self.k_steps = k_steps
         
         # Load Frozen Decoder
         self.tokenizer = AutoTokenizer.from_pretrained(target_model_id)
@@ -135,10 +132,11 @@ class YDecoderPrefix(nn.Module):
         # Shape: [batch, seq_len + K, embedding_dim]
         inputs_embeds = torch.cat([text_embeddings, soft_prefixes], dim=1)
         
-        # 4. Expand the attention mask to cover the K soft prompt tokens appended *after* the text
-        # Shape: [batch, K] of 1s
+        # 4. Expand the attention mask to cover the dynamically tracked soft prompt tokens appended *after* the text
+        # Shape: [batch, N] of 1s
+        target_n_steps = soft_prefixes.shape[1]
         prefix_mask = torch.ones(
-            (soft_prefixes.shape[0], self.k_steps), 
+            (soft_prefixes.shape[0], target_n_steps), 
             dtype=attention_mask.dtype, 
             device=attention_mask.device
         )
@@ -159,9 +157,9 @@ class YDecoderPrefix(nn.Module):
             extended_attention_mask = torch.cat([attention_mask, prefix_mask, label_inputs.attention_mask], dim=1)
             
             # -100 is the standard PyTorch ignore_index for CrossEntropyLoss
-            # We must ignore the K continuous prefix latents AND the text prompts (e.g. "Question: Find x...")
+            # We must ignore the continuous prefix latents AND the text prompts (e.g. "Question: Find x...")
             ignore_prompts = torch.full_like(input_ids, -100)
-            ignore_prefix = torch.full((soft_prefixes.shape[0], self.k_steps), -100, dtype=torch.long, device=device)
+            ignore_prefix = torch.full((soft_prefixes.shape[0], target_n_steps), -100, dtype=torch.long, device=device)
             
             # Mask out padding tokens in the target labels so we only compute CE loss on the actual answer bytes
             masked_label_ids = label_inputs.input_ids.clone()
@@ -221,7 +219,8 @@ class YDecoderPrefix(nn.Module):
         text_embeddings = self.decoder.get_input_embeddings()(inputs.input_ids)
         inputs_embeds = torch.cat([text_embeddings, soft_prefixes], dim=1)
         
-        prefix_mask = torch.ones((soft_prefixes.shape[0], self.k_steps), dtype=inputs.attention_mask.dtype, device=device)
+        target_n_steps = soft_prefixes.shape[1]
+        prefix_mask = torch.ones((soft_prefixes.shape[0], target_n_steps), dtype=inputs.attention_mask.dtype, device=device)
         extended_attention_mask = torch.cat([inputs.attention_mask, prefix_mask], dim=1)
         
         # Qwen3-4B-Base is not instruction-tuned, so without strict repetition penalties 

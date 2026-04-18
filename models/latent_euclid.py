@@ -37,19 +37,19 @@ class LatentPredictor(nn.Module):
     def forward(self, x):
         return self.mlp(x)
 
-def setup_latent_euclid_tokenizer(model_id: str = "Qwen/Qwen3-VL-4B-Instruct", k_steps: int = 4):
+def setup_latent_euclid_tokenizer(model_id: str = "Qwen/Qwen3-VL-4B-Instruct", max_thought_tokens: int = 30):
     """
-    Loads tokenizer and adds the new <thought_1>...<thought_k> tokens.
+    Loads tokenizer and adds the new <thought_1>...<thought_k> dynamically allocated sequence tokens.
     Requires resizing the model embeddings afterwards.
     """
     tokenizer = AutoTokenizer.from_pretrained(model_id)
     
-    thought_tokens = [f"<thought_{i+1}>" for i in range(k_steps)]
+    thought_tokens = [f"<thought_{i+1}>" for i in range(max_thought_tokens)]
     num_added = tokenizer.add_tokens(thought_tokens, special_tokens=True)
     
-    print(f"Added {num_added} new thought tokens: {thought_tokens}")
+    print(f"Added {num_added} dynamically routed new thought tokens")
     
-    # Cache the token IDs for fast indexing during the forward pass
+    # Cache the token IDs for fast PyTorch tensorized matching during the forward pass
     thought_token_ids = tokenizer.convert_tokens_to_ids(thought_tokens)
     
     return tokenizer, thought_token_ids
@@ -58,7 +58,7 @@ class LatentEuclid(nn.Module):
     def __init__(self, 
                  base_model_id: str = "Qwen/Qwen3-VL-4B-Instruct", 
                  target_model_id: str = "Qwen/Qwen3-0.6B",
-                 k_steps: int = 4):
+                 max_thought_tokens: int = 30):
         super().__init__()
         
         # Dynamically fetch the target model's hidden dimension
@@ -74,8 +74,7 @@ class LatentEuclid(nn.Module):
             target_dim = 1024
         
         # 1. Setup Tokenizer & Model
-        self.tokenizer, self.thought_ids = setup_latent_euclid_tokenizer(base_model_id, k_steps)
-        self.k_steps = k_steps
+        self.tokenizer, self.thought_ids = setup_latent_euclid_tokenizer(base_model_id, max_thought_tokens)
         
         # Load the multimodal processor to handle image/text inputs, embedding the custom tokenizer
         try:
@@ -139,31 +138,32 @@ class LatentEuclid(nn.Module):
         last_hidden_states = outputs.hidden_states[-1] # [batch, seq_len, hidden_size]
         
         batch_size = input_ids.shape[0]
-        predicted_targets = []
+        max_N = 0
+        all_thought_positions = []
         
-        # 2. Extract hidden states strictly at the positions of the <thought> tokens
         for b in range(batch_size):
             b_input_ids = input_ids[b]
-            b_hidden = last_hidden_states[b]
             
-            # Find the indices of our K thought tokens in this sequence
-            # (Assuming strict ordering: thought_1, thought_2, etc. at the end of the sequence)
-            thought_positions = []
-            for t_id in self.thought_ids:
-                pos = (b_input_ids == t_id).nonzero(as_tuple=True)[0]
-                if len(pos) == 0:
-                    raise ValueError(f"Thought token {t_id} missing from input sequence.")
-                thought_positions.append(pos[-1]) # take the last occurrence if duplicated
+            # Fast vectorized dimensional matching against all pre-cached <thought_X> dynamic structures
+            # Because the inputs were explicitly tokenized sequentially from the generated string: `<thought_1><thought_2>...<HALT>`
+            # These nonzeros inherently trace perfectly chronologically to the arbitrary topology sequence.
+            is_thought = torch.isin(b_input_ids, torch.tensor(self.thought_ids, device=b_input_ids.device))
+            pos = is_thought.nonzero(as_tuple=True)[0]
             
-            # Extract the raw VLM vectors: shape [K, hidden_size]
-            thought_vectors = b_hidden[torch.stack(thought_positions)]
-            predicted_targets.append(thought_vectors)
+            max_N = max(max_N, len(pos))
+            all_thought_positions.append(pos)
             
-        # Shape: [batch, K, hidden_size]
-        predicted_targets = torch.stack(predicted_targets)
+        # Padded array dynamically spanning to the longest latent unroll execution within the current causal block
+        predicted_latents_padded = torch.zeros(batch_size, max_N, last_hidden_states.size(-1), device=last_hidden_states.device, dtype=last_hidden_states.dtype)
         
-        # Shape: [batch, K, target_dim]
-        projected_latents = self.predictor(predicted_targets)
+        for b in range(batch_size):
+            pos = all_thought_positions[b]
+            if len(pos) > 0:
+                thought_vectors = last_hidden_states[b][pos]
+                predicted_latents_padded[b, :len(pos), :] = thought_vectors
+        
+        # Shape: [batch, max_N, target_dim]
+        projected_latents = self.predictor(predicted_latents_padded)
         
         return projected_latents
 

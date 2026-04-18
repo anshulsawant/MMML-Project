@@ -200,8 +200,7 @@ def e2e_evaluate():
                 if true_answer_raw is None:
                     continue
                     
-                thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
-                full_text = question + " " + thought_string
+                full_text = question
                 
                 messages = [{
                     "role": "user",
@@ -222,12 +221,45 @@ def e2e_evaluate():
             # The processor automatically pads dynamic resolution images across the batch 
             inputs = x_encoder.processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
             
-            predicted_latents = x_encoder(
-                input_ids=inputs.input_ids, 
-                pixel_values=inputs.get("pixel_values"), 
-                attention_mask=inputs.attention_mask,
-                image_grid_thw=inputs.get("image_grid_thw")
-            )
+            # --- AUTO-REGRESSIVE X-ENCODER LOOP ---
+            # Compute topological HALT centroid mathematically
+            halt_inputs = y_decoder.tokenizer("\n<HALT>", return_tensors="pt").to(device)
+            halt_anchor = y_decoder.decoder.get_input_embeddings()(halt_inputs.input_ids).mean(dim=1).squeeze(0)
+            
+            dynamic_input_ids = inputs.input_ids
+            dynamic_attention_mask = inputs.attention_mask
+            max_dynamic_steps = 15
+            batch_size_cur = len(images)
+            finished = torch.zeros(batch_size_cur, dtype=torch.bool, device=device)
+            
+            final_predicted_latents = None
+            
+            for step in range(max_dynamic_steps):
+                t_id = torch.tensor([[x_encoder.thought_ids[step]]] * batch_size_cur).to(device)
+                dynamic_input_ids = torch.cat([dynamic_input_ids, t_id], dim=1)
+                
+                new_attn = torch.ones((batch_size_cur, 1), dtype=dynamic_attention_mask.dtype, device=device)
+                dynamic_attention_mask = torch.cat([dynamic_attention_mask, new_attn], dim=1)
+                
+                predicted_latents = x_encoder(
+                    input_ids=dynamic_input_ids, 
+                    pixel_values=inputs.get("pixel_values"), 
+                    attention_mask=dynamic_attention_mask,
+                    image_grid_thw=inputs.get("image_grid_thw")
+                )
+                
+                final_predicted_latents = predicted_latents
+                
+                latest_latents = predicted_latents[:, -1, :]
+                sim = torch.nn.functional.cosine_similarity(latest_latents, halt_anchor.unsqueeze(0).expand(batch_size_cur, -1), dim=-1)
+                
+                finish_mask = sim > 0.90 # Safe mathematical topological boundary
+                finished = finished | finish_mask
+                
+                if finished.all():
+                    break
+                    
+            predicted_latents = final_predicted_latents
             
             # Format clean prompts for y-decoder
             prompts = [q.strip() + "\nAnswer: " for q in questions]

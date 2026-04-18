@@ -48,11 +48,10 @@ class GeoThoughtsDataset(Dataset):
     Parses the JSONL generation pairs, loads the raw vision images, 
     and aligns them with the offline continuous 4-step .pt manifolds.
     """
-    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, k_steps=4, augment=False):
+    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, augment=False):
         self.data = []
         self.targets_dir = targets_dir
         self.tokenizer = tokenizer
-        self.k_steps = k_steps
         self.augmentor = GeometrySafeAugmentation() if augment else None
         
         with open(jsonl_path, 'r') as f:
@@ -65,7 +64,7 @@ class GeoThoughtsDataset(Dataset):
                     item["target_path"] = target_path
                     self.data.append(item)
                     
-        print(f"Loaded {len(self.data)} valid aligned geometric datasets.")
+        print(f"Loaded {len(self.data)} valid aligned dynamically mapped geometric datasets.")
 
     def __len__(self):
         return len(self.data)
@@ -83,25 +82,36 @@ class GeoThoughtsDataset(Dataset):
             # Fallback mock image if path is broken
             image = Image.new('RGB', (224, 224), color = (73, 109, 137))
             
-        # 2. Text Prompts (appended with K thoughts natively)
-        # Note: the prompt needs the specialized <thought> sequences generated inside
-        thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])
-        full_text = item["question"] + " " + thought_string
-        
-        # 3. Target Manifolds pre-generated into .pt
+        # 3. Target Manifolds pre-generated into .pt uniquely sized per-sample [N, target_dim]
         target_tensor = torch.load(item["target_path"], map_location="cpu", weights_only=True)
+        N = target_tensor.shape[0]
+            
+        # 2. Text Prompts (appended identically corresponding to N arbitrary continuous sequences generated)
+        thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
+        full_text = item["question"] + " " + thought_string
         
         return {
             "image": image,
             "text": full_text,
-            "target": target_tensor # Shape [4, target_dim]
+            "target": target_tensor # Shape [N, target_dim]
         }
         
+from torch.nn.utils.rnn import pad_sequence
+
 def custom_collate(batch):
     images = [item["image"] for item in batch]
     texts = [item["text"] for item in batch]
-    targets = torch.stack([item["target"] for item in batch])
-    return images, texts, targets
+    targets = [item["target"] for item in batch]
+    
+    # Structurally zero-pad dimensional offsets natively handling N varying target tracks
+    targets_padded = pad_sequence(targets, batch_first=True, padding_value=0.0)
+    
+    # Establish hard boolean gating parameters filtering out strictly padded states logically before Loss Formulation
+    target_mask = torch.zeros(len(targets), targets_padded.size(1), dtype=torch.bool)
+    for i, t in enumerate(targets):
+        target_mask[i, :len(t)] = True
+        
+    return images, texts, targets_padded, target_mask
 
 def train():
     args = parse_args()
@@ -145,8 +155,7 @@ def train():
     
     model = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
-        target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        target_model_id=config["model"]["target_model_id"]
     )
     
     # Activation Checkpointing trades 20-30% compute time for massive memory savings by dropping intermediate activations.
@@ -233,7 +242,6 @@ def train():
         jsonl_path=config["data"]["jsonl_path"],
         targets_dir=config["data"]["targets_dir"],
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
-        k_steps=config["model"]["k_steps"],
         augment=config["train_x_encoder"].get("augment", False) # Read flag from config, default pure dataset
     )
     
@@ -284,7 +292,7 @@ def train():
             print(f"{step_label} | Running validation inference...")
             
         with torch.no_grad():
-            for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+            for val_idx, (val_img, val_txt, val_targ, val_target_mask) in enumerate(val_dataloader):
                 # Stop early if we hit the requested validation subset size
                 if max_val_samples > 0 and val_samples_processed >= max_val_samples:
                     break
@@ -314,7 +322,21 @@ def train():
                         image_grid_thw=val_inputs.get("image_grid_thw")
                     )
                     val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
-                    v_loss, v_metrics = criterion(val_pred, val_targ)
+                    
+                    if loss_target_mode in ["direct", "pondering"]:
+                        # Extract the exact final step natively ignoring arbitrary lengths natively
+                        val_pred_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(val_pred, val_target_mask)])
+                        val_targ_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(val_targ, val_target_mask)])
+                        # Expand functionally for criterion input dimensions seamlessly mapping to flattened states
+                        val_pred_loss = val_pred_loss.unsqueeze(1)
+                        val_targ_loss = val_targ_loss.unsqueeze(1)
+                    else:
+                        val_pred_loss = val_pred[val_target_mask]
+                        val_targ_loss = val_targ[val_target_mask]
+                        val_pred_loss = val_pred_loss.unsqueeze(1)
+                        val_targ_loss = val_targ_loss.unsqueeze(1)
+                        
+                    v_loss, v_metrics = criterion(val_pred_loss, val_targ_loss)
                 
                 total_val_loss += v_loss.item()
                 if "loss/cosine_angular" in v_metrics:
@@ -343,7 +365,7 @@ def train():
         optimizer.zero_grad()
         avg_val_loss = float('inf')
         
-        for batch_idx, (images, texts, targets) in enumerate(train_dataloader):
+        for batch_idx, (images, texts, targets, target_masks) in enumerate(train_dataloader):
             micro_start_time = time.time()
             if max_steps_per_epoch is not None and batch_idx >= max_steps_per_epoch:
                 print(f"[{local_rank}] Reached max_steps_per_epoch ({max_steps_per_epoch}). Ending epoch {epoch} early.")
@@ -386,12 +408,18 @@ def train():
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)
                 
                 if loss_target_mode in ["direct", "pondering"]:
-                    # Only calculate loss on the final step (thought_k)
-                    predicted_latents_loss = predicted_latents[:, -1:, :]
-                    targets_loss = targets[:, -1:, :]
+                    # Dynamically extract HALT target mathematically
+                    predicted_latents_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(predicted_latents, target_masks)])
+                    targets_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(targets, target_masks)])
+                    predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
+                    targets_loss = targets_loss.unsqueeze(1)
                 else:
-                    predicted_latents_loss = predicted_latents
-                    targets_loss = targets
+                    # Globally evaluate purely over dimensions valid to unroll natively!
+                    predicted_latents_loss = predicted_latents[target_masks]
+                    targets_loss = targets[target_masks]
+                    # Map onto sequence abstraction array logic uniformly
+                    predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
+                    targets_loss = targets_loss.unsqueeze(1)
                 
                 # Loss alignment mapping
                 loss, metrics_dict = criterion(predicted_latents_loss, targets_loss)
