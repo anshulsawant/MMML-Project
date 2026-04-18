@@ -398,6 +398,10 @@ def train():
                 padding=True
             ).to(device)
             
+            if batch_idx == 0 and is_master:
+                pixel_val_shape = inputs.get("pixel_values").shape if inputs.get("pixel_values") is not None else "None !!"
+                print(f"\n[Hardware Matrix Sanity Check] Successfully routed batch 0 images! pixel_values shape: {pixel_val_shape}")
+                
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                 predicted_latents = model(
                     input_ids=inputs.input_ids, 
