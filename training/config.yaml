@@ -5,13 +5,13 @@ model:
   k_steps: 4
 
 experiment:
-  name: "v2_huber_mean_pooled_contextual_thoughts"
+  name: "v12_dynamic_sft"
 
 build_manifold:
   batch_size: 4
   
 train_x_encoder:
-  experiment_name: "v2_huber_mean_pooled_contextual_thoughts"
+  experiment_name: "v12_dynamic_sft"
   epochs: 100
   batch_size: 16
   gradient_accumulation_steps: 8
@@ -38,7 +38,7 @@ train_decoder:
   max_grad_norm: 5.0
 
 data:
-  jsonl_path: "data/geothoughts_verified.jsonl"
+  jsonl_path: "data/geothoughts_arbitrary_cot.jsonl"
 
 train_end_to_end:
   experiment_name: "v11_e2e_huber_contextual"
