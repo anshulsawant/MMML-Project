@@ -319,7 +319,8 @@ def train():
                         input_ids=val_inputs.input_ids, 
                         attention_mask=val_inputs.attention_mask,
                         pixel_values=val_inputs.get("pixel_values"),
-                        image_grid_thw=val_inputs.get("image_grid_thw")
+                        image_grid_thw=val_inputs.get("image_grid_thw"),
+                        mm_token_type_ids=val_inputs.get("mm_token_type_ids")
                     )
                     val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
                     
@@ -402,7 +403,8 @@ def train():
                     input_ids=inputs.input_ids, 
                     attention_mask=inputs.attention_mask,
                     pixel_values=inputs.get("pixel_values"),
-                    image_grid_thw=inputs.get("image_grid_thw")
+                    image_grid_thw=inputs.get("image_grid_thw"),
+                    mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
                 
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)

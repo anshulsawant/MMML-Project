@@ -100,6 +100,7 @@ def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, devi
             attention_mask=inputs.attention_mask,
             pixel_values=inputs.get("pixel_values"),
             image_grid_thw=inputs.get("image_grid_thw"),
+            mm_token_type_ids=inputs.get("mm_token_type_ids"),
             output_hidden_states=True,
             return_dict=True
         )

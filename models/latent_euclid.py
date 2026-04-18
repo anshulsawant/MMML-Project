@@ -118,7 +118,7 @@ class LatentEuclid(nn.Module):
         self.config = LatentEuclidConfig()
         self.config.hidden_size = target_dim
 
-    def forward(self, input_ids, attention_mask=None, pixel_values=None, image_grid_thw=None):
+    def forward(self, input_ids, attention_mask=None, pixel_values=None, image_grid_thw=None, mm_token_type_ids=None):
         """
         Parallel Forward Pass executing the VL-JEPA extraction.
         Since Qwen is a Causal Language Model, the lower-triangular mask natively
@@ -130,6 +130,7 @@ class LatentEuclid(nn.Module):
             attention_mask=attention_mask,
             pixel_values=pixel_values,
             image_grid_thw=image_grid_thw,
+            mm_token_type_ids=mm_token_type_ids,
             output_hidden_states=True,
             use_cache=False,
             return_dict=True

@@ -245,7 +245,8 @@ def e2e_evaluate():
                     input_ids=dynamic_input_ids, 
                     pixel_values=inputs.get("pixel_values"), 
                     attention_mask=dynamic_attention_mask,
-                    image_grid_thw=inputs.get("image_grid_thw")
+                    image_grid_thw=inputs.get("image_grid_thw"),
+                    mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
                 
                 final_predicted_latents = predicted_latents
