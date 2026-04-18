@@ -174,9 +174,20 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
         target_tensors_flat = embed_steps_batch(flat_steps, flat_bases, tokenizer, model, device=device, images=flat_images, processor=processor)
         target_tensors = torch.split(target_tensors_flat, lengths)
         
+        import io
         for j, tensor in enumerate(target_tensors):
             idx = i + j
-            torch.save(tensor.clone(), os.path.join(output_dir, f"problem_{idx}_targets.pt"))
+            target_path = os.path.join(output_dir, f"problem_{idx}_targets.pt")
+            
+            # MooseFS Network-Safe Serialization
+            # By dumping to a memory buffer globally prior to POSIX block write, we bypass C++ ZipStream IO timeouts
+            buf = io.BytesIO()
+            torch.save(tensor.clone(), buf)
+            
+            with open(target_path, 'wb') as f:
+                f.write(buf.getvalue())
+                f.flush()
+                os.fsync(f.fileno())
             
         if (i + len(batch_data)) % 25 < batch_size:
             print(f"Generated manifolds for {i + len(batch_data)} problems...")
