@@ -143,6 +143,16 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
         batch_lines = lines[i:i+batch_size]
         batch_data = [json.loads(line) for line in batch_lines]
         
+        # Check if the entire batch already exists
+        skip_batch = True
+        for j in range(len(batch_data)):
+            if not os.path.exists(os.path.join(output_dir, f"problem_{i+j}_targets.pt")):
+                skip_batch = False
+                break
+                
+        if skip_batch:
+            continue
+            
         flat_steps = []
         flat_bases = []
         flat_images = []
