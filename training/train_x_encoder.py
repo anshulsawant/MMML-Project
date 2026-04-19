@@ -23,14 +23,6 @@ def parse_cp_name(f):
         return (int(ep), int(st))
     return (int(base), 0)
 
-def sync_mfs_save(state_dict, file_path):
-    """
-    Saves directly to MooseFS sequentially bypassing Docker RAM bounds.
-    Utilizes legacy PyTorch serialization avoiding C++ ZIP Stream drops!
-    """
-    import torch
-    torch.save(state_dict, file_path, _use_new_zipfile_serialization=False)
-
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
     parser.add_argument("--config", type=str, default="training/config.yaml",
@@ -495,7 +487,7 @@ def train():
                             print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Executing sync save...")
                         
                         save_model = model.module if is_distributed else model
-                        sync_mfs_save({
+                        torch.save({
                             'epoch': epoch,
                             'step': global_step,
                             'model_state_dict': save_model.state_dict(),
@@ -503,7 +495,7 @@ def train():
                             'loss': loss.item(),
                             'val_loss': mid_val_loss
                         }, step_cp_path)
-                        print(f"[{local_rank}] Saved mid-epoch checkpoint sync: {step_cp_path}")
+                        print(f"[{local_rank}] Saved mid-epoch checkpoint: {step_cp_path}")
                         
                         if best_cp_path:
                             import shutil
@@ -561,7 +553,7 @@ def train():
                     best_val_loss = avg_val_loss
                     best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
                     save_model = model.module if is_distributed else model
-                    sync_mfs_save({
+                    torch.save({
                         'epoch': epoch,
                         'model_state_dict': save_model.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
@@ -576,7 +568,7 @@ def train():
                         json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
     if is_master:
         save_model = model.module if is_distributed else model
-        sync_mfs_save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
+        torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
         print("Model state successfully saved.")
         wandb.finish()
 
