@@ -18,7 +18,7 @@ train_x_encoder:
   learning_rate: 1.0e-4
   weight_decay: 0.01
   save_every_n_steps: 40
-  max_val_samples: 0
+  max_val_samples: 512
   loss_type: "huber_cosine"  # supports: info_nce_vanilla, info_nce_threshold, vicreg, huber_cosine
   loss_target: "guided"      # supports: guided (all 4 steps), direct (only 1 step exists), pondering (4 steps exist but loss only on step 4)
   max_grad_norm: 50.0
