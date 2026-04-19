@@ -23,37 +23,13 @@ def parse_cp_name(f):
         return (int(ep), int(st))
     return (int(base), 0)
 
-import multiprocessing
-
-def _background_transfer(ram_path, file_path, best_path):
-    import os, shutil
-    try:
-        # Transfer byte-data strictly securely avoiding metadata (network volume crashing)
-        temp_target = file_path + ".tmp"
-        shutil.copyfile(ram_path, temp_target)
-        os.rename(temp_target, file_path)
-        if best_path:
-            shutil.copyfile(file_path, best_path)
-        print(f"\n[Async Save] Finished writing {file_path}")
-        
-        # Clean RAM mathematically explicitly
-        if os.path.exists(ram_path):
-            os.remove(ram_path)
-    except Exception as e:
-        print(f"\n[Async Save Error] Failed to write {file_path}: {e}")
-
-def async_mfs_save(state_dict, file_path, best_path=None):
+def sync_mfs_save(state_dict, file_path):
     """
-    Saves synchronously to RAM disk (~1s for 25GB) and copies to MooseFS via an OS-level
-    detached `multiprocessing` process, guaranteeing ZERO main Python GIL contention.
+    Saves directly to MooseFS sequentially bypassing Docker RAM bounds.
+    Utilizes legacy PyTorch serialization avoiding C++ ZIP Stream drops!
     """
-    import uuid, torch
-    
-    ram_path = f"/dev/shm/temp_cp_{uuid.uuid4().hex}.pt"
-    torch.save(state_dict, ram_path)
-    
-    p = multiprocessing.Process(target=_background_transfer, args=(ram_path, file_path, best_path))
-    p.start()
+    import torch
+    torch.save(state_dict, file_path, _use_new_zipfile_serialization=False)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
@@ -519,15 +495,19 @@ def train():
                             print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Spawning async save...")
                         
                         save_model = model.module if is_distributed else model
-                        async_mfs_save({
+                        sync_mfs_save({
                             'epoch': epoch,
                             'step': global_step,
                             'model_state_dict': save_model.state_dict(),
                             'optimizer_state_dict': optimizer.state_dict(),
                             'loss': loss.item(),
                             'val_loss': mid_val_loss
-                        }, step_cp_path, best_path=best_cp_path)
-                        print(f"[{local_rank}] Saved mid-epoch checkpoint async: {step_cp_path}")
+                        }, step_cp_path)
+                        print(f"[{local_rank}] Saved mid-epoch checkpoint sync: {step_cp_path}")
+                        
+                        if best_cp_path:
+                            import shutil
+                            shutil.copyfile(step_cp_path, best_cp_path)
                         
                         
                         # Keep only latest 4 mid-epoch checkpoints to save disk space
@@ -581,7 +561,7 @@ def train():
                     best_val_loss = avg_val_loss
                     best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
                     save_model = model.module if is_distributed else model
-                    async_mfs_save({
+                    sync_mfs_save({
                         'epoch': epoch,
                         'model_state_dict': save_model.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
@@ -596,7 +576,7 @@ def train():
                         json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
     if is_master:
         save_model = model.module if is_distributed else model
-        async_mfs_save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
+        sync_mfs_save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
         print("Model state successfully saved.")
         wandb.finish()
 
