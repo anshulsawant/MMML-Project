@@ -16,8 +16,8 @@ from training.stable_alignment_loss import AlignmentLossFactory
 from training.augmentation import GeometrySafeAugmentation
 
 def parse_cp_name(f):
-    # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt"
-    base = f.split('epoch_')[1].split('.pt')[0]
+    # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt" or "x_encoder_epoch_1_end.pt"
+    base = f.split('epoch_')[1].split('.pt')[0].replace('_end', '')
     if "_step_" in base:
         ep, st = base.split("_step_")
         return (int(ep), int(st))
