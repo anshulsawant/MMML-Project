@@ -597,7 +597,6 @@ def train():
                     best_val_loss = avg_val_loss
                     best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
                     # Directly network-clone locally spanning FUSE identically natively
-                    import os
                     os.system(f"cp {epoch_cp_path} {best_cp_path}")
                     print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
                     
