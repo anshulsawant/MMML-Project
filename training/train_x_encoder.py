@@ -492,7 +492,7 @@ def train():
                             with open(os.path.join(checkpoint_dir, "best_val_loss.json"), 'w') as f:
                                 json.dump({"best_loss": best_val_loss, "epoch": epoch, "step": global_step}, f)
                                 
-                            print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Spawning async save...")
+                            print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} captured Mid-Epoch! Executing sync save...")
                         
                         save_model = model.module if is_distributed else model
                         sync_mfs_save({
