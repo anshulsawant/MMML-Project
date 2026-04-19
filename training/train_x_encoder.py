@@ -23,29 +23,37 @@ def parse_cp_name(f):
         return (int(ep), int(st))
     return (int(base), 0)
 
+import multiprocessing
+
+def _background_transfer(ram_path, file_path, best_path):
+    import os, shutil
+    try:
+        # Transfer slowly in the background
+        temp_target = file_path + ".tmp"
+        shutil.move(ram_path, temp_target)
+        os.rename(temp_target, file_path)
+        if best_path:
+            shutil.copy2(file_path, best_path)
+        print(f"\n[Async Save] Finished writing {file_path}")
+        
+        # Clean RAM
+        if os.path.exists(ram_path):
+            os.remove(ram_path)
+    except Exception as e:
+        print(f"\n[Async Save Error] Failed to write {file_path}: {e}")
+
 def async_mfs_save(state_dict, file_path, best_path=None):
     """
-    Saves synchronously to RAM disk (lightning fast ~1-3s for 25GB) and then copies sequentially 
-    to MooseFS over a decoupled background thread, preventing blocking the GPU logic!
+    Saves synchronously to RAM disk (~1s for 25GB) and copies to MooseFS via an OS-level
+    detached `multiprocessing` process, guaranteeing ZERO main Python GIL contention.
     """
-    import os, shutil, threading, uuid, torch
+    import uuid, torch
     
-    # 132GB RAM Disk structurally attached mapped to /dev/shm globally across Linux clusters
     ram_path = f"/dev/shm/temp_cp_{uuid.uuid4().hex}.pt"
     torch.save(state_dict, ram_path)
     
-    def _background_transfer():
-        try:
-            # Transfer slowly in the background
-            temp_target = file_path + ".tmp"
-            shutil.move(ram_path, temp_target)
-            os.rename(temp_target, file_path)
-            if best_path:
-                shutil.copy2(file_path, best_path)
-        except Exception as e:
-            pass
-            
-    threading.Thread(target=_background_transfer).start()
+    p = multiprocessing.Process(target=_background_transfer, args=(ram_path, file_path, best_path))
+    p.start()
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
