@@ -28,15 +28,15 @@ import multiprocessing
 def _background_transfer(ram_path, file_path, best_path):
     import os, shutil
     try:
-        # Transfer slowly in the background
+        # Transfer byte-data strictly securely avoiding metadata (network volume crashing)
         temp_target = file_path + ".tmp"
-        shutil.move(ram_path, temp_target)
+        shutil.copyfile(ram_path, temp_target)
         os.rename(temp_target, file_path)
         if best_path:
-            shutil.copy2(file_path, best_path)
+            shutil.copyfile(file_path, best_path)
         print(f"\n[Async Save] Finished writing {file_path}")
         
-        # Clean RAM
+        # Clean RAM mathematically explicitly
         if os.path.exists(ram_path):
             os.remove(ram_path)
     except Exception as e:
