@@ -23,6 +23,20 @@ def parse_cp_name(f):
         return (int(ep), int(st))
     return (int(base), 0)
 
+def atomic_mfs_save(state_dict, file_path):
+    """
+    MooseFS (MFS) experiences severe lock-contention and throughput collapse 
+    when PyTorch C++ ZIP-streams iterate thousands of chunk writes natively.
+    Dumping to RAM first generates a mathematically instantaneous POSIX atomic block flush.
+    """
+    import io
+    buf = io.BytesIO()
+    torch.save(state_dict, buf)
+    with open(file_path, 'wb') as f:
+        f.write(buf.getvalue())
+        f.flush()
+        os.fsync(f.fileno())
+
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
     parser.add_argument("--config", type=str, default="training/config.yaml",
@@ -475,7 +489,7 @@ def train():
                         mid_val_loss = run_validation(f"Mid-Epoch {epoch} (Step {global_step})", epoch, global_step)
                         
                         save_model = model.module if is_distributed else model
-                        torch.save({
+                        atomic_mfs_save({
                             'epoch': epoch,
                             'step': global_step,
                             'model_state_dict': save_model.state_dict(),
@@ -549,7 +563,7 @@ def train():
                     best_val_loss = avg_val_loss
                     best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
                     save_model = model.module if is_distributed else model
-                    torch.save({
+                    atomic_mfs_save({
                         'epoch': epoch,
                         'model_state_dict': save_model.state_dict(),
                         'optimizer_state_dict': optimizer.state_dict(),
@@ -564,7 +578,7 @@ def train():
                         json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
     if is_master:
         save_model = model.module if is_distributed else model
-        torch.save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
+        atomic_mfs_save(save_model.state_dict(), "latent_euclid_x_encoder_final.pt")
         print("Model state successfully saved.")
         wandb.finish()
 
