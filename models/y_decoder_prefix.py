@@ -51,10 +51,15 @@ class YDecoderPrefix(nn.Module):
                 device_map="auto" if device == "cuda" else None
             )
 
-        # Freeze the entire underlying LLM/VLM
-        for param in self.decoder.parameters():
-            param.requires_grad = False
-            
+        if unfreeze_layers == -1:
+            print("RL Mode: Fully unfreezing the entire base decoder dynamically!")
+            for param in self.decoder.parameters():
+                param.requires_grad = True
+        else:
+            # Freeze the entire underlying LLM/VLM
+            for param in self.decoder.parameters():
+                param.requires_grad = False
+                
         # Optional Experiment: Unfreeze the first N layers of the target decoder
         if unfreeze_layers > 0:
             print(f"Experimental: Unfreezing the first {unfreeze_layers} layers of the base decoder!")

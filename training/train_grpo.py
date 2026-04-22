@@ -38,7 +38,7 @@ def main():
     
     # 1. Instantiate the singular networks tracking parameters actively!
     base_encoder = LatentEuclid(max_thought_tokens=30)
-    base_decoder = YDecoderPrefix(unfreeze_layers=2)
+    base_decoder = YDecoderPrefix(unfreeze_layers=-1)
     
     # 2. Wrap mathematically
     model = UnifiedEuclidGRPO(config=base_encoder.config, x_encoder=base_encoder, y_decoder=base_decoder)
