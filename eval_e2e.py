@@ -153,20 +153,6 @@ def e2e_evaluate():
         print(f"Error loading ground_truths.json: {e}")
         return
 
-    step1_map = {}
-    try:
-        with open("data/geothoughts_k4_gemini3.1.jsonl", "r") as f:
-            k4_data = [json.loads(l) for l in f]
-        for item in k4_data:
-            reasoning = item.get("reasoning", "")
-            step1_lines = []
-            for line in reasoning.split("\n"):
-                if line.strip().startswith("Step 2"): break
-                if line.strip(): step1_lines.append(line.strip())
-            step1_map[item["image_path"]] = "\n".join(step1_lines)
-    except Exception as e:
-        print(f"Warning: Could not load k4 Step 1 contexts: {e}")
-
     random.seed(42)  # Maintain identical split to validate_generation.py and training loops
     random.shuffle(full_data)
     split_idx = int(args.split * len(full_data))
@@ -213,10 +199,6 @@ def e2e_evaluate():
                 
                 if true_answer_raw is None:
                     continue
-                    
-                step1_text = step1_map.get(item["image_path"], "")
-                if step1_text:
-                    question = question + "\n" + step1_text
                     
                 full_text = question
                 

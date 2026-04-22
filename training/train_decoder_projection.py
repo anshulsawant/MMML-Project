@@ -56,20 +56,6 @@ class GeoThoughtsTextDataset(Dataset):
         self.tokenizer = tokenizer
         self.k_steps = k_steps
         
-        self.step1_map = {}
-        try:
-            with open("data/geothoughts_k4_gemini3.1.jsonl", "r") as f:
-                k4_data = [json.loads(l) for l in f]
-            for item in k4_data:
-                reasoning = item.get("reasoning", "")
-                step1_lines = []
-                for line in reasoning.split("\n"):
-                    if line.strip().startswith("Step 2"): break
-                    if line.strip(): step1_lines.append(line.strip())
-                self.step1_map[item["image_path"]] = "\n".join(step1_lines)
-        except Exception as e:
-            print(f"Warning: Could not load k4 Step 1 contexts: {e}")
-
     def __len__(self):
         return len(self.data)
 
@@ -89,13 +75,8 @@ class GeoThoughtsTextDataset(Dataset):
             N = len([line for line in item["reasoning"].split('\n') if line.strip().startswith('Step')])
             N = max(1, N) # Ensure at least 1 step
             
-        step1_text = self.step1_map.get(img_path, "")
-        if step1_text:
-            thought_string = "\n" + step1_text + "\n" + "".join([f"<thought_{i+1}>" for i in range(1, N)])
-        else:
-            thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
-            
-        full_text = item["question"] + " " + thought_string
+        thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
+        full_text = item["question"] + "\n" + thought_string
         
         # 3. Final Target Answer for the Y-Decoder to learn to generate
         # Lookup the true answer string dynamically from ground_truths.json
