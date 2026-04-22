@@ -8,7 +8,7 @@ experiment:
   name: "v12_dynamic_sft"
 
 build_manifold:
-  batch_size: 64
+  batch_size: 4
   
 train_x_encoder:
   experiment_name: "v12_dynamic_sft"
