@@ -41,6 +41,15 @@ train_decoder:
 data:
   jsonl_path: "data/geothoughts_arbitrary_cot.jsonl"
 
+train_grpo:
+  experiment_name: "v13_grpo_rl"
+  batch_size: 1
+  gradient_accumulation_steps: 4
+  learning_rate: 1.0e-5
+  max_prompt_length: 256
+  max_completion_length: 64
+  num_generations: 4
+
 train_end_to_end:
   experiment_name: "v11_e2e_huber_contextual"
   epochs: 1

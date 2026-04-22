@@ -33,8 +33,13 @@ def load_geothoughts_dataset(json_path="data/geothoughts_arbitrary_cot.jsonl"):
             
     return Dataset.from_list(data)
 
+import yaml
+
 def main():
     print("Initializing Unsharded GRPO Target Sequence Protocol...")
+    with open("training/config.yaml", "r") as f:
+        config = yaml.safe_load(f)
+    grpo_cfg = config.get("train_grpo", {})
     
     # 1. Instantiate the singular networks tracking parameters actively!
     base_encoder = LatentEuclid(max_thought_tokens=30)
@@ -50,13 +55,13 @@ def main():
     # Because H200 packs 141 GB of VRAM, 8B params fit safely globally scaling parallel rollout 
     # sequences dynamically without complex multi-node topology dependencies.
     training_args = GRPOConfig(
-        output_dir="checkpoints/grpo_euclid",
-        learning_rate=1e-5,
-        per_device_train_batch_size=2,
-        gradient_accumulation_steps=4,
-        max_prompt_length=256,
-        max_completion_length=64, # Maximum length of reasoning text output generated!
-        num_generations=4, # Rollout size per prompt optimized securely internally!
+        output_dir=f"checkpoints/{grpo_cfg.get('experiment_name', 'grpo_euclid')}",
+        learning_rate=float(grpo_cfg.get("learning_rate", 1e-5)),
+        per_device_train_batch_size=int(grpo_cfg.get("batch_size", 1)),
+        gradient_accumulation_steps=int(grpo_cfg.get("gradient_accumulation_steps", 4)),
+        max_prompt_length=int(grpo_cfg.get("max_prompt_length", 256)),
+        max_completion_length=int(grpo_cfg.get("max_completion_length", 64)),
+        num_generations=int(grpo_cfg.get("num_generations", 4)),
         bf16=True,
         log_level="info",
         report_to="wandb"
