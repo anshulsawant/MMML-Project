@@ -1,0 +1,5627 @@
+[
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1793.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3480.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "30",
+    "gt_norm": "120",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_869.jpg",
+    "is_correct": false,
+    "gt_raw": "68",
+    "pred_raw": "112",
+    "gt_norm": "68",
+    "pred_norm": "112",
+    "model_generation": "112"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_50.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5376.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "12",
+    "gt_norm": "9",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1208.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2002.jpg",
+    "is_correct": true,
+    "gt_raw": "19",
+    "pred_raw": "19",
+    "gt_norm": "19",
+    "pred_norm": "19",
+    "model_generation": "19"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3271.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "6",
+    "gt_norm": "12",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4052.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3146.jpg",
+    "is_correct": true,
+    "gt_raw": "16",
+    "pred_raw": "16",
+    "gt_norm": "16",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1590.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4721.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "12",
+    "gt_norm": "9",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5161.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3394.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3727.jpg",
+    "is_correct": false,
+    "gt_raw": "2sqrt(3)/3",
+    "pred_raw": "sqrt(3)/2",
+    "gt_norm": "2sqrt3/3",
+    "pred_norm": "sqrt3/2",
+    "model_generation": "sqrt(3)/2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_592.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5009.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "10",
+    "gt_norm": "48",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3890.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "20",
+    "gt_norm": "55",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6148.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "8.4",
+    "gt_norm": "2.5",
+    "pred_norm": "8.4",
+    "model_generation": "8.4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_377.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "50",
+    "gt_norm": "130",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_199.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "70",
+    "gt_norm": "35",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1207.jpg",
+    "is_correct": false,
+    "gt_raw": "96",
+    "pred_raw": "48",
+    "gt_norm": "96",
+    "pred_norm": "48",
+    "model_generation": "48"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1629.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6011.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "7",
+    "gt_norm": "6",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2539.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5513.jpg",
+    "is_correct": false,
+    "gt_raw": "13",
+    "pred_raw": "1",
+    "gt_norm": "13",
+    "pred_norm": "1",
+    "model_generation": "1\n\nWe are given that lines $l$ and $m$ are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1923.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_770.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "80",
+    "gt_norm": "100",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2744.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5069.jpg",
+    "is_correct": false,
+    "gt_raw": "49",
+    "pred_raw": "54",
+    "gt_norm": "49",
+    "pred_norm": "54",
+    "model_generation": "54"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5186.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5432.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "30",
+    "gt_norm": "60",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4220.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2322.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(5)/3",
+    "pred_raw": "2/3",
+    "gt_norm": "sqrt5/3",
+    "pred_norm": "0.6667",
+    "model_generation": "2/3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_697.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "120",
+    "gt_norm": "60",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5400.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "12",
+    "gt_norm": "11",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1395.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3875.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "40",
+    "gt_norm": "140",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4191.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1754.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5537.jpg",
+    "is_correct": true,
+    "gt_raw": "11",
+    "pred_raw": "11",
+    "gt_norm": "11",
+    "pred_norm": "11",
+    "model_generation": "11"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3621.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100",
+    "gt_norm": "40",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5795.jpg",
+    "is_correct": false,
+    "gt_raw": "61",
+    "pred_raw": "70",
+    "gt_norm": "61",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3807.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "20",
+    "gt_norm": "22",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2636.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5367.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6026.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4749.jpg",
+    "is_correct": false,
+    "gt_raw": "53",
+    "pred_raw": "37",
+    "gt_norm": "53",
+    "pred_norm": "37",
+    "model_generation": "37\n\nWe are given a rhombus $XYZW$ with"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3517.jpg",
+    "is_correct": false,
+    "gt_raw": "52",
+    "pred_raw": "124",
+    "gt_norm": "52",
+    "pred_norm": "124",
+    "model_generation": "124"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1723.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2348.jpg",
+    "is_correct": true,
+    "gt_raw": "79",
+    "pred_raw": "79",
+    "gt_norm": "79",
+    "pred_norm": "79",
+    "model_generation": "79"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2494.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "65",
+    "gt_norm": "50",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_9.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "35",
+    "gt_norm": "65",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4492.jpg",
+    "is_correct": true,
+    "gt_raw": "27",
+    "pred_raw": "27",
+    "gt_norm": "27",
+    "pred_norm": "27",
+    "model_generation": "27"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3324.jpg",
+    "is_correct": false,
+    "gt_raw": "3/5",
+    "pred_raw": "3",
+    "gt_norm": "0.6",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2469.jpg",
+    "is_correct": true,
+    "gt_raw": "48",
+    "pred_raw": "48",
+    "gt_norm": "48",
+    "pred_norm": "48",
+    "model_generation": "48"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4665.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5045.jpg",
+    "is_correct": false,
+    "gt_raw": "53",
+    "pred_raw": "103",
+    "gt_norm": "53",
+    "pred_norm": "103",
+    "model_generation": "103\n\nWe are given that $m\\angle 4 ="
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1424.jpg",
+    "is_correct": true,
+    "gt_raw": "13",
+    "pred_raw": "13",
+    "gt_norm": "13",
+    "pred_norm": "13",
+    "model_generation": "13"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5548.jpg",
+    "is_correct": false,
+    "gt_raw": "9.5",
+    "pred_raw": "7",
+    "gt_norm": "9.5",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3101.jpg",
+    "is_correct": true,
+    "gt_raw": "2.0",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5442.jpg",
+    "is_correct": false,
+    "gt_raw": "68",
+    "pred_raw": "107",
+    "gt_norm": "68",
+    "pred_norm": "107",
+    "model_generation": "107"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3443.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "7.5",
+    "gt_norm": "10",
+    "pred_norm": "7.5",
+    "model_generation": "7.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1574.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1045.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4542.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2422.jpg",
+    "is_correct": true,
+    "gt_raw": "54",
+    "pred_raw": "54",
+    "gt_norm": "54",
+    "pred_norm": "54",
+    "model_generation": "54"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3294.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "12",
+    "gt_norm": "6",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2676.jpg",
+    "is_correct": false,
+    "gt_raw": "66",
+    "pred_raw": "24",
+    "gt_norm": "66",
+    "pred_norm": "24",
+    "model_generation": "24"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3349.jpg",
+    "is_correct": false,
+    "gt_raw": "1/4",
+    "pred_raw": "2",
+    "gt_norm": "0.25",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5779.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "10",
+    "gt_norm": "40",
+    "pred_norm": "10",
+    "model_generation": "10\n\nWe are given:\n\n- $ m\\angle 19"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2536.jpg",
+    "is_correct": true,
+    "gt_raw": "28",
+    "pred_raw": "28",
+    "gt_norm": "28",
+    "pred_norm": "28",
+    "model_generation": "28"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4152.jpg",
+    "is_correct": true,
+    "gt_raw": "62",
+    "pred_raw": "62",
+    "gt_norm": "62",
+    "pred_norm": "62",
+    "model_generation": "62"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2464.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1018.jpg",
+    "is_correct": true,
+    "gt_raw": "55",
+    "pred_raw": "55",
+    "gt_norm": "55",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5827.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "30",
+    "gt_norm": "42",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2568.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "70",
+    "gt_norm": "110",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5109.jpg",
+    "is_correct": false,
+    "gt_raw": "90",
+    "pred_raw": "45",
+    "gt_norm": "90",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2708.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "40",
+    "gt_norm": "100",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5444.jpg",
+    "is_correct": false,
+    "gt_raw": "66",
+    "pred_raw": "24",
+    "gt_norm": "66",
+    "pred_norm": "24",
+    "model_generation": "24"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_571.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3539.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2988.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1618.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5490.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5628.jpg",
+    "is_correct": true,
+    "gt_raw": "32.5",
+    "pred_raw": "32.5",
+    "gt_norm": "32.5",
+    "pred_norm": "32.5",
+    "model_generation": "32.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4405.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4264.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_20.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "36",
+    "gt_norm": "72",
+    "pred_norm": "36",
+    "model_generation": "36"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3571.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_361.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2086.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100",
+    "gt_norm": "40",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1557.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4724.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3158.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_947.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4186.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "80",
+    "gt_norm": "40",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4969.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3573.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5909.jpg",
+    "is_correct": false,
+    "gt_raw": "17.7",
+    "pred_raw": "17.5",
+    "gt_norm": "17.7",
+    "pred_norm": "17.5",
+    "model_generation": "17.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2829.jpg",
+    "is_correct": true,
+    "gt_raw": "3S",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3557.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4889.jpg",
+    "is_correct": true,
+    "gt_raw": "48",
+    "pred_raw": "48",
+    "gt_norm": "48",
+    "pred_norm": "48",
+    "model_generation": "48"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_888.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_318.jpg",
+    "is_correct": false,
+    "gt_raw": "103",
+    "pred_raw": "58",
+    "gt_norm": "103",
+    "pred_norm": "58",
+    "model_generation": "58"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2177.jpg",
+    "is_correct": true,
+    "gt_raw": "65",
+    "pred_raw": "65",
+    "gt_norm": "65",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4754.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10",
+    "gt_norm": "8",
+    "pred_norm": "10",
+    "model_generation": "10\n\nTo determine the value of $x$ so that the quadr"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1467.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2138.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_942.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "100",
+    "gt_norm": "80",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_224.jpg",
+    "is_correct": true,
+    "gt_raw": "65",
+    "pred_raw": "65",
+    "gt_norm": "65",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2711.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "20",
+    "gt_norm": "40",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6188.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "3",
+    "gt_norm": "4",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5562.jpg",
+    "is_correct": false,
+    "gt_raw": "38",
+    "pred_raw": "10",
+    "gt_norm": "38",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3274.jpg",
+    "is_correct": true,
+    "gt_raw": "3.6",
+    "pred_raw": "3.6",
+    "gt_norm": "3.6",
+    "pred_norm": "3.6",
+    "model_generation": "3.6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4173.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5254.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2877.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2283.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_570.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "20",
+    "gt_norm": "40",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2279.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10",
+    "gt_norm": "20",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2689.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(2)",
+    "pred_raw": "1",
+    "gt_norm": "sqrt2",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3264.jpg",
+    "is_correct": true,
+    "gt_raw": "5/13",
+    "pred_raw": "5/13",
+    "gt_norm": "0.3846",
+    "pred_norm": "0.3846",
+    "model_generation": "5/13"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1585.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5407.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_189.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1825.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1868.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2496.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "56",
+    "gt_norm": "34",
+    "pred_norm": "56",
+    "model_generation": "56"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2863.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3770.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "5",
+    "gt_norm": "10",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1634.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "13",
+    "gt_norm": "8",
+    "pred_norm": "13",
+    "model_generation": "13"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1820.jpg",
+    "is_correct": false,
+    "gt_raw": "3sqrt(3)",
+    "pred_raw": "4",
+    "gt_norm": "3sqrt3",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3853.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "4",
+    "gt_norm": "2",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_313.jpg",
+    "is_correct": true,
+    "gt_raw": "125",
+    "pred_raw": "125",
+    "gt_norm": "125",
+    "pred_norm": "125",
+    "model_generation": "125"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3131.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60\n\nStep 2 [Logical Reasoning]: Since the ruler's"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_883.jpg",
+    "is_correct": false,
+    "gt_raw": "66",
+    "pred_raw": "123",
+    "gt_norm": "66",
+    "pred_norm": "123",
+    "model_generation": "123"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5748.jpg",
+    "is_correct": true,
+    "gt_raw": "52",
+    "pred_raw": "52",
+    "gt_norm": "52",
+    "pred_norm": "52",
+    "model_generation": "52\n\nTo find the measure of angle $R$ in parallelog"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1309.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6083.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "40",
+    "gt_norm": "36",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2029.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5480.jpg",
+    "is_correct": false,
+    "gt_raw": "116",
+    "pred_raw": "64",
+    "gt_norm": "116",
+    "pred_norm": "64",
+    "model_generation": "64"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3373.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2728.jpg",
+    "is_correct": false,
+    "gt_raw": "27",
+    "pred_raw": "54",
+    "gt_norm": "27",
+    "pred_norm": "54",
+    "model_generation": "54"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1470.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_200.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "70",
+    "gt_norm": "30",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3375.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "66",
+    "gt_norm": "48",
+    "pred_norm": "66",
+    "model_generation": "66"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1454.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10",
+    "gt_norm": "5",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1335.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1937.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1268.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5085.jpg",
+    "is_correct": true,
+    "gt_raw": "396",
+    "pred_raw": "396",
+    "gt_norm": "396",
+    "pred_norm": "396",
+    "model_generation": "396"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5936.jpg",
+    "is_correct": true,
+    "gt_raw": "32",
+    "pred_raw": "32",
+    "gt_norm": "32",
+    "pred_norm": "32",
+    "model_generation": "32"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4588.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "4",
+    "gt_norm": "2",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2900.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "40.0",
+    "gt_norm": "16",
+    "pred_norm": "40",
+    "model_generation": "40.0"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_840.jpg",
+    "is_correct": false,
+    "gt_raw": "38",
+    "pred_raw": "40",
+    "gt_norm": "38",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5466.jpg",
+    "is_correct": true,
+    "gt_raw": "18",
+    "pred_raw": "18",
+    "gt_norm": "18",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2043.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5582.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "40",
+    "gt_norm": "70",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1721.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "16",
+    "gt_norm": "22",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2930.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "9",
+    "gt_norm": "8",
+    "pred_norm": "9",
+    "model_generation": "9"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_324.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2985.jpg",
+    "is_correct": true,
+    "gt_raw": "3.0",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2524.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_341.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "30",
+    "gt_norm": "42",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1048.jpg",
+    "is_correct": true,
+    "gt_raw": "45",
+    "pred_raw": "45",
+    "gt_norm": "45",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3519.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1218.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "15",
+    "gt_norm": "24",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4524.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4772.jpg",
+    "is_correct": false,
+    "gt_raw": "117",
+    "pred_raw": "72",
+    "gt_norm": "117",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3028.jpg",
+    "is_correct": true,
+    "gt_raw": "360",
+    "pred_raw": "360",
+    "gt_norm": "360",
+    "pred_norm": "360",
+    "model_generation": "360"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_293.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4469.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1225.jpg",
+    "is_correct": false,
+    "gt_raw": "4pi",
+    "pred_raw": "pi/3",
+    "gt_norm": "12.5664",
+    "pred_norm": "1.0472",
+    "model_generation": "pi/3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5662.jpg",
+    "is_correct": false,
+    "gt_raw": "3.4",
+    "pred_raw": "10.8",
+    "gt_norm": "3.4",
+    "pred_norm": "10.8",
+    "model_generation": "10.8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_613.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "20",
+    "gt_norm": "40",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6049.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "15",
+    "gt_norm": "9",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_76.jpg",
+    "is_correct": false,
+    "gt_raw": "67.5",
+    "pred_raw": "45",
+    "gt_norm": "67.5",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4593.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3502.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5784.jpg",
+    "is_correct": false,
+    "gt_raw": "32pi",
+    "pred_raw": "64",
+    "gt_norm": "100.531",
+    "pred_norm": "64",
+    "model_generation": "64"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4515.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "7",
+    "gt_norm": "3",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3623.jpg",
+    "is_correct": true,
+    "gt_raw": "56",
+    "pred_raw": "56",
+    "gt_norm": "56",
+    "pred_norm": "56",
+    "model_generation": "56"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6051.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "12",
+    "gt_norm": "72",
+    "pred_norm": "12",
+    "model_generation": "12\n\nWe are given a diagram with three parallel horizontal lines cut by"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2147.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "140",
+    "gt_norm": "40",
+    "pred_norm": "140",
+    "model_generation": "140"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5216.jpg",
+    "is_correct": true,
+    "gt_raw": "40.83",
+    "pred_raw": "40.87",
+    "gt_norm": "40.83",
+    "pred_norm": "40.87",
+    "model_generation": "40.87"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1073.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "16",
+    "gt_norm": "6",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2731.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_25.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "64",
+    "gt_norm": "34",
+    "pred_norm": "64",
+    "model_generation": "64"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_360.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "105",
+    "gt_norm": "115",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2267.jpg",
+    "is_correct": true,
+    "gt_raw": "48",
+    "pred_raw": "48",
+    "gt_norm": "48",
+    "pred_norm": "48",
+    "model_generation": "48"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5967.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "7",
+    "gt_norm": "42",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5198.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "12",
+    "gt_norm": "18",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_753.jpg",
+    "is_correct": false,
+    "gt_raw": "63",
+    "pred_raw": "33",
+    "gt_norm": "63",
+    "pred_norm": "33",
+    "model_generation": "33"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_419.jpg",
+    "is_correct": true,
+    "gt_raw": "100",
+    "pred_raw": "100",
+    "gt_norm": "100",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2059.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6052.jpg",
+    "is_correct": false,
+    "gt_raw": "53.4",
+    "pred_raw": "42.8",
+    "gt_norm": "53.4",
+    "pred_norm": "42.8",
+    "model_generation": "42.8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4140.jpg",
+    "is_correct": true,
+    "gt_raw": "100",
+    "pred_raw": "100",
+    "gt_norm": "100",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2162.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "20",
+    "gt_norm": "25",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5194.jpg",
+    "is_correct": false,
+    "gt_raw": "52.5",
+    "pred_raw": "45",
+    "gt_norm": "52.5",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5629.jpg",
+    "is_correct": true,
+    "gt_raw": "58",
+    "pred_raw": "58",
+    "gt_norm": "58",
+    "pred_norm": "58",
+    "model_generation": "58"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1666.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "18",
+    "gt_norm": "20",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2811.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "4",
+    "gt_norm": "8",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1725.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "5",
+    "gt_norm": "4",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4948.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "30",
+    "gt_norm": "72",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2307.jpg",
+    "is_correct": false,
+    "gt_raw": "8.0",
+    "pred_raw": "7",
+    "gt_norm": "8",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2234.jpg",
+    "is_correct": true,
+    "gt_raw": "110",
+    "pred_raw": "110",
+    "gt_norm": "110",
+    "pred_norm": "110",
+    "model_generation": "110"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6199.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6078.jpg",
+    "is_correct": true,
+    "gt_raw": "18",
+    "pred_raw": "18",
+    "gt_norm": "18",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_876.jpg",
+    "is_correct": false,
+    "gt_raw": "150",
+    "pred_raw": "30",
+    "gt_norm": "150",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_949.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6192.jpg",
+    "is_correct": false,
+    "gt_raw": "255",
+    "pred_raw": "258",
+    "gt_norm": "255",
+    "pred_norm": "258",
+    "model_generation": "258"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1098.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "27",
+    "gt_norm": "12",
+    "pred_norm": "27",
+    "model_generation": "27"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_853.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5436.jpg",
+    "is_correct": true,
+    "gt_raw": "4.08",
+    "pred_raw": "78/360*2*pi*3",
+    "gt_norm": "4.08",
+    "pred_norm": "4.0841",
+    "model_generation": "78/360*2*pi*3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2456.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4541.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5469.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_62.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "65",
+    "gt_norm": "40",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4333.jpg",
+    "is_correct": true,
+    "gt_raw": "4/9",
+    "pred_raw": "4/9",
+    "gt_norm": "0.4444",
+    "pred_norm": "0.4444",
+    "model_generation": "4/9"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5353.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "12",
+    "gt_norm": "16",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5010.jpg",
+    "is_correct": true,
+    "gt_raw": "270",
+    "pred_raw": "270",
+    "gt_norm": "270",
+    "pred_norm": "270",
+    "model_generation": "270"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2476.jpg",
+    "is_correct": true,
+    "gt_raw": "34",
+    "pred_raw": "34",
+    "gt_norm": "34",
+    "pred_norm": "34",
+    "model_generation": "34"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5766.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "16",
+    "gt_norm": "8",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4452.jpg",
+    "is_correct": true,
+    "gt_raw": "57",
+    "pred_raw": "57",
+    "gt_norm": "57",
+    "pred_norm": "57",
+    "model_generation": "57"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3590.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1287.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "72",
+    "gt_norm": "60",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2339.jpg",
+    "is_correct": true,
+    "gt_raw": "55",
+    "pred_raw": "55",
+    "gt_norm": "55",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3030.jpg",
+    "is_correct": true,
+    "gt_raw": "7.0",
+    "pred_raw": "7",
+    "gt_norm": "7",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1998.jpg",
+    "is_correct": true,
+    "gt_raw": "36",
+    "pred_raw": "36",
+    "gt_norm": "36",
+    "pred_norm": "36",
+    "model_generation": "36"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_565.jpg",
+    "is_correct": true,
+    "gt_raw": "128",
+    "pred_raw": "128",
+    "gt_norm": "128",
+    "pred_norm": "128",
+    "model_generation": "128"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2862.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1087.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5917.jpg",
+    "is_correct": false,
+    "gt_raw": "338.4",
+    "pred_raw": "107.5",
+    "gt_norm": "338.4",
+    "pred_norm": "107.5",
+    "model_generation": "107.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4141.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "70",
+    "gt_norm": "20",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1746.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "18",
+    "gt_norm": "16",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4400.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_596.jpg",
+    "is_correct": true,
+    "gt_raw": "77",
+    "pred_raw": "77",
+    "gt_norm": "77",
+    "pred_norm": "77",
+    "model_generation": "77"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_818.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "30",
+    "gt_norm": "20",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4612.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5083.jpg",
+    "is_correct": true,
+    "gt_raw": "90",
+    "pred_raw": "90",
+    "gt_norm": "90",
+    "pred_norm": "90",
+    "model_generation": "90"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3754.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_73.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_599.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2587.jpg",
+    "is_correct": true,
+    "gt_raw": "150",
+    "pred_raw": "150",
+    "gt_norm": "150",
+    "pred_norm": "150",
+    "model_generation": "150"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3745.jpg",
+    "is_correct": false,
+    "gt_raw": "45",
+    "pred_raw": "42.0",
+    "gt_norm": "45",
+    "pred_norm": "42",
+    "model_generation": "42.0"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2454.jpg",
+    "is_correct": true,
+    "gt_raw": "26",
+    "pred_raw": "26",
+    "gt_norm": "26",
+    "pred_norm": "26",
+    "model_generation": "26"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5290.jpg",
+    "is_correct": false,
+    "gt_raw": "156",
+    "pred_raw": "132",
+    "gt_norm": "156",
+    "pred_norm": "132",
+    "model_generation": "132"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6014.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "3",
+    "gt_norm": "6",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1072.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "72",
+    "gt_norm": "25",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3244.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "140",
+    "gt_norm": "80",
+    "pred_norm": "140",
+    "model_generation": "140"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2175.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "36",
+    "gt_norm": "24",
+    "pred_norm": "36",
+    "model_generation": "36"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1951.jpg",
+    "is_correct": false,
+    "gt_raw": "14",
+    "pred_raw": "18",
+    "gt_norm": "14",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2578.jpg",
+    "is_correct": true,
+    "gt_raw": "130",
+    "pred_raw": "130",
+    "gt_norm": "130",
+    "pred_norm": "130",
+    "model_generation": "130"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5870.jpg",
+    "is_correct": false,
+    "gt_raw": "137",
+    "pred_raw": "43",
+    "gt_norm": "137",
+    "pred_norm": "43",
+    "model_generation": "43"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5484.jpg",
+    "is_correct": true,
+    "gt_raw": "26",
+    "pred_raw": "26",
+    "gt_norm": "26",
+    "pred_norm": "26",
+    "model_generation": "26"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1672.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "5",
+    "gt_norm": "2.5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2142.jpg",
+    "is_correct": false,
+    "gt_raw": "35.0",
+    "pred_raw": "55",
+    "gt_norm": "35",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2589.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4281.jpg",
+    "is_correct": true,
+    "gt_raw": "140",
+    "pred_raw": "140",
+    "gt_norm": "140",
+    "pred_norm": "140",
+    "model_generation": "140"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4628.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "3",
+    "gt_norm": "6",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4775.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "72",
+    "gt_norm": "36",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5387.jpg",
+    "is_correct": false,
+    "gt_raw": "79",
+    "pred_raw": "127",
+    "gt_norm": "79",
+    "pred_norm": "127",
+    "model_generation": "127"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3433.jpg",
+    "is_correct": false,
+    "gt_raw": "3sqrt(15)/2",
+    "pred_raw": "5",
+    "gt_norm": "3sqrt15/2",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_669.jpg",
+    "is_correct": true,
+    "gt_raw": "72",
+    "pred_raw": "72",
+    "gt_norm": "72",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5070.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "30",
+    "gt_norm": "60",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_329.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35\n\n**Final Answer**\n\\boxed{35}"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4870.jpg",
+    "is_correct": false,
+    "gt_raw": "15.1",
+    "pred_raw": "20.5",
+    "gt_norm": "15.1",
+    "pred_norm": "20.5",
+    "model_generation": "20.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4747.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2018.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "70",
+    "gt_norm": "80",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4671.jpg",
+    "is_correct": true,
+    "gt_raw": "13",
+    "pred_raw": "13",
+    "gt_norm": "13",
+    "pred_norm": "13",
+    "model_generation": "13"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_982.jpg",
+    "is_correct": true,
+    "gt_raw": "33",
+    "pred_raw": "33",
+    "gt_norm": "33",
+    "pred_norm": "33",
+    "model_generation": "33"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3305.jpg",
+    "is_correct": true,
+    "gt_raw": "1",
+    "pred_raw": "1",
+    "gt_norm": "1",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1926.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5532.jpg",
+    "is_correct": false,
+    "gt_raw": "4.44",
+    "pred_raw": "7",
+    "gt_norm": "4.44",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_555.jpg",
+    "is_correct": false,
+    "gt_raw": "22.5",
+    "pred_raw": "45",
+    "gt_norm": "22.5",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4876.jpg",
+    "is_correct": false,
+    "gt_raw": "67",
+    "pred_raw": "65",
+    "gt_norm": "67",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_563.jpg",
+    "is_correct": false,
+    "gt_raw": "85",
+    "pred_raw": "70",
+    "gt_norm": "85",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1519.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_652.jpg",
+    "is_correct": false,
+    "gt_raw": "124",
+    "pred_raw": "56",
+    "gt_norm": "124",
+    "pred_norm": "56",
+    "model_generation": "56"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4162.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_462.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "108",
+    "gt_norm": "72",
+    "pred_norm": "108",
+    "model_generation": "108"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1285.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4348.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4116.jpg",
+    "is_correct": false,
+    "gt_raw": "26",
+    "pred_raw": "58",
+    "gt_norm": "26",
+    "pred_norm": "58",
+    "model_generation": "58"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3905.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4786.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "20.4",
+    "gt_norm": "20",
+    "pred_norm": "20.4",
+    "model_generation": "20.4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_409.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_467.jpg",
+    "is_correct": false,
+    "gt_raw": "150",
+    "pred_raw": "75",
+    "gt_norm": "150",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2571.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_498.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4442.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4748.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "12",
+    "gt_norm": "10",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_478.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "50",
+    "gt_norm": "70",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1781.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2429.jpg",
+    "is_correct": true,
+    "gt_raw": "65",
+    "pred_raw": "65",
+    "gt_norm": "65",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1553.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1272.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "24",
+    "gt_norm": "12",
+    "pred_norm": "24",
+    "model_generation": "24"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3991.jpg",
+    "is_correct": true,
+    "gt_raw": "45",
+    "pred_raw": "45",
+    "gt_norm": "45",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5879.jpg",
+    "is_correct": false,
+    "gt_raw": "153",
+    "pred_raw": "140.5",
+    "gt_norm": "153",
+    "pred_norm": "140.5",
+    "model_generation": "140.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5427.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "8",
+    "gt_norm": "4",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4556.jpg",
+    "is_correct": true,
+    "gt_raw": "24",
+    "pred_raw": "24",
+    "gt_norm": "24",
+    "pred_norm": "24",
+    "model_generation": "24"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5709.jpg",
+    "is_correct": true,
+    "gt_raw": "22",
+    "pred_raw": "22",
+    "gt_norm": "22",
+    "pred_norm": "22",
+    "model_generation": "22"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3469.jpg",
+    "is_correct": true,
+    "gt_raw": "2/3",
+    "pred_raw": "0.6666666666666",
+    "gt_norm": "0.6667",
+    "pred_norm": "0.6667",
+    "model_generation": "0.6666666666666"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2335.jpg",
+    "is_correct": true,
+    "gt_raw": "2/3",
+    "pred_raw": "2/3",
+    "gt_norm": "0.6667",
+    "pred_norm": "0.6667",
+    "model_generation": "2/3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3725.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2172.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3201.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_15.jpg",
+    "is_correct": true,
+    "gt_raw": "360",
+    "pred_raw": "360",
+    "gt_norm": "360",
+    "pred_norm": "360",
+    "model_generation": "360"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3108.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1346.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "12",
+    "gt_norm": "4",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_487.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3282.jpg",
+    "is_correct": false,
+    "gt_raw": "20/3",
+    "pred_raw": "10",
+    "gt_norm": "6.6667",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1749.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "8",
+    "gt_norm": "6",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3944.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3975.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3326.jpg",
+    "is_correct": true,
+    "gt_raw": "1/4",
+    "pred_raw": "1/4",
+    "gt_norm": "0.25",
+    "pred_norm": "0.25",
+    "model_generation": "1/4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1361.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "20",
+    "gt_norm": "10",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1934.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "2",
+    "gt_norm": "4",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_761.jpg",
+    "is_correct": true,
+    "gt_raw": "124",
+    "pred_raw": "124",
+    "gt_norm": "124",
+    "pred_norm": "124",
+    "model_generation": "124"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_116.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4427.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "55",
+    "gt_norm": "35",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5344.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_414.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_798.jpg",
+    "is_correct": true,
+    "gt_raw": "125",
+    "pred_raw": "125",
+    "gt_norm": "125",
+    "pred_norm": "125",
+    "model_generation": "125"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4506.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3630.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "70",
+    "gt_norm": "35",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_616.jpg",
+    "is_correct": true,
+    "gt_raw": "90",
+    "pred_raw": "90",
+    "gt_norm": "90",
+    "pred_norm": "90",
+    "model_generation": "90"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2046.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "20",
+    "gt_norm": "40",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3794.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5991.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10",
+    "gt_norm": "20",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1501.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6223.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10",
+    "gt_norm": "20",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1151.jpg",
+    "is_correct": false,
+    "gt_raw": "3sqrt(3)",
+    "pred_raw": "6",
+    "gt_norm": "3sqrt3",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3672.jpg",
+    "is_correct": true,
+    "gt_raw": "32",
+    "pred_raw": "32",
+    "gt_norm": "32",
+    "pred_norm": "32",
+    "model_generation": "32"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4392.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "65",
+    "gt_norm": "115",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1563.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1567.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "5",
+    "gt_norm": "6",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2033.jpg",
+    "is_correct": true,
+    "gt_raw": "55",
+    "pred_raw": "55",
+    "gt_norm": "55",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_899.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2782.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "48",
+    "gt_norm": "24",
+    "pred_norm": "48",
+    "model_generation": "48"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3296.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_494.jpg",
+    "is_correct": true,
+    "gt_raw": "47",
+    "pred_raw": "47",
+    "gt_norm": "47",
+    "pred_norm": "47",
+    "model_generation": "47"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_804.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "65",
+    "gt_norm": "40",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5295.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5358.jpg",
+    "is_correct": false,
+    "gt_raw": "210",
+    "pred_raw": "150",
+    "gt_norm": "210",
+    "pred_norm": "150",
+    "model_generation": "150"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5516.jpg",
+    "is_correct": false,
+    "gt_raw": "144",
+    "pred_raw": "72",
+    "gt_norm": "144",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_442.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "1",
+    "gt_norm": "4",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3824.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "10",
+    "gt_norm": "100",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3370.jpg",
+    "is_correct": true,
+    "gt_raw": "55",
+    "pred_raw": "55",
+    "gt_norm": "55",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3466.jpg",
+    "is_correct": false,
+    "gt_raw": "1/2",
+    "pred_raw": "2",
+    "gt_norm": "0.5",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2905.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "70",
+    "gt_norm": "20",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3529.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5402.jpg",
+    "is_correct": true,
+    "gt_raw": "14",
+    "pred_raw": "14",
+    "gt_norm": "14",
+    "pred_norm": "14",
+    "model_generation": "14"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_800.jpg",
+    "is_correct": false,
+    "gt_raw": "46",
+    "pred_raw": "26",
+    "gt_norm": "46",
+    "pred_norm": "26",
+    "model_generation": "26"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_768.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "55",
+    "gt_norm": "70",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1556.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "5",
+    "gt_norm": "10",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3333.jpg",
+    "is_correct": true,
+    "gt_raw": "3.5",
+    "pred_raw": "3.5",
+    "gt_norm": "3.5",
+    "pred_norm": "3.5",
+    "model_generation": "3.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3879.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1985.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3871.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4719.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4683.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5928.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1079.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6016.jpg",
+    "is_correct": true,
+    "gt_raw": "72",
+    "pred_raw": "72",
+    "gt_norm": "72",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1760.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3973.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5482.jpg",
+    "is_correct": true,
+    "gt_raw": "0.92",
+    "pred_raw": "0.92",
+    "gt_norm": "0.92",
+    "pred_norm": "0.92",
+    "model_generation": "0.92"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2280.jpg",
+    "is_correct": false,
+    "gt_raw": "7.5",
+    "pred_raw": "7.2",
+    "gt_norm": "7.5",
+    "pred_norm": "7.2",
+    "model_generation": "7.2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1955.jpg",
+    "is_correct": false,
+    "gt_raw": "26",
+    "pred_raw": "74",
+    "gt_norm": "26",
+    "pred_norm": "74",
+    "model_generation": "74"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4214.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_579.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2704.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_252.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_557.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1877.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_480.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5170.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "40",
+    "gt_norm": "140",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5801.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_581.jpg",
+    "is_correct": true,
+    "gt_raw": "72",
+    "pred_raw": "72",
+    "gt_norm": "72",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_56.jpg",
+    "is_correct": true,
+    "gt_raw": "100",
+    "pred_raw": "100",
+    "gt_norm": "100",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1804.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4817.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10.5",
+    "gt_norm": "8",
+    "pred_norm": "10.5",
+    "model_generation": "10.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1884.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4536.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4822.jpg",
+    "is_correct": false,
+    "gt_raw": "8.06",
+    "pred_raw": "7.08",
+    "gt_norm": "8.06",
+    "pred_norm": "7.08",
+    "model_generation": "7.08"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_171.jpg",
+    "is_correct": true,
+    "gt_raw": "46",
+    "pred_raw": "46",
+    "gt_norm": "46",
+    "pred_norm": "46",
+    "model_generation": "46"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2766.jpg",
+    "is_correct": true,
+    "gt_raw": "sqrt(3)",
+    "pred_raw": "sqrt(3)",
+    "gt_norm": "sqrt3",
+    "pred_norm": "sqrt3",
+    "model_generation": "sqrt(3)"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_523.jpg",
+    "is_correct": true,
+    "gt_raw": "51",
+    "pred_raw": "51",
+    "gt_norm": "51",
+    "pred_norm": "51",
+    "model_generation": "51"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1840.jpg",
+    "is_correct": true,
+    "gt_raw": "24",
+    "pred_raw": "24",
+    "gt_norm": "24",
+    "pred_norm": "24",
+    "model_generation": "24"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2028.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "55",
+    "gt_norm": "20",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_989.jpg",
+    "is_correct": true,
+    "gt_raw": "34",
+    "pred_raw": "34",
+    "gt_norm": "34",
+    "pred_norm": "34",
+    "model_generation": "34"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3696.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "7",
+    "gt_norm": "10",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4237.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "5",
+    "gt_norm": "10",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3592.jpg",
+    "is_correct": true,
+    "gt_raw": "42",
+    "pred_raw": "42",
+    "gt_norm": "42",
+    "pred_norm": "42",
+    "model_generation": "42"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3057.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6211.jpg",
+    "is_correct": true,
+    "gt_raw": "49",
+    "pred_raw": "49",
+    "gt_norm": "49",
+    "pred_norm": "49",
+    "model_generation": "49"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5505.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "104",
+    "gt_norm": "36",
+    "pred_norm": "104",
+    "model_generation": "104"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3268.jpg",
+    "is_correct": false,
+    "gt_raw": "1/2",
+    "pred_raw": "1",
+    "gt_norm": "0.5",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2550.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5836.jpg",
+    "is_correct": false,
+    "gt_raw": "57.9",
+    "pred_raw": "72.8",
+    "gt_norm": "57.9",
+    "pred_norm": "72.8",
+    "model_generation": "72.8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1647.jpg",
+    "is_correct": true,
+    "gt_raw": "16",
+    "pred_raw": "16",
+    "gt_norm": "16",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5651.jpg",
+    "is_correct": false,
+    "gt_raw": "90",
+    "pred_raw": "30",
+    "gt_norm": "90",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5979.jpg",
+    "is_correct": false,
+    "gt_raw": "3/5",
+    "pred_raw": "4/5",
+    "gt_norm": "0.6",
+    "pred_norm": "0.8",
+    "model_generation": "4/5\n\nWe are given a kite $ABCD$ with diagon"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4416.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "36",
+    "gt_norm": "18",
+    "pred_norm": "36",
+    "model_generation": "36"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1736.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3462.jpg",
+    "is_correct": true,
+    "gt_raw": "4.0",
+    "pred_raw": "4.0",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4.0"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4966.jpg",
+    "is_correct": true,
+    "gt_raw": "34",
+    "pred_raw": "34",
+    "gt_norm": "34",
+    "pred_norm": "34",
+    "model_generation": "34"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4319.jpg",
+    "is_correct": false,
+    "gt_raw": "7.5",
+    "pred_raw": "10.5",
+    "gt_norm": "7.5",
+    "pred_norm": "10.5",
+    "model_generation": "10.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2176.jpg",
+    "is_correct": true,
+    "gt_raw": "34",
+    "pred_raw": "34",
+    "gt_norm": "34",
+    "pred_norm": "34",
+    "model_generation": "34"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1354.jpg",
+    "is_correct": true,
+    "gt_raw": "2.5",
+    "pred_raw": "2.5",
+    "gt_norm": "2.5",
+    "pred_norm": "2.5",
+    "model_generation": "2.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4500.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3891.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "16",
+    "gt_norm": "15",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5398.jpg",
+    "is_correct": false,
+    "gt_raw": "21",
+    "pred_raw": "15",
+    "gt_norm": "21",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1049.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "70",
+    "gt_norm": "55",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1030.jpg",
+    "is_correct": true,
+    "gt_raw": "100.0",
+    "pred_raw": "100",
+    "gt_norm": "100",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4360.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_569.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "102",
+    "gt_norm": "22",
+    "pred_norm": "102",
+    "model_generation": "102"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3978.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5988.jpg",
+    "is_correct": false,
+    "gt_raw": "164.3",
+    "pred_raw": "180",
+    "gt_norm": "164.3",
+    "pred_norm": "180",
+    "model_generation": "180"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_695.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "40",
+    "gt_norm": "130",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6184.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "12",
+    "gt_norm": "10",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4644.jpg",
+    "is_correct": true,
+    "gt_raw": "19",
+    "pred_raw": "19",
+    "gt_norm": "19",
+    "pred_norm": "19",
+    "model_generation": "19"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1978.jpg",
+    "is_correct": true,
+    "gt_raw": "28",
+    "pred_raw": "28",
+    "gt_norm": "28",
+    "pred_norm": "28",
+    "model_generation": "28"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_472.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "35",
+    "gt_norm": "55",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1966.jpg",
+    "is_correct": true,
+    "gt_raw": "115",
+    "pred_raw": "115",
+    "gt_norm": "115",
+    "pred_norm": "115",
+    "model_generation": "115"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2518.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "155",
+    "gt_norm": "125",
+    "pred_norm": "155",
+    "model_generation": "155"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2968.jpg",
+    "is_correct": false,
+    "gt_raw": "112",
+    "pred_raw": "212",
+    "gt_norm": "112",
+    "pred_norm": "212",
+    "model_generation": "212"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_916.jpg",
+    "is_correct": true,
+    "gt_raw": "126",
+    "pred_raw": "126",
+    "gt_norm": "126",
+    "pred_norm": "126",
+    "model_generation": "126"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_162.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "50",
+    "gt_norm": "25",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4004.jpg",
+    "is_correct": true,
+    "gt_raw": "11",
+    "pred_raw": "11",
+    "gt_norm": "11",
+    "pred_norm": "11",
+    "model_generation": "11"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2654.jpg",
+    "is_correct": true,
+    "gt_raw": "140",
+    "pred_raw": "140",
+    "gt_norm": "140",
+    "pred_norm": "140",
+    "model_generation": "140"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4903.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "15",
+    "gt_norm": "9",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_8.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4347.jpg",
+    "is_correct": false,
+    "gt_raw": "2.0",
+    "pred_raw": "3",
+    "gt_norm": "2",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4425.jpg",
+    "is_correct": true,
+    "gt_raw": "14",
+    "pred_raw": "14",
+    "gt_norm": "14",
+    "pred_norm": "14",
+    "model_generation": "14"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1323.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3064.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6093.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10",
+    "gt_norm": "8",
+    "pred_norm": "10",
+    "model_generation": "10\n\nWe are given a parallelogram with some angle measures and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1628.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "2",
+    "gt_norm": "4",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4987.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6067.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5239.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "5",
+    "gt_norm": "6",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2444.jpg",
+    "is_correct": true,
+    "gt_raw": "136",
+    "pred_raw": "136",
+    "gt_norm": "136",
+    "pred_norm": "136",
+    "model_generation": "136"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5123.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "19",
+    "gt_norm": "10",
+    "pred_norm": "19",
+    "model_generation": "19"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_867.jpg",
+    "is_correct": false,
+    "gt_raw": "17",
+    "pred_raw": "18",
+    "gt_norm": "17",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4153.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1461.jpg",
+    "is_correct": true,
+    "gt_raw": "16",
+    "pred_raw": "16",
+    "gt_norm": "16",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4098.jpg",
+    "is_correct": false,
+    "gt_raw": "2.6",
+    "pred_raw": "1.3",
+    "gt_norm": "2.6",
+    "pred_norm": "1.3",
+    "model_generation": "1.3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2154.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "30",
+    "gt_norm": "75",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5893.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10",
+    "gt_norm": "5",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5918.jpg",
+    "is_correct": true,
+    "gt_raw": "137.5",
+    "pred_raw": "137.5",
+    "gt_norm": "137.5",
+    "pred_norm": "137.5",
+    "model_generation": "137.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_27.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3715.jpg",
+    "is_correct": true,
+    "gt_raw": "16",
+    "pred_raw": "16",
+    "gt_norm": "16",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1298.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3560.jpg",
+    "is_correct": true,
+    "gt_raw": "65",
+    "pred_raw": "65",
+    "gt_norm": "65",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2402.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "35",
+    "gt_norm": "125",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_910.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "50",
+    "gt_norm": "115",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2789.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "50",
+    "gt_norm": "25",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5246.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "15",
+    "gt_norm": "25",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2191.jpg",
+    "is_correct": true,
+    "gt_raw": "64",
+    "pred_raw": "64",
+    "gt_norm": "64",
+    "pred_norm": "64",
+    "model_generation": "64"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4398.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "130",
+    "gt_norm": "50",
+    "pred_norm": "130",
+    "model_generation": "130"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5587.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_937.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5905.jpg",
+    "is_correct": false,
+    "gt_raw": "105",
+    "pred_raw": "75",
+    "gt_norm": "105",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5578.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "7",
+    "gt_norm": "11",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_93.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4532.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "12",
+    "gt_norm": "6",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2060.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4339.jpg",
+    "is_correct": false,
+    "gt_raw": "6.0",
+    "pred_raw": "2.0",
+    "gt_norm": "6",
+    "pred_norm": "2",
+    "model_generation": "2.0"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3832.jpg",
+    "is_correct": false,
+    "gt_raw": "3.0",
+    "pred_raw": "12",
+    "gt_norm": "3",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4877.jpg",
+    "is_correct": true,
+    "gt_raw": "3.5",
+    "pred_raw": "3.5",
+    "gt_norm": "3.5",
+    "pred_norm": "3.5",
+    "model_generation": "3.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3129.jpg",
+    "is_correct": false,
+    "gt_raw": "56",
+    "pred_raw": "28",
+    "gt_norm": "56",
+    "pred_norm": "28",
+    "model_generation": "28"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3150.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_517.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "80",
+    "gt_norm": "10",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4881.jpg",
+    "is_correct": true,
+    "gt_raw": "57",
+    "pred_raw": "57",
+    "gt_norm": "57",
+    "pred_norm": "57",
+    "model_generation": "57"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3455.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "3",
+    "gt_norm": "2",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5577.jpg",
+    "is_correct": false,
+    "gt_raw": "12.75",
+    "pred_raw": "12",
+    "gt_norm": "12.75",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1307.jpg",
+    "is_correct": false,
+    "gt_raw": "0.5",
+    "pred_raw": "1",
+    "gt_norm": "0.5",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5140.jpg",
+    "is_correct": true,
+    "gt_raw": "129.9",
+    "pred_raw": "129.9",
+    "gt_norm": "129.9",
+    "pred_norm": "129.9",
+    "model_generation": "129.9"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1250.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_902.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_382.jpg",
+    "is_correct": true,
+    "gt_raw": "52",
+    "pred_raw": "52",
+    "gt_norm": "52",
+    "pred_norm": "52",
+    "model_generation": "52"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_748.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "50",
+    "gt_norm": "70",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4047.jpg",
+    "is_correct": true,
+    "gt_raw": "64",
+    "pred_raw": "64",
+    "gt_norm": "64",
+    "pred_norm": "64",
+    "model_generation": "64"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4172.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "50",
+    "gt_norm": "130",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1138.jpg",
+    "is_correct": false,
+    "gt_raw": "1",
+    "pred_raw": "5",
+    "gt_norm": "1",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1795.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "15",
+    "gt_norm": "20",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2961.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(3)",
+    "pred_raw": "1",
+    "gt_norm": "sqrt3",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3269.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "45",
+    "gt_norm": "65",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4784.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3507.jpg",
+    "is_correct": true,
+    "gt_raw": "1.0",
+    "pred_raw": "1",
+    "gt_norm": "1",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4790.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2150.jpg",
+    "is_correct": true,
+    "gt_raw": "64",
+    "pred_raw": "64",
+    "gt_norm": "64",
+    "pred_norm": "64",
+    "model_generation": "64"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4417.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "70",
+    "gt_norm": "110",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4596.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "10",
+    "gt_norm": "4",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6096.jpg",
+    "is_correct": false,
+    "gt_raw": "27",
+    "pred_raw": "12",
+    "gt_norm": "27",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2017.jpg",
+    "is_correct": true,
+    "gt_raw": "62",
+    "pred_raw": "62",
+    "gt_norm": "62",
+    "pred_norm": "62",
+    "model_generation": "62"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6236.jpg",
+    "is_correct": false,
+    "gt_raw": "499.5",
+    "pred_raw": "153",
+    "gt_norm": "499.5",
+    "pred_norm": "153",
+    "model_generation": "153"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2165.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "70",
+    "gt_norm": "110",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1174.jpg",
+    "is_correct": true,
+    "gt_raw": "27",
+    "pred_raw": "27",
+    "gt_norm": "27",
+    "pred_norm": "27",
+    "model_generation": "27"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3761.jpg",
+    "is_correct": false,
+    "gt_raw": "21",
+    "pred_raw": "18",
+    "gt_norm": "21",
+    "pred_norm": "18",
+    "model_generation": "18"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5265.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8\n\nTo find $x$, we can use the Pythagorean theorem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3243.jpg",
+    "is_correct": true,
+    "gt_raw": "110",
+    "pred_raw": "110",
+    "gt_norm": "110",
+    "pred_norm": "110",
+    "model_generation": "110"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4087.jpg",
+    "is_correct": false,
+    "gt_raw": "132",
+    "pred_raw": "48",
+    "gt_norm": "132",
+    "pred_norm": "48",
+    "model_generation": "48"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5366.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "30.5",
+    "gt_norm": "48",
+    "pred_norm": "30.5",
+    "model_generation": "30.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1741.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2575.jpg",
+    "is_correct": false,
+    "gt_raw": "128",
+    "pred_raw": "136",
+    "gt_norm": "128",
+    "pred_norm": "136",
+    "model_generation": "136"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5882.jpg",
+    "is_correct": false,
+    "gt_raw": "107",
+    "pred_raw": "105",
+    "gt_norm": "107",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4649.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1729.jpg",
+    "is_correct": true,
+    "gt_raw": "4.8",
+    "pred_raw": "4.8",
+    "gt_norm": "4.8",
+    "pred_norm": "4.8",
+    "model_generation": "4.8"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_543.jpg",
+    "is_correct": true,
+    "gt_raw": "36",
+    "pred_raw": "36",
+    "gt_norm": "36",
+    "pred_norm": "36",
+    "model_generation": "36"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2198.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "70",
+    "gt_norm": "40",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3289.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2584.jpg",
+    "is_correct": true,
+    "gt_raw": "90",
+    "pred_raw": "90",
+    "gt_norm": "90",
+    "pred_norm": "90",
+    "model_generation": "90"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_264.jpg",
+    "is_correct": true,
+    "gt_raw": "39",
+    "pred_raw": "39",
+    "gt_norm": "39",
+    "pred_norm": "39",
+    "model_generation": "39"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1873.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_457.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "120",
+    "gt_norm": "30",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2662.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5608.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "72",
+    "gt_norm": "48",
+    "pred_norm": "72",
+    "model_generation": "72"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1799.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4563.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "sqrt(12)",
+    "gt_norm": "4",
+    "pred_norm": "sqrt12",
+    "model_generation": "sqrt(12)\n\nWe are given a right triangle $ABC$ with"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5640.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "13",
+    "gt_norm": "11",
+    "pred_norm": "13",
+    "model_generation": "13"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5240.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "50",
+    "gt_norm": "130",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2212.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3105.jpg",
+    "is_correct": true,
+    "gt_raw": "2.0",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3785.jpg",
+    "is_correct": false,
+    "gt_raw": "3.6",
+    "pred_raw": "4",
+    "gt_norm": "3.6",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1340.jpg",
+    "is_correct": false,
+    "gt_raw": "9.0",
+    "pred_raw": "7",
+    "gt_norm": "9",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2009.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "25",
+    "gt_norm": "65",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5974.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4372.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "105",
+    "gt_norm": "40",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1404.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5202.jpg",
+    "is_correct": false,
+    "gt_raw": "123",
+    "pred_raw": "57",
+    "gt_norm": "123",
+    "pred_norm": "57",
+    "model_generation": "57"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4993.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "12",
+    "gt_norm": "8",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_587.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "55",
+    "gt_norm": "125",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5301.jpg",
+    "is_correct": true,
+    "gt_raw": "29.2",
+    "pred_raw": "29.16",
+    "gt_norm": "29.2",
+    "pred_norm": "29.16",
+    "model_generation": "29.16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5596.jpg",
+    "is_correct": true,
+    "gt_raw": "13.4",
+    "pred_raw": "13.4",
+    "gt_norm": "13.4",
+    "pred_norm": "13.4",
+    "model_generation": "13.4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5746.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "2",
+    "gt_norm": "22",
+    "pred_norm": "2",
+    "model_generation": "2\n\nTo determine the value of $ y $ such that the quadrilateral"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2186.jpg",
+    "is_correct": true,
+    "gt_raw": "6.0",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5493.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "4",
+    "gt_norm": "20",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1711.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "16",
+    "gt_norm": "20",
+    "pred_norm": "16",
+    "model_generation": "16"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2909.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "30",
+    "gt_norm": "15",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3035.jpg",
+    "is_correct": false,
+    "gt_raw": "95",
+    "pred_raw": "105",
+    "gt_norm": "95",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1329.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2990.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5201.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "12",
+    "gt_norm": "6",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3712.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "42",
+    "gt_norm": "24",
+    "pred_norm": "42",
+    "model_generation": "42"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2281.jpg",
+    "is_correct": true,
+    "gt_raw": "7.5",
+    "pred_raw": "7.5",
+    "gt_norm": "7.5",
+    "pred_norm": "7.5",
+    "model_generation": "7.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3118.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "70",
+    "gt_norm": "55",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_829.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1907.jpg",
+    "is_correct": true,
+    "gt_raw": "28",
+    "pred_raw": "28",
+    "gt_norm": "28",
+    "pred_norm": "28",
+    "model_generation": "28"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_658.jpg",
+    "is_correct": true,
+    "gt_raw": "32",
+    "pred_raw": "32",
+    "gt_norm": "32",
+    "pred_norm": "32",
+    "model_generation": "32"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2371.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1866.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5415.jpg",
+    "is_correct": true,
+    "gt_raw": "26",
+    "pred_raw": "26",
+    "gt_norm": "26",
+    "pred_norm": "26",
+    "model_generation": "26\n\nTo find $m \\angle 1$, which is $\\"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_374.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "105",
+    "gt_norm": "115",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_566.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5773.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1579.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "7",
+    "gt_norm": "3",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4727.jpg",
+    "is_correct": true,
+    "gt_raw": "95",
+    "pred_raw": "95",
+    "gt_norm": "95",
+    "pred_norm": "95",
+    "model_generation": "95"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2960.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5061.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5151.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "10",
+    "gt_norm": "6",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2399.jpg",
+    "is_correct": true,
+    "gt_raw": "58",
+    "pred_raw": "58",
+    "gt_norm": "58",
+    "pred_norm": "58",
+    "model_generation": "58"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4526.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_649.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3102.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "10",
+    "gt_norm": "18",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1022.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4391.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "105",
+    "gt_norm": "140",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3762.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "40",
+    "gt_norm": "50",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5972.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "7",
+    "gt_norm": "5",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_355.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "105",
+    "gt_norm": "115",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2166.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4944.jpg",
+    "is_correct": true,
+    "gt_raw": "5/7",
+    "pred_raw": "5/7",
+    "gt_norm": "0.7143",
+    "pred_norm": "0.7143",
+    "model_generation": "5/7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2816.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2943.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "54",
+    "gt_norm": "48",
+    "pred_norm": "54",
+    "model_generation": "54"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_789.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "10",
+    "gt_norm": "40",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3106.jpg",
+    "is_correct": false,
+    "gt_raw": "85",
+    "pred_raw": "55",
+    "gt_norm": "85",
+    "pred_norm": "55",
+    "model_generation": "55"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_756.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "100",
+    "gt_norm": "110",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_832.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "120",
+    "gt_norm": "60",
+    "pred_norm": "120",
+    "model_generation": "120"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2757.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(15)",
+    "pred_raw": "3",
+    "gt_norm": "sqrt15",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1762.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1274.jpg",
+    "is_correct": false,
+    "gt_raw": "1.5",
+    "pred_raw": "2",
+    "gt_norm": "1.5",
+    "pred_norm": "2",
+    "model_generation": "2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2273.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2788.jpg",
+    "is_correct": true,
+    "gt_raw": "1.0",
+    "pred_raw": "1",
+    "gt_norm": "1",
+    "pred_norm": "1",
+    "model_generation": "1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3467.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5721.jpg",
+    "is_correct": true,
+    "gt_raw": "57",
+    "pred_raw": "57",
+    "gt_norm": "57",
+    "pred_norm": "57",
+    "model_generation": "57"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1311.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_51.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2276.jpg",
+    "is_correct": false,
+    "gt_raw": "40.0",
+    "pred_raw": "30",
+    "gt_norm": "40",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4832.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "70",
+    "gt_norm": "34",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3676.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1808.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3436.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "6",
+    "gt_norm": "4",
+    "pred_norm": "6",
+    "model_generation": "6"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4464.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5741.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "65",
+    "gt_norm": "130",
+    "pred_norm": "65",
+    "model_generation": "65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5324.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5861.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "45",
+    "gt_norm": "18",
+    "pred_norm": "45",
+    "model_generation": "45"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1627.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4595.jpg",
+    "is_correct": true,
+    "gt_raw": "13",
+    "pred_raw": "13",
+    "gt_norm": "13",
+    "pred_norm": "13",
+    "model_generation": "13"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_221.jpg",
+    "is_correct": true,
+    "gt_raw": "54",
+    "pred_raw": "54",
+    "gt_norm": "54",
+    "pred_norm": "54",
+    "model_generation": "54"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4937.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "20",
+    "gt_norm": "70",
+    "pred_norm": "20",
+    "model_generation": "20\n\nTo find $ m \\angle 7 $, we need"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4143.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "100",
+    "gt_norm": "60",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1901.jpg",
+    "is_correct": false,
+    "gt_raw": "5/2",
+    "pred_raw": "7",
+    "gt_norm": "2.5",
+    "pred_norm": "7",
+    "model_generation": "7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1794.jpg",
+    "is_correct": true,
+    "gt_raw": "17",
+    "pred_raw": "17",
+    "gt_norm": "17",
+    "pred_norm": "17",
+    "model_generation": "17"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_764.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_245.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "100",
+    "gt_norm": "30",
+    "pred_norm": "100",
+    "model_generation": "100"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_260.jpg",
+    "is_correct": true,
+    "gt_raw": "88",
+    "pred_raw": "88",
+    "gt_norm": "88",
+    "pred_norm": "88",
+    "model_generation": "88"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3458.jpg",
+    "is_correct": true,
+    "gt_raw": "150",
+    "pred_raw": "150",
+    "gt_norm": "150",
+    "pred_norm": "150",
+    "model_generation": "150"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4839.jpg",
+    "is_correct": false,
+    "gt_raw": "180",
+    "pred_raw": "270",
+    "gt_norm": "180",
+    "pred_norm": "270",
+    "model_generation": "270"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_715.jpg",
+    "is_correct": true,
+    "gt_raw": "47",
+    "pred_raw": "47",
+    "gt_norm": "47",
+    "pred_norm": "47",
+    "model_generation": "47"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4467.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6062.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "135",
+    "gt_norm": "55",
+    "pred_norm": "135",
+    "model_generation": "135"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5547.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "1/2",
+    "gt_norm": "2.5",
+    "pred_norm": "0.5",
+    "model_generation": "1/2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_844.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6029.jpg",
+    "is_correct": false,
+    "gt_raw": "121",
+    "pred_raw": "105",
+    "gt_norm": "121",
+    "pred_norm": "105",
+    "model_generation": "105"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1144.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1829.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2003.jpg",
+    "is_correct": true,
+    "gt_raw": "20",
+    "pred_raw": "20",
+    "gt_norm": "20",
+    "pred_norm": "20",
+    "model_generation": "20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2253.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "40",
+    "gt_norm": "20",
+    "pred_norm": "40",
+    "model_generation": "40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6076.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_201.jpg",
+    "is_correct": false,
+    "gt_raw": "32",
+    "pred_raw": "31",
+    "gt_norm": "32",
+    "pred_norm": "31",
+    "model_generation": "31"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_908.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5241.jpg",
+    "is_correct": false,
+    "gt_raw": "4185",
+    "pred_raw": "4059",
+    "gt_norm": "4185",
+    "pred_norm": "4059",
+    "model_generation": "4059"
+  }
+]
