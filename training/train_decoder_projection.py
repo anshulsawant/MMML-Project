@@ -2,6 +2,10 @@ import argparse
 import yaml
 import json
 import os
+import shutil
+import subprocess
+import threading
+import time
 import torch
 import wandb
 from PIL import Image
@@ -11,6 +15,71 @@ from torch.utils.data import Dataset, DataLoader, DistributedSampler
 import random
 import sys
 import math
+
+# ---------------------------------------------------------------------------
+# RunPod S3 + HuggingFace Hub background upload helpers
+# ---------------------------------------------------------------------------
+
+RUNPOD_S3_REGION = "us-md-1"
+RUNPOD_S3_ENDPOINT = "https://s3api-us-md-1.runpod.io"
+
+_upload_threads: list[threading.Thread] = []
+
+
+def _s3_base_args() -> list[str]:
+    return ["--region", RUNPOD_S3_REGION, "--endpoint-url", RUNPOD_S3_ENDPOINT]
+
+
+def _s3_upload_file(local_path: str, bucket: str, s3_key: str) -> None:
+    dst = f"s3://{bucket}/{s3_key}"
+    subprocess.run(["aws", "s3", "cp", local_path, dst, *_s3_base_args()],
+                   capture_output=True)
+
+
+def _hf_upload_file(local_path: str, repo_id: str, path_in_repo: str, commit_message: str) -> None:
+    try:
+        from huggingface_hub import HfApi
+        api = HfApi()
+        api.upload_file(
+            path_or_fileobj=local_path,
+            path_in_repo=path_in_repo,
+            repo_id=repo_id,
+            repo_type="model",
+            commit_message=commit_message,
+        )
+    except Exception as e:
+        print(f"  [bg] HF upload failed: {e}")
+
+
+def background_upload(local_path: str, config: dict, experiment_name: str, label: str = "checkpoint") -> None:
+    """Fire-and-forget upload to S3 and HF Hub. Reads s3_bucket/hf_repo from
+    train_decoder or falls back to train_manifold_anchor."""
+    dec_cfg = config.get("train_decoder", {})
+    s3_bucket = dec_cfg.get("s3_bucket") or config.get("train_manifold_anchor", {}).get("s3_bucket")
+    hf_repo = dec_cfg.get("hf_repo") or config.get("train_manifold_anchor", {}).get("hf_repo")
+    if not s3_bucket and not hf_repo:
+        return
+    fname = os.path.basename(local_path)
+
+    def _worker():
+        if s3_bucket:
+            s3_key = f"checkpoints/{experiment_name}/decoder/{fname}"
+            _s3_upload_file(local_path, s3_bucket, s3_key)
+        if hf_repo:
+            _hf_upload_file(local_path, hf_repo, f"decoder/{experiment_name}/{fname}",
+                            commit_message=f"[auto] {label}: {fname}")
+
+    t = threading.Thread(target=_worker, daemon=True)
+    t.start()
+    _upload_threads.append(t)
+
+
+def wait_for_uploads(timeout: float = 120.0) -> None:
+    pending = [t for t in _upload_threads if t.is_alive()]
+    if pending:
+        print(f"Waiting for {len(pending)} background upload(s) to finish...")
+        for t in pending:
+            t.join(timeout=timeout)
 
 sys.path.append('data')
 try:
@@ -518,19 +587,21 @@ def train():
                 if avg_val_loss < best_val_loss:
                     best_val_loss = avg_val_loss
                     best_dec_path = os.path.join(checkpoint_dir, "decoder_best.pt")
-                    import shutil
                     shutil.copy2(step_decoder_path, best_dec_path)
                     print(f"[{device}] New Best Valid CE Loss {best_val_loss:.4f}! Saved {best_dec_path}")
-                    
+                    background_upload(best_dec_path, config, experiment_name, label="best")
+
                     if args.end_to_end:
                         best_enc_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
                         shutil.copy2(step_encoder_path, best_enc_path)
                         print(f"[{device}] Saved new best X-Encoder end-to-end to {best_enc_path}")
-                        
+                        background_upload(best_enc_path, config, experiment_name, label="best_encoder")
+
                     # Track numerically
                     loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
                     with open(loss_tracker_path, 'w') as f:
                         json.dump({"best_loss": best_val_loss, "epoch": epoch, "step": effective_step}, f)
+                    background_upload(loss_tracker_path, config, experiment_name, label="best_meta")
                 
                 y_decoder.train()
                 if args.end_to_end:
@@ -608,14 +679,18 @@ def train():
                 best_cp_path = os.path.join(checkpoint_dir, "decoder_best.pt")
                 shutil.copy2(checkpoint_path, best_cp_path)
                 print(f"[{device}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                background_upload(best_cp_path, config, experiment_name, label="best")
+
                 if args.end_to_end:
                     best_encoder_path = os.path.join(checkpoint_dir, "x_encoder_e2e_best.pt")
                     shutil.copy2(encoder_path, best_encoder_path)
+                    background_upload(best_encoder_path, config, experiment_name, label="best_encoder")
                 
                 # Track numerically
                 loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
                 with open(loss_tracker_path, 'w') as f:
                     json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
+                background_upload(loss_tracker_path, config, experiment_name, label="best_meta")
 
             # Keep only latest 4 checkpoints
             old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("decoder_epoch_") and f.endswith(".pt")]
@@ -639,6 +714,7 @@ def train():
                             pass
 
     if is_master:
+        wait_for_uploads()
         print("Training successfully finished!")
         wandb.finish()
 

@@ -29,13 +29,15 @@ train_x_encoder:
 train_decoder:
   unfreeze_layers: 2
   use_projection_mlp: True
-  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v12_manifold_anchor_cod/x_encoder_best.pt"
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 1
   learning_rate: 1.0e-5
   weight_decay: 0.01
   max_grad_norm: 5.0
+  s3_bucket: "7ih6gcggwr"
+  hf_repo: shilinm/latent_euclid
 
 data:
   jsonl_path: "data/geothoughts_verified.jsonl"
