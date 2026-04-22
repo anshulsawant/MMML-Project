@@ -29,7 +29,7 @@ train_x_encoder:
 train_decoder:
   unfreeze_layers: 2
   use_projection_mlp: True
-  x_encoder_weights_override: "./checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 1
@@ -51,8 +51,8 @@ train_end_to_end:
   max_grad_norm: 5.0
   unfreeze_layers: 36
   use_projection_mlp: True
-  x_encoder_weights_override: "./checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
-  decoder_weights_override: "./checkpoints/v2_huber_mean_pooled_contextual_thoughts/decoder/decoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+  decoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/decoder/decoder_best.pt"
 
 train_vision_only_translator:
   experiment_name: "v6_vision_only_0.6B_translator"
@@ -66,7 +66,7 @@ train_vision_only_translator:
   max_grad_norm: 5.0
   unfreeze_layers: 24  # Completely unfreeze all layers of the 0.6B model
   use_projection_mlp: True
-  x_encoder_weights_override: "./checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
 
 train_vision_only_4b:
   experiment_name: "v7_vision_only_4b"
@@ -79,7 +79,7 @@ train_vision_only_4b:
   max_grad_norm: 5.0
   unfreeze_layers: 2
   use_projection_mlp: True
-  x_encoder_weights_override: "./checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
 
 train_text_thought_4b:
   experiment_name: "v8_text_thought_no_image_4b"
@@ -92,7 +92,7 @@ train_text_thought_4b:
   max_grad_norm: 5.0
   unfreeze_layers: 2
   use_projection_mlp: True
-  x_encoder_weights_override: "./checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled/x_encoder_best.pt"
 
 train_linear_probe:
   experiment_name: "v9_linear_probe_bottleneck"
@@ -106,4 +106,4 @@ train_mlp_decoder:
   learning_rate: 1.0e-3
   weight_decay: 0.01
   max_grad_norm: 5.0
-  x_encoder_weights_override: "./checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
