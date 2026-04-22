@@ -46,7 +46,10 @@ def main():
     base_decoder = YDecoderPrefix(unfreeze_layers=-1)
     
     # 2. Wrap mathematically
-    model = UnifiedEuclidGRPO(config=base_encoder.config, x_encoder=base_encoder, y_decoder=base_decoder)
+    from models.grpo_euclid_wrapper import EuclidGRPOConfig
+    grpo_config = EuclidGRPOConfig()
+    grpo_config.hidden_size = base_encoder.config.hidden_size
+    model = UnifiedEuclidGRPO(config=grpo_config, x_encoder=base_encoder, y_decoder=base_decoder)
     
     dataset = load_geothoughts_dataset()
     tokenizer = base_decoder.tokenizer
