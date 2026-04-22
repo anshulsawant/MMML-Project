@@ -1,11 +1,17 @@
 import re
 import json
 
-def extract_answer(text: str) -> str:
+def extract_answer(text) -> str:
     """
     Extracts the final string mathematically encased within \boxed{...} 
     robustly parsing nested brackets when generating numerical logic.
     """
+    if not isinstance(text, str):
+        if isinstance(text, list) and len(text) > 0 and isinstance(text[-1], dict):
+            text = text[-1].get("content", "")
+        else:
+            text = str(text)
+            
     matches = re.findall(r'\\boxed{([^}]*)}', text)
     if matches:
         return matches[-1].strip()
@@ -54,6 +60,12 @@ def format_reward_func(prompts, completions, **kwargs) -> list[float]:
     """
     rewards = []
     for comp in completions:
+        if not isinstance(comp, str):
+            if isinstance(comp, list) and len(comp) > 0 and isinstance(comp[-1], dict):
+                comp = comp[-1].get("content", "")
+            else:
+                comp = str(comp)
+                
         if "\\boxed{" in comp:
             rewards.append(0.5)
         else:
