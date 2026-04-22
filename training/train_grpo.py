@@ -83,10 +83,10 @@ def main():
         learning_rate=float(grpo_cfg.get("learning_rate", 1e-5)),
         per_device_train_batch_size=int(grpo_cfg.get("batch_size", 1)),
         gradient_accumulation_steps=int(grpo_cfg.get("gradient_accumulation_steps", 4)),
-        max_prompt_length=int(grpo_cfg.get("max_prompt_length", 256)),
         max_completion_length=int(grpo_cfg.get("max_completion_length", 64)),
         num_generations=int(grpo_cfg.get("num_generations", 4)),
         bf16=True,
+        remove_unused_columns=False,
         log_level="info",
         report_to="wandb"
     )
