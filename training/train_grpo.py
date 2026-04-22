@@ -43,7 +43,20 @@ def main():
     
     # 1. Instantiate the singular networks tracking parameters actively!
     base_encoder = LatentEuclid(max_thought_tokens=30)
+    
+    enc_weights = grpo_cfg.get("x_encoder_weights_override")
+    if enc_weights and os.path.exists(enc_weights):
+        state_dict = torch.load(enc_weights, map_location="cpu")
+        base_encoder.load_state_dict(state_dict.get("model_state_dict", state_dict))
+        print(f"Loaded SFT X-Encoder weights from {enc_weights}")
+        
     base_decoder = YDecoderPrefix(unfreeze_layers=-1)
+    
+    dec_weights = grpo_cfg.get("decoder_weights_override")
+    if dec_weights and os.path.exists(dec_weights):
+        state_dict = torch.load(dec_weights, map_location="cpu")
+        base_decoder.load_state_dict(state_dict.get("model_state_dict", state_dict))
+        print(f"Loaded SFT Y-Decoder weights from {dec_weights}")
     
     # 2. Wrap mathematically
     from models.grpo_euclid_wrapper import EuclidGRPOConfig

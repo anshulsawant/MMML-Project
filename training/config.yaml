@@ -5,7 +5,7 @@ model:
   k_steps: 4
 
 experiment:
-  name: "v12_dynamic_sft"
+  name: "v13_grpo_rl"
 
 build_manifold:
   batch_size: 4
@@ -49,6 +49,8 @@ train_grpo:
   max_prompt_length: 256
   max_completion_length: 64
   num_generations: 4
+  x_encoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/x_encoder_best.pt"
+  decoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/decoder_best.pt"
 
 train_end_to_end:
   experiment_name: "v11_e2e_huber_contextual"
