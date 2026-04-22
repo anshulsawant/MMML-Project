@@ -86,6 +86,7 @@ def main():
         max_completion_length=int(grpo_cfg.get("max_completion_length", 64)),
         num_generations=int(grpo_cfg.get("num_generations", 4)),
         bf16=True,
+        gradient_checkpointing=False,
         remove_unused_columns=False,
         log_level="info",
         report_to="wandb"
