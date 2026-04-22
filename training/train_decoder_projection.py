@@ -233,7 +233,7 @@ def train():
     x_encoder = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        max_thought_tokens=config["model"].get("max_thought_tokens", 30)
     )
     
     # Load X-encoder weights tracked by experiment
@@ -271,7 +271,6 @@ def train():
     print(f"[{local_rank}] Loading Phase 4 Y-Decoder Prefix...")
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"],
         unfreeze_layers=config[active_block].get("unfreeze_layers", 0),
         use_projection_mlp=config[active_block].get("use_projection_mlp", True)
     )

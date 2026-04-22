@@ -69,7 +69,7 @@ def e2e_evaluate():
     x_encoder = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        max_thought_tokens=config["model"].get("max_thought_tokens", 30)
     ).to(device)
     
     # Load VICReg weights
@@ -110,7 +110,6 @@ def e2e_evaluate():
     print("Loading Y-Decoder...")
     y_decoder = YDecoderPrefix(
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"],
         unfreeze_layers=config.get(active_block, {}).get("unfreeze_layers", 0),
         use_projection_mlp=config.get(active_block, {}).get("use_projection_mlp", True)
     ).to(device)
