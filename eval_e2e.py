@@ -27,6 +27,7 @@ def e2e_evaluate():
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
     parser.add_argument("--end_to_end", action="store_true", help="Use train_end_to_end configuration instead of train_decoder")
     parser.add_argument("--experiment_name_override", type=str, default=None, help="Override experiment name")
+    parser.add_argument("--force_k_steps", type=int, default=None, help="Override dynamic halt to evaluate exactly K steps")
     args = parser.parse_args()
 
     device = args.device
@@ -153,6 +154,20 @@ def e2e_evaluate():
         print(f"Error loading ground_truths.json: {e}")
         return
 
+    step1_map = {}
+    try:
+        with open("data/geothoughts_k4_gemini3.1.jsonl", "r") as f:
+            k4_data = [json.loads(l) for l in f]
+        for item in k4_data:
+            reasoning = item.get("reasoning", "")
+            step1_lines = []
+            for line in reasoning.split("\n"):
+                if line.strip().startswith("Step 2"): break
+                if line.strip(): step1_lines.append(line.strip())
+            step1_map[item["image_path"]] = "\n".join(step1_lines)
+    except Exception as e:
+        print(f"Warning: Could not load k4 Step 1 contexts: {e}")
+
     random.seed(42)  # Maintain identical split to validate_generation.py and training loops
     random.shuffle(full_data)
     split_idx = int(args.split * len(full_data))
@@ -200,6 +215,10 @@ def e2e_evaluate():
                 if true_answer_raw is None:
                     continue
                     
+                step1_text = step1_map.get(item["image_path"], "")
+                if step1_text:
+                    question = question + "\n" + step1_text
+                    
                 full_text = question
                 
                 messages = [{
@@ -228,7 +247,7 @@ def e2e_evaluate():
             
             dynamic_input_ids = inputs.input_ids
             dynamic_attention_mask = inputs.attention_mask
-            max_dynamic_steps = 15
+            max_dynamic_steps = args.force_k_steps if args.force_k_steps else 15
             batch_size_cur = len(images)
             finished = torch.zeros(batch_size_cur, dtype=torch.bool, device=device)
             
@@ -251,14 +270,19 @@ def e2e_evaluate():
                 
                 final_predicted_latents = predicted_latents
                 
-                latest_latents = predicted_latents[:, -1, :]
-                sim = torch.nn.functional.cosine_similarity(latest_latents, halt_anchor.unsqueeze(0).expand(batch_size_cur, -1), dim=-1)
-                
-                finish_mask = sim > 0.90 # Safe mathematical topological boundary
-                finished = finished | finish_mask
-                
-                if finished.all():
-                    break
+                if args.force_k_steps:
+                    finished = torch.ones(batch_size_cur, dtype=torch.bool, device=device)
+                    if step + 1 == max_dynamic_steps:
+                        break
+                else:
+                    latest_latents = predicted_latents[:, -1, :]
+                    sim = torch.nn.functional.cosine_similarity(latest_latents, halt_anchor.unsqueeze(0).expand(batch_size_cur, -1), dim=-1)
+                    
+                    finish_mask = sim > 0.90 # Safe mathematical topological boundary
+                    finished = finished | finish_mask
+                    
+                    if finished.all():
+                        break
                     
             predicted_latents = final_predicted_latents
             

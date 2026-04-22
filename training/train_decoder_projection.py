@@ -11,6 +11,7 @@ from torch.utils.data import Dataset, DataLoader, DistributedSampler
 import random
 import sys
 import math
+import re
 
 sys.path.append('data')
 try:
@@ -54,6 +55,20 @@ class GeoThoughtsTextDataset(Dataset):
         self.ground_truths = ground_truths
         self.tokenizer = tokenizer
         self.k_steps = k_steps
+        
+        self.step1_map = {}
+        try:
+            with open("data/geothoughts_k4_gemini3.1.jsonl", "r") as f:
+                k4_data = [json.loads(l) for l in f]
+            for item in k4_data:
+                reasoning = item.get("reasoning", "")
+                step1_lines = []
+                for line in reasoning.split("\n"):
+                    if line.strip().startswith("Step 2"): break
+                    if line.strip(): step1_lines.append(line.strip())
+                self.step1_map[item["image_path"]] = "\n".join(step1_lines)
+        except Exception as e:
+            print(f"Warning: Could not load k4 Step 1 contexts: {e}")
 
     def __len__(self):
         return len(self.data)
@@ -68,8 +83,18 @@ class GeoThoughtsTextDataset(Dataset):
         except:
             image = Image.new('RGB', (224, 224), color = (73, 109, 137))
             
-        # 2. Base VLM Input Text
-        thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])
+        # 2. Base VLM Input Text (Variable Latent Length)
+        N = self.k_steps
+        if "reasoning" in item:
+            N = len([line for line in item["reasoning"].split('\n') if line.strip().startswith('Step')])
+            N = max(1, N) # Ensure at least 1 step
+            
+        step1_text = self.step1_map.get(img_path, "")
+        if step1_text:
+            thought_string = "\n" + step1_text + "\n" + "".join([f"<thought_{i+1}>" for i in range(1, N)])
+        else:
+            thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
+            
         full_text = item["question"] + " " + thought_string
         
         # 3. Final Target Answer for the Y-Decoder to learn to generate
@@ -119,9 +144,7 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
             
             decoder_prompts = []
             for t in texts:
-                clean_t = t
-                for i in range(k_steps):
-                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                clean_t = re.sub(r'<thought_\d+>', '', t)
                 decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
                 
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
@@ -410,9 +433,7 @@ def train():
             # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
             decoder_prompts = []
             for t in texts:
-                clean_t = t
-                for i in range(config["model"]["k_steps"]):
-                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                clean_t = re.sub(r'<thought_\d+>', '', t)
                 decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
             
             # If Method A: X-Encoder is frozen, no gradients track through it
@@ -501,9 +522,7 @@ def train():
                         
                         val_prompts = []
                         for t in texts:
-                            clean_t = t
-                            for i in range(config["model"]["k_steps"]):
-                                clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                            clean_t = re.sub(r'<thought_\d+>', '', t)
                             val_prompts.append(clean_t.strip() + "\nAnswer: ")
                         
                         outputs = y_decoder(predicted_latents=predicted_latents, text_prompts=val_prompts, labels=target_answers)
@@ -568,9 +587,7 @@ def train():
                 
                 val_prompts = []
                 for t in texts:
-                    clean_t = t
-                    for i in range(config["model"]["k_steps"]):
-                        clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                    clean_t = re.sub(r'<thought_\d+>', '', t)
                     val_prompts.append(clean_t.strip() + "\nAnswer: ")
                 
                 outputs = y_decoder(

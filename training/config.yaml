@@ -27,9 +27,10 @@ train_x_encoder:
   vicreg_cov_coeff: 0.0
 
 train_decoder:
+  experiment_name: "v12_dynamic_sft"
   unfreeze_layers: 2
   use_projection_mlp: True
-  x_encoder_weights_override: "/workspace/checkpoints/v2_huber_mean_pooled_contextual_thoughts/x_encoder_best.pt"
+  x_encoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/x_encoder_best.pt"
   epochs: 20
   batch_size: 32
   gradient_accumulation_steps: 1
