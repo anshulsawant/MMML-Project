@@ -149,11 +149,11 @@ def train():
     experiment_name = args.experiment_name or config.get("experiment", {}).get("name", "default")
     
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
-    base_checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir", "/workspace/checkpoints")
+    base_checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir", "./checkpoints")
     checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name)
     config.setdefault("train_x_encoder", {})["checkpoint_dir"] = checkpoint_dir
     
-    base_targets_dir = config.get("data", {}).get("targets_dir", "/workspace/target_tensors")
+    base_targets_dir = config.get("data", {}).get("targets_dir", "./target_tensors")
     targets_dir = os.path.join(base_targets_dir, f"target_tensors_{experiment_name}")
     config.setdefault("data", {})["targets_dir"] = targets_dir
 

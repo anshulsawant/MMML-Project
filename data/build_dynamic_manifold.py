@@ -220,7 +220,7 @@ if __name__ == "__main__":
     
     output_dir = args.output_dir
     if output_dir is None:
-        base_dir = config.get("data", {}).get("targets_dir", "/workspace/target_tensors")
+        base_dir = config.get("data", {}).get("targets_dir", "./target_tensors")
         output_dir = os.path.join(base_dir, f"target_tensors_{experiment_name}")
         
     if "data" not in config: config["data"] = {}
