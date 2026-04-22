@@ -42,7 +42,11 @@ def main():
     grpo_cfg = config.get("train_grpo", {})
     
     # 1. Instantiate the singular networks tracking parameters actively!
-    base_encoder = LatentEuclid(max_thought_tokens=30)
+    base_encoder = LatentEuclid(
+        base_model_id=config["model"].get("base_model_id", "Qwen/Qwen3-VL-4B-Instruct"),
+        target_model_id=config["model"].get("target_model_id", "Qwen/Qwen3-VL-4B-Instruct"),
+        max_thought_tokens=config["model"].get("max_thought_tokens", 30)
+    )
     
     enc_weights = grpo_cfg.get("x_encoder_weights_override")
     if enc_weights and os.path.exists(enc_weights):
@@ -50,7 +54,11 @@ def main():
         base_encoder.load_state_dict(state_dict.get("model_state_dict", state_dict))
         print(f"Loaded SFT X-Encoder weights from {enc_weights}")
         
-    base_decoder = YDecoderPrefix(unfreeze_layers=-1)
+    base_decoder = YDecoderPrefix(
+        target_model_id=config["model"].get("target_model_id", "Qwen/Qwen3-VL-4B-Instruct"),
+        unfreeze_layers=-1,
+        use_projection_mlp=config.get("train_grpo", {}).get("use_projection_mlp", True)
+    )
     
     dec_weights = grpo_cfg.get("decoder_weights_override")
     if dec_weights and os.path.exists(dec_weights):
