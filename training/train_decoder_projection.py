@@ -443,7 +443,8 @@ def train():
                             input_ids=inputs.input_ids, 
                             attention_mask=inputs.attention_mask,
                             pixel_values=inputs.get("pixel_values"),
-                            image_grid_thw=inputs.get("image_grid_thw")
+                            image_grid_thw=inputs.get("image_grid_thw"),
+                            mm_token_type_ids=inputs.get("mm_token_type_ids")
                         )
             else:
                 # Method B: Gradients track all the way back to the VLM image processor
@@ -452,7 +453,8 @@ def train():
                         input_ids=inputs.input_ids, 
                         attention_mask=inputs.attention_mask,
                         pixel_values=inputs.get("pixel_values"),
-                        image_grid_thw=inputs.get("image_grid_thw")
+                        image_grid_thw=inputs.get("image_grid_thw"),
+                        mm_token_type_ids=inputs.get("mm_token_type_ids")
                     )
             
             # Forward pass through Decoder (computes Cross Entropy against `target_answers`)
@@ -517,7 +519,7 @@ def train():
                         rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
                         inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
                         with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-                            predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask, pixel_values=inputs.get("pixel_values"), image_grid_thw=inputs.get("image_grid_thw"))
+                            predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask, pixel_values=inputs.get("pixel_values"), image_grid_thw=inputs.get("image_grid_thw"), mm_token_type_ids=inputs.get("mm_token_type_ids"))
                         
                         val_prompts = []
                         for t in texts:
@@ -581,7 +583,8 @@ def train():
                         input_ids=inputs.input_ids, 
                         attention_mask=inputs.attention_mask,
                         pixel_values=inputs.get("pixel_values"),
-                        image_grid_thw=inputs.get("image_grid_thw")
+                        image_grid_thw=inputs.get("image_grid_thw"),
+                        mm_token_type_ids=inputs.get("mm_token_type_ids")
                     )
                 
                 val_prompts = []
