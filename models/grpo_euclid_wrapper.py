@@ -63,20 +63,31 @@ class UnifiedEuclidGRPO(PreTrainedModel):
 
     def generate(self, input_ids, attention_mask=None, pixel_values=None, image_grid_thw=None, mm_token_type_ids=None, **kwargs):
         """
-        Drives the policy generation trajectory. 
+        Drives the policy generation trajectory for TRL directly yielding raw token ids. 
         """
         predicted_latents = self._extract_latents(input_ids, attention_mask, pixel_values, image_grid_thw, mm_token_type_ids)
         
-        # We format clean prompts (removing thought tags since our latents replaced them visually)
-        # But wait! The input_ids might already be tokenized natively by Trl!
-        # We circumvent by decoding the inputs natively before handing them to y_decoder.generate
-        text_prompts = self.y_decoder.tokenizer.batch_decode(input_ids, skip_special_tokens=True)
+        # Bypass YDecoderPrefix string logic entirely since TRL GRPO requires raw TENSOR topologies!
+        device = self.y_decoder.decoder.device
+        soft_prefixes = self.y_decoder.prefix_projection(predicted_latents.to(device))
         
-        return self.y_decoder.generate(
-            predicted_latents=predicted_latents, 
-            text_prompts=text_prompts,
+        text_embeddings = self.y_decoder.decoder.get_input_embeddings()(input_ids)
+        inputs_embeds = torch.cat([text_embeddings, soft_prefixes], dim=1)
+        
+        target_n_steps = soft_prefixes.shape[1]
+        prefix_mask = torch.ones((soft_prefixes.shape[0], target_n_steps), dtype=attention_mask.dtype, device=device)
+        extended_attention_mask = torch.cat([attention_mask, prefix_mask], dim=1)
+        
+        output_ids = self.y_decoder.decoder.generate(
+            inputs_embeds=inputs_embeds,
+            attention_mask=extended_attention_mask,
             **kwargs
         )
+        
+        # When generating via inputs_embeds natively, HF often omits the textual prompt prefix block in the return tensor.
+        # TRL mathematically strictly expects `prompt_completion_ids` (the prompt concatenated against the outputs).
+        # We manually stitch the original prompt back together to maintain structural graph compliance for GRPO.
+        return torch.cat([input_ids, output_ids], dim=1)
         
     def forward(self, input_ids, attention_mask=None, pixel_values=None, image_grid_thw=None, mm_token_type_ids=None, labels=None, **kwargs):
         """
