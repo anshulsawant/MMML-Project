@@ -246,6 +246,7 @@ def e2e_evaluate():
             
             dynamic_input_ids = inputs.input_ids
             dynamic_attention_mask = inputs.attention_mask
+            dynamic_mm_token_type_ids = inputs.get("mm_token_type_ids")
             max_dynamic_steps = args.force_k_steps if args.force_k_steps else 15
             batch_size_cur = len(images)
             finished = torch.zeros(batch_size_cur, dtype=torch.bool, device=device)
@@ -259,12 +260,16 @@ def e2e_evaluate():
                 new_attn = torch.ones((batch_size_cur, 1), dtype=dynamic_attention_mask.dtype, device=device)
                 dynamic_attention_mask = torch.cat([dynamic_attention_mask, new_attn], dim=1)
                 
+                if dynamic_mm_token_type_ids is not None:
+                    new_mm_token = torch.zeros((batch_size_cur, 1), dtype=dynamic_mm_token_type_ids.dtype, device=device)
+                    dynamic_mm_token_type_ids = torch.cat([dynamic_mm_token_type_ids, new_mm_token], dim=1)
+                
                 predicted_latents = x_encoder(
                     input_ids=dynamic_input_ids, 
                     pixel_values=inputs.get("pixel_values"), 
                     attention_mask=dynamic_attention_mask,
                     image_grid_thw=inputs.get("image_grid_thw"),
-                    mm_token_type_ids=inputs.get("mm_token_type_ids")
+                    mm_token_type_ids=dynamic_mm_token_type_ids
                 )
                 
                 final_predicted_latents = predicted_latents
