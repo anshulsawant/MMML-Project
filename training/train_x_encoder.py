@@ -56,36 +56,22 @@ def _hf_upload_file(local_path: str, repo_id: str, path_in_repo: str, commit_mes
 
 def background_upload(local_path: str, config: dict, experiment_name: str, label: str = "checkpoint") -> None:
     """Fire-and-forget upload of a checkpoint file to S3 and HF Hub.
-    
-    Snapshots the file to a temp copy first so the original can be safely
-    overwritten by the next checkpoint save without corrupting the upload.
+
     Runs in a daemon thread so it never blocks training.
+    Note: if the file is overwritten before the upload finishes, the upload may fail.
     """
-    import tempfile
     xenc_cfg = config.get("train_x_encoder", {})
     s3_bucket = xenc_cfg.get("s3_bucket") or config.get("train_manifold_anchor", {}).get("s3_bucket")
     hf_repo = xenc_cfg.get("hf_repo") or config.get("train_manifold_anchor", {}).get("hf_repo")
     fname = os.path.basename(local_path)
 
-    # Snapshot: copy to a temp file so the source can be overwritten safely
-    tmp_dir = os.path.dirname(local_path)
-    tmp_fd, tmp_path = tempfile.mkstemp(suffix=f"_{fname}", dir=tmp_dir)
-    os.close(tmp_fd)
-    shutil.copy2(local_path, tmp_path)
-
     def _worker():
-        try:
-            if s3_bucket:
-                s3_key = f"checkpoints/{experiment_name}/{fname}"
-                _s3_upload_file(tmp_path, s3_bucket, s3_key)
-            if hf_repo:
-                _hf_upload_file(tmp_path, hf_repo, f"x_encoder/{experiment_name}/{fname}",
-                                commit_message=f"[auto] {label}: {fname}")
-        finally:
-            try:
-                os.remove(tmp_path)
-            except OSError:
-                pass
+        if s3_bucket:
+            s3_key = f"checkpoints/{experiment_name}/{fname}"
+            _s3_upload_file(local_path, s3_bucket, s3_key)
+        if hf_repo:
+            _hf_upload_file(local_path, hf_repo, f"x_encoder/{experiment_name}/{fname}",
+                            commit_message=f"[auto] {label}: {fname}")
 
     t = threading.Thread(target=_worker, daemon=True)
     t.start()
@@ -608,10 +594,10 @@ def train():
             save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
             if save_every_n_steps > 0 and (global_step_end % save_every_n_steps) <= 2:
                 print(f"[{local_rank}] End-of-Epoch exactly abutts Step {global_step_end - 1}. Skipping redundant validation and blind checkpoint saving.")
-            else:
+            elif (epoch + 1) % 10 == 0:
                 avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
                 
-                # Always save latest at end of epoch
+                # Save latest every 10 epochs
                 save_model = model.module if is_distributed else model
                 latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
                 torch.save({
@@ -636,6 +622,8 @@ def train():
                     
                     background_upload(best_cp_path, config, experiment_name, label="best")
                     background_upload(loss_tracker_path, config, experiment_name, label="best_meta")
+            else:
+                print(f"[{local_rank}] Epoch {epoch} — skipping checkpoint save (next save at epoch {((epoch // 10) + 1) * 10 - 1})")
     if is_master:
         save_model = model.module if is_distributed else model
         final_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
