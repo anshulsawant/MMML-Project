@@ -55,7 +55,7 @@ def main():
         print(f"Loaded SFT X-Encoder weights from {enc_weights}")
         
     base_decoder = YDecoderPrefix(
-        target_model_id=config["model"].get("target_model_id", "Qwen/Qwen3-VL-4B-Instruct"),
+        target_model_id=config["model"].get("decoder_base_model_id", "Qwen/Qwen3-4B-Base"),
         unfreeze_layers=-1,
         use_projection_mlp=config.get("train_grpo", {}).get("use_projection_mlp", True)
     )
