@@ -21,7 +21,8 @@ def load_geothoughts_dataset(json_path="data/geothoughts_arbitrary_cot.jsonl"):
             item = json.loads(line)
             # TRL handles list of conversational turns
             # For VLM alignment, we pack images inside standard contexts!
-            prompt = item["question"]
+            # We strictly must append "\nAnswer: " to inherently mirror the textual anchors the SFT model trained to target!
+            prompt = item["question"] + "\nAnswer: "
             
             # Pack dynamically
             data.append({

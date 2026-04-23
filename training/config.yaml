@@ -47,7 +47,7 @@ train_grpo:
   gradient_accumulation_steps: 4
   learning_rate: 1.0e-5
   max_prompt_length: 256
-  max_completion_length: 64
+  max_completion_length: 256
   num_generations: 4
   x_encoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/x_encoder_best.pt"
   decoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/decoder_best.pt"
