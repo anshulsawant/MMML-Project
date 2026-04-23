@@ -42,13 +42,16 @@ data:
   jsonl_path: "data/geothoughts_arbitrary_cot.jsonl"
 
 train_grpo:
-  experiment_name: "v13_grpo_rl"
+  experiment_name: "v13_continuous_rl"
   batch_size: 1
   gradient_accumulation_steps: 4
   learning_rate: 1.0e-5
   max_prompt_length: 256
-  max_completion_length: 256
+  max_completion_length: 15
   num_generations: 4
+  latent_sigma: 0.1
+  ppo_epochs: 3
+  ppo_epsilon: 0.2
   x_encoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/x_encoder_best.pt"
   decoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/decoder_best.pt"
 
