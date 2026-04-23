@@ -16,6 +16,12 @@ def load_geothoughts_dataset(json_path="data/geothoughts_arbitrary_cot.jsonl"):
     into TRL's expected conversational structures mapping prompts cleanly.
     """
     data = []
+    
+    import json
+    import os
+    with open("data/ground_truths.json", "r") as f:
+        ground_truths = json.load(f)
+        
     with open(json_path, 'r') as f:
         for line in f:
             item = json.loads(line)
@@ -24,12 +30,17 @@ def load_geothoughts_dataset(json_path="data/geothoughts_arbitrary_cot.jsonl"):
             # We strictly must append "\nAnswer: " to inherently mirror the textual anchors the SFT model trained to target!
             prompt = item["question"] + "\nAnswer: "
             
-            # Pack dynamically
+            # We must exclusively supply a raw string rather than conversational Dict bounds!
+            # TRL defaults to raw text completions mathematically if pure strings are explicitly given.
+            # Passing list of dicts forces `<|im_start|>` bindings destroying Qwen3-4B-Base generation mapping arrays!
+            img_path = item["image_path"]
+            img_basename = os.path.basename(img_path)
+            gt_val = ground_truths.get(img_path, ground_truths.get(img_basename, ""))
+            
             data.append({
-                "prompt": [{"role": "user", "content": prompt}], 
-                # Meta contexts safely caching targets
-                "image_path": item["image_path"],
-                "target_math": item.get("target_math", "")
+                "prompt": prompt, 
+                "image_path": img_path,
+                "target_math": str(gt_val)
             })
             
     return Dataset.from_list(data)
