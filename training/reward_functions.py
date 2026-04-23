@@ -24,6 +24,13 @@ def accuracy_reward_func(prompts, completions, target_math=None, **kwargs) -> li
         
         pred_ans = extract_answer(generated_string)
         
+        if i == 0:  # Print the first generation sequence in each batch dynamically to avoid spam
+            print(f"\n[GRPO DIAGNOSTIC LOG]")
+            print(f"Raw Output    : {repr(generated_string)}")
+            print(f"Extracted Ans : {repr(pred_ans)}")
+            print(f"Ground Truth  : {repr(gt_ans)}")
+            print(f"-----------------------\n")
+            
         if pred_ans and gt_ans:
             # We enforce raw string evaluations explicitly ignoring whitespace and capitalization
             if pred_ans.strip().lower() == gt_ans.strip().lower():
