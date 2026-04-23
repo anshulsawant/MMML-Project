@@ -8,7 +8,7 @@ from datasets import Dataset
 from models.latent_euclid import LatentEuclid
 from models.y_decoder_prefix import YDecoderPrefix
 from models.grpo_euclid_wrapper import UnifiedEuclidGRPO
-from training.reward_functions import accuracy_reward_func, format_reward_func
+from training.reward_functions import accuracy_reward_func
 
 def load_geothoughts_dataset(json_path="data/geothoughts_arbitrary_cot.jsonl"):
     """
@@ -96,7 +96,7 @@ def main():
     print("Initiating GRPOTrainer scaling parallel optimization over the 8B target...")
     trainer = GRPOTrainer(
         model=model,
-        reward_funcs=[accuracy_reward_func, format_reward_func],
+        reward_funcs=[accuracy_reward_func],
         args=training_args,
         train_dataset=dataset,
         processing_class=tokenizer,
