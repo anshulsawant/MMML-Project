@@ -133,7 +133,8 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
                     input_ids=inputs.input_ids, 
                     attention_mask=inputs.attention_mask,
                     pixel_values=inputs.get("pixel_values"),
-                    image_grid_thw=inputs.get("image_grid_thw")
+                    image_grid_thw=inputs.get("image_grid_thw"),
+                    mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
                 
             generated_texts = val_decoder.generate(
@@ -251,7 +252,8 @@ def train():
 
     print(f"[{local_rank}] Loading Phase 4 Y-Decoder Prefix...")
     y_decoder = YDecoderPrefix(
-        target_model_id=config["model"]["target_model_id"],
+        target_model_id=config["model"]["decoder_base_model_id"],
+        # k_steps=config["model"]["k_steps"],
         unfreeze_layers=config[active_block].get("unfreeze_layers", 0),
         use_projection_mlp=config[active_block].get("use_projection_mlp", True)
     )
