@@ -200,3 +200,25 @@ Created `train_linear_probe.py` to freeze the target LLM out of the loop and str
 - **Analysis and Hypothesis:** 
   The evaluation indicates that performance peaks significantly when the required reasoning length aligns closely with 3 to 5 steps, but declines steadily on significantly shorter (1-step) or longer (6+ steps) sequences. 
   A likely structural hypothesis for this distribution is the explicit training constraint enforced during earlier phases: the model was natively trained to generate exactly `k=4` fixed reasoning steps across all problems in the dataset. Because the projection layers were strictly optimized to populate a 4-step sequence manifold, the architecture may inherently struggle to dynamically adapt its representational capacity to problems requiring instantaneous logic or deep recursive deduction.
+
+---
+
+## 12. `v12_manifold_anchor_cod` (CoD Manifold Anchoring)
+**Hypothesis & Modifications:**
+- Prior experiments demonstrated that the Language Decoder is the consistent bottleneck, not the Vision Encoder. The hypothesis here is that enriching the teacher manifold with higher-quality reasoning targets — specifically, Chain-of-Draft (CoD) reasoning from `qwen3_vl_cod_dataset_filtered_sc.jsonl` — will provide a denser, more precise target topology for the X-Encoder to align toward, improving downstream answer decoding.
+- **Manifold Construction:** For samples with a CoD match, the target tensor is replaced by a projected CoD embedding (via a trained `ManifoldProjector`) broadcast uniformly across all `K=4` steps. Unmatched samples retain standard CoT embeddings from `geothoughts_verified.jsonl`.
+- **Teacher Loss Formulation:** `huber_cosine` (`loss_target: guided`)
+- **Decoder Configuration:** `unfreeze_layers: 2`, `use_projection_mlp: True`
+
+**Results:**
+- **Zero-Shot E2E Accuracy:** **44.37%** (Marginal regression vs V4 at 45.38%)
+
+**Component Failure Isolation (Latent Error Analysis):**
+To determine whether the Vision Encoder or the Language Decoder is responsible for the failures, we passed all 595 evaluation images back through the frozen X-Encoder and measured the predicted latent vectors against the true CoD-anchored teacher tensors:
+
+| | Correct (264) | Failed (331) |
+|---|---|---|
+| Avg MSE Loss | 0.4254 | 0.3712 |
+| Avg Cosine Similarity | 0.9520 | 0.9579 |
+
+- **Analysis:** Strikingly, *failed* samples exhibit **lower** MSE and **higher** cosine similarity than correct ones. The Vision Encoder is actually encoding the failed images *more accurately* onto the teacher manifold. This definitively replicates the v4 finding: the Language Decoder remains the sole architectural bottleneck. The CoD-anchored manifold produced no measurable benefit to zero-shot accuracy; the decoder's text generation capacity is the hard ceiling regardless of target tensor quality. The marginal accuracy regression vs V4 suggests the CoD anchoring may have introduced distribution shift in the target manifold that the decoder's 2 unfrozen layers could not fully adapt to.
