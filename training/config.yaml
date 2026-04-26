@@ -32,7 +32,7 @@ train_decoder:
   use_projection_mlp: True
   x_encoder_weights_override: "/workspace/checkpoints/v12_dynamic_sft/x_encoder_best.pt"
   epochs: 20
-  batch_size: 32
+  batch_size: 64
   gradient_accumulation_steps: 1
   learning_rate: 1.0e-5
   weight_decay: 0.01
