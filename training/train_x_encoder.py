@@ -268,26 +268,28 @@ def train():
         augment=config["train_x_encoder"].get("augment", False) # Read flag from config, default pure dataset
     )
     
-    # V4 Aligned Deterministic Validation Split explicitly mapping cross-validation boundaries identically
+    # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
     import json
     import os
     try:
-        with open("data/eval_v4_projection_and_unfrozen_layers.json", "r") as f:
-            v4_eval = json.load(f)
-        v4_val_keys = {os.path.basename(x["image"]) for x in v4_eval}
+        with open("data/v4_split_keys.json", "r") as f:
+            v4_splits = json.load(f)
+        v4_val_keys = set(v4_splits["val_keys"])
+        v4_train_keys = set(v4_splits["train_keys"])
         
         train_indices = []
         val_indices = []
         for i, item in enumerate(full_dataset.data):
-            if os.path.basename(item["image_path"]) in v4_val_keys:
+            base = os.path.basename(item["image_path"])
+            if base in v4_val_keys:
                 val_indices.append(i)
-            else:
+            elif base in v4_train_keys:
                 train_indices.append(i)
                 
         train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
         val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
         if is_master:
-            print(f"X-Encoder structurally mapped V4 aligned validations securely! {len(val_indices)} test keys isolated.")
+            print(f"X-Encoder mapped explicit V4 aligned boundaries! {len(train_indices)} train | {len(val_indices)} val keys isolated.")
     except Exception as e:
         if is_master:
             print(f"X-Encoder falling back to legacy 90-10 random splits natively: {e}")

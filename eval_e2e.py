@@ -156,9 +156,9 @@ def e2e_evaluate():
 
     import os
     try:
-        with open("data/eval_v4_projection_and_unfrozen_layers.json", "r") as vf:
-            v4_eval = json.load(vf)
-        v4_val_keys = {os.path.basename(x["image"]) for x in v4_eval}
+        with open("data/v4_split_keys.json", "r") as vf:
+            v4_splits = json.load(vf)
+        v4_val_keys = set(v4_splits["val_keys"])
         
         val_data = [item for item in full_data if os.path.basename(item["image_path"]) in v4_val_keys]
         print(f"Loaded {len(val_data)} validation samples explicitly matching V4 split structure natively.")

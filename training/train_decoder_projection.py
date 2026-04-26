@@ -357,26 +357,28 @@ def train():
     with open("data/ground_truths.json", 'r') as f:
         ground_truths = json.load(f)
         
-    # V4 Aligned Deterministic Validation Split explicitly mapping cross-validation boundaries identically
+    # V4 Aligned Deterministic Train/Val Splits mathematically mapping exact baseline subsets
     import os
     try:
-        with open("data/eval_v4_projection_and_unfrozen_layers.json", "r") as f:
-            v4_eval = json.load(f)
-        v4_val_keys = {os.path.basename(x["image"]) for x in v4_eval}
+        with open("data/v4_split_keys.json", "r") as f:
+            v4_splits = json.load(f)
+        v4_val_keys = set(v4_splits["val_keys"])
+        v4_train_keys = set(v4_splits["train_keys"])
         
         train_data = []
         val_data = []
         for item in full_data:
-            if os.path.basename(item["image_path"]) in v4_val_keys:
+            base = os.path.basename(item["image_path"])
+            if base in v4_val_keys:
                 val_data.append(item)
-            else:
+            elif base in v4_train_keys:
                 train_data.append(item)
                 
         # Shuffle training set globally mapping stochastic alignment cleanly!
         random.seed(42)
         random.shuffle(train_data)
         if is_master:
-            print(f"Structurally constrained V4 identically aligned mappings successfully! {len(v4_val_keys)} test keys isolated.")
+            print(f"Structurally constrained V4 aligned mappings! {len(train_data)} train | {len(val_data)} val keys isolated.")
     except Exception as e:
         if is_master:
             print(f"Falling back to legacy 90-10 random splits natively: {e}")
