@@ -154,7 +154,6 @@ def e2e_evaluate():
         print(f"Error loading ground_truths.json: {e}")
         return
 
-    import os
     try:
         with open("data/v4_split_keys.json", "r") as vf:
             v4_splits = json.load(vf)

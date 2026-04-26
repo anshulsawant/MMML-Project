@@ -269,8 +269,6 @@ def train():
     )
     
     # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
-    import json
-    import os
     try:
         with open("data/v4_split_keys.json", "r") as f:
             v4_splits = json.load(f)

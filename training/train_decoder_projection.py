@@ -358,7 +358,6 @@ def train():
         ground_truths = json.load(f)
         
     # V4 Aligned Deterministic Train/Val Splits mathematically mapping exact baseline subsets
-    import os
     try:
         with open("data/v4_split_keys.json", "r") as f:
             v4_splits = json.load(f)
