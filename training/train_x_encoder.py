@@ -595,17 +595,18 @@ def train():
                 avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
                 
                 # Explicit unconditional checkpoint logging for historic tracking
-                epoch_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_end.pt")
-                save_model = model.module if is_distributed else model
-                robust_mfs_save({
-                    'epoch': epoch,
-                    'step': global_step_end,
-                    'model_state_dict': save_model.state_dict(),
-                    'optimizer_state_dict': optimizer.state_dict(),
-                    'loss': loss.item(),
-                    'val_loss': avg_val_loss
-                }, epoch_cp_path)
-                print(f"[{local_rank}] Saved end-of-epoch checkpoint: {epoch_cp_path}")
+                if epoch >= 7:
+                    epoch_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_end.pt")
+                    save_model = model.module if is_distributed else model
+                    robust_mfs_save({
+                        'epoch': epoch,
+                        'step': global_step_end,
+                        'model_state_dict': save_model.state_dict(),
+                        'optimizer_state_dict': optimizer.state_dict(),
+                        'loss': loss.item(),
+                        'val_loss': avg_val_loss
+                    }, epoch_cp_path)
+                    print(f"[{local_rank}] Saved end-of-epoch checkpoint: {epoch_cp_path}")
                 
                 # Keep only latest 4 epoch-end checkpoints to securely natively buffer disk space
                 old_epochs = [f for f in os.listdir(checkpoint_dir) if f.startswith("x_encoder_epoch_") and f.endswith("_end.pt")]
@@ -617,10 +618,13 @@ def train():
                 
                 if avg_val_loss < best_val_loss:
                     best_val_loss = avg_val_loss
-                    best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
-                    # Directly network-clone locally spanning FUSE identically natively
-                    os.system(f"cp {epoch_cp_path} {best_cp_path}")
-                    print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                    if epoch >= 7:
+                        best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
+                        # Directly network-clone locally spanning FUSE identically natively
+                        os.system(f"cp {epoch_cp_path} {best_cp_path}")
+                        print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
+                    else:
+                        print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! (Checkpoint skipped until epoch 7 limits)")
                     
                     # Track numerically
                     loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
