@@ -20,7 +20,7 @@ train_x_encoder:
   save_every_n_steps: 0
   max_val_samples: 512
   loss_type: "huber_cosine"  # supports: info_nce_vanilla, info_nce_threshold, vicreg, huber_cosine
-  loss_target: "guided"      # supports: guided (all 4 steps), direct (only 1 step exists), pondering (4 steps exist but loss only on step 4)
+  loss_target: "guided"      # supports: guided (all N dynamic steps), direct (only 1 step), pondering (N dynamic steps exist but loss only on final step N)
   max_grad_norm: 50.0
   vicreg_sim_coeff: 1.0
   vicreg_var_coeff: 1.0
