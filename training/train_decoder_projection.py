@@ -357,12 +357,34 @@ def train():
     with open("data/ground_truths.json", 'r') as f:
         ground_truths = json.load(f)
         
-    # 90/10 Train/Val Split for overfitting protection without sklearn
-    random.seed(42)
-    random.shuffle(full_data)
-    split_idx = int(0.9 * len(full_data))
-    train_data = full_data[:split_idx]
-    val_data = full_data[split_idx:]
+    # V4 Aligned Deterministic Validation Split explicitly mapping cross-validation boundaries identically
+    import os
+    try:
+        with open("data/eval_v4_projection_and_unfrozen_layers.json", "r") as f:
+            v4_eval = json.load(f)
+        v4_val_keys = {os.path.basename(x["image"]) for x in v4_eval}
+        
+        train_data = []
+        val_data = []
+        for item in full_data:
+            if os.path.basename(item["image_path"]) in v4_val_keys:
+                val_data.append(item)
+            else:
+                train_data.append(item)
+                
+        # Shuffle training set globally mapping stochastic alignment cleanly!
+        random.seed(42)
+        random.shuffle(train_data)
+        if is_master:
+            print(f"Structurally constrained V4 identically aligned mappings successfully! {len(v4_val_keys)} test keys isolated.")
+    except Exception as e:
+        if is_master:
+            print(f"Falling back to legacy 90-10 random splits natively: {e}")
+        random.seed(42)
+        random.shuffle(full_data)
+        split_idx = int(0.9 * len(full_data))
+        train_data = full_data[:split_idx]
+        val_data = full_data[split_idx:]
     
     if is_master:
         print(f"Train split: {len(train_data)} | Val split: {len(val_data)}")

@@ -268,10 +268,32 @@ def train():
         augment=config["train_x_encoder"].get("augment", False) # Read flag from config, default pure dataset
     )
     
-    # 90/10 Train/Val Split
-    train_size = int(0.9 * len(full_dataset))
-    val_size = len(full_dataset) - train_size
-    train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
+    # V4 Aligned Deterministic Validation Split explicitly mapping cross-validation boundaries identically
+    import json
+    import os
+    try:
+        with open("data/eval_v4_projection_and_unfrozen_layers.json", "r") as f:
+            v4_eval = json.load(f)
+        v4_val_keys = {os.path.basename(x["image"]) for x in v4_eval}
+        
+        train_indices = []
+        val_indices = []
+        for i, item in enumerate(full_dataset.data):
+            if os.path.basename(item["image_path"]) in v4_val_keys:
+                val_indices.append(i)
+            else:
+                train_indices.append(i)
+                
+        train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
+        val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
+        if is_master:
+            print(f"X-Encoder structurally mapped V4 aligned validations securely! {len(val_indices)} test keys isolated.")
+    except Exception as e:
+        if is_master:
+            print(f"X-Encoder falling back to legacy 90-10 random splits natively: {e}")
+        train_size = int(0.9 * len(full_dataset))
+        val_size = len(full_dataset) - train_size
+        train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
     
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     train_dataloader = DataLoader(

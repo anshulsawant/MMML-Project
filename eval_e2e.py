@@ -154,10 +154,20 @@ def e2e_evaluate():
         print(f"Error loading ground_truths.json: {e}")
         return
 
-    random.seed(42)  # Maintain identical split to validate_generation.py and training loops
-    random.shuffle(full_data)
-    split_idx = int(args.split * len(full_data))
-    val_data = full_data[split_idx:]
+    import os
+    try:
+        with open("data/eval_v4_projection_and_unfrozen_layers.json", "r") as vf:
+            v4_eval = json.load(vf)
+        v4_val_keys = {os.path.basename(x["image"]) for x in v4_eval}
+        
+        val_data = [item for item in full_data if os.path.basename(item["image_path"]) in v4_val_keys]
+        print(f"Loaded {len(val_data)} validation samples explicitly matching V4 split structure natively.")
+    except Exception as e:
+        print(f"Fallback to linear slice: {e}")
+        random.seed(args.seed)
+        random.shuffle(full_data)
+        split_idx = int(args.split * len(full_data))
+        val_data = full_data[split_idx:]
     
     if args.limit:
         val_data = val_data[:args.limit]
