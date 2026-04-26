@@ -5,13 +5,13 @@ model:
   k_steps: 2
 
 experiment:
-  name: "v13_2step"
+  name: "v12_dynamic_sft"
 
 build_manifold:
   batch_size: 4
   
 train_x_encoder:
-  experiment_name: "v13_2step"
+  experiment_name: "v12_dynamic_sft"
   epochs: 100
   batch_size: 128
   gradient_accumulation_steps: 1
