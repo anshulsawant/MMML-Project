@@ -260,7 +260,7 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str,
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract continuous manifold targets.")
-    parser.add_argument("--config", type=str, default="training/config.yaml")
+    parser.add_argument("--config", type=str, default="configs/v12_cod.yaml")
     parser.add_argument("--experiment_name", type=str, default=None, help="Explicit experiment namespace override.")
     parser.add_argument("--model_id", type=str, default=None, help="Explicit target base LLM override.")
     parser.add_argument("--input_jsonl", type=str, default=None, help="Explicit JSONL source override.")

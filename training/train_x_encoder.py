@@ -122,7 +122,7 @@ def robust_mfs_save(state_dict, file_path):
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
-    parser.add_argument("--config", type=str, default="training/config.yaml",
+    parser.add_argument("--config", type=str, default="configs/v12_cod.yaml",
                         help="Path to YAML training configuration")
     parser.add_argument("--experiment_name", type=str, default=None,
                         help="Explicit experiment namespace override")

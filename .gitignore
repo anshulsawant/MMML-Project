@@ -12,3 +12,9 @@ wandb/
 # Temporary pipelines & caches
 batch_requests.jsonl
 data/latest_gemini_job_id.txt
+
+# vscode
+.vscode/
+
+# dataset
+geothought_images/

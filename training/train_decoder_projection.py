@@ -96,7 +96,7 @@ from models.y_decoder_prefix import YDecoderPrefix
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid Phase 4.5: Train Prefix Projection")
-    parser.add_argument("--config", type=str, default="training/config.yaml",
+    parser.add_argument("--config", type=str, default="configs/v12_cod.yaml",
                         help="Path to YAML training configuration")
     parser.add_argument("--x_encoder_weights", type=str, default="checkpoints/x_encoder_best.pt",
                         help="Path to the frozen VICReg-aligned X-Encoder weights")

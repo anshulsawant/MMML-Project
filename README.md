@@ -89,7 +89,7 @@ python -m tests.test_data_pipeline
 
 ### Phase 4: Training & Experiment Tracking
 
-The entire LatentEuclid pipeline is driven by a single unified configuration file: **`training/config.yaml`**.
+The active LatentEuclid pipeline is driven by a single unified configuration file: **`configs/v12_cod.yaml`**.
 
 To prevent overwriting checkpoints and evaluation metrics when testing architectural hypotheses, you simply alter the **`experiment_name`** key.
 
@@ -112,13 +112,13 @@ Executing the pipeline modules cleanly tracks all `x_encoder` `.pt` model weight
 
 ```bash
 # 1. Regenerates the unified topology 
-python -m data.build_manifold
+python -m data.build_manifold --config configs/v12_cod.yaml
 # 2. Continuous Structural Alignment (saves x_encoder_best.pt to namespace)
-python -m training.train_x_encoder
+python -m training.train_x_encoder --config configs/v12_cod.yaml
 # 3. Target Decoder Projection (autosyncs to x_encoder_best.pt dependencies)
-python -m training.train_decoder_projection
+python -m training.train_decoder_projection --config configs/v12_cod.yaml
 # 4. Generate Zero-Shot metrics (outputs to data/eval_[experiment_name].json)
-python eval_e2e.py
+python eval/e2e.py --config configs/v12_cod.yaml
 ```
 
 ### Phase 5: Probing & Structural Evaluation
@@ -128,6 +128,17 @@ The evaluation suite contains scripts measuring exact time-to-answer latency red
 ```bash
 python -m eval.temporal_probing
 ```
+
+For publication-ready figures without notebooks, use the standalone visualization entry point:
+
+```bash
+python scripts/visualize.py \
+  --eval-json data/eval_v12_manifold_anchor_cod.json \
+  --latent-summary-json artifacts/latent_summary.json \
+  --output-dir artifacts/figures
+```
+
+Deprecated baselines, notebooks, and legacy experiment code are preserved under `archive/`.
 
 ---
 

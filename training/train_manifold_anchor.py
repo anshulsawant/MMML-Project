@@ -17,13 +17,13 @@ Features:
     - HuggingFace Hub auto-upload: push projector weights after training
 
 Usage:
-    python training/train_manifold_anchor.py --config training/config.yaml
+    python training/train_manifold_anchor.py --config configs/v12_cod.yaml
 
     # Quick debug run
-    python training/train_manifold_anchor.py --config training/config.yaml --limit 100 --epochs 3
+    python training/train_manifold_anchor.py --config configs/v12_cod.yaml --limit 100 --epochs 3
 
     # With S3 sync and HF upload
-    python training/train_manifold_anchor.py --config training/config.yaml \
+    python training/train_manifold_anchor.py --config configs/v12_cod.yaml \
         --s3-bucket 7ih6gcggwr --hf-repo anshulsawant/latent-euclid-manifold-anchor
 """
 
@@ -265,7 +265,7 @@ def hf_upload(output_dir: str, repo_id: str, commit_message: str = "Update manif
 
 def parse_args():
     p = argparse.ArgumentParser(description="Train Manifold Anchoring Projector")
-    p.add_argument("--config", type=str, default="training/config.yaml")
+    p.add_argument("--config", type=str, default="configs/v12_cod.yaml")
     p.add_argument("--cod-dataset", type=str, default=None,
                    help="Path to CoD JSONL (default: from config or ChainOfDraft/qwen3_vl_cod_dataset_filtered_sc.jsonl)")
     p.add_argument("--epochs", type=int, default=None)

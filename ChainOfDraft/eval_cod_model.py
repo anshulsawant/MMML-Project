@@ -1,5 +1,5 @@
 """
-Evaluate a HuggingFace VLM on the same validation split used by eval_e2e.py.
+Evaluate a HuggingFace VLM on the same validation split used by eval/e2e.py.
 
 The validation set is the last 10% of data/geothoughts_verified.jsonl (shuffled
 with seed=42), identical to the split used during LatentEuclid training.
@@ -7,7 +7,7 @@ with seed=42), identical to the split used during LatentEuclid training.
 Both modes evaluate only on questions NOT seen during CoD fine-tuning:
   --all-non-cod          : all non-CoD questions from the full geothoughts dataset
   --latent-euclid-non-cod: non-CoD questions within the LatentEuclid val split
-                           (last 10%, seed=42 — same split as eval_e2e.py)
+                           (last 10%, seed=42 — same split as eval/e2e.py)
 
 Usage:
     # Option 1: all non-CoD data
@@ -117,7 +117,7 @@ def load_full_dataset(jsonl_path: str):
 
 def load_val_split(jsonl_path: str, split: float):
     """Load and return the validation portion of the dataset (same split as
-    eval_e2e.py and training)."""
+    eval/e2e.py and training)."""
     full_data = load_full_dataset(jsonl_path)
     random.seed(42)
     random.shuffle(full_data)

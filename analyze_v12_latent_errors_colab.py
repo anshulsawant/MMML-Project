@@ -20,12 +20,12 @@ from models.latent_euclid import LatentEuclid
 
 def parse_args():
     parser = argparse.ArgumentParser(description="Analyze latent errors for v12_manifold_anchor_cod (Colab-ready).")
-    parser.add_argument("--config", type=str, default="training/config.yaml", help="Path to config.yaml")
+    parser.add_argument("--config", type=str, default="configs/v12_cod.yaml", help="Path to config.yaml")
     parser.add_argument(
         "--eval_json",
         type=str,
         default="data/eval_v12_manifold_anchor_cod.json",
-        help="Evaluation JSON produced by eval_e2e.py",
+        help="Evaluation JSON produced by eval/e2e.py",
     )
     parser.add_argument(
         "--dataset_jsonl",
@@ -57,6 +57,12 @@ def parse_args():
         type=str,
         default="/content/.cache/huggingface",
         help="HF cache dir",
+    )
+    parser.add_argument(
+        "--summary_json",
+        type=str,
+        default=None,
+        help="Optional path to save aggregated latent MSE/cosine metrics as JSON.",
     )
     return parser.parse_args()
 
@@ -145,7 +151,7 @@ def main():
             if probe_idx is not None else None
         )
         probe_img = resolve_image_path(probe_raw, args.repo_root)
-        print(f"\n[DIAG] Probe first eval item:")
+        print("\n[DIAG] Probe first eval item:")
         print(f"  raw image path : {probe_raw}")
         print(f"  basename key   : {probe_key}")
         print(f"  in index?      : {probe_idx is not None}  (idx={probe_idx})")
@@ -236,6 +242,29 @@ def main():
     print(f"Failed samples: {len(failed_mses)}")
     print(f"  Avg MSE Loss:   {safe_mean(failed_mses):.6f}")
     print(f"  Avg Cosine Sim: {safe_mean(failed_coss):.6f}")
+
+    if args.summary_json:
+        summary = {
+            "correct": {
+                "count": len(correct_mses),
+                "avg_mse": safe_mean(correct_mses),
+                "avg_cosine": safe_mean(correct_coss),
+            },
+            "failed": {
+                "count": len(failed_mses),
+                "avg_mse": safe_mean(failed_mses),
+                "avg_cosine": safe_mean(failed_coss),
+            },
+            "skipped": {
+                "no_index": skip_no_index,
+                "no_tensor": skip_no_tensor,
+                "no_image": skip_no_image,
+            },
+        }
+        with open(args.summary_json, "w") as f:
+            json.dump(summary, f, indent=2)
+        print(f"Saved latent summary to {args.summary_json}")
+
 
 
 if __name__ == "__main__":

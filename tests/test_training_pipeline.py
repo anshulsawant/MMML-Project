@@ -10,17 +10,17 @@ from training.train_x_encoder import GeoThoughtsDataset, custom_collate
 
 def test_yaml_config():
     print("\n--- Testing YAML Config Parsing ---")
-    config_path = "training/config.yaml"
+    config_path = "configs/v12_cod.yaml"
     assert os.path.exists(config_path), "config.yaml not found!"
     
     with open(config_path, 'r') as f:
         config = yaml.safe_load(f)
         
     assert "model" in config, "model section missing from config"
-    assert "training" in config, "training section missing from config"
+    assert "train_x_encoder" in config, "train_x_encoder section missing from config"
     assert "data" in config, "data section missing from config"
-    assert config["model"]["k_steps"] == 4, "k_steps should be 4"
-    assert config["training"]["loss_type"] in ["info_nce_vanilla", "info_nce_threshold", "vicreg"], "Invalid loss type in config"
+    assert config["model"]["k_steps"] == 2, "k_steps should be 2 for the active v12 config"
+    assert config["train_x_encoder"]["loss_type"] == "huber_cosine", "Active config should use huber_cosine"
     
     print("✅ YAML Config parses cleanly and contains expected schema.")
 

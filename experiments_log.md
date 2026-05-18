@@ -5,7 +5,7 @@ This document coordinates the ablations and intrinsic metrics tested on the Late
 1. Target Manifold Generation (`build_manifold.py`)
 2. Continuous Teacher Topologies (`train_x_encoder.py`)
 3. Discrete Target Projection (`train_decoder_projection.py`)
-4. Answer Extraction/Evaluation (`eval_e2e.py`)
+4. Answer Extraction/Evaluation (`eval/e2e.py`)
 
 All artifacts for an experiment map natively to its canonical `experiment_name`.
 
