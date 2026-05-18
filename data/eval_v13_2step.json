@@ -1,0 +1,5627 @@
+[
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1793.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "2.0.",
+    "gt_norm": "2",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\u044b.\n\nStep 1: Identify the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3480.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "150.0",
+    "gt_norm": "120",
+    "pred_norm": "150",
+    "model_generation": "150.0\u1ec1, \u1ed1, \u1ed1, \u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_869.jpg",
+    "is_correct": true,
+    "gt_raw": "68",
+    "pred_raw": "68.",
+    "gt_norm": "68",
+    "pred_norm": "68",
+    "model_generation": "68.\u00b0\n\nSolution: Since line AB is parallel to line"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_50.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120 \u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5376.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "12.8.",
+    "gt_norm": "9",
+    "pred_norm": "12.8.",
+    "model_generation": "12.8.\u03ce.\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1208.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "4.8.",
+    "gt_norm": "4",
+    "pred_norm": "4.8.",
+    "model_generation": "4.8.SizeType: 10px;>Explanation:\nIn"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2002.jpg",
+    "is_correct": false,
+    "gt_raw": "19",
+    "pred_raw": "19.0.",
+    "gt_norm": "19",
+    "pred_norm": "19.0.",
+    "model_generation": "19.0.\u1ed5\nStep-by-step explanation:\nGiven that DE"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3271.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "2.0",
+    "gt_norm": "12",
+    "pred_norm": "2",
+    "model_generation": "2.0, 4.0, 6.0,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4052.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "50.0.",
+    "gt_norm": "50",
+    "pred_norm": "50.0.",
+    "model_generation": "50.0.\n\nStep 1: Understand the problem\nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3146.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "16.0.",
+    "gt_norm": "16",
+    "pred_norm": "16.0.",
+    "model_generation": "16.0.  \u8981\u6c42\u89e3\u56db\u8fb9\u5f62"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1590.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "24.",
+    "gt_norm": "20",
+    "pred_norm": "24",
+    "model_generation": "24. \ud83c\udd70\ufe0f\nStep-by-step explanation:\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4721.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "14",
+    "gt_norm": "9",
+    "pred_norm": "14",
+    "model_generation": "14 m\u00e9tres."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5161.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "10.5.",
+    "gt_norm": "12",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\nStep-by-step explanation:\nThe centroid of a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3394.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "2.0.",
+    "gt_norm": "4",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\u1ed5\nStep 1: Understand the properties of a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3727.jpg",
+    "is_correct": false,
+    "gt_raw": "2sqrt(3)/3",
+    "pred_raw": "0.5sqrt(3)",
+    "gt_norm": "2sqrt3/3",
+    "pred_norm": "0.5sqrt3",
+    "model_generation": "0.5sqrt(3) \u0e15\u0e23\u0e35\u0e21\u0e34\u0e40\u0e15\u0e35\u0e22"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_592.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "130",
+    "gt_norm": "50",
+    "pred_norm": "130",
+    "model_generation": "130\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5009.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "100.57",
+    "gt_norm": "48",
+    "pred_norm": "100.57",
+    "model_generation": "100.57\u1ed9.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3890.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "35.0",
+    "gt_norm": "55",
+    "pred_norm": "35",
+    "model_generation": "35.0 \u1ec1\u1ee7.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6148.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "10.2",
+    "gt_norm": "2.5",
+    "pred_norm": "10.2",
+    "model_generation": "10.2 cm\u00b2.Step-by-step explanation:We are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_377.jpg",
+    "is_correct": true,
+    "gt_raw": "130",
+    "pred_raw": "130",
+    "gt_norm": "130",
+    "pred_norm": "130",
+    "model_generation": "130 \u1ec1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_199.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "70. //",
+    "gt_norm": "35",
+    "pred_norm": "70.//",
+    "model_generation": "70. //</l>\nStep-by-step explanation:\nGiven that AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1207.jpg",
+    "is_correct": true,
+    "gt_raw": "96",
+    "pred_raw": "96.",
+    "gt_norm": "96",
+    "pred_norm": "96",
+    "model_generation": "96.\u141f\n\nStep-by-step explanation:\n\nTo find the area"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1629.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8 unit lengths.**Explanation:**\nGiven that PA and PB are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6011.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "10.5.",
+    "gt_norm": "6",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\nStep-by-step explanation:\nWe are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2539.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70.5",
+    "gt_norm": "50",
+    "pred_norm": "70.5",
+    "model_generation": "70.5 \u0e2d\u0e07\u0e28\u0e32.\n\n**Explanation:**\n\n1."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5513.jpg",
+    "is_correct": false,
+    "gt_raw": "13",
+    "pred_raw": "100.",
+    "gt_norm": "13",
+    "pred_norm": "100",
+    "model_generation": "100. Step-by-step explanation: We are given that the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1923.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "\ufffd\ufffd 3 \ud835\udc62\ud835\udc5b\ud835\udc56\ud835\udc61\ud835\udc60. \ud835\udc37\ud835\udc52",
+    "gt_norm": "3",
+    "pred_norm": "\ufffd\ufffd3\ud835\udc62\ud835\udc5b\ud835\udc56\ud835\udc61\ud835\udc60.\ud835\udc37\ud835\udc52",
+    "model_generation": "\ufffd\ufffd 3 \ud835\udc62\ud835\udc5b\ud835\udc56\ud835\udc61\ud835\udc60. \ud835\udc37\ud835\udc52"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_770.jpg",
+    "is_correct": true,
+    "gt_raw": "100",
+    "pred_raw": "100",
+    "gt_norm": "100",
+    "pred_norm": "100",
+    "model_generation": "100\u00b0.\u044b\nStep-by-step explanation: Since AB and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2744.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "30.0.",
+    "gt_norm": "30",
+    "pred_norm": "30.0.",
+    "model_generation": "30.0.\n\nThe following is a multiple-choice question from an English"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5069.jpg",
+    "is_correct": false,
+    "gt_raw": "49",
+    "pred_raw": "105",
+    "gt_norm": "49",
+    "pred_norm": "105",
+    "model_generation": "105 \u1ec1.\nStep-by-step explanation:\nSince ABCD"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5186.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "120.56",
+    "gt_norm": "50",
+    "pred_norm": "120.56",
+    "model_generation": "120.56 \u33a0.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5432.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "105.5",
+    "gt_norm": "60",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u1ec1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4220.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50.0",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50.0\u1ec1.\n\nTo determine the measure of angle \\( P"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2322.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(5)/3",
+    "pred_raw": "2/3",
+    "gt_norm": "sqrt5/3",
+    "pred_norm": "0.6667",
+    "model_generation": "2/3\n\nThe answer is \\(\\boxed{\\frac{2}{"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_697.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60, 120, 30, 90"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5400.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "100.57",
+    "gt_norm": "11",
+    "pred_norm": "100.57",
+    "model_generation": "100.57\u1ed1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1395.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12\ufffd\u56de\u7b54.\nTo solve the problem, we need to understand"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3875.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "50.0",
+    "gt_norm": "140",
+    "pred_norm": "50",
+    "model_generation": "50.0 \ud83c\udd70\ufe0f.\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4191.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "\ufffd40.0.\u1ed5",
+    "gt_norm": "40",
+    "pred_norm": "\ufffd40.0.\u1ed5",
+    "model_generation": "\ufffd40.0.\u1ed5\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1754.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "2.5.",
+    "gt_norm": "3",
+    "pred_norm": "2.5.",
+    "model_generation": "2.5. \ud83c\udd70\ufe0f\nTo find the maximum length"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5537.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "13.5.",
+    "gt_norm": "11",
+    "pred_norm": "13.5.",
+    "model_generation": "13.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3621.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100.0",
+    "gt_norm": "40",
+    "pred_norm": "100",
+    "model_generation": "100.0\u1ec1.\n\nStep 1: Analyze the given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5795.jpg",
+    "is_correct": false,
+    "gt_raw": "61",
+    "pred_raw": "105",
+    "gt_norm": "61",
+    "pred_norm": "105",
+    "model_generation": "105 \u1ec1.\nStep-by-step explanation:\nWe are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3807.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "26.0.",
+    "gt_norm": "22",
+    "pred_norm": "26.0.",
+    "model_generation": "26.0.\u1ed5\nThe perimeter of a quadrilateral is the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2636.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "40.0.",
+    "gt_norm": "40",
+    "pred_norm": "40.0.",
+    "model_generation": "40.0.\u1ed5\nStep-by-step explanation:\nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5367.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "100.56.",
+    "gt_norm": "20",
+    "pred_norm": "100.56.",
+    "model_generation": "100.56. Step-by-step explanation: We are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6026.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "150",
+    "gt_norm": "120",
+    "pred_norm": "150",
+    "model_generation": "150 \u00b0.\u03ce\nStep-by-step explanation:\nSince CG"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4749.jpg",
+    "is_correct": false,
+    "gt_raw": "53",
+    "pred_raw": "37",
+    "gt_norm": "53",
+    "pred_norm": "37",
+    "model_generation": "37 \u00b0.\u03ce\nStep-by-step explanation:\nGiven that rh"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3517.jpg",
+    "is_correct": false,
+    "gt_raw": "52",
+    "pred_raw": "104.0.",
+    "gt_norm": "52",
+    "pred_norm": "104.0.",
+    "model_generation": "104.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1723.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8\ufffd\u5355\u4f4d.\n Step-by-step explanation: \nThe area of a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2348.jpg",
+    "is_correct": false,
+    "gt_raw": "79",
+    "pred_raw": "103.0.",
+    "gt_norm": "79",
+    "pred_norm": "103.0.",
+    "model_generation": "103.0.\u1ed5\nStep-by-step explanation:\nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2494.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "25.0",
+    "gt_norm": "50",
+    "pred_norm": "25",
+    "model_generation": "25.0 \u1ec1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_9.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "32.5",
+    "gt_norm": "65",
+    "pred_norm": "32.5",
+    "model_generation": "32.5\u1ec1.\nStep-by-step explanation: \nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4492.jpg",
+    "is_correct": true,
+    "gt_raw": "27",
+    "pred_raw": "27.",
+    "gt_norm": "27",
+    "pred_norm": "27",
+    "model_generation": "27.\u00b0\n\nSolution:\nIn a circle, the measure of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3324.jpg",
+    "is_correct": true,
+    "gt_raw": "3/5",
+    "pred_raw": "3/5.",
+    "gt_norm": "0.6",
+    "pred_norm": "0.6",
+    "model_generation": "3/5.\u1ed5\nThe answer is: \\boxed{\\frac"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2469.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "\ufffd48.0.\u1ed5",
+    "gt_norm": "48",
+    "pred_norm": "\ufffd48.0.\u1ed5",
+    "model_generation": "\ufffd48.0.\u1ed5\nThe measure of angle AOB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4665.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15\ufffd\u5355\u4f4d.\ufffd\ufffd.\n\nIn parallelogram ABCD, the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5045.jpg",
+    "is_correct": false,
+    "gt_raw": "53",
+    "pred_raw": "105",
+    "gt_norm": "53",
+    "pred_norm": "105",
+    "model_generation": "105 \u1ec1.\nStep-by-step explanation:\nSince m\u2220"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1424.jpg",
+    "is_correct": true,
+    "gt_raw": "13",
+    "pred_raw": "13",
+    "gt_norm": "13",
+    "pred_norm": "13",
+    "model_generation": "13 units."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5548.jpg",
+    "is_correct": false,
+    "gt_raw": "9.5",
+    "pred_raw": "10.5.17.28.39.",
+    "gt_norm": "9.5",
+    "pred_norm": "10.5.17.28.39.",
+    "model_generation": "10.5.17.28.39."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3101.jpg",
+    "is_correct": false,
+    "gt_raw": "2.0",
+    "pred_raw": "3.0.",
+    "gt_norm": "2",
+    "pred_norm": "3.0.",
+    "model_generation": "3.0.\ufffd\ufffd\u53ef\u4ee5\u4f7f\u7528\u4ee5\u4e0b\u6b65\u9aa4\u6765\u89e3\u51b3\u8fd9\u4e2a\u95ee\u9898\uff1a\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5442.jpg",
+    "is_correct": false,
+    "gt_raw": "68",
+    "pred_raw": "105.5",
+    "gt_norm": "68",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u1ec1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3443.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "10.0.15.0.20.0.",
+    "gt_norm": "10",
+    "pred_norm": "10.0.15.0.20.0.",
+    "model_generation": "10.0.15.0.20.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1574.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2.",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2.\u1eafn.\n\nTo solve this problem, we need to understand the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1045.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "65.",
+    "gt_norm": "40",
+    "pred_norm": "65",
+    "model_generation": "65."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4542.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6.",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6.\u221a13.\n\nThe following is a multiple-choice question from China"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2422.jpg",
+    "is_correct": false,
+    "gt_raw": "54",
+    "pred_raw": "72.0.",
+    "gt_norm": "54",
+    "pred_norm": "72.0.",
+    "model_generation": "72.0.\u1ed5\nStep-by-step explanation:\nSince the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3294.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "16.0.",
+    "gt_norm": "6",
+    "pred_norm": "16.0.",
+    "model_generation": "16.0. \ud83c\udd70\ufe0f\nTo solve the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2676.jpg",
+    "is_correct": false,
+    "gt_raw": "66",
+    "pred_raw": "24.0.",
+    "gt_norm": "66",
+    "pred_norm": "24.0.",
+    "model_generation": "24.0.\u1ed5\nThe given problem involves a circle with diameter"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3349.jpg",
+    "is_correct": false,
+    "gt_raw": "1/4",
+    "pred_raw": "1.5.",
+    "gt_norm": "0.25",
+    "pred_norm": "1.5.",
+    "model_generation": "1.5.\u1ed5\nSolution: Since AB is parallel to DC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5779.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100.",
+    "gt_norm": "40",
+    "pred_norm": "100",
+    "model_generation": "100. \u044b.\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2536.jpg",
+    "is_correct": false,
+    "gt_raw": "28",
+    "pred_raw": "28.0.",
+    "gt_norm": "28",
+    "pred_norm": "28.0.",
+    "model_generation": "28.0.\u1ed5\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4152.jpg",
+    "is_correct": false,
+    "gt_raw": "62",
+    "pred_raw": "28.0.",
+    "gt_norm": "62",
+    "pred_norm": "28.0.",
+    "model_generation": "28.0.\u1ed5\nStep 1: Identify the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2464.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25.",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25.\u1eafn.\nStep-by-step explanation: Since AO is parallel"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1018.jpg",
+    "is_correct": true,
+    "gt_raw": "55",
+    "pred_raw": "55",
+    "gt_norm": "55",
+    "pred_norm": "55",
+    "model_generation": "55 \u00b0.Reason: Since AB is the diameter of circle O"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5827.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "105",
+    "gt_norm": "42",
+    "pred_norm": "105",
+    "model_generation": "105 \u1ed1.\nStep-by-step explanation:\nWe have been"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2568.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "70.0",
+    "gt_norm": "110",
+    "pred_norm": "70",
+    "model_generation": "70.0 \u1ec1\nStep-by-step explanation:\nSince E"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5109.jpg",
+    "is_correct": false,
+    "gt_raw": "90",
+    "pred_raw": "45.",
+    "gt_norm": "90",
+    "pred_norm": "45",
+    "model_generation": "45. \u1ed1.\nStep-by-step explanation:\nGiven that in"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2708.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "25.0.",
+    "gt_norm": "100",
+    "pred_norm": "25.0.",
+    "model_generation": "25.0.\u1ed5\nTo find the measure of angle F,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5444.jpg",
+    "is_correct": false,
+    "gt_raw": "66",
+    "pred_raw": "105.5",
+    "gt_norm": "66",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\n\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_571.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "35.1.1.1.1.1.1",
+    "gt_norm": "35",
+    "pred_norm": "35.1.1.1.1.1.1",
+    "model_generation": "35.1.1.1.1.1.1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3539.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "15.0.",
+    "gt_norm": "35",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0.BorderSide(40^{\\circ})$.\n\nReason"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2988.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10.4.1",
+    "gt_norm": "5",
+    "pred_norm": "10.4.1",
+    "model_generation": "10.4.1\ufffd\u5355\u4f4d.\n\nStep 1: Understand the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1618.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12.",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12.\ufffd\u5355\u4f4d.\n\nStep-by-step explanation:\n\nGiven that triangle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5490.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10.5sqrt(2)",
+    "gt_norm": "5",
+    "pred_norm": "10.5sqrt2",
+    "model_generation": "10.5sqrt(2) \u1eafn.\nStep-by-step"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5628.jpg",
+    "is_correct": false,
+    "gt_raw": "32.5",
+    "pred_raw": "32.5.",
+    "gt_norm": "32.5",
+    "pred_norm": "32.5.",
+    "model_generation": "32.5.\u03ce\nStep-by-step explanation:\nGiven that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4405.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "30.0.",
+    "gt_norm": "50",
+    "pred_norm": "30.0.",
+    "model_generation": "30.0.\u1ed1.\n\nStep 1: Identify the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4264.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "40.0.15.16.17.",
+    "gt_norm": "40",
+    "pred_norm": "40.0.15.16.17.",
+    "model_generation": "40.0.15.16.17."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_20.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "36",
+    "gt_norm": "72",
+    "pred_norm": "36",
+    "model_generation": "36^0.\n\nThe following is a multiple-choice question from an"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3571.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35.0",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35.0 \u1ec1.\nStep-by-step explanation:\nSince arc"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_361.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "30",
+    "gt_norm": "15",
+    "pred_norm": "30",
+    "model_generation": "30 \u00b0.\u00e9\nStep-by-step explanation:\nSince AD is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2086.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100.5",
+    "gt_norm": "40",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u1ec1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1557.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "\ufffd6\ufffd",
+    "gt_norm": "6",
+    "pred_norm": "\ufffd6\ufffd",
+    "model_generation": "\ufffd6\ufffd\u5355\u4f4d\u3002"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4724.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "6.25.",
+    "gt_norm": "5",
+    "pred_norm": "6.25.",
+    "model_generation": "6.25.\n\nStep-by-step explanation:\n\n1. **Ident"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3158.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "6.0.",
+    "gt_norm": "6",
+    "pred_norm": "6.0.",
+    "model_generation": "6.0.\u1ed5\nThe given problem involves a triangle \\( ABC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_947.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80 \u00b0.\u00ednh: \u2220A = ?  \nPh\u01b0\u01a1ng"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4186.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "30.0",
+    "gt_norm": "40",
+    "pred_norm": "30",
+    "model_generation": "30.0\u1ec1.\n The answer is: 80"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4969.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "10.5",
+    "gt_norm": "30",
+    "pred_norm": "10.5",
+    "model_generation": "10.5cmStep-by-step explanation:We are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3573.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "40.0.",
+    "gt_norm": "40",
+    "pred_norm": "40.0.",
+    "model_generation": "40.0.\n\nThe following is a multiple-choice question from an"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5909.jpg",
+    "is_correct": false,
+    "gt_raw": "17.7",
+    "pred_raw": "10.2.",
+    "gt_norm": "17.7",
+    "pred_norm": "10.2.",
+    "model_generation": "10.2.\nStep-by-step explanation:\nWe are given a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2829.jpg",
+    "is_correct": false,
+    "gt_raw": "3S",
+    "pred_raw": "2.0.",
+    "gt_norm": "3",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3557.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "20.0.",
+    "gt_norm": "20",
+    "pred_norm": "20.0.",
+    "model_generation": "20.0.\n\nStep-by-step explanation:\n\n1. Since AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4889.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "100",
+    "gt_norm": "48",
+    "pred_norm": "100",
+    "model_generation": "100 \u1ed1. Step-by-step explanation: The measure of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_888.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "75.5",
+    "gt_norm": "75",
+    "pred_norm": "75.5",
+    "model_generation": "75.5 \u1ec1.\nStep-by-step explanation: Since AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_318.jpg",
+    "is_correct": false,
+    "gt_raw": "103",
+    "pred_raw": "58.",
+    "gt_norm": "103",
+    "pred_norm": "58",
+    "model_generation": "58.\u00b0\nStep-by-step explanation:\nSince AC is the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2177.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "50.0",
+    "gt_norm": "65",
+    "pred_norm": "50",
+    "model_generation": "50.0\u1ec1.\n\nStep 1: Identify the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4754.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10.5.",
+    "gt_norm": "8",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5. Step-by-step explanation: We are given a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1467.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "4.5.",
+    "gt_norm": "8",
+    "pred_norm": "4.5.",
+    "model_generation": "4.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2138.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "120.0",
+    "gt_norm": "30",
+    "pred_norm": "120",
+    "model_generation": "120.0\u1ec1\u1ed1\u1ea1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_942.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "100.",
+    "gt_norm": "80",
+    "pred_norm": "100",
+    "model_generation": "100.  \u8d77\u6765\nTo find the measure of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_224.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "25.10.10.10.10.",
+    "gt_norm": "65",
+    "pred_norm": "25.10.10.10.10.",
+    "model_generation": "25.10.10.10.10."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2711.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "25.0",
+    "gt_norm": "40",
+    "pred_norm": "25",
+    "model_generation": "25.0 \u00b0.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6188.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "4.8.",
+    "gt_norm": "4",
+    "pred_norm": "4.8.",
+    "model_generation": "4.8. \u1eaec: \u1ed1\u1ef5, \u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5562.jpg",
+    "is_correct": false,
+    "gt_raw": "38",
+    "pred_raw": "105.75",
+    "gt_norm": "38",
+    "pred_norm": "105.75",
+    "model_generation": "105.75 \u1ed1.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3274.jpg",
+    "is_correct": false,
+    "gt_raw": "3.6",
+    "pred_raw": "3.6.",
+    "gt_norm": "3.6",
+    "pred_norm": "3.6.",
+    "model_generation": "3.6.\ufffd\ufffd\u53ef\u4ee5\u4f7f\u7528\u76f8\u4f3c\u4e09\u89d2\u5f62\u7684\u6027\u8d28\u6765\u89e3\u51b3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4173.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "100.0.",
+    "gt_norm": "80",
+    "pred_norm": "100.0.",
+    "model_generation": "100.0.\u1ed1.\nStep-by-step explanation: Since quadr"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5254.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "100.57",
+    "gt_norm": "6",
+    "pred_norm": "100.57",
+    "model_generation": "100.57\u1ed9.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2877.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "\ufffd\ufffd = 10.0.",
+    "gt_norm": "10",
+    "pred_norm": "\ufffd\ufffd=10.0.",
+    "model_generation": "\ufffd\ufffd = 10.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2283.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "90.0.",
+    "gt_norm": "12",
+    "pred_norm": "90.0.",
+    "model_generation": "90.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_570.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "15",
+    "gt_norm": "40",
+    "pred_norm": "15",
+    "model_generation": "15\ufffd\ufffd\u5ea6. \u8981\u70b9\uff1a\u6839\u636e\u6298\u53e0\u7684\u6027\u8d28\uff0c"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2279.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10.0",
+    "gt_norm": "20",
+    "pred_norm": "10",
+    "model_generation": "10.0,\u0e50\u0e14\u0e47\u0e29\u0e50\u0e50\ufffd"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2689.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(2)",
+    "pred_raw": "1.0",
+    "gt_norm": "sqrt2",
+    "pred_norm": "1",
+    "model_generation": "1.0 \u2013 \u221a3/2.\n\nTo find the minimum"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3264.jpg",
+    "is_correct": false,
+    "gt_raw": "5/13",
+    "pred_raw": "12/13.",
+    "gt_norm": "0.3846",
+    "pred_norm": "0.9231",
+    "model_generation": "12/13.\n\nStep-by-step explanation:\n\nGiven that PM"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1585.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "3.5.125.578046",
+    "gt_norm": "3",
+    "pred_norm": "3.5.125.578046",
+    "model_generation": "3.5.125.578046"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5407.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "3.75.",
+    "gt_norm": "4",
+    "pred_norm": "3.75.",
+    "model_generation": "3.75.\u03ce\u03bd\u03af\u03b1 \u0391\u0392\u0393,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_189.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70\u1eafn.\nStep-by-step explanation: Since AB is the diameter"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1825.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "10.4.",
+    "gt_norm": "10",
+    "pred_norm": "10.4.",
+    "model_generation": "10.4.BorderSide: 8 units\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1868.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "16sqrt(3)/2",
+    "gt_norm": "4",
+    "pred_norm": "16sqrt3/2",
+    "model_generation": "16sqrt(3)/2 m\u00e9tres."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2496.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "56.0",
+    "gt_norm": "34",
+    "pred_norm": "56",
+    "model_generation": "56.0 \u00b0.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2863.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "10.0.",
+    "gt_norm": "10",
+    "pred_norm": "10.0.",
+    "model_generation": "10.0.\u1ed5\nThe given problem involves a triangle \\("
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3770.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "10.0.",
+    "gt_norm": "10",
+    "pred_norm": "10.0.",
+    "model_generation": "10.0.\u1ed5>\n\n### Understanding the Problem\n\nWe have a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1634.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "13.",
+    "gt_norm": "8",
+    "pred_norm": "13",
+    "model_generation": "13.\u141f\nTo find the minimum value of AP, we"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1820.jpg",
+    "is_correct": false,
+    "gt_raw": "3sqrt(3)",
+    "pred_raw": "6.0",
+    "gt_norm": "3sqrt3",
+    "pred_norm": "6",
+    "model_generation": "6.0  unitsc."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3853.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "4.8.",
+    "gt_norm": "2",
+    "pred_norm": "4.8.",
+    "model_generation": "4.8."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_313.jpg",
+    "is_correct": true,
+    "gt_raw": "125",
+    "pred_raw": "125",
+    "gt_norm": "125",
+    "pred_norm": "125",
+    "model_generation": "125\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3131.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60.0",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60.0 \u0e2d\u0e07\u0e28\u0e32.\n\n\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e01\u0e32\u0e23"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_883.jpg",
+    "is_correct": false,
+    "gt_raw": "66",
+    "pred_raw": "123.5.167.189.",
+    "gt_norm": "66",
+    "pred_norm": "123.5.167.189.",
+    "model_generation": "123.5.167.189."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5748.jpg",
+    "is_correct": false,
+    "gt_raw": "52",
+    "pred_raw": "120",
+    "gt_norm": "52",
+    "pred_norm": "120",
+    "model_generation": "120 \u1ec1.\nStep-by-step explanation:\nIn a paralle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1309.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10.5.",
+    "gt_norm": "8",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\u1ed5\nStep-by-step explanation: \nLet"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6083.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "120.5",
+    "gt_norm": "36",
+    "pred_norm": "120.5",
+    "model_generation": "120.5\ufffd\u5355\u4f4d\u957f\u5ea6\u3002\u6839\u636e\u9898\u610f\uff0c\u4e09\u89d2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2029.jpg",
+    "is_correct": true,
+    "gt_raw": "15",
+    "pred_raw": "15.",
+    "gt_norm": "15",
+    "pred_norm": "15",
+    "model_generation": "15.\u1eafn.\nThe given information is as follows:\n- Angle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5480.jpg",
+    "is_correct": false,
+    "gt_raw": "116",
+    "pred_raw": "64.",
+    "gt_norm": "116",
+    "pred_norm": "64",
+    "model_generation": "64. \u1ed1.\nStep-by-step explanation:\nSince the lines"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3373.jpg",
+    "is_correct": true,
+    "gt_raw": "75",
+    "pred_raw": "75.0",
+    "gt_norm": "75",
+    "pred_norm": "75",
+    "model_generation": "75.0 \u1ec1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2728.jpg",
+    "is_correct": false,
+    "gt_raw": "27",
+    "pred_raw": "72.0",
+    "gt_norm": "27",
+    "pred_norm": "72",
+    "model_generation": "72.0 \u00b0.\n\nStep-by-step explanation:\n\n1. **"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1470.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "4.33.125.168.1",
+    "gt_norm": "4",
+    "pred_norm": "4.33.125.168.1",
+    "model_generation": "4.33.125.168.1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_200.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30.",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3375.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "\ufffd66.0\u1ec1.",
+    "gt_norm": "48",
+    "pred_norm": "\ufffd66.0\u1ec1.",
+    "model_generation": "\ufffd66.0\u1ec1.\nStep-by-step explanation:\nSince AB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1454.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10.45",
+    "gt_norm": "5",
+    "pred_norm": "10.45",
+    "model_generation": "10.45\ufffd\u5355\u4f4d.\n\nStep-by-step explanation:\nGiven"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1335.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2.",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2.\ufffd\ud74f.\n The answer is: 2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1937.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "\u0e473.uste.",
+    "gt_norm": "3",
+    "pred_norm": "\u0e473.uste.",
+    "model_generation": "\u0e473.uste.\nSolution: Since PA and PB are tangents to"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1268.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "12.5.",
+    "gt_norm": "3",
+    "pred_norm": "12.5.",
+    "model_generation": "12.5.\u1ed5.\nSolution: Since AD is the median of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5085.jpg",
+    "is_correct": false,
+    "gt_raw": "396",
+    "pred_raw": "120 sq",
+    "gt_norm": "396",
+    "pred_norm": "120",
+    "model_generation": "120 square units.\nStep-by-step explanation:\nThe area of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5936.jpg",
+    "is_correct": false,
+    "gt_raw": "32",
+    "pred_raw": "105.5",
+    "gt_norm": "32",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\n\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4588.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "10.",
+    "gt_norm": "2",
+    "pred_norm": "10",
+    "model_generation": "10."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2900.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "40.0.125.",
+    "gt_norm": "16",
+    "pred_norm": "40.0.125.",
+    "model_generation": "40.0.125.\ufffd\ufffd.\n\nTo solve this"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_840.jpg",
+    "is_correct": false,
+    "gt_raw": "38",
+    "pred_raw": "48",
+    "gt_norm": "38",
+    "pred_norm": "48",
+    "model_generation": "48\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5466.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "40.8.",
+    "gt_norm": "18",
+    "pred_norm": "40.8.",
+    "model_generation": "40.8.\u00e9\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2043.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35.0",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35.0 \u00b0.**Explanation:**In triangle ABC, since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5582.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "10.5",
+    "gt_norm": "70",
+    "pred_norm": "10.5",
+    "model_generation": "10.5cmStep-by-step explanation:We are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1721.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "16.",
+    "gt_norm": "22",
+    "pred_norm": "16",
+    "model_generation": "16.\ufffd\u5355\u4f4d.\n\nGiven a rectangle ABCD where AE intersects"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2930.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "9.0.",
+    "gt_norm": "8",
+    "pred_norm": "9.0.",
+    "model_generation": "9.0. \ud83c\udd70\ufe0f\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_324.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "155.",
+    "gt_norm": "25",
+    "pred_norm": "155",
+    "model_generation": "155.UAGE\nTo determine the measure of angle 2,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2985.jpg",
+    "is_correct": true,
+    "gt_raw": "3.0",
+    "pred_raw": "3.0",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3.0 \u2013 6.0.\n\nStep 1: Identify"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2524.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "60",
+    "gt_norm": "120",
+    "pred_norm": "60",
+    "model_generation": "60 \u1ec1\u1ee7.\n\nTo determine the measure of angle AOD"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_341.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "18.",
+    "gt_norm": "42",
+    "pred_norm": "18",
+    "model_generation": "18.\u00ba.\n\nStep 1: Understand the problem\nThe given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1048.jpg",
+    "is_correct": true,
+    "gt_raw": "45",
+    "pred_raw": "45",
+    "gt_norm": "45",
+    "pred_norm": "45",
+    "model_generation": "45 degree.\n\nStep-by-step explanation:\n\n1. Since AB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3519.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "50.0.",
+    "gt_norm": "50",
+    "pred_norm": "50.0.",
+    "model_generation": "50.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1218.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "\u0e47\u0e1915.\u1ed5",
+    "gt_norm": "24",
+    "pred_norm": "\u0e47\u0e1915.\u1ed5",
+    "model_generation": "\u0e47\u0e1915.\u1ed5\nSolution: Since DE is parallel to BC,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4524.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "2.5.",
+    "gt_norm": "2",
+    "pred_norm": "2.5.",
+    "model_generation": "2.5.\u1ed5.\nThe answer is: \\boxed{2."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4772.jpg",
+    "is_correct": false,
+    "gt_raw": "117",
+    "pred_raw": "105.5",
+    "gt_norm": "117",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u1ec1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3028.jpg",
+    "is_correct": false,
+    "gt_raw": "360",
+    "pred_raw": "180.",
+    "gt_norm": "360",
+    "pred_norm": "180",
+    "model_generation": "180.\ufffd\ufffd.\n\nThe following is a multiple-choice question from China"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_293.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "15",
+    "gt_norm": "30",
+    "pred_norm": "15",
+    "model_generation": "15\u1eafn.\nSolution: Since chord AB of circle O is both perpendicular"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4469.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50.0",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50.0\u1ec1 (degrees).\n\nStep-by-step explanation:\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1225.jpg",
+    "is_correct": false,
+    "gt_raw": "4pi",
+    "pred_raw": "120",
+    "gt_norm": "12.5664",
+    "pred_norm": "120",
+    "model_generation": "120\u00b0, 30\u00b0 + \u2220A\u2032BC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5662.jpg",
+    "is_correct": false,
+    "gt_raw": "3.4",
+    "pred_raw": "10.2",
+    "gt_norm": "3.4",
+    "pred_norm": "10.2",
+    "model_generation": "10.2 cm\u00b2.Step-by-step explanation:We are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_613.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "20.1.1 \u00a0(1) \u00a0(",
+    "gt_norm": "40",
+    "pred_norm": "20.1.1\u00a01\u00a0",
+    "model_generation": "20.1.1 \u00a0(1) \u00a0("
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6049.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "10.5",
+    "gt_norm": "9",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 unitscExplanation:In the given figure, we"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_76.jpg",
+    "is_correct": false,
+    "gt_raw": "67.5",
+    "pred_raw": "30",
+    "gt_norm": "67.5",
+    "pred_norm": "30",
+    "model_generation": "30\uffb0. \u8d4f\u6790\uff1a \u56e0\u4e3aDA=DC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4593.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "18sqrt(2)",
+    "gt_norm": "30",
+    "pred_norm": "18sqrt2",
+    "model_generation": "18sqrt(2)\u043c.\u044c.\n\nThe following is a multiple"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3502.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "8.0.",
+    "gt_norm": "8",
+    "pred_norm": "8.0.",
+    "model_generation": "8.0.\ufffd\ufffd\u9700\u8981\u4f7f\u7528\u52fe\u80a1\u5b9a\u7406\u6765\u89e3\u51b3\u8fd9\u4e2a\u95ee\u9898"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5784.jpg",
+    "is_correct": false,
+    "gt_raw": "32pi",
+    "pred_raw": "10",
+    "gt_norm": "100.531",
+    "pred_norm": "10",
+    "model_generation": "10\u03c0 units. Step-by-step explanation: The circumference of a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4515.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "7.5.",
+    "gt_norm": "3",
+    "pred_norm": "7.5.",
+    "model_generation": "7.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3623.jpg",
+    "is_correct": false,
+    "gt_raw": "56",
+    "pred_raw": "56.0.",
+    "gt_norm": "56",
+    "pred_norm": "56.0.",
+    "model_generation": "56.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6051.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "10.5",
+    "gt_norm": "72",
+    "pred_norm": "10.5",
+    "model_generation": "10.5, 24.5, 38"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2147.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "140.0",
+    "gt_norm": "40",
+    "pred_norm": "140",
+    "model_generation": "140.0 \u1ec1.\n The answer is: 1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5216.jpg",
+    "is_correct": false,
+    "gt_raw": "40.83",
+    "pred_raw": "12.57",
+    "gt_norm": "40.83",
+    "pred_norm": "12.57",
+    "model_generation": "12.57 units up.\nStep-by-step explanation:\nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1073.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "16",
+    "gt_norm": "6",
+    "pred_norm": "16",
+    "model_generation": "16\ufffdcm\u00b2."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2731.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "150.0",
+    "gt_norm": "30",
+    "pred_norm": "150",
+    "model_generation": "150.0\u1ec1 (degrees). To solve this problem, we"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_25.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "54.",
+    "gt_norm": "34",
+    "pred_norm": "54",
+    "model_generation": "54. PROVIDED: In the diagram of quadrilateral ABCD,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_360.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "130",
+    "gt_norm": "115",
+    "pred_norm": "130",
+    "model_generation": "130 \ufffd\uc73c.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2267.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "48.0.16.",
+    "gt_norm": "48",
+    "pred_norm": "48.0.16.",
+    "model_generation": "48.0.16.\ufffd\ufffd.\n\nThe following is a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5967.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "\ufffd\ufffd 10.5.",
+    "gt_norm": "42",
+    "pred_norm": "\ufffd\ufffd10.5.",
+    "model_generation": "\ufffd\ufffd 10.5.\nStep-by-step explanation:\nWe are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5198.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "10.67",
+    "gt_norm": "18",
+    "pred_norm": "10.67",
+    "model_generation": "10.67 unit.\nStep-by-step explanation:\nThe centroid"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_753.jpg",
+    "is_correct": false,
+    "gt_raw": "63",
+    "pred_raw": "123",
+    "gt_norm": "63",
+    "pred_norm": "123",
+    "model_generation": "123 \u00b0.**Explanation:**\n\nGiven that angle AOB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_419.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "70.",
+    "gt_norm": "100",
+    "pred_norm": "70",
+    "model_generation": "70."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2059.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "15.0.",
+    "gt_norm": "15",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6052.jpg",
+    "is_correct": false,
+    "gt_raw": "53.4",
+    "pred_raw": "10.5",
+    "gt_norm": "53.4",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 cm\u00b2.Step-by-step explanation:We can see"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4140.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "100.0.",
+    "gt_norm": "100",
+    "pred_norm": "100.0.",
+    "model_generation": "100.0.BorderSide(BorderStyle.None, Color.Empty);\nThe measure"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2162.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "20.0",
+    "gt_norm": "25",
+    "pred_norm": "20",
+    "model_generation": "20.0 \u1ec1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5194.jpg",
+    "is_correct": false,
+    "gt_raw": "52.5",
+    "pred_raw": "120 sq",
+    "gt_norm": "52.5",
+    "pred_norm": "120",
+    "model_generation": "120 square units. Step-by-step explanation: The area of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5629.jpg",
+    "is_correct": false,
+    "gt_raw": "58",
+    "pred_raw": "10.5",
+    "gt_norm": "58",
+    "pred_norm": "10.5",
+    "model_generation": "10.5cmStep-by-step explanation:We are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1666.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "17.5.",
+    "gt_norm": "20",
+    "pred_norm": "17.5.",
+    "model_generation": "17.5.\ufffd\ufffd\u7684\u89e3\u7b54\uff1a18\nTo find the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2811.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "4",
+    "gt_norm": "8",
+    "pred_norm": "4",
+    "model_generation": "4 \u2013 2 \u221a2.\n\nStep-by-step explanation:\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1725.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4cm. \n\nReasoning: \nSince the area of rhomb"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4948.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "50",
+    "gt_norm": "72",
+    "pred_norm": "50",
+    "model_generation": "50\u00b0.Step-by-step explanation:We are given a triangle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2307.jpg",
+    "is_correct": true,
+    "gt_raw": "8.0",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8\n\nIn the illustration"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2234.jpg",
+    "is_correct": true,
+    "gt_raw": "110",
+    "pred_raw": "110.0",
+    "gt_norm": "110",
+    "pred_norm": "110",
+    "model_generation": "110.0\u1ec1\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6199.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "100.5",
+    "gt_norm": "12",
+    "pred_norm": "100.5",
+    "model_generation": "100.5 \u1ec1.\nStep-by-step explanation:\nIn"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6078.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "100.57",
+    "gt_norm": "18",
+    "pred_norm": "100.57",
+    "model_generation": "100.57\u1ed9.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_876.jpg",
+    "is_correct": false,
+    "gt_raw": "150",
+    "pred_raw": "30.1",
+    "gt_norm": "150",
+    "pred_norm": "30.1",
+    "model_generation": "30.1, 30.2, 30."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_949.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "\u0e47\u0e1930. 30.",
+    "gt_norm": "60",
+    "pred_norm": "\u0e47\u0e1930.30.",
+    "model_generation": "\u0e47\u0e1930. 30.\nStep-by-step explanation: \n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6192.jpg",
+    "is_correct": false,
+    "gt_raw": "255",
+    "pred_raw": "120",
+    "gt_norm": "255",
+    "pred_norm": "120",
+    "model_generation": "120^{\\circ} . Step-by-step explanation: Given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1098.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "27.",
+    "gt_norm": "12",
+    "pred_norm": "27",
+    "model_generation": "27.\ufffd\ud74f.\nThe answer is $\\boxed{27"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_853.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25.",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25.\u1eafn.\n\nStep-by-step explanation:\n\n1. **Ident"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5436.jpg",
+    "is_correct": false,
+    "gt_raw": "4.08",
+    "pred_raw": "100.5",
+    "gt_norm": "4.08",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u00b0.\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2456.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "15.0.",
+    "gt_norm": "30",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0.BorderSide(30^circ)."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4541.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "8.0.",
+    "gt_norm": "8",
+    "pred_norm": "8.0.",
+    "model_generation": "8.0.\n\nThe following is a multiple-choice question from China."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5469.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "\u0e47\u0e19 24 units. Step-by-step explanation: The perimeter of a",
+    "gt_norm": "60",
+    "pred_norm": "\u0e47\u0e1924.step-by-stepexplanation/theperiofa",
+    "model_generation": "\u0e47\u0e19 24 units. Step-by-step explanation: The perimeter of a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_62.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "35.0.125.0.175",
+    "gt_norm": "40",
+    "pred_norm": "35.0.125.0.175",
+    "model_generation": "35.0.125.0.175"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4333.jpg",
+    "is_correct": false,
+    "gt_raw": "4/9",
+    "pred_raw": "2.0.",
+    "gt_norm": "0.4444",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\n\nStep 1: Identify the given information\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5353.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "10.5.",
+    "gt_norm": "16",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\u1ed1.\nStep-by-step explanation:\nSince we"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5010.jpg",
+    "is_correct": false,
+    "gt_raw": "270",
+    "pred_raw": "120",
+    "gt_norm": "270",
+    "pred_norm": "120",
+    "model_generation": "120 \u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2476.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "34.0.34.0.34.0",
+    "gt_norm": "34",
+    "pred_norm": "34.0.34.0.34.0",
+    "model_generation": "34.0.34.0.34.0"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5766.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "16.5. 13",
+    "gt_norm": "8",
+    "pred_norm": "16.5.13",
+    "model_generation": "16.5. 13, 2x +"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4452.jpg",
+    "is_correct": false,
+    "gt_raw": "57",
+    "pred_raw": "36.0.",
+    "gt_norm": "57",
+    "pred_norm": "36.0.",
+    "model_generation": "36.0.BorderSide(\u03b8) = 57.0 degrees"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3590.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50.0",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50.0 \u1ec1.\n The measure of angle CAB on the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1287.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "50.5.1.1.1.1.1",
+    "gt_norm": "60",
+    "pred_norm": "50.5.1.1.1.1.1",
+    "model_generation": "50.5.1.1.1.1.1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2339.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "35.0",
+    "gt_norm": "55",
+    "pred_norm": "35",
+    "model_generation": "35.0\u1ec1.\n The answer is: 35"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3030.jpg",
+    "is_correct": false,
+    "gt_raw": "7.0",
+    "pred_raw": "7.0.",
+    "gt_norm": "7",
+    "pred_norm": "7.0.",
+    "model_generation": "7.0.\nStep-by-step explanation:\nSince triangle ABC is congr"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1998.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "24.0.",
+    "gt_norm": "36",
+    "pred_norm": "24.0.",
+    "model_generation": "24.0. \ud83c\udd70\ufe0f\nTo find the length"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_565.jpg",
+    "is_correct": false,
+    "gt_raw": "128",
+    "pred_raw": "52",
+    "gt_norm": "128",
+    "pred_norm": "52",
+    "model_generation": "52\u00b0.\u00e9\nStep-by-step explanation:\nSince line l"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2862.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10.0.",
+    "gt_norm": "8",
+    "pred_norm": "10.0.",
+    "model_generation": "10.0.\n\nThe following is a multiple-choice question from China."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1087.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "12.5.",
+    "gt_norm": "12",
+    "pred_norm": "12.5.",
+    "model_generation": "12.5.\u044c\nTo solve the problem, we need to"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5917.jpg",
+    "is_correct": false,
+    "gt_raw": "338.4",
+    "pred_raw": "10.5 sq",
+    "gt_norm": "338.4",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 square units.Step-by-step explanation:We are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4141.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "70.0",
+    "gt_norm": "20",
+    "pred_norm": "70",
+    "model_generation": "70.0 \u0e2d\u0e07\u0e28\u0e32.\n\n\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e01\u0e32\u0e23"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1746.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "18.",
+    "gt_norm": "16",
+    "pred_norm": "18",
+    "model_generation": "18.\ufffd\u5355\u4f4d:\u5398\u7c73.\n\nTo find the perimeter of triangle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4400.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "70.0.",
+    "gt_norm": "40",
+    "pred_norm": "70.0.",
+    "model_generation": "70.0.\n\nStep-by-step explanation:\n1. Since C"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_596.jpg",
+    "is_correct": false,
+    "gt_raw": "77",
+    "pred_raw": "73",
+    "gt_norm": "77",
+    "pred_norm": "73",
+    "model_generation": "73^o. \ufffd\ufffd\u53ef\u4ee5\u4f7f\u7528\u4ee5\u4e0b\u6b65\u9aa4\u6765\u89e3\u51b3\u8fd9\u4e2a\u95ee\u9898"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_818.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "80.0",
+    "gt_norm": "20",
+    "pred_norm": "80",
+    "model_generation": "80.0\u1ec1\nStep-by-step explanation: \nSince AC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4612.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "13.",
+    "gt_norm": "8",
+    "pred_norm": "13",
+    "model_generation": "13.\ufffd\u5355\u4f4d.\n\nThe following is a multiple-choice question from China"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5083.jpg",
+    "is_correct": false,
+    "gt_raw": "90",
+    "pred_raw": "30",
+    "gt_norm": "90",
+    "pred_norm": "30",
+    "model_generation": "30 \u00b0.\u00e9\nStep-by-step explanation:\nSince E C"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3754.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "\u0e473.0.\u1ed5",
+    "gt_norm": "4",
+    "pred_norm": "\u0e473.0.\u1ed5",
+    "model_generation": "\u0e473.0.\u1ed5\nStep 1: Understand the problem and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_73.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50 \u0144\u1ee7.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_599.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "140.",
+    "gt_norm": "40",
+    "pred_norm": "140",
+    "model_generation": "140.TRAILING:Since EO is perpendicular to CD, angle EOD"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2587.jpg",
+    "is_correct": false,
+    "gt_raw": "150",
+    "pred_raw": "150.0.",
+    "gt_norm": "150",
+    "pred_norm": "150.0.",
+    "model_generation": "150.0.\u1ed5\nThe answer is: 15"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3745.jpg",
+    "is_correct": false,
+    "gt_raw": "45",
+    "pred_raw": "19.0.",
+    "gt_norm": "45",
+    "pred_norm": "19.0.",
+    "model_generation": "19.0.\u1ed5\nStep-by-step explanation:\nIn a paralle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2454.jpg",
+    "is_correct": false,
+    "gt_raw": "26",
+    "pred_raw": "26.0.",
+    "gt_norm": "26",
+    "pred_norm": "26.0.",
+    "model_generation": "26.0.\u1ed5\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5290.jpg",
+    "is_correct": false,
+    "gt_raw": "156",
+    "pred_raw": "10.5",
+    "gt_norm": "156",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 cm\u00b2.Step-by-step explanation:We can see"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6014.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "10.5.",
+    "gt_norm": "6",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5. Step-by-step explanation:\nThe two tangents"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1072.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "120.",
+    "gt_norm": "25",
+    "pred_norm": "120",
+    "model_generation": "120. \u0e37\u0e49\u0e2d\nTo find the area of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3244.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "40.0.",
+    "gt_norm": "80",
+    "pred_norm": "40.0.",
+    "model_generation": "40.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2175.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "36.0",
+    "gt_norm": "24",
+    "pred_norm": "36",
+    "model_generation": "36.0 \u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1951.jpg",
+    "is_correct": false,
+    "gt_raw": "14",
+    "pred_raw": "13.5.",
+    "gt_norm": "14",
+    "pred_norm": "13.5.",
+    "model_generation": "13.5.\ufffd\nStep 1: Identify the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2578.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "130.0.",
+    "gt_norm": "130",
+    "pred_norm": "130.0.",
+    "model_generation": "130.0.\n\nThe solution process is as follows:\n\nStep"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5870.jpg",
+    "is_correct": true,
+    "gt_raw": "137",
+    "pred_raw": "137.",
+    "gt_norm": "137",
+    "pred_norm": "137",
+    "model_generation": "137. \u1ed1.\nStep-by-step explanation:\nSince,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5484.jpg",
+    "is_correct": true,
+    "gt_raw": "26",
+    "pred_raw": "26",
+    "gt_norm": "26",
+    "pred_norm": "26",
+    "model_generation": "26 unit\u1eafs.\u1ed1n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1672.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "3.6.10.12",
+    "gt_norm": "2.5",
+    "pred_norm": "3.6.10.12",
+    "model_generation": "3.6.10.12\nTo find the length"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2142.jpg",
+    "is_correct": true,
+    "gt_raw": "35.0",
+    "pred_raw": "35.0",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35.0 \u00b0.\nStep-by-step explanation: \nSince CD"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2589.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "70.0.",
+    "gt_norm": "70",
+    "pred_norm": "70.0.",
+    "model_generation": "70.0.\u1ed5\nSince lines a and b are parallel,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4281.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "140.0.",
+    "gt_norm": "140",
+    "pred_norm": "140.0.",
+    "model_generation": "140.0.\u1ed5\nStep-by-step explanation:\nSince ABC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4628.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "3",
+    "gt_norm": "6",
+    "pred_norm": "3",
+    "model_generation": "3cm.\n\nStep-by-step explanation:\n\n1. Since DE is perpendicular"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4775.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "105.5",
+    "gt_norm": "36",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u1ec1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5387.jpg",
+    "is_correct": false,
+    "gt_raw": "79",
+    "pred_raw": "105",
+    "gt_norm": "79",
+    "pred_norm": "105",
+    "model_generation": "105^{\\circ} . Step-by-step explanation: Given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3433.jpg",
+    "is_correct": false,
+    "gt_raw": "3sqrt(15)/2",
+    "pred_raw": "2.0.",
+    "gt_norm": "3sqrt15/2",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\ufffd\ufffd\u53ef\u4ee5\u4f7f\u7528\u4ee5\u4e0b\u6b65\u9aa4\u6765\u89e3\u51b3\u8fd9\u4e2a\u95ee\u9898\uff1a\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_669.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "72.5",
+    "gt_norm": "72",
+    "pred_norm": "72.5",
+    "model_generation": "72.5 \u1ed1.\nStep-by-step explanation:\nSince angle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5070.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "30.",
+    "gt_norm": "60",
+    "pred_norm": "30",
+    "model_generation": "30. \u044c\nStep-by-step explanation:\nSince ABCD"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_329.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35.",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35.\u00b0.\n\nThe following is a multiple-choice question from an"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4870.jpg",
+    "is_correct": false,
+    "gt_raw": "15.1",
+    "pred_raw": "10.2.",
+    "gt_norm": "15.1",
+    "pred_norm": "10.2.",
+    "model_generation": "10.2.\nStep-by-step explanation:\nWe are given a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4747.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "120.5.",
+    "gt_norm": "80",
+    "pred_norm": "120.5.",
+    "model_generation": "120.5.\u03ce_2=62+38"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2018.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "100.5",
+    "gt_norm": "80",
+    "pred_norm": "100.5",
+    "model_generation": "100.5 \u1ec1.\n The given parallelogram ABC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4671.jpg",
+    "is_correct": false,
+    "gt_raw": "13",
+    "pred_raw": "10.5.",
+    "gt_norm": "13",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_982.jpg",
+    "is_correct": false,
+    "gt_raw": "33",
+    "pred_raw": "33.5.",
+    "gt_norm": "33",
+    "pred_norm": "33.5.",
+    "model_generation": "33.5.BorderSide\nStep-by-step explanation:\nSince the translation of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3305.jpg",
+    "is_correct": false,
+    "gt_raw": "1",
+    "pred_raw": "1.0.",
+    "gt_norm": "1",
+    "pred_norm": "1.0.",
+    "model_generation": "1.0.\u1ed5>\n\nTo solve the problem, we need to understand"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1926.jpg",
+    "is_correct": true,
+    "gt_raw": "50",
+    "pred_raw": "50",
+    "gt_norm": "50",
+    "pred_norm": "50",
+    "model_generation": "50 m\u00e9troc."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5532.jpg",
+    "is_correct": false,
+    "gt_raw": "4.44",
+    "pred_raw": "1.57",
+    "gt_norm": "4.44",
+    "pred_norm": "1.57",
+    "model_generation": "1.57\ufffd\u5355\u4f4d\u9762\u79ef\u3002"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_555.jpg",
+    "is_correct": false,
+    "gt_raw": "22.5",
+    "pred_raw": "30",
+    "gt_norm": "22.5",
+    "pred_norm": "30",
+    "model_generation": "30 \u1ec1\u1ee7.\n\nStep 1: Identify the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4876.jpg",
+    "is_correct": false,
+    "gt_raw": "67",
+    "pred_raw": "105.",
+    "gt_norm": "67",
+    "pred_norm": "105",
+    "model_generation": "105. Step-by-step explanation: We are given that the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_563.jpg",
+    "is_correct": false,
+    "gt_raw": "85",
+    "pred_raw": "100",
+    "gt_norm": "85",
+    "pred_norm": "100",
+    "model_generation": "100 \u00b0.\n\nStep-by-step explanation:\n\nFirst, we need"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1519.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "2.5.",
+    "gt_norm": "2",
+    "pred_norm": "2.5.",
+    "model_generation": "2.5.\u1ed5\nThe given problem involves a quadrilateral ABC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_652.jpg",
+    "is_correct": false,
+    "gt_raw": "124",
+    "pred_raw": "56",
+    "gt_norm": "124",
+    "pred_norm": "56",
+    "model_generation": "56\u00b0.\u044b.\nStep-by-step explanation:\nSince AB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4162.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "50.0.",
+    "gt_norm": "50",
+    "pred_norm": "50.0.",
+    "model_generation": "50.0.\n\nStep 1: Understand the relationship between angles"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_462.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "108",
+    "gt_norm": "72",
+    "pred_norm": "108",
+    "model_generation": "108 \u1ec1.\n The answer is: 108"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1285.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5.",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5.\ufffd\u5355\u4f4d.\n\nGiven that the area of triangle ABC is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4348.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "15.0.",
+    "gt_norm": "30",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0.BorderSide(30.0)\u00b0.\n\n**Reason"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4116.jpg",
+    "is_correct": false,
+    "gt_raw": "26",
+    "pred_raw": "32.0",
+    "gt_norm": "26",
+    "pred_norm": "32",
+    "model_generation": "32.0 degrees.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3905.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "40.0.",
+    "gt_norm": "40",
+    "pred_norm": "40.0.",
+    "model_generation": "40.0.\u1ed5\nStep-by-step explanation:\nSince points"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4786.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10.5sqrt(2)",
+    "gt_norm": "20",
+    "pred_norm": "10.5sqrt2",
+    "model_generation": "10.5sqrt(2) \u1eafn.\nStep-by-step"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_409.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "100.5.",
+    "gt_norm": "50",
+    "pred_norm": "100.5.",
+    "model_generation": "100.5.\u1ed5.\nStep 1: Understand the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_467.jpg",
+    "is_correct": false,
+    "gt_raw": "150",
+    "pred_raw": "165",
+    "gt_norm": "150",
+    "pred_norm": "165",
+    "model_generation": "165\u1ec1.\n Step-by-step explanation:\nSince ABCD is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2571.jpg",
+    "is_correct": true,
+    "gt_raw": "70",
+    "pred_raw": "70",
+    "gt_norm": "70",
+    "pred_norm": "70",
+    "model_generation": "70 \u1ec1\u1ee7\u1ee7.\n\nTo find the measure of the central"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_498.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "15",
+    "gt_norm": "75",
+    "pred_norm": "15",
+    "model_generation": "15\u1eafn\u1ed1.\nStep-by-step explanation: \nSince ABCD is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4442.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40.0",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40.0 \u00b2.uk.\nTo solve this problem, we"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4748.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "12",
+    "gt_norm": "10",
+    "pred_norm": "12",
+    "model_generation": "12 units. Step-by-step explanation: Given that in triangle R"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_478.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "100.5",
+    "gt_norm": "70",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u1eafn.\nTo solve this problem, we need to"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1781.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "100.0.",
+    "gt_norm": "80",
+    "pred_norm": "100.0.",
+    "model_generation": "100.0.BorderSide(\uc73c)\ufffd\ud76c.\nStep-by"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2429.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "25.0",
+    "gt_norm": "65",
+    "pred_norm": "25",
+    "model_generation": "25.0 \u00b0.\n\n**Analysis:** Since AB is the diameter"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1553.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "2.4",
+    "gt_norm": "4",
+    "pred_norm": "2.4",
+    "model_generation": "2.4 \u2013 3.6 \ud83c\udde6\ud83c\uddfa.\n\nStep"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1272.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "\u0e47\u0e1912\ufffdcm\u00b2.",
+    "gt_norm": "12",
+    "pred_norm": "\u0e47\u0e1912\ufffdcm\u00b2.",
+    "model_generation": "\u0e47\u0e1912\ufffdcm\u00b2."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3991.jpg",
+    "is_correct": false,
+    "gt_raw": "45",
+    "pred_raw": "\ufffd45.0, 90.0, or 1",
+    "gt_norm": "45",
+    "pred_norm": "\ufffd45.0,90.0,or1",
+    "model_generation": "\ufffd45.0, 90.0, or 1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5879.jpg",
+    "is_correct": false,
+    "gt_raw": "153",
+    "pred_raw": "10.2 sq",
+    "gt_norm": "153",
+    "pred_norm": "10.2",
+    "model_generation": "10.2 square units.Step-by-step explanation:We are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5427.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "10.25 sq",
+    "gt_norm": "4",
+    "pred_norm": "10.25",
+    "model_generation": "10.25 square units.\nStep-by-step explanation:\nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4556.jpg",
+    "is_correct": true,
+    "gt_raw": "24",
+    "pred_raw": "24",
+    "gt_norm": "24",
+    "pred_norm": "24",
+    "model_generation": "24cm."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5709.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "100.57",
+    "gt_norm": "22",
+    "pred_norm": "100.57",
+    "model_generation": "100.57\u1ed9.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3469.jpg",
+    "is_correct": false,
+    "gt_raw": "2/3",
+    "pred_raw": "0.67.",
+    "gt_norm": "0.6667",
+    "pred_norm": "0.67.",
+    "model_generation": "0.67.\n\nStep-by-step explanation:\n1. Since DE"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2335.jpg",
+    "is_correct": true,
+    "gt_raw": "2/3",
+    "pred_raw": "2/3.",
+    "gt_norm": "0.6667",
+    "pred_norm": "0.6667",
+    "model_generation": "2/3.\u1ed5\n\nStep-by-step explanation: \nSince angle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3725.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "\u0e4720.0.\u1ed5",
+    "gt_norm": "20",
+    "pred_norm": "\u0e4720.0.\u1ed5",
+    "model_generation": "\u0e4720.0.\u1ed5\nTo solve this problem, we need"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2172.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "140.0.",
+    "gt_norm": "50",
+    "pred_norm": "140.0.",
+    "model_generation": "140.0.\u1ed5\nThe measure of angle A is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3201.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "30.0.",
+    "gt_norm": "30",
+    "pred_norm": "30.0.",
+    "model_generation": "30.0.\u1ed5\nStep-by-step explanation: \nLet"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_15.jpg",
+    "is_correct": false,
+    "gt_raw": "360",
+    "pred_raw": "180",
+    "gt_norm": "360",
+    "pred_norm": "180",
+    "model_generation": "180\u1eafn\ufffd\ufffd.\n The sum of the angles in a polygon can"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3108.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "10.0.",
+    "gt_norm": "40",
+    "pred_norm": "10.0.",
+    "model_generation": "10.0.\n\nStep 1: Identify the given information\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1346.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "12.",
+    "gt_norm": "4",
+    "pred_norm": "12",
+    "model_generation": "12.BorderSide:To find the area of quadrilateral DCEF, we"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_487.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "25",
+    "gt_norm": "20",
+    "pred_norm": "25",
+    "model_generation": "25 \u00b0.\ud480\uc774: \u25a1ABCD\ub294 \uc815\uc0ac"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3282.jpg",
+    "is_correct": false,
+    "gt_raw": "20/3",
+    "pred_raw": "9.0.15.24.36.4",
+    "gt_norm": "6.6667",
+    "pred_norm": "9.0.15.24.36.4",
+    "model_generation": "9.0.15.24.36.4"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1749.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "10.45.",
+    "gt_norm": "6",
+    "pred_norm": "10.45.",
+    "model_generation": "10.45.BorderSide.\nStep 1: Understand the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3944.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "50.0.",
+    "gt_norm": "50",
+    "pred_norm": "50.0.",
+    "model_generation": "50.0.\n\nStep-by-step explanation:\n\n1. **Ident"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3975.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "60.0.",
+    "gt_norm": "120",
+    "pred_norm": "60.0.",
+    "model_generation": "60.0.\u1ed5\nStep-by-step explanation:\nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3326.jpg",
+    "is_correct": false,
+    "gt_raw": "1/4",
+    "pred_raw": "1/3.",
+    "gt_norm": "0.25",
+    "pred_norm": "0.3333",
+    "model_generation": "1/3."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1361.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "24.5",
+    "gt_norm": "10",
+    "pred_norm": "24.5",
+    "model_generation": "24.5  unit square.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1934.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "3.25.16.24.28.",
+    "gt_norm": "4",
+    "pred_norm": "3.25.16.24.28.",
+    "model_generation": "3.25.16.24.28."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_761.jpg",
+    "is_correct": true,
+    "gt_raw": "124",
+    "pred_raw": "124",
+    "gt_norm": "124",
+    "pred_norm": "124",
+    "model_generation": "124\u00b0.\u00e9\u0439\nStep-by-step explanation:\nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_116.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100.5.",
+    "gt_norm": "40",
+    "pred_norm": "100.5.",
+    "model_generation": "100.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4427.jpg",
+    "is_correct": true,
+    "gt_raw": "35",
+    "pred_raw": "35.0",
+    "gt_norm": "35",
+    "pred_norm": "35",
+    "model_generation": "35.0 \u1ec1.\nStep-by-step explanation: In a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5344.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "\ufffd12.5.\u00e9",
+    "gt_norm": "8",
+    "pred_norm": "\ufffd12.5.\u00e9",
+    "model_generation": "\ufffd12.5.\u00e9\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_414.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "30.5",
+    "gt_norm": "30",
+    "pred_norm": "30.5",
+    "model_generation": "30.5\u1eafn.\u1ed5\u1eed\u1edb\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_798.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "55.",
+    "gt_norm": "125",
+    "pred_norm": "55",
+    "model_generation": "55.BorderSide(\uc73c)\ub85c \uce21\uc815\ub429\ub2c8\ub2e4. \n\nStep"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4506.jpg",
+    "is_correct": true,
+    "gt_raw": "12",
+    "pred_raw": "12.",
+    "gt_norm": "12",
+    "pred_norm": "12",
+    "model_generation": "12.\ufffd\n\nThe following is a multiple-choice question from China."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3630.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "10.0",
+    "gt_norm": "35",
+    "pred_norm": "10",
+    "model_generation": "10.0\u1ec1, 20.0\u1ec1, 3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_616.jpg",
+    "is_correct": true,
+    "gt_raw": "90",
+    "pred_raw": "90",
+    "gt_norm": "90",
+    "pred_norm": "90",
+    "model_generation": "90 \u00b0.\u1ed1\nStep-by-step explanation:\nSince AB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2046.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "20.0.",
+    "gt_norm": "40",
+    "pred_norm": "20.0.",
+    "model_generation": "20.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3794.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "18.0.",
+    "gt_norm": "15",
+    "pred_norm": "18.0.",
+    "model_generation": "18.0.\u1ed5\nThe perimeter of a parallelogram is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5991.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "100.5",
+    "gt_norm": "20",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u1ed9.\nStep-by-step explanation:\nThe sum"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1501.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "\u0e47\u0e194.5\ufffd",
+    "gt_norm": "10",
+    "pred_norm": "\u0e47\u0e194.5\ufffd",
+    "model_generation": "\u0e47\u0e194.5\ufffd\u5355\u4f4d\u3002"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6223.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10.5.36.27",
+    "gt_norm": "20",
+    "pred_norm": "10.5.36.27",
+    "model_generation": "10.5.36.27, 8."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1151.jpg",
+    "is_correct": false,
+    "gt_raw": "3sqrt(3)",
+    "pred_raw": "63.",
+    "gt_norm": "3sqrt3",
+    "pred_norm": "63",
+    "model_generation": "63.\n\nStep-by-step explanation:\n\n1. **Identify the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3672.jpg",
+    "is_correct": false,
+    "gt_raw": "32",
+    "pred_raw": "32.0.",
+    "gt_norm": "32",
+    "pred_norm": "32.0.",
+    "model_generation": "32.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4392.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "65.0",
+    "gt_norm": "115",
+    "pred_norm": "65",
+    "model_generation": "65.0 degrees.\n\nStep-by-step explanation: \n1."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1563.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "16.",
+    "gt_norm": "8",
+    "pred_norm": "16",
+    "model_generation": "16.\ufffd\u5355\u4f4d.\n\nThe following is a multiple-choice question from"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1567.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "5.5.",
+    "gt_norm": "6",
+    "pred_norm": "5.5.",
+    "model_generation": "5.5.\u1ed5.\nThe answer is: \\boxed{5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2033.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "125.0.",
+    "gt_norm": "55",
+    "pred_norm": "125.0.",
+    "model_generation": "125.0.\u1ed5\nStep 1: Understanding the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_899.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "120.",
+    "gt_norm": "20",
+    "pred_norm": "120",
+    "model_generation": "120.TRAILING:\u01b0\u1ee3c,\u1eaf\u1ebf\u1ed1\u1ec3\u1edb\u1ebf\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2782.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "48.0",
+    "gt_norm": "24",
+    "pred_norm": "48",
+    "model_generation": "48.0 \u1ec1\u1ee7.\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3296.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4cm.\u1ed1\n\nStep-by-step explanation:\n\nGiven that DE is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_494.jpg",
+    "is_correct": false,
+    "gt_raw": "47",
+    "pred_raw": "43.0",
+    "gt_norm": "47",
+    "pred_norm": "43",
+    "model_generation": "43.0 \u00b0.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_804.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "130.5-",
+    "gt_norm": "40",
+    "pred_norm": "130.5-",
+    "model_generation": "130.5-wsjg.\n\nThe following is a multiple-choice question"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5295.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "x = 8 Step-by-step explanation:",
+    "gt_norm": "8",
+    "pred_norm": "x=8step-by-stepexplanation/",
+    "model_generation": "x = 8 Step-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5358.jpg",
+    "is_correct": false,
+    "gt_raw": "210",
+    "pred_raw": "10.5",
+    "gt_norm": "210",
+    "pred_norm": "10.5",
+    "model_generation": "10.5, 24, 36,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5516.jpg",
+    "is_correct": false,
+    "gt_raw": "144",
+    "pred_raw": "100.5",
+    "gt_norm": "144",
+    "pred_norm": "100.5",
+    "model_generation": "100.5 \u1ec1.\nStep-by-step explanation:\nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_442.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "1.5.",
+    "gt_norm": "4",
+    "pred_norm": "1.5.",
+    "model_generation": "1.5.BorderSide(2)"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3824.jpg",
+    "is_correct": false,
+    "gt_raw": "100",
+    "pred_raw": "10.0 + 10.0",
+    "gt_norm": "100",
+    "pred_norm": "20",
+    "model_generation": "10.0 + 10.0 = 20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3370.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "55.0.",
+    "gt_norm": "55",
+    "pred_norm": "55.0.",
+    "model_generation": "55.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3466.jpg",
+    "is_correct": false,
+    "gt_raw": "1/2",
+    "pred_raw": "t",
+    "gt_norm": "0.5",
+    "pred_norm": "t",
+    "model_generation": "tc/AMMC = 2.0.\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2905.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "70.0",
+    "gt_norm": "20",
+    "pred_norm": "70",
+    "model_generation": "70.0 \u00b0.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3529.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "50.0.",
+    "gt_norm": "50",
+    "pred_norm": "50.0.",
+    "model_generation": "50.0.\u1ed1\nStep-by-step explanation:\nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5402.jpg",
+    "is_correct": true,
+    "gt_raw": "14",
+    "pred_raw": "14.",
+    "gt_norm": "14",
+    "pred_norm": "14",
+    "model_generation": "14.\ufffd\u5355\u4f4d\uff1a\u5398\u7c73\uff09\u3002\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_800.jpg",
+    "is_correct": false,
+    "gt_raw": "46",
+    "pred_raw": "54.0.",
+    "gt_norm": "46",
+    "pred_norm": "54.0.",
+    "model_generation": "54.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_768.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "125",
+    "gt_norm": "70",
+    "pred_norm": "125",
+    "model_generation": "125^{\\circ} .<br>According to the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1556.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "5sqrt(3)",
+    "gt_norm": "10",
+    "pred_norm": "5sqrt3",
+    "model_generation": "5sqrt(3) cm."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3333.jpg",
+    "is_correct": false,
+    "gt_raw": "3.5",
+    "pred_raw": "5.2.5",
+    "gt_norm": "3.5",
+    "pred_norm": "5.2.5",
+    "model_generation": "5.2.5 unit length.\n\nStep-by-step explanation:\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3879.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "24.0.",
+    "gt_norm": "12",
+    "pred_norm": "24.0.",
+    "model_generation": "24.0.\u1ed5\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1985.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "70.0.",
+    "gt_norm": "70",
+    "pred_norm": "70.0.",
+    "model_generation": "70.0.BorderSide\nSolution: Since lines AB and CD are parallel"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3871.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "15.0.",
+    "gt_norm": "25",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0.BorderSide(\uc73c)\ufffd\ud76c.\nStep-by-step"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4719.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10\ufffd\u5355\u4f4d.\n\nGiven that the function $f(x)$ is an"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4683.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "\ufffd\ufffd 30. \ud83c\udd70\ufe0f",
+    "gt_norm": "30",
+    "pred_norm": "\ufffd\ufffd30.\ud83c\udd70\ufe0f",
+    "model_generation": "\ufffd\ufffd 30. \ud83c\udd70\ufe0f\n\n**Solution:** Let's"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5928.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "14.5.",
+    "gt_norm": "25",
+    "pred_norm": "14.5.",
+    "model_generation": "14.5.\u03ce\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1079.jpg",
+    "is_correct": true,
+    "gt_raw": "8",
+    "pred_raw": "8",
+    "gt_norm": "8",
+    "pred_norm": "8",
+    "model_generation": "8 unit square.\n\nStep-by-step explanation: \nSince angle A and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6016.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "120.5",
+    "gt_norm": "72",
+    "pred_norm": "120.5",
+    "model_generation": "120.5 cm\u00b2. Step-by-step explanation: The"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1760.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "3.6.15.",
+    "gt_norm": "3",
+    "pred_norm": "3.6.15.",
+    "model_generation": "3.6.15.\n\nStep-by-step explanation:\n\nGiven that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3973.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "20.0.",
+    "gt_norm": "30",
+    "pred_norm": "20.0.",
+    "model_generation": "20.0.BorderSide\nThe answer is: 20"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5482.jpg",
+    "is_correct": false,
+    "gt_raw": "0.92",
+    "pred_raw": "\ufffd\ufffd = 0.83",
+    "gt_norm": "0.92",
+    "pred_norm": "\ufffd\ufffd=0.83",
+    "model_generation": "\ufffd\ufffd = 0.83\nStep-by-step explanation:\nThe ratio"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2280.jpg",
+    "is_correct": false,
+    "gt_raw": "7.5",
+    "pred_raw": "1.2",
+    "gt_norm": "7.5",
+    "pred_norm": "1.2",
+    "model_generation": "1.2, 8.4, 1.6,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1955.jpg",
+    "is_correct": false,
+    "gt_raw": "26",
+    "pred_raw": "140.0.",
+    "gt_norm": "26",
+    "pred_norm": "140.0.",
+    "model_generation": "140.0.\u1ed1\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4214.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "70.0",
+    "gt_norm": "40",
+    "pred_norm": "70",
+    "model_generation": "70.0 \u00b0.\n\nStep 1: Understand the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_579.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "15",
+    "gt_norm": "75",
+    "pred_norm": "15",
+    "model_generation": "15\u1eafn.\nThe answer is: $\\boxed{15}$."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2704.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "20.0",
+    "gt_norm": "70",
+    "pred_norm": "20",
+    "model_generation": "20.0 degree.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_252.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "100.5",
+    "gt_norm": "20",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u1eafn.  \u56e0\u4e3aOA\u548cOB\u662f"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_557.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "15",
+    "gt_norm": "75",
+    "pred_norm": "15",
+    "model_generation": "15 \u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1877.jpg",
+    "is_correct": true,
+    "gt_raw": "10",
+    "pred_raw": "10.",
+    "gt_norm": "10",
+    "pred_norm": "10",
+    "model_generation": "10. \ud83c\udd70\ufe0f\n\n**Solution:**\n\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_480.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "120.57",
+    "gt_norm": "120",
+    "pred_norm": "120.57",
+    "model_generation": "120.57^\ufffd.\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5170.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "100.57",
+    "gt_norm": "140",
+    "pred_norm": "100.57",
+    "model_generation": "100.57 \u1ed1.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5801.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "100.5",
+    "gt_norm": "12",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u1ed1.\nStep-by-step explanation:\nThe sum"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_581.jpg",
+    "is_correct": false,
+    "gt_raw": "72",
+    "pred_raw": "36.5.",
+    "gt_norm": "72",
+    "pred_norm": "36.5.",
+    "model_generation": "36.5.\u1ed5\nStep-by-step explanation:\nSince CD is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_56.jpg",
+    "is_correct": true,
+    "gt_raw": "100",
+    "pred_raw": "100",
+    "gt_norm": "100",
+    "pred_norm": "100",
+    "model_generation": "100\u1ec1\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1804.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "13.0.0.0.0.0.0.",
+    "gt_norm": "10",
+    "pred_norm": "13.0.0.0.0.0.0.",
+    "model_generation": "13.0.0.0.0.0.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4817.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10.5",
+    "gt_norm": "8",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 \ufffd\ufffd.\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1884.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3.",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3.\ufffd\u5355\u4f4d:\u5398\u7c73\n\nThe following is a multiple-choice question"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4536.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "12.",
+    "gt_norm": "8",
+    "pred_norm": "12",
+    "model_generation": "12.\ufffd\ud74f.\n\nGiven that the function $f(x)$"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4822.jpg",
+    "is_correct": false,
+    "gt_raw": "8.06",
+    "pred_raw": "1.87",
+    "gt_norm": "8.06",
+    "pred_norm": "1.87",
+    "model_generation": "1.87 unitscExplanation:We are given that the segment"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_171.jpg",
+    "is_correct": true,
+    "gt_raw": "46",
+    "pred_raw": "46.",
+    "gt_norm": "46",
+    "pred_norm": "46",
+    "model_generation": "46.\u00b0\n\nStep-by-step explanation:\n1. Since AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2766.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(3)",
+    "pred_raw": "2.0.",
+    "gt_norm": "sqrt3",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_523.jpg",
+    "is_correct": true,
+    "gt_raw": "51",
+    "pred_raw": "51",
+    "gt_norm": "51",
+    "pred_norm": "51",
+    "model_generation": "51\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1840.jpg",
+    "is_correct": true,
+    "gt_raw": "24",
+    "pred_raw": "24",
+    "gt_norm": "24",
+    "pred_norm": "24",
+    "model_generation": "24 \ufffd\u0438. \u044c\u043c.\nTo determine the distance"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2028.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "15.0.",
+    "gt_norm": "20",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0.BorderSide(30.0)\u1ec1\nStep"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_989.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "56",
+    "gt_norm": "34",
+    "pred_norm": "56",
+    "model_generation": "56 \u00b0.**Explanation:**\n\nGiven that triangle ABC is congr"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3696.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "7.0",
+    "gt_norm": "10",
+    "pred_norm": "7",
+    "model_generation": "7.0 \u2013 2\u221a15 units.\nStep-by-step"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4237.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "10.0.",
+    "gt_norm": "10",
+    "pred_norm": "10.0.",
+    "model_generation": "10.0.\u044c\u044b.\nTo solve this problem, we need"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3592.jpg",
+    "is_correct": false,
+    "gt_raw": "42",
+    "pred_raw": "42.0.15.0",
+    "gt_norm": "42",
+    "pred_norm": "42.0.15.0",
+    "model_generation": "42.0.15.0, 36."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3057.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "10.0",
+    "gt_norm": "30",
+    "pred_norm": "10",
+    "model_generation": "10.0\u1ec1\u1ed1\u1ea1\u1eed\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6211.jpg",
+    "is_correct": false,
+    "gt_raw": "49",
+    "pred_raw": "131.",
+    "gt_norm": "49",
+    "pred_norm": "131",
+    "model_generation": "131. \u1ed1.\nStep-by-step explanation: \nSince Q"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5505.jpg",
+    "is_correct": false,
+    "gt_raw": "36",
+    "pred_raw": "12",
+    "gt_norm": "36",
+    "pred_norm": "12",
+    "model_generation": "12y - 4 + 6(3-x) ="
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3268.jpg",
+    "is_correct": false,
+    "gt_raw": "1/2",
+    "pred_raw": "0.5.",
+    "gt_norm": "0.5",
+    "pred_norm": "0.5.",
+    "model_generation": "0.5.\n\nStep-by-step explanation:\n\n1. **Identify"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2550.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70.5",
+    "gt_norm": "50",
+    "pred_norm": "70.5",
+    "model_generation": "70.5 \u1ec1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5836.jpg",
+    "is_correct": false,
+    "gt_raw": "57.9",
+    "pred_raw": "10.2",
+    "gt_norm": "57.9",
+    "pred_norm": "10.2",
+    "model_generation": "10.2 unit square.Step-by-step explanation:We are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1647.jpg",
+    "is_correct": true,
+    "gt_raw": "16",
+    "pred_raw": "16.",
+    "gt_norm": "16",
+    "pred_norm": "16",
+    "model_generation": "16.\ufffd\u5355\u4f4d:\u5355\u4f4d:\u5355\u4f4d:\u5355\u4f4d:\u5355\u4f4d:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5651.jpg",
+    "is_correct": false,
+    "gt_raw": "90",
+    "pred_raw": "105.",
+    "gt_norm": "90",
+    "pred_norm": "105",
+    "model_generation": "105. Step-by-step explanation:\nThe sum of the angles"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5979.jpg",
+    "is_correct": true,
+    "gt_raw": "3/5",
+    "pred_raw": "3/5.",
+    "gt_norm": "0.6",
+    "pred_norm": "0.6",
+    "model_generation": "3/5.\nStep-by-step explanation:\nWe are given that a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4416.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "18.0.",
+    "gt_norm": "18",
+    "pred_norm": "18.0.",
+    "model_generation": "18.0.\u1ed5\nStep 1: Understanding the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1736.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "2sqrt(3)",
+    "gt_norm": "4",
+    "pred_norm": "2sqrt3",
+    "model_generation": "2sqrt(3)units.\u1ed5y\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3462.jpg",
+    "is_correct": false,
+    "gt_raw": "4.0",
+    "pred_raw": "4.5.12.03.6",
+    "gt_norm": "4",
+    "pred_norm": "4.5.12.03.6",
+    "model_generation": "4.5.12.03.6\nTo find"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4966.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "15.",
+    "gt_norm": "34",
+    "pred_norm": "15",
+    "model_generation": "15. Explanation: We can use the Pythagorean triple to"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4319.jpg",
+    "is_correct": false,
+    "gt_raw": "7.5",
+    "pred_raw": "12.0.",
+    "gt_norm": "7.5",
+    "pred_norm": "12.0.",
+    "model_generation": "12.0.\u1ed5\nStep-by-step explanation:\nGiven that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2176.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "34.0.",
+    "gt_norm": "34",
+    "pred_norm": "34.0.",
+    "model_generation": "34.0.\u1ed5\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1354.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "5.",
+    "gt_norm": "2.5",
+    "pred_norm": "5",
+    "model_generation": "5.\ufffd\nThe answer is: \\boxed{2.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4500.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "t",
+    "gt_norm": "20",
+    "pred_norm": "t",
+    "model_generation": "tc.\n\nTo solve for the perimeter of parallelogram \\(ABCD\\"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3891.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "18.0.",
+    "gt_norm": "15",
+    "pred_norm": "18.0.",
+    "model_generation": "18.0.\u1ed5\nStep-by-step explanation:\nSince ABC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5398.jpg",
+    "is_correct": false,
+    "gt_raw": "21",
+    "pred_raw": "10.5",
+    "gt_norm": "21",
+    "pred_norm": "10.5",
+    "model_generation": "10.5, 24, 36, 7"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1049.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "20.5.",
+    "gt_norm": "55",
+    "pred_norm": "20.5.",
+    "model_generation": "20.5.BorderSide: 30 degrees.\n\nStep-by-step explanation"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1030.jpg",
+    "is_correct": false,
+    "gt_raw": "100.0",
+    "pred_raw": "40.0",
+    "gt_norm": "100",
+    "pred_norm": "40",
+    "model_generation": "40.0  unit.\n\nTo find the length of the small"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4360.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "\ufffd40.0\u00ba.",
+    "gt_norm": "40",
+    "pred_norm": "\ufffd40.0\u00ba.",
+    "model_generation": "\ufffd40.0\u00ba.\n\nStep 1: Understand the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_569.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "28.",
+    "gt_norm": "22",
+    "pred_norm": "28",
+    "model_generation": "28.\ufffd\u5355\u4f4d\u662f\u5ea6\u3002 \u8981\u6c42\uff1a\u6839\u636e\u9898\u76ee"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3978.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "20.0",
+    "gt_norm": "70",
+    "pred_norm": "20",
+    "model_generation": "20.0\u1ec1.\n\nTo solve for the measure of angle DBA"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5988.jpg",
+    "is_correct": false,
+    "gt_raw": "164.3",
+    "pred_raw": "10.5",
+    "gt_norm": "164.3",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 cm\u00b2.Step-by-step explanation:We can see"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_695.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "140.",
+    "gt_norm": "130",
+    "pred_norm": "140",
+    "model_generation": "140.\ufffd\ufffd.\n\nStep 1: Understand the problem\nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6184.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "12.5.",
+    "gt_norm": "10",
+    "pred_norm": "12.5.",
+    "model_generation": "12.5.\u00e9\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4644.jpg",
+    "is_correct": true,
+    "gt_raw": "19",
+    "pred_raw": "19",
+    "gt_norm": "19",
+    "pred_norm": "19",
+    "model_generation": "19\ufffd\u5355\u4f4d.\n\nIn the figure, in triangle ABC, AB ="
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1978.jpg",
+    "is_correct": false,
+    "gt_raw": "28",
+    "pred_raw": "18.0.0.0.0.0.0.",
+    "gt_norm": "28",
+    "pred_norm": "18.0.0.0.0.0.0.",
+    "model_generation": "18.0.0.0.0.0.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_472.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "150",
+    "gt_norm": "55",
+    "pred_norm": "150",
+    "model_generation": "150\u00b0.  \u8d6b\u5c14\u8f9b\u57fa\u5927\u5b66\u6570\u5b66\u7cfb"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1966.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "130.0.",
+    "gt_norm": "115",
+    "pred_norm": "130.0.",
+    "model_generation": "130.0.\u1ed5\nThe sum of the angles in a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2518.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "55",
+    "gt_norm": "125",
+    "pred_norm": "55",
+    "model_generation": "55 \u1ec1.\nStep-by-step explanation: Since O is the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2968.jpg",
+    "is_correct": false,
+    "gt_raw": "112",
+    "pred_raw": "112.0.",
+    "gt_norm": "112",
+    "pred_norm": "112.0.",
+    "model_generation": "112.0.\u1ed1\nStep-by-step explanation:\nSince line"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_916.jpg",
+    "is_correct": true,
+    "gt_raw": "126",
+    "pred_raw": "126",
+    "gt_norm": "126",
+    "pred_norm": "126",
+    "model_generation": "126\u00b0.\u00e9\u0439\nSolution: Since line a is parallel"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_162.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "35.5.",
+    "gt_norm": "25",
+    "pred_norm": "35.5.",
+    "model_generation": "35.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4004.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "10.5.12.13.14.",
+    "gt_norm": "11",
+    "pred_norm": "10.5.12.13.14.",
+    "model_generation": "10.5.12.13.14."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2654.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "130.0",
+    "gt_norm": "140",
+    "pred_norm": "130",
+    "model_generation": "130.0 degree.\nStep-by-step explanation: \nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4903.jpg",
+    "is_correct": false,
+    "gt_raw": "9",
+    "pred_raw": "100.5",
+    "gt_norm": "9",
+    "pred_norm": "100.5",
+    "model_generation": "100.5 \u1ed1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_8.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "70.",
+    "gt_norm": "50",
+    "pred_norm": "70",
+    "model_generation": "70."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4347.jpg",
+    "is_correct": false,
+    "gt_raw": "2.0",
+    "pred_raw": "3.0.",
+    "gt_norm": "2",
+    "pred_norm": "3.0.",
+    "model_generation": "3.0. \ud83c\udd70\ufe0f\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4425.jpg",
+    "is_correct": false,
+    "gt_raw": "14",
+    "pred_raw": "16.0.",
+    "gt_norm": "14",
+    "pred_norm": "16.0.",
+    "model_generation": "16.0.\u1ed1.\n\nStep-by-step explanation:\n\nGiven that lines"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1323.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3.",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3.\ufffd\u5355\u4f4d\u9762\u79ef\u7684\u4e09\u89d2\u5f62ABC\u662f12\uff0cAD"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3064.jpg",
+    "is_correct": true,
+    "gt_raw": "120",
+    "pred_raw": "120.0",
+    "gt_norm": "120",
+    "pred_norm": "120",
+    "model_generation": "120.0 \u1ec1 (degrees)."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6093.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "\ufffd\ufffd 10.5, \ud835\udc66 = 24.",
+    "gt_norm": "8",
+    "pred_norm": "\ufffd\ufffd10.5,\ud835\udc66=24.",
+    "model_generation": "\ufffd\ufffd 10.5, \ud835\udc66 = 24."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1628.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "3.25.16.48.50.",
+    "gt_norm": "4",
+    "pred_norm": "3.25.16.48.50.",
+    "model_generation": "3.25.16.48.50."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4987.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "\ufffd\ufffd = 10Step-by-step explanation:In a parallelogram",
+    "gt_norm": "3",
+    "pred_norm": "\ufffd\ufffd=10step-by-stepexplanation/aparallelogra",
+    "model_generation": "\ufffd\ufffd = 10Step-by-step explanation:In a parallelogram"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6067.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "10.5.",
+    "gt_norm": "35",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\u1ed1.\nStep-by-step explanation:\nSince,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5239.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "100.57.",
+    "gt_norm": "6",
+    "pred_norm": "100.57.",
+    "model_generation": "100.57.\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2444.jpg",
+    "is_correct": false,
+    "gt_raw": "136",
+    "pred_raw": "124.0.",
+    "gt_norm": "136",
+    "pred_norm": "124.0.",
+    "model_generation": "124.0.\u1ed5\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5123.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "19.5.",
+    "gt_norm": "10",
+    "pred_norm": "19.5.",
+    "model_generation": "19.5.\u03ce. Step-by-step explanation: Given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_867.jpg",
+    "is_correct": false,
+    "gt_raw": "17",
+    "pred_raw": "18.0.",
+    "gt_norm": "17",
+    "pred_norm": "18.0.",
+    "model_generation": "18.0.\u044c\n\nThe following is a multiple-choice question from"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4153.jpg",
+    "is_correct": false,
+    "gt_raw": "120",
+    "pred_raw": "60.0.",
+    "gt_norm": "120",
+    "pred_norm": "60.0.",
+    "model_generation": "60.0.\n\nStep-by-step explanation:\n1. Since AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1461.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "16.5.16.5.",
+    "gt_norm": "16",
+    "pred_norm": "16.5.16.5.",
+    "model_generation": "16.5.16.5.\n\nStep-by-step explanation"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4098.jpg",
+    "is_correct": false,
+    "gt_raw": "2.6",
+    "pred_raw": "1.2.5.",
+    "gt_norm": "2.6",
+    "pred_norm": "1.2.5.",
+    "model_generation": "1.2.5.\u1ed5.\n\nGiven the problem, we need to"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2154.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "105.0.",
+    "gt_norm": "75",
+    "pred_norm": "105.0.",
+    "model_generation": "105.0.BorderSide\nStep-by-step explanation:\nSince AD is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5893.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10.5",
+    "gt_norm": "5",
+    "pred_norm": "10.5",
+    "model_generation": "10.5, 24, 36,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5918.jpg",
+    "is_correct": false,
+    "gt_raw": "137.5",
+    "pred_raw": "10.2",
+    "gt_norm": "137.5",
+    "pred_norm": "10.2",
+    "model_generation": "10.2 unit square.\nStep-by-step explanation:\nThe area"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_27.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60\u00b0.Step-by-step explanation:In a parallelogram"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3715.jpg",
+    "is_correct": false,
+    "gt_raw": "16",
+    "pred_raw": "8.0.",
+    "gt_norm": "16",
+    "pred_norm": "8.0.",
+    "model_generation": "8.0.\u1ed5\nStep-by-step explanation:\nSince E and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1298.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "\u0e47\u0e192.5\ufffd\ufffd\u0e22\u0e37\u0e49\u0e2d.",
+    "gt_norm": "2",
+    "pred_norm": "\u0e47\u0e192.5\ufffd\ufffd\u0e22\u0e37\u0e49\u0e2d.",
+    "model_generation": "\u0e47\u0e192.5\ufffd\ufffd\u0e22\u0e37\u0e49\u0e2d.\nThe answer is: \\"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3560.jpg",
+    "is_correct": true,
+    "gt_raw": "65",
+    "pred_raw": "65.0",
+    "gt_norm": "65",
+    "pred_norm": "65",
+    "model_generation": "65.0 \u0e2d\u0e07\u0e28\u0e32.\n\u0e01\u0e49\u0e32\u0e27\u0e41\u0e23\u0e01: \u0e40"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2402.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "\ufffd55.5^0.\ufffd\ufffd",
+    "gt_norm": "125",
+    "pred_norm": "\ufffd55.50.\ufffd\ufffd",
+    "model_generation": "\ufffd55.5^0.\ufffd\ufffd\u53ef\u4ee5\u4f7f\u7528\u5706\u5468\u89d2\u5b9a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_910.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "150",
+    "gt_norm": "115",
+    "pred_norm": "150",
+    "model_generation": "150\u1eafn.\n\nStep 1: Understand the problem\nThe given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2789.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "20.0",
+    "gt_norm": "25",
+    "pred_norm": "20",
+    "model_generation": "20.0 \u1ec1 (\u1ed9)."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5246.jpg",
+    "is_correct": false,
+    "gt_raw": "25",
+    "pred_raw": "10.5.36.27",
+    "gt_norm": "25",
+    "pred_norm": "10.5.36.27",
+    "model_generation": "10.5.36.27, 8."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2191.jpg",
+    "is_correct": true,
+    "gt_raw": "64",
+    "pred_raw": "64.0",
+    "gt_norm": "64",
+    "pred_norm": "64",
+    "model_generation": "64.0\u1ec1.\nStep-by-step explanation: \nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4398.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "130.0.",
+    "gt_norm": "50",
+    "pred_norm": "130.0.",
+    "model_generation": "130.0.\u1ed5\nSolution: Since AB is the diameter"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5587.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "10.5.26",
+    "gt_norm": "15",
+    "pred_norm": "10.5.26",
+    "model_generation": "10.5.26, 34.78"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_937.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "100.5",
+    "gt_norm": "70",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\ufffd\ufffd\u7684\u89e3\u7b54\uff1a40\n\u5206\u6790\u8fc7\u7a0b\uff1a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5905.jpg",
+    "is_correct": true,
+    "gt_raw": "105",
+    "pred_raw": "105.",
+    "gt_norm": "105",
+    "pred_norm": "105",
+    "model_generation": "105.  \ud83c\udd70\ufe0f\nStep-by-step explanation"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5578.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "\ufffd 10.5.",
+    "gt_norm": "11",
+    "pred_norm": "\ufffd10.5.",
+    "model_generation": "\ufffd 10.5.\nStep-by-step explanation:\nSince KLM"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_93.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "150.5.",
+    "gt_norm": "50",
+    "pred_norm": "150.5.",
+    "model_generation": "150.5.\u1ed1.\n\nStep 1: Since AB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4532.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "12.",
+    "gt_norm": "6",
+    "pred_norm": "12",
+    "model_generation": "12.\ufffd\n\nIn the diagram, in right triangle ABC,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2060.jpg",
+    "is_correct": true,
+    "gt_raw": "60",
+    "pred_raw": "60.0",
+    "gt_norm": "60",
+    "pred_norm": "60",
+    "model_generation": "60.0 \u1ec1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4339.jpg",
+    "is_correct": false,
+    "gt_raw": "6.0",
+    "pred_raw": "2.84.10.57.36.9",
+    "gt_norm": "6",
+    "pred_norm": "2.84.10.57.36.9",
+    "model_generation": "2.84.10.57.36.9"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3832.jpg",
+    "is_correct": false,
+    "gt_raw": "3.0",
+    "pred_raw": "12.0.",
+    "gt_norm": "3",
+    "pred_norm": "12.0.",
+    "model_generation": "12.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4877.jpg",
+    "is_correct": false,
+    "gt_raw": "3.5",
+    "pred_raw": "10.4",
+    "gt_norm": "3.5",
+    "pred_norm": "10.4",
+    "model_generation": "10.4 unit square.\nStep-by-step explanation:\nThe figure"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3129.jpg",
+    "is_correct": false,
+    "gt_raw": "56",
+    "pred_raw": "28.0",
+    "gt_norm": "56",
+    "pred_norm": "28",
+    "model_generation": "28.0^{\\circ}.\n\nTo determine the maximum angle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3150.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "1.5.",
+    "gt_norm": "6",
+    "pred_norm": "1.5.",
+    "model_generation": "1.5.BorderSide: 3.0.BorderSide: 4.5"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_517.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "100",
+    "gt_norm": "10",
+    "pred_norm": "100",
+    "model_generation": "100\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4881.jpg",
+    "is_correct": false,
+    "gt_raw": "57",
+    "pred_raw": "123.3",
+    "gt_norm": "57",
+    "pred_norm": "123.3",
+    "model_generation": "123.3\u1ec1\nStep-by-step explanation:\nSince a ||"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3455.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "3.0.",
+    "gt_norm": "2",
+    "pred_norm": "3.0.",
+    "model_generation": "3.0.\n\nStep-by-step explanation:\n\n1. **Identify"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5577.jpg",
+    "is_correct": false,
+    "gt_raw": "12.75",
+    "pred_raw": "12.5",
+    "gt_norm": "12.75",
+    "pred_norm": "12.5",
+    "model_generation": "12.5 \ufffd\u5355\u4f4d.\nStep-by-step explanation:\nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1307.jpg",
+    "is_correct": false,
+    "gt_raw": "0.5",
+    "pred_raw": "1.5",
+    "gt_norm": "0.5",
+    "pred_norm": "1.5",
+    "model_generation": "1.5\ufffd\ufffd\u3002 \u8981\u6c42\u89e3\u4e09\u89d2\u5f62 DEF \u7684"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5140.jpg",
+    "is_correct": false,
+    "gt_raw": "129.9",
+    "pred_raw": "10.5 i",
+    "gt_norm": "129.9",
+    "pred_norm": "10.5i",
+    "model_generation": "10.5 in\u00b2Step-by-step explanation:We can see"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1250.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "6 + 2",
+    "gt_norm": "3",
+    "pred_norm": "8",
+    "model_generation": "6 + 2\u221a2."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_902.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "50",
+    "gt_norm": "30",
+    "pred_norm": "50",
+    "model_generation": "50 \u1ec1.\nStep-by-step explanation: \nSince AB is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_382.jpg",
+    "is_correct": false,
+    "gt_raw": "52",
+    "pred_raw": "The degree of angle ABD is",
+    "gt_norm": "52",
+    "pred_norm": "thedegreeofangleabdi",
+    "model_generation": "The degree of angle ABD is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_748.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "100.5",
+    "gt_norm": "70",
+    "pred_norm": "100.5",
+    "model_generation": "100.5\u1ec1.\n\nExplanation: Since OC bisects angle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4047.jpg",
+    "is_correct": false,
+    "gt_raw": "64",
+    "pred_raw": "\ufffd64.0\u00ba.\u03ce = 2 * \u2220A",
+    "gt_norm": "64",
+    "pred_norm": "\ufffd64.0\u00ba.\u03ce=2*\u2220a",
+    "model_generation": "\ufffd64.0\u00ba.\u03ce = 2 * \u2220A"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4172.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "50.0.",
+    "gt_norm": "130",
+    "pred_norm": "50.0.",
+    "model_generation": "50.0.\n\nStep-by-step explanation:\n\nIn circle O,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1138.jpg",
+    "is_correct": false,
+    "gt_raw": "1",
+    "pred_raw": "10.",
+    "gt_norm": "1",
+    "pred_norm": "10",
+    "model_generation": "10."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1795.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10.",
+    "gt_norm": "20",
+    "pred_norm": "10",
+    "model_generation": "10."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2961.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(3)",
+    "pred_raw": "1.0.",
+    "gt_norm": "sqrt3",
+    "pred_norm": "1.0.",
+    "model_generation": "1.0.BorderSide(1.0) unit.\n\nStep 1:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3269.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "155.0.",
+    "gt_norm": "65",
+    "pred_norm": "155.0.",
+    "model_generation": "155.0.\u1ed5\nStep-by-step explanation:\nIn the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4784.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "10.5",
+    "gt_norm": "12",
+    "pred_norm": "10.5",
+    "model_generation": "10.5cmStep-by-step explanation:We are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3507.jpg",
+    "is_correct": false,
+    "gt_raw": "1.0",
+    "pred_raw": "2.0.",
+    "gt_norm": "1",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\ufffd\nSolution summary: According to the properties of tang"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4790.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "8.5",
+    "gt_norm": "8",
+    "pred_norm": "8.5",
+    "model_generation": "8.5 \ufffd.\nStep-by-step explanation:\nLet the base"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2150.jpg",
+    "is_correct": true,
+    "gt_raw": "64",
+    "pred_raw": "64",
+    "gt_norm": "64",
+    "pred_norm": "64",
+    "model_generation": "64 \u1ec1.\nStep-by-step explanation:\nSince OC is perpendicular"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4417.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "130.0",
+    "gt_norm": "110",
+    "pred_norm": "130",
+    "model_generation": "130.0 \u00b0.\n\nStep-by-step explanation:\nGiven that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4596.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "10",
+    "gt_norm": "4",
+    "pred_norm": "10",
+    "model_generation": "10\u043c.\u044b.\n\nThe following is a multiple-choice question from China"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6096.jpg",
+    "is_correct": false,
+    "gt_raw": "27",
+    "pred_raw": "10.5",
+    "gt_norm": "27",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 \ufffd\u5355\u4f4d.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2017.jpg",
+    "is_correct": true,
+    "gt_raw": "62",
+    "pred_raw": "62.0",
+    "gt_norm": "62",
+    "pred_norm": "62",
+    "model_generation": "62.0 \u1ec1.\n\nTo find the measure of angle D"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6236.jpg",
+    "is_correct": false,
+    "gt_raw": "499.5",
+    "pred_raw": "108 sq",
+    "gt_norm": "499.5",
+    "pred_norm": "108",
+    "model_generation": "108 square units.\nStep-by-step explanation:\nThe quadrilateral"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2165.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "\ufffd\ufffd = 70\u00b0.",
+    "gt_norm": "110",
+    "pred_norm": "\ufffd\ufffd=70\u00b0.",
+    "model_generation": "\ufffd\ufffd = 70\u00b0.\nStep-by-step explanation: \nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1174.jpg",
+    "is_correct": true,
+    "gt_raw": "27",
+    "pred_raw": "27.",
+    "gt_norm": "27",
+    "pred_norm": "27",
+    "model_generation": "27."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3761.jpg",
+    "is_correct": false,
+    "gt_raw": "21",
+    "pred_raw": "\u0e47\u0e1930.0.\u1ed5",
+    "gt_norm": "21",
+    "pred_norm": "\u0e47\u0e1930.0.\u1ed5",
+    "model_generation": "\u0e47\u0e1930.0.\u1ed5\nSolution: Since D is the midpoint"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5265.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "100.57",
+    "gt_norm": "8",
+    "pred_norm": "100.57",
+    "model_generation": "100.57\u1ed9.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3243.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "130.0.",
+    "gt_norm": "110",
+    "pred_norm": "130.0.",
+    "model_generation": "130.0.BorderSide\nSolution: In triangle ABC, the in"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4087.jpg",
+    "is_correct": false,
+    "gt_raw": "132",
+    "pred_raw": "48.0",
+    "gt_norm": "132",
+    "pred_norm": "48",
+    "model_generation": "48.0 \u1ec1.\n\nStep-by-step explanation: In a"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5366.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "10.5",
+    "gt_norm": "48",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 \u2013 24.9 \u2013 36"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1741.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10.",
+    "gt_norm": "20",
+    "pred_norm": "10",
+    "model_generation": "10.\ufffd\ufffd.\n\nStep-by-step explanation: In a rhomb"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2575.jpg",
+    "is_correct": false,
+    "gt_raw": "128",
+    "pred_raw": "128.0.",
+    "gt_norm": "128",
+    "pred_norm": "128.0.",
+    "model_generation": "128.0.\n\nStep-by-step explanation:\n\nSince quadrilateral ABC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5882.jpg",
+    "is_correct": false,
+    "gt_raw": "107",
+    "pred_raw": "105.5",
+    "gt_norm": "107",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4649.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3.",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1729.jpg",
+    "is_correct": true,
+    "gt_raw": "4.8",
+    "pred_raw": "4.8",
+    "gt_norm": "4.8",
+    "pred_norm": "4.8",
+    "model_generation": "4.8\ufffd\u5355\u4f4d.\n\nStep-by-step explanation:\n\n1. **"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_543.jpg",
+    "is_correct": true,
+    "gt_raw": "36",
+    "pred_raw": "36",
+    "gt_norm": "36",
+    "pred_norm": "36",
+    "model_generation": "36^0.  \u8346\u95e8\u5e02\u4e8c\u4e2d\u6570\u5b66"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2198.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "15.5",
+    "gt_norm": "40",
+    "pred_norm": "15.5",
+    "model_generation": "15.5, 30.8, 46."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3289.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "6.25.",
+    "gt_norm": "4",
+    "pred_norm": "6.25.",
+    "model_generation": "6.25.\u1ed5\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2584.jpg",
+    "is_correct": false,
+    "gt_raw": "90",
+    "pred_raw": "135.0",
+    "gt_norm": "90",
+    "pred_norm": "135",
+    "model_generation": "135.0 \u1ed1.\nStep-by-step explanation: \nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_264.jpg",
+    "is_correct": false,
+    "gt_raw": "39",
+    "pred_raw": "129.",
+    "gt_norm": "39",
+    "pred_norm": "129",
+    "model_generation": "129.\ufffd\u5355\u4f4d\u5706\u4e2d\uff0cAB\u4e3a\u76f4\u5f84\uff0c\u5219\u2220AC"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1873.jpg",
+    "is_correct": true,
+    "gt_raw": "2",
+    "pred_raw": "2.0",
+    "gt_norm": "2",
+    "pred_norm": "2",
+    "model_generation": "2.0 unitscuong.\n\nStep-by-step explanation:\nSince D"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_457.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "120.",
+    "gt_norm": "30",
+    "pred_norm": "120",
+    "model_generation": "120.\u1ed5\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2662.jpg",
+    "is_correct": false,
+    "gt_raw": "80",
+    "pred_raw": "100.0",
+    "gt_norm": "80",
+    "pred_norm": "100",
+    "model_generation": "100.0\u1ec1 (degrees).\n\nStep 1: Identify the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5608.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "30.",
+    "gt_norm": "48",
+    "pred_norm": "30",
+    "model_generation": "30. \u1eaec.\nStep-by-step explanation:\nWe are"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1799.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "15.0.",
+    "gt_norm": "15",
+    "pred_norm": "15.0.",
+    "model_generation": "15.0.\u1ed5\nTo find the area of quadrilateral E"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4563.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "20.4.",
+    "gt_norm": "4",
+    "pred_norm": "20.4.",
+    "model_generation": "20.4.\n\nGiven the figure, in right triangle ABC, angle"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5640.jpg",
+    "is_correct": false,
+    "gt_raw": "11",
+    "pred_raw": "10.5",
+    "gt_norm": "11",
+    "pred_norm": "10.5",
+    "model_generation": "10.5cmStep-by-step explanation:We are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5240.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "\ufffd\ufffd = 10.5Step-by-step explanation:We can use",
+    "gt_norm": "130",
+    "pred_norm": "\ufffd\ufffd=10.5step-by-stepexplanation/wecanuse",
+    "model_generation": "\ufffd\ufffd = 10.5Step-by-step explanation:We can use"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2212.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "3.0.",
+    "gt_norm": "3",
+    "pred_norm": "3.0.",
+    "model_generation": "3.0. \n\nSolution: The circumference of the bottom circle of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3105.jpg",
+    "is_correct": false,
+    "gt_raw": "2.0",
+    "pred_raw": "2.0.",
+    "gt_norm": "2",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\n\nStep-by-step explanation:\n\nSince triangle ABC is similar"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3785.jpg",
+    "is_correct": false,
+    "gt_raw": "3.6",
+    "pred_raw": "4.0.",
+    "gt_norm": "3.6",
+    "pred_norm": "4.0.",
+    "model_generation": "4.0.\n\nStep 1: Analyze the given information"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1340.jpg",
+    "is_correct": false,
+    "gt_raw": "9.0",
+    "pred_raw": "9.0.",
+    "gt_norm": "9",
+    "pred_norm": "9.0.",
+    "model_generation": "9.0. \ud83c\udd70\ufe0f\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2009.jpg",
+    "is_correct": false,
+    "gt_raw": "65",
+    "pred_raw": "25.0.",
+    "gt_norm": "65",
+    "pred_norm": "25.0.",
+    "model_generation": "25.0.\u1ed5\nThe answer is: 25"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5974.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "10.5.",
+    "gt_norm": "2",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\u1ed1.\nStep-by-step explanation:\nSince,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4372.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100.0.",
+    "gt_norm": "40",
+    "pred_norm": "100.0.",
+    "model_generation": "100.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1404.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "2.4.",
+    "gt_norm": "2",
+    "pred_norm": "2.4.",
+    "model_generation": "2.4.\u1ed5\nSolution: Let's denote the area of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5202.jpg",
+    "is_correct": false,
+    "gt_raw": "123",
+    "pred_raw": "57.",
+    "gt_norm": "123",
+    "pred_norm": "57",
+    "model_generation": "57. \u1ed1.\nStep-by-step explanation:\nSince, the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4993.jpg",
+    "is_correct": false,
+    "gt_raw": "8",
+    "pred_raw": "10.5",
+    "gt_norm": "8",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 unitsl.Explanation:Given that X and Y"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_587.jpg",
+    "is_correct": false,
+    "gt_raw": "125",
+    "pred_raw": "105.5",
+    "gt_norm": "125",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u1ec1.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5301.jpg",
+    "is_correct": false,
+    "gt_raw": "29.2",
+    "pred_raw": "10.2",
+    "gt_norm": "29.2",
+    "pred_norm": "10.2",
+    "model_generation": "10.2 unit square.Step-by-step explanation:We are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5596.jpg",
+    "is_correct": false,
+    "gt_raw": "13.4",
+    "pred_raw": "13.4.",
+    "gt_norm": "13.4",
+    "pred_norm": "13.4.",
+    "model_generation": "13.4.\u00e9\nStep-by-step explanation:\nGiven that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5746.jpg",
+    "is_correct": false,
+    "gt_raw": "22",
+    "pred_raw": "10.5.",
+    "gt_norm": "22",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5. Step-by-step explanation: In a parallelog"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2186.jpg",
+    "is_correct": false,
+    "gt_raw": "6.0",
+    "pred_raw": "6.0.",
+    "gt_norm": "6",
+    "pred_norm": "6.0.",
+    "model_generation": "6.0. \ud83c\udd70\ufe0f\nTo find the length of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5493.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "4.0.18.18.18.1",
+    "gt_norm": "20",
+    "pred_norm": "4.0.18.18.18.1",
+    "model_generation": "4.0.18.18.18.1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1711.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "120.5.",
+    "gt_norm": "20",
+    "pred_norm": "120.5.",
+    "model_generation": "120.5.SizeType: Square\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2909.jpg",
+    "is_correct": false,
+    "gt_raw": "15",
+    "pred_raw": "\ufffd60.0\u00ba.\u00e9",
+    "gt_norm": "15",
+    "pred_norm": "\ufffd60.0\u00ba.\u00e9",
+    "model_generation": "\ufffd60.0\u00ba.\u00e9\nStep-by-step explanation:\nSince"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3035.jpg",
+    "is_correct": false,
+    "gt_raw": "95",
+    "pred_raw": "105.0",
+    "gt_norm": "95",
+    "pred_norm": "105",
+    "model_generation": "105.0_^(_^(_^(_^(_^(_^(_^(_^(_^(_^("
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1329.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "3.5.",
+    "gt_norm": "3",
+    "pred_norm": "3.5.",
+    "model_generation": "3.5.\u1ed5\nThe answer is: \\boxed{3"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2990.jpg",
+    "is_correct": true,
+    "gt_raw": "4",
+    "pred_raw": "4.0",
+    "gt_norm": "4",
+    "pred_norm": "4",
+    "model_generation": "4.0\ufffd\u5355\u4f4d.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5201.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "10.5",
+    "gt_norm": "6",
+    "pred_norm": "10.5",
+    "model_generation": "10.5cmStep-by-step explanation:We are given that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3712.jpg",
+    "is_correct": false,
+    "gt_raw": "24",
+    "pred_raw": "21.0.",
+    "gt_norm": "24",
+    "pred_norm": "21.0.",
+    "model_generation": "21.0.\u1ed5.\nThe answer is: \\boxed{2"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2281.jpg",
+    "is_correct": true,
+    "gt_raw": "7.5",
+    "pred_raw": "7.5",
+    "gt_norm": "7.5",
+    "pred_norm": "7.5",
+    "model_generation": "7.5 unit."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3118.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "70.0",
+    "gt_norm": "55",
+    "pred_norm": "70",
+    "model_generation": "70.0 \u00b0.\n\n**Step-by-step explanation:**\n\n1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_829.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "140",
+    "gt_norm": "50",
+    "pred_norm": "140",
+    "model_generation": "140^{\\circ} .<br/> <br/>"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1907.jpg",
+    "is_correct": true,
+    "gt_raw": "28",
+    "pred_raw": "28",
+    "gt_norm": "28",
+    "pred_norm": "28",
+    "model_generation": "28 m\u00e9tres."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_658.jpg",
+    "is_correct": true,
+    "gt_raw": "32",
+    "pred_raw": "32",
+    "gt_norm": "32",
+    "pred_norm": "32",
+    "model_generation": "32\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2371.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "3/2.",
+    "gt_norm": "3",
+    "pred_norm": "1.5",
+    "model_generation": "3/2.\n\nStep-by-step explanation:\nIn a right triangle,"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1866.jpg",
+    "is_correct": true,
+    "gt_raw": "6",
+    "pred_raw": "6",
+    "gt_norm": "6",
+    "pred_norm": "6",
+    "model_generation": "6cm."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5415.jpg",
+    "is_correct": false,
+    "gt_raw": "26",
+    "pred_raw": "105.5",
+    "gt_norm": "26",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_374.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "130.",
+    "gt_norm": "115",
+    "pred_norm": "130",
+    "model_generation": "130.\ufffd\nSolution: In triangle ABC, the sum of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_566.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "150.123456789",
+    "gt_norm": "60",
+    "pred_norm": "150.1235",
+    "model_generation": "150.123456789\u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5773.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "m\u2220JIH = 50",
+    "gt_norm": "50",
+    "pred_norm": "\u2220jih=50",
+    "model_generation": "m\u2220JIH = 50"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1579.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "5.83",
+    "gt_norm": "3",
+    "pred_norm": "5.83",
+    "model_generation": "5.83\ufffd\u5355\u4f4d.\n\nStep-by-step explanation:\n\n1."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4727.jpg",
+    "is_correct": false,
+    "gt_raw": "95",
+    "pred_raw": "105.0",
+    "gt_norm": "95",
+    "pred_norm": "105",
+    "model_generation": "105.0\u1ec1.\nStep 1: Understanding the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2960.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "4.0.",
+    "gt_norm": "4",
+    "pred_norm": "4.0.",
+    "model_generation": "4.0. \ud83c\udd70\ufe0f\n\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5061.jpg",
+    "is_correct": false,
+    "gt_raw": "12",
+    "pred_raw": "10.5",
+    "gt_norm": "12",
+    "pred_norm": "10.5",
+    "model_generation": "10.5  unitscExplanation:In a parallelogram"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5151.jpg",
+    "is_correct": false,
+    "gt_raw": "6",
+    "pred_raw": "30.",
+    "gt_norm": "6",
+    "pred_norm": "30",
+    "model_generation": "30. \u00b0\nStep-by-step explanation:\nSince the triangle is"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2399.jpg",
+    "is_correct": true,
+    "gt_raw": "58",
+    "pred_raw": "58.",
+    "gt_norm": "58",
+    "pred_norm": "58",
+    "model_generation": "58."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4526.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3.",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3.\ufffd\u5355\u4f4d:\u5398\u7c73.\n\nIn a right triangle, the length"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_649.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "120",
+    "gt_norm": "30",
+    "pred_norm": "120",
+    "model_generation": "120 \u00b0.**Explanation:**\n\nGiven that AB is perpendicular"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3102.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "20.0.",
+    "gt_norm": "18",
+    "pred_norm": "20.0.",
+    "model_generation": "20.0.\u1ed5\nStep-by-step explanation: \nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1022.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "\ufffd\ufffd\u00b0. Since triangle ABC is an equilateral triangle, all its internal",
+    "gt_norm": "75",
+    "pred_norm": "\ufffd\ufffd\u00b0.sincetriangleabcianequilateraltriangle,allitinternal",
+    "model_generation": "\ufffd\ufffd\u00b0. Since triangle ABC is an equilateral triangle, all its internal"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4391.jpg",
+    "is_correct": false,
+    "gt_raw": "140",
+    "pred_raw": "105.0.",
+    "gt_norm": "140",
+    "pred_norm": "105.0.",
+    "model_generation": "105.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3762.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "57.5",
+    "gt_norm": "50",
+    "pred_norm": "57.5",
+    "model_generation": "57.5 \u1ec1.\n\nTo find the measure of angle A"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5972.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "4.5.",
+    "gt_norm": "5",
+    "pred_norm": "4.5.",
+    "model_generation": "4.5.\u03ce\nStep-by-step explanation:\nSince the rh"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_355.jpg",
+    "is_correct": false,
+    "gt_raw": "115",
+    "pred_raw": "50.16.17.18.19",
+    "gt_norm": "115",
+    "pred_norm": "50.16.17.18.19",
+    "model_generation": "50.16.17.18.19"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2166.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25.0",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25.0\u1ec1\nThe measure of angle A is half the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4944.jpg",
+    "is_correct": false,
+    "gt_raw": "5/7",
+    "pred_raw": "0.643.",
+    "gt_norm": "0.7143",
+    "pred_norm": "0.643.",
+    "model_generation": "0.643.\nStep-by-step explanation:\nWe are given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2816.jpg",
+    "is_correct": false,
+    "gt_raw": "2",
+    "pred_raw": "2.0.",
+    "gt_norm": "2",
+    "pred_norm": "2.0.",
+    "model_generation": "2.0.\n\nStep-by-step explanation:\n\nGiven that DE is parallel"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2943.jpg",
+    "is_correct": false,
+    "gt_raw": "48",
+    "pred_raw": "54.0",
+    "gt_norm": "48",
+    "pred_norm": "54",
+    "model_generation": "54.0 \u00b0.\n\nStep-by-step explanation:\n1. Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_789.jpg",
+    "is_correct": false,
+    "gt_raw": "40",
+    "pred_raw": "100.5.",
+    "gt_norm": "40",
+    "pred_norm": "100.5.",
+    "model_generation": "100.5.  \u8d77\u6765\uff0c\u6211\u4eec\u4e00\u6b65\u6b65"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3106.jpg",
+    "is_correct": false,
+    "gt_raw": "85",
+    "pred_raw": "35.0",
+    "gt_norm": "85",
+    "pred_norm": "35",
+    "model_generation": "35.0 \u00b0.\n\nStep-by-step explanation:\n\n1. **"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_756.jpg",
+    "is_correct": false,
+    "gt_raw": "110",
+    "pred_raw": "100",
+    "gt_norm": "110",
+    "pred_norm": "100",
+    "model_generation": "100^{\\circ} ."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_832.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "150.",
+    "gt_norm": "60",
+    "pred_norm": "150",
+    "model_generation": "150.\ufffd\ufffd\u7684\u89e3\u7b54\uff1a30\u00b0\nTo find the"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2757.jpg",
+    "is_correct": false,
+    "gt_raw": "sqrt(15)",
+    "pred_raw": "2.4.",
+    "gt_norm": "sqrt15",
+    "pred_norm": "2.4.",
+    "model_generation": "2.4. \ud83c\udd70\ufe0f\n\nTo find the minimum length"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1762.jpg",
+    "is_correct": false,
+    "gt_raw": "10",
+    "pred_raw": "10.5.",
+    "gt_norm": "10",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\ufffd\nStep 1: Understand the problem and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1274.jpg",
+    "is_correct": false,
+    "gt_raw": "1.5",
+    "pred_raw": "2.5",
+    "gt_norm": "1.5",
+    "pred_norm": "2.5",
+    "model_generation": "2.5\ufffd\ufffd\u3002 \u89e3\u6790\uff1a\u8fde\u63a5CF\uff0c\u56e0\u4e3aF\u662f"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2273.jpg",
+    "is_correct": false,
+    "gt_raw": "35",
+    "pred_raw": "35.5.35.35.35.",
+    "gt_norm": "35",
+    "pred_norm": "35.5.35.35.35.",
+    "model_generation": "35.5.35.35.35."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2788.jpg",
+    "is_correct": false,
+    "gt_raw": "1.0",
+    "pred_raw": "1.0.1  0.5  0.",
+    "gt_norm": "1",
+    "pred_norm": "1.0.10.50.",
+    "model_generation": "1.0.1  0.5  0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3467.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "10.0.",
+    "gt_norm": "20",
+    "pred_norm": "10.0.",
+    "model_generation": "10.0.\ufffd\ufffd\u9700\u8981\u8ba1\u7b97\u7684\u662f\u56db\u8fb9\u5f62EFGH"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5721.jpg",
+    "is_correct": true,
+    "gt_raw": "57",
+    "pred_raw": "57.",
+    "gt_norm": "57",
+    "pred_norm": "57",
+    "model_generation": "57. Explanation: Since m \\angle 1 = 1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1311.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10.5.",
+    "gt_norm": "5",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.BorderSide: 2.5\nStep-by-step explanation"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_51.jpg",
+    "is_correct": true,
+    "gt_raw": "80",
+    "pred_raw": "80.",
+    "gt_norm": "80",
+    "pred_norm": "80",
+    "model_generation": "80.  \u8d77\u56e0: \u56e0\u4e3a\u56db\u8fb9"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2276.jpg",
+    "is_correct": false,
+    "gt_raw": "40.0",
+    "pred_raw": "30.0.",
+    "gt_norm": "40",
+    "pred_norm": "30.0.",
+    "model_generation": "30.0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4832.jpg",
+    "is_correct": false,
+    "gt_raw": "34",
+    "pred_raw": "105.5",
+    "gt_norm": "34",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\n\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3676.jpg",
+    "is_correct": false,
+    "gt_raw": "3",
+    "pred_raw": "5.0.",
+    "gt_norm": "3",
+    "pred_norm": "5.0.",
+    "model_generation": "5.0. \ud83c\udd70\ufe0f\nTo find the area of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1808.jpg",
+    "is_correct": false,
+    "gt_raw": "5",
+    "pred_raw": "10.5.",
+    "gt_norm": "5",
+    "pred_norm": "10.5.",
+    "model_generation": "10.5.\n\n**Analysis:**  \nThis problem involves the application"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3436.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "24.5.",
+    "gt_norm": "4",
+    "pred_norm": "24.5.",
+    "model_generation": "24.5.\u1ed5.\nSolution: Let AC = 3x"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4464.jpg",
+    "is_correct": true,
+    "gt_raw": "25",
+    "pred_raw": "25.0",
+    "gt_norm": "25",
+    "pred_norm": "25",
+    "model_generation": "25.0 \u1ec1.\n\nStep-by-step explanation:\n\nSince AB"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5741.jpg",
+    "is_correct": false,
+    "gt_raw": "130",
+    "pred_raw": "105.5",
+    "gt_norm": "130",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u1ec1.\nStep-by-step explanation:\nWe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5324.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "100.5.",
+    "gt_norm": "70",
+    "pred_norm": "100.5.",
+    "model_generation": "100.5.\u00e9\nStep-by-step explanation:\nThe"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5861.jpg",
+    "is_correct": false,
+    "gt_raw": "18",
+    "pred_raw": "100",
+    "gt_norm": "18",
+    "pred_norm": "100",
+    "model_generation": "100 \u1ec1.\nStep-by-step explanation:\nIn the given"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1627.jpg",
+    "is_correct": true,
+    "gt_raw": "3",
+    "pred_raw": "3",
+    "gt_norm": "3",
+    "pred_norm": "3",
+    "model_generation": "3 \ud83c\uddec\ud83c\udde7\n\n**Solution:**\n\nGiven that \\( PA"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4595.jpg",
+    "is_correct": false,
+    "gt_raw": "13",
+    "pred_raw": "\u0e4713\u043c.",
+    "gt_norm": "13",
+    "pred_norm": "\u0e4713\u043c.",
+    "model_generation": "\u0e4713\u043c."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_221.jpg",
+    "is_correct": true,
+    "gt_raw": "54",
+    "pred_raw": "54",
+    "gt_norm": "54",
+    "pred_norm": "54",
+    "model_generation": "54 \u00b0.**Explanation:**\n\nGiven that AB is the diameter"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4937.jpg",
+    "is_correct": false,
+    "gt_raw": "70",
+    "pred_raw": "105.5",
+    "gt_norm": "70",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4143.jpg",
+    "is_correct": false,
+    "gt_raw": "60",
+    "pred_raw": "\ufffd100.0.",
+    "gt_norm": "60",
+    "pred_norm": "\ufffd100.0.",
+    "model_generation": "\ufffd100.0.\n\nStep 1: Understanding the problem"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1901.jpg",
+    "is_correct": false,
+    "gt_raw": "5/2",
+    "pred_raw": "4.5.",
+    "gt_norm": "2.5",
+    "pred_norm": "4.5.",
+    "model_generation": "4.5.\u044c\u0439.\n\nStep-by-step explanation:\n\n1."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1794.jpg",
+    "is_correct": false,
+    "gt_raw": "17",
+    "pred_raw": "18",
+    "gt_norm": "17",
+    "pred_norm": "18",
+    "model_generation": "18\ufffd\u5355\u4f4d. \u8d77\u56e0: \u56e0\u4e3a\u5728"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_764.jpg",
+    "is_correct": true,
+    "gt_raw": "40",
+    "pred_raw": "40",
+    "gt_norm": "40",
+    "pred_norm": "40",
+    "model_generation": "40\u1eafn.\nStep-by-step explanation: Since line a is parallel"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_245.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "100.5",
+    "gt_norm": "30",
+    "pred_norm": "100.5",
+    "model_generation": "100.5 \u1ec1.\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_260.jpg",
+    "is_correct": false,
+    "gt_raw": "88",
+    "pred_raw": "82.",
+    "gt_norm": "88",
+    "pred_norm": "82",
+    "model_generation": "82.  \u8981\u70b9\uff1a 1) \ufffd"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_3458.jpg",
+    "is_correct": true,
+    "gt_raw": "150",
+    "pred_raw": "150.0",
+    "gt_norm": "150",
+    "pred_norm": "150",
+    "model_generation": "150.0 \u1ec1.\nStep-by-step explanation: Since"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4839.jpg",
+    "is_correct": false,
+    "gt_raw": "180",
+    "pred_raw": "120",
+    "gt_norm": "180",
+    "pred_norm": "120",
+    "model_generation": "120 \u00b0."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_715.jpg",
+    "is_correct": false,
+    "gt_raw": "47",
+    "pred_raw": "43.5",
+    "gt_norm": "47",
+    "pred_norm": "43.5",
+    "model_generation": "43.5 \u1ec1.\nStep-by-step explanation:\nSince A"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_4467.jpg",
+    "is_correct": false,
+    "gt_raw": "50",
+    "pred_raw": "100.0",
+    "gt_norm": "50",
+    "pred_norm": "100",
+    "model_generation": "100.0\u1ec1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1\u1ed1"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6062.jpg",
+    "is_correct": false,
+    "gt_raw": "55",
+    "pred_raw": "120",
+    "gt_norm": "55",
+    "pred_norm": "120",
+    "model_generation": "120 \u00b0. Step-by-step explanation: Given that D and"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5547.jpg",
+    "is_correct": false,
+    "gt_raw": "2.5",
+    "pred_raw": "1.5.1.2.3.4.5.",
+    "gt_norm": "2.5",
+    "pred_norm": "1.5.1.2.3.4.5.",
+    "model_generation": "1.5.1.2.3.4.5."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_844.jpg",
+    "is_correct": false,
+    "gt_raw": "75",
+    "pred_raw": "30.5",
+    "gt_norm": "75",
+    "pred_norm": "30.5",
+    "model_generation": "30.5 \u1ec1\u1ed1\u1ee7.\n\nTo determine the measure of"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6029.jpg",
+    "is_correct": false,
+    "gt_raw": "121",
+    "pred_raw": "105.5",
+    "gt_norm": "121",
+    "pred_norm": "105.5",
+    "model_generation": "105.5 \u0e2d\u0e07\u0e28\u0e32.\n\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1144.jpg",
+    "is_correct": false,
+    "gt_raw": "4",
+    "pred_raw": "4.8",
+    "gt_norm": "4",
+    "pred_norm": "4.8",
+    "model_generation": "4.8 \ufffd\ufffd.\n\nGiven that the area of quadrilateral MON"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_1829.jpg",
+    "is_correct": true,
+    "gt_raw": "30",
+    "pred_raw": "30",
+    "gt_norm": "30",
+    "pred_norm": "30",
+    "model_generation": "30\u043c.\u043e\u0441\u043d.\u044b\u043b.\n\nTo determine the distance"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2003.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "110.0.110.0.11",
+    "gt_norm": "20",
+    "pred_norm": "110.0.110.0.11",
+    "model_generation": "110.0.110.0.11"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_2253.jpg",
+    "is_correct": false,
+    "gt_raw": "20",
+    "pred_raw": "30",
+    "gt_norm": "20",
+    "pred_norm": "30",
+    "model_generation": "30 adulti."
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_6076.jpg",
+    "is_correct": true,
+    "gt_raw": "5",
+    "pred_raw": "5.",
+    "gt_norm": "5",
+    "pred_norm": "5",
+    "model_generation": "5.\ufffd\u5355\u4f4d\uff1a1\nStep-by-step explanation:\nGiven that"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_201.jpg",
+    "is_correct": false,
+    "gt_raw": "32",
+    "pred_raw": "14.5.",
+    "gt_norm": "32",
+    "pred_norm": "14.5.",
+    "model_generation": "14.5.BorderSide(29^o).</span>\n\n**"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_908.jpg",
+    "is_correct": false,
+    "gt_raw": "30",
+    "pred_raw": "120.5.",
+    "gt_norm": "30",
+    "pred_norm": "120.5.",
+    "model_generation": "120.5.BorderSide(\u201c\u201d)\nStep-by-step explanation:"
+  },
+  {
+    "image": "GeoThought/playground/data/images/samples/sample_5241.jpg",
+    "is_correct": false,
+    "gt_raw": "4185",
+    "pred_raw": "10.5",
+    "gt_norm": "4185",
+    "pred_norm": "10.5",
+    "model_generation": "10.5 cm\u00b2.Step-by-step explanation:We can see"
+  }
+]

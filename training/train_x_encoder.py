@@ -4,6 +4,7 @@ import json
 import os
 import shutil
 import subprocess
+import tempfile
 import threading
 import time
 import torch
@@ -88,12 +89,36 @@ def wait_for_uploads(timeout: float = 120.0) -> None:
 
 
 def parse_cp_name(f):
-    # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt"
-    base = f.split('epoch_')[1].split('.pt')[0]
+    # example formats: "x_encoder_epoch_1.pt" or "x_encoder_epoch_1_step_10.pt" or "x_encoder_epoch_1_end.pt"
+    base = f.split('epoch_')[1].split('.pt')[0].replace('_end', '')
     if "_step_" in base:
         ep, st = base.split("_step_")
         return (int(ep), int(st))
     return (int(base), 0)
+
+def robust_mfs_save(state_dict, file_path):
+    """
+    Saves sequentially bypassing all PyTorch C++ ZIP-stream metadata timeout bugs!
+    It intercepts the 26.7GB dictionary, writes to the 132GB RAM-Disk naturally (~2 seconds),
+    and forces the native Linux `cp` architecture to robustly stream network block parity 
+    directly over MooseFS identically to a flat binary without seeking!
+    """
+    import os
+    import torch
+
+    # Prefer a RAM-backed temp dir when available, but fall back to the system temp dir.
+    temp_dir = "/dev/shm" if os.path.isdir("/dev/shm") and os.access("/dev/shm", os.W_OK) else tempfile.gettempdir()
+    temp_path = os.path.join(temp_dir, "latent_euclid_network_buffer.pt")
+    
+    # Step 1: Zip-serialize instantly to RAM
+    torch.save(state_dict, temp_path)
+    
+    # Step 2: Use native Sequential OS streams crossing the network lock efficiently!
+    shutil.copyfile(temp_path, file_path)
+    
+    # Step 3: Evict from RAM disk instantly natively securing DataLoader SHM balances
+    if os.path.exists(temp_path):
+        os.remove(temp_path)
 
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
@@ -101,6 +126,8 @@ def parse_args():
                         help="Path to YAML training configuration")
     parser.add_argument("--experiment_name", type=str, default=None,
                         help="Explicit experiment namespace override")
+    parser.add_argument("--config_block", type=str, default=None,
+                        help="Optional x-encoder config block override")
     return parser.parse_args()
 
 def setup_ddp():
@@ -120,11 +147,10 @@ class GeoThoughtsDataset(Dataset):
     Parses the JSONL generation pairs, loads the raw vision images, 
     and aligns them with the offline continuous 4-step .pt manifolds.
     """
-    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, k_steps=4, augment=False):
+    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, augment=False):
         self.data = []
         self.targets_dir = targets_dir
         self.tokenizer = tokenizer
-        self.k_steps = k_steps
         self.augmentor = GeometrySafeAugmentation() if augment else None
         
         with open(jsonl_path, 'r') as f:
@@ -137,7 +163,7 @@ class GeoThoughtsDataset(Dataset):
                     item["target_path"] = target_path
                     self.data.append(item)
                     
-        print(f"Loaded {len(self.data)} valid aligned geometric datasets.")
+        print(f"Loaded {len(self.data)} valid aligned dynamically mapped geometric datasets.")
 
     def __len__(self):
         return len(self.data)
@@ -155,25 +181,36 @@ class GeoThoughtsDataset(Dataset):
             # Fallback mock image if path is broken
             image = Image.new('RGB', (224, 224), color = (73, 109, 137))
             
-        # 2. Text Prompts (appended with K thoughts natively)
-        # Note: the prompt needs the specialized <thought> sequences generated inside
-        thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])
-        full_text = item["question"] + " " + thought_string
-        
-        # 3. Target Manifolds pre-generated into .pt
+        # 3. Target Manifolds pre-generated into .pt uniquely sized per-sample [N, target_dim]
         target_tensor = torch.load(item["target_path"], map_location="cpu", weights_only=True)
+        N = target_tensor.shape[0]
+            
+        # 2. Text Prompts (appended identically corresponding to N arbitrary continuous sequences generated)
+        thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
+        full_text = item["question"] + " " + thought_string
         
         return {
             "image": image,
             "text": full_text,
-            "target": target_tensor # Shape [4, target_dim]
+            "target": target_tensor # Shape [N, target_dim]
         }
         
+from torch.nn.utils.rnn import pad_sequence
+
 def custom_collate(batch):
     images = [item["image"] for item in batch]
     texts = [item["text"] for item in batch]
-    targets = torch.stack([item["target"] for item in batch])
-    return images, texts, targets
+    targets = [item["target"] for item in batch]
+    
+    # Structurally zero-pad dimensional offsets natively handling N varying target tracks
+    targets_padded = pad_sequence(targets, batch_first=True, padding_value=0.0)
+    
+    # Establish hard boolean gating parameters filtering out strictly padded states logically before Loss Formulation
+    target_mask = torch.zeros(len(targets), targets_padded.size(1), dtype=torch.bool)
+    for i, t in enumerate(targets):
+        target_mask[i, :len(t)] = True
+        
+    return images, texts, targets_padded, target_mask
 
 def train():
     args = parse_args()
@@ -184,11 +221,31 @@ def train():
     local_rank = setup_ddp()
     is_distributed = isinstance(local_rank, int)
     is_master = (local_rank == 0 if is_distributed else True)
+
+    active_block = "train_x_encoder"
+    if args.config_block:
+        active_block = args.config_block
+    elif args.experiment_name:
+        if args.experiment_name in config and isinstance(config[args.experiment_name], dict):
+            active_block = args.experiment_name
+        else:
+            for block_name, block_cfg in config.items():
+                if not isinstance(block_cfg, dict):
+                    continue
+                if block_name == "train_x_encoder" or block_name.startswith("train_x_encoder_"):
+                    if block_cfg.get("experiment_name") == args.experiment_name:
+                        active_block = block_name
+                        break
+
+    xenc_cfg = dict(config.get("train_x_encoder", {}))
+    if active_block != "train_x_encoder":
+        xenc_cfg.update(config.get(active_block, {}))
+    config["train_x_encoder"] = xenc_cfg
     
-    experiment_name = args.experiment_name or config.get("train_x_encoder", {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
+    experiment_name = args.experiment_name or xenc_cfg.get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
-    base_checkpoint_dir = config.get("train_x_encoder", {}).get("checkpoint_dir", "/workspace/checkpoints")
+    base_checkpoint_dir = xenc_cfg.get("checkpoint_dir", "/workspace/checkpoints")
     checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name)
     config.setdefault("train_x_encoder", {})["checkpoint_dir"] = checkpoint_dir
     
@@ -217,8 +274,7 @@ def train():
     
     model = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
-        target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        target_model_id=config["model"]["target_model_id"]
     )
     
     # Activation Checkpointing trades 20-30% compute time for massive memory savings by dropping intermediate activations.
@@ -231,21 +287,21 @@ def train():
         model = model.to(local_rank) # cpu/cuda
         
     criterion = AlignmentLossFactory(
-        loss_type=config["train_x_encoder"]["loss_type"],
-        vicreg_sim_coeff=float(config["train_x_encoder"].get("vicreg_sim_coeff", 25.0)),
-        vicreg_var_coeff=float(config["train_x_encoder"].get("vicreg_var_coeff", 25.0)),
-        vicreg_cov_coeff=float(config["train_x_encoder"].get("vicreg_cov_coeff", 1.0))
+        loss_type=xenc_cfg["loss_type"],
+        vicreg_sim_coeff=float(xenc_cfg.get("vicreg_sim_coeff", 25.0)),
+        vicreg_var_coeff=float(xenc_cfg.get("vicreg_var_coeff", 25.0)),
+        vicreg_cov_coeff=float(xenc_cfg.get("vicreg_cov_coeff", 1.0))
     )
     
-    loss_target_mode = config["train_x_encoder"].get("loss_target", "guided")
+    loss_target_mode = xenc_cfg.get("loss_target", "guided")
 
     if is_distributed:
         criterion = criterion.to(local_rank)
         
     optimizer = torch.optim.AdamW(
         model.parameters(), 
-        lr=float(config["train_x_encoder"]["learning_rate"]), 
-        weight_decay=float(config["train_x_encoder"]["weight_decay"])
+        lr=float(xenc_cfg["learning_rate"]), 
+        weight_decay=float(xenc_cfg["weight_decay"])
     )
     
     # ---------------------------------------------------------
@@ -253,6 +309,52 @@ def train():
     best_val_loss = float('inf')
     
     os.makedirs(checkpoint_dir, exist_ok=True)
+
+    use_robust_checkpoint_save = bool(xenc_cfg.get("use_robust_checkpoint_save", True))
+    keep_step_checkpoints = int(xenc_cfg.get("keep_step_checkpoints", 4))
+    keep_epoch_checkpoints = int(xenc_cfg.get("keep_epoch_checkpoints", 4))
+    save_epoch_checkpoints_after = int(xenc_cfg.get("save_epoch_checkpoints_after", 7))
+
+    def persist_checkpoint(payload: dict, save_path: str) -> None:
+        if use_robust_checkpoint_save:
+            robust_mfs_save(payload, save_path)
+        else:
+            torch.save(payload, save_path)
+
+    def prune_checkpoint_family(prefix: str, suffix: str, keep: int) -> None:
+        if keep <= 0:
+            return
+        existing = [f for f in os.listdir(checkpoint_dir) if f.startswith(prefix) and f.endswith(suffix)]
+        if len(existing) <= keep:
+            return
+        existing.sort(key=parse_cp_name)
+        for old_f in existing[:-keep]:
+            try:
+                os.remove(os.path.join(checkpoint_dir, old_f))
+            except OSError:
+                pass
+
+    def update_best_checkpoint(source_path: str, val_loss: float, epoch: int, step: int | None = None) -> None:
+        nonlocal best_val_loss
+        if val_loss >= best_val_loss:
+            return
+
+        best_val_loss = val_loss
+        best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
+        shutil.copy2(source_path, best_cp_path)
+
+        tracker_payload = {"best_loss": best_val_loss, "epoch": epoch}
+        if step is not None:
+            tracker_payload["step"] = step
+
+        loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
+        with open(loss_tracker_path, 'w') as f:
+            json.dump(tracker_payload, f)
+
+        step_suffix = f" step {step}" if step is not None else ""
+        print(f"[{local_rank}] New best validation loss {best_val_loss:.4f} at epoch {epoch}{step_suffix}. Saved {best_cp_path}")
+        background_upload(best_cp_path, config, experiment_name, label="best")
+        background_upload(loss_tracker_path, config, experiment_name, label="best_meta")
     
     latest_cp_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
     
@@ -277,7 +379,7 @@ def train():
         optimizer.load_state_dict(cp["optimizer_state_dict"])
         
         # Explicitly override the loaded learning rate with the config value
-        target_lr = float(config["train_x_encoder"]["learning_rate"])
+        target_lr = float(xenc_cfg["learning_rate"])
         for param_group in optimizer.param_groups:
             param_group['lr'] = target_lr
         print(f"[{local_rank}] Resumed from epoch {start_epoch} | best_val_loss={best_val_loss:.4f} | LR overridden to {target_lr}")
@@ -308,7 +410,7 @@ def train():
                     model.load_state_dict(cp["model_state_dict"])
                 optimizer.load_state_dict(cp["optimizer_state_dict"])
                 
-                target_lr = float(config["train_x_encoder"]["learning_rate"])
+                target_lr = float(xenc_cfg["learning_rate"])
                 for param_group in optimizer.param_groups:
                     param_group['lr'] = target_lr
                 print(f"[{local_rank}] Checkpoint Optimizer LR manually overridden to {target_lr}")
@@ -323,14 +425,35 @@ def train():
         jsonl_path=config["data"]["jsonl_path"],
         targets_dir=config["data"]["targets_dir"],
         tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
-        k_steps=config["model"]["k_steps"],
-        augment=config["train_x_encoder"].get("augment", False) # Read flag from config, default pure dataset
+        augment=xenc_cfg.get("augment", False) # Read flag from config, default pure dataset
     )
     
-    # 90/10 Train/Val Split
-    train_size = int(0.9 * len(full_dataset))
-    val_size = len(full_dataset) - train_size
-    train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
+    # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
+    try:
+        with open("data/v4_split_keys.json", "r") as f:
+            v4_splits = json.load(f)
+        v4_val_keys = set(v4_splits["val_keys"])
+        v4_train_keys = set(v4_splits["train_keys"])
+        
+        train_indices = []
+        val_indices = []
+        for i, item in enumerate(full_dataset.data):
+            base = os.path.basename(item["image_path"])
+            if base in v4_val_keys:
+                val_indices.append(i)
+            elif base in v4_train_keys:
+                train_indices.append(i)
+                
+        train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
+        val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
+        if is_master:
+            print(f"X-Encoder mapped explicit V4 aligned boundaries! {len(train_indices)} train | {len(val_indices)} val keys isolated.")
+    except Exception as e:
+        if is_master:
+            print(f"X-Encoder falling back to legacy 90-10 random splits natively: {e}")
+        train_size = int(0.9 * len(full_dataset))
+        val_size = len(full_dataset) - train_size
+        train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
     
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     train_dataloader = DataLoader(
@@ -368,13 +491,13 @@ def train():
         total_val_loss = 0.0
         total_val_mse = 0.0
         val_samples_processed = 0
-        max_val_samples = int(config["train_x_encoder"].get("max_val_samples", 0))
+        max_val_samples = int(xenc_cfg.get("max_val_samples", 0))
         
         if is_master:
             print(f"{step_label} | Running validation inference...")
             
         with torch.no_grad():
-            for val_idx, (val_img, val_txt, val_targ) in enumerate(val_dataloader):
+            for val_idx, (val_img, val_txt, val_targ, val_target_mask) in enumerate(val_dataloader):
                 # Stop early if we hit the requested validation subset size
                 if max_val_samples > 0 and val_samples_processed >= max_val_samples:
                     break
@@ -401,10 +524,25 @@ def train():
                         input_ids=val_inputs.input_ids, 
                         attention_mask=val_inputs.attention_mask,
                         pixel_values=val_inputs.get("pixel_values"),
-                        image_grid_thw=val_inputs.get("image_grid_thw")
+                        image_grid_thw=val_inputs.get("image_grid_thw"),
+                        mm_token_type_ids=val_inputs.get("mm_token_type_ids")
                     )
                     val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
-                    v_loss, v_metrics = criterion(val_pred, val_targ)
+                    
+                    if loss_target_mode in ["direct", "pondering"]:
+                        # Extract the exact final step natively ignoring arbitrary lengths natively
+                        val_pred_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(val_pred, val_target_mask)])
+                        val_targ_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(val_targ, val_target_mask)])
+                        # Expand functionally for criterion input dimensions seamlessly mapping to flattened states
+                        val_pred_loss = val_pred_loss.unsqueeze(1)
+                        val_targ_loss = val_targ_loss.unsqueeze(1)
+                    else:
+                        val_pred_loss = val_pred[val_target_mask]
+                        val_targ_loss = val_targ[val_target_mask]
+                        val_pred_loss = val_pred_loss.unsqueeze(1)
+                        val_targ_loss = val_targ_loss.unsqueeze(1)
+                        
+                    v_loss, v_metrics = criterion(val_pred_loss, val_targ_loss)
                 
                 total_val_loss += v_loss.item()
                 if "loss/cosine_angular" in v_metrics:
@@ -433,7 +571,7 @@ def train():
         optimizer.zero_grad()
         avg_val_loss = float('inf')
         
-        for batch_idx, (images, texts, targets) in enumerate(train_dataloader):
+        for batch_idx, (images, texts, targets, target_masks) in enumerate(train_dataloader):
             micro_start_time = time.time()
             if max_steps_per_epoch is not None and batch_idx >= max_steps_per_epoch:
                 print(f"[{local_rank}] Reached max_steps_per_epoch ({max_steps_per_epoch}). Ending epoch {epoch} early.")
@@ -465,23 +603,34 @@ def train():
                 padding=True
             ).to(device)
             
+            if batch_idx == 0 and is_master:
+                pixel_val_shape = inputs.get("pixel_values").shape if inputs.get("pixel_values") is not None else "None !!"
+                print(f"\n[Hardware Matrix Sanity Check] Successfully routed batch 0 images! pixel_values shape: {pixel_val_shape}")
+                
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                 predicted_latents = model(
                     input_ids=inputs.input_ids, 
                     attention_mask=inputs.attention_mask,
                     pixel_values=inputs.get("pixel_values"),
-                    image_grid_thw=inputs.get("image_grid_thw")
+                    image_grid_thw=inputs.get("image_grid_thw"),
+                    mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
                 
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)
                 
                 if loss_target_mode in ["direct", "pondering"]:
-                    # Only calculate loss on the final step (thought_k)
-                    predicted_latents_loss = predicted_latents[:, -1:, :]
-                    targets_loss = targets[:, -1:, :]
+                    # Dynamically extract HALT target mathematically
+                    predicted_latents_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(predicted_latents, target_masks)])
+                    targets_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(targets, target_masks)])
+                    predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
+                    targets_loss = targets_loss.unsqueeze(1)
                 else:
-                    predicted_latents_loss = predicted_latents
-                    targets_loss = targets
+                    # Globally evaluate purely over dimensions valid to unroll natively!
+                    predicted_latents_loss = predicted_latents[target_masks]
+                    targets_loss = targets[target_masks]
+                    # Map onto sequence abstraction array logic uniformly
+                    predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
+                    targets_loss = targets_loss.unsqueeze(1)
                 
                 # Loss alignment mapping
                 loss, metrics_dict = criterion(predicted_latents_loss, targets_loss)
@@ -499,7 +648,7 @@ def train():
             
             # Step conditionally based on batch_idx and accumulation steps
             if ((batch_idx + 1) % gradient_accumulation_steps == 0) or (batch_idx + 1 == len(train_dataloader)):
-                grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["train_x_encoder"]["max_grad_norm"]))
+                grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(xenc_cfg["max_grad_norm"]))
                 optimizer.step()
                 optimizer.zero_grad()
                 
@@ -522,42 +671,34 @@ def train():
                     wandb.log(metrics_dict)
                     
                     # --- SAVE CHECKPOINT EVERY N STEPS ---
-                    save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
+                    save_every_n_steps = int(xenc_cfg.get("save_every_n_steps", 0))
                     global_step = (batch_idx + 1) // gradient_accumulation_steps
                     if save_every_n_steps > 0 and global_step % save_every_n_steps == 0:
                         # Run Mid-Epoch Validation
                         mid_val_loss = run_validation(f"Mid-Epoch {epoch} (Step {global_step})", epoch, global_step)
-                        
-                        # Save single consolidated latest checkpoint (overwrites previous)
                         save_model = model.module if is_distributed else model
-                        latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
-                        torch.save({
+                        checkpoint_payload = {
                             'epoch': epoch,
                             'step': global_step,
                             'model_state_dict': save_model.state_dict(),
                             'optimizer_state_dict': optimizer.state_dict(),
                             'loss': loss.item(),
                             'val_loss': mid_val_loss
-                        }, latest_save_path)
+                        }
+
+                        latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
+                        persist_checkpoint(checkpoint_payload, latest_save_path)
                         print(f"[{local_rank}] Saved latest checkpoint: {latest_save_path}")
-                        
+
                         # Upload latest to S3/HF in background
                         background_upload(latest_save_path, config, experiment_name, label="latest")
-                        
-                        # Update best if improved
-                        if mid_val_loss < best_val_loss:
-                            best_val_loss = mid_val_loss
-                            best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
-                            shutil.copy2(latest_save_path, best_cp_path)
-                            
-                            with open(os.path.join(checkpoint_dir, "best_val_loss.json"), 'w') as f:
-                                json.dump({"best_loss": best_val_loss, "epoch": epoch, "step": global_step}, f)
-                                
-                            print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved x_encoder_best.pt")
-                            
-                            # Upload best to S3/HF in background
-                            background_upload(best_cp_path, config, experiment_name, label="best")
-                            background_upload(os.path.join(checkpoint_dir, "best_val_loss.json"), config, experiment_name, label="best_meta")
+
+                        if keep_step_checkpoints > 0:
+                            step_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_step_{global_step}.pt")
+                            persist_checkpoint(checkpoint_payload, step_cp_path)
+                            prune_checkpoint_family(f"x_encoder_epoch_{epoch}_step_", ".pt", keep_step_checkpoints)
+
+                        update_best_checkpoint(latest_save_path, mid_val_loss, epoch, step=global_step)
                 
             else:
                 # Provide a live micro-batch progress indicator to the user
@@ -568,7 +709,7 @@ def train():
                     train_mse_val = metrics_dict.get("loss/cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
                     
                     # Approximated gradient norm requires calculation prior to step if we want it continuously logged
-                    temp_grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(config["train_x_encoder"]["max_grad_norm"])).item()
+                    temp_grad_norm = torch.nn.utils.clip_grad_norm_(model.parameters(), float(xenc_cfg["max_grad_norm"])).item()
                     micro_duration = time.time() - micro_start_time
                     
                     print(f"Epoch {epoch} | Accumulating ({micro_step}/{gradient_accumulation_steps}) | Time: {micro_duration:.2f}s | Micro Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Temp Grad: {temp_grad_norm:.2f}", end='\r')
@@ -591,50 +732,53 @@ def train():
         if is_master:
             # Run Exhaustive End-of-Epoch Validation (skip if we just ran an exhaustive periodic step check)
             global_step_end = len(train_dataloader) // gradient_accumulation_steps
-            save_every_n_steps = int(config["train_x_encoder"].get("save_every_n_steps", 0))
+            save_every_n_steps = int(xenc_cfg.get("save_every_n_steps", 0))
             if save_every_n_steps > 0 and (global_step_end % save_every_n_steps) <= 2:
                 print(f"[{local_rank}] End-of-Epoch exactly abutts Step {global_step_end - 1}. Skipping redundant validation and blind checkpoint saving.")
             elif (epoch + 1) % 10 == 0:
                 avg_val_loss = run_validation(f"End-of-Epoch {epoch}", epoch, global_step_end)
-                
-                # Save latest every 10 epochs
+
                 save_model = model.module if is_distributed else model
-                latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
-                torch.save({
-                    'epoch': epoch + 1,  # next epoch to resume from
+                checkpoint_payload = {
+                    'epoch': epoch + 1,
+                    'step': global_step_end,
                     'model_state_dict': save_model.state_dict(),
                     'optimizer_state_dict': optimizer.state_dict(),
                     'loss': loss.item(),
                     'val_loss': avg_val_loss
-                }, latest_save_path)
+                }
+
+                latest_save_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
+                persist_checkpoint(checkpoint_payload, latest_save_path)
                 print(f"[{local_rank}] Saved latest checkpoint (end of epoch {epoch})")
                 background_upload(latest_save_path, config, experiment_name, label="latest")
-                
-                if avg_val_loss < best_val_loss:
-                    best_val_loss = avg_val_loss
-                    best_cp_path = os.path.join(checkpoint_dir, "x_encoder_best.pt")
-                    shutil.copy2(latest_save_path, best_cp_path)
-                    print(f"[{local_rank}] New best validation loss {best_val_loss:.4f}! Saved {best_cp_path}")
-                    
-                    loss_tracker_path = os.path.join(checkpoint_dir, "best_val_loss.json")
-                    with open(loss_tracker_path, 'w') as f:
-                        json.dump({"best_loss": best_val_loss, "epoch": epoch}, f)
-                    
-                    background_upload(best_cp_path, config, experiment_name, label="best")
-                    background_upload(loss_tracker_path, config, experiment_name, label="best_meta")
+
+                if keep_epoch_checkpoints > 0 and epoch >= save_epoch_checkpoints_after:
+                    epoch_cp_path = os.path.join(checkpoint_dir, f"x_encoder_epoch_{epoch}_end.pt")
+                    historical_payload = dict(checkpoint_payload)
+                    historical_payload['epoch'] = epoch
+                    persist_checkpoint(historical_payload, epoch_cp_path)
+                    print(f"[{local_rank}] Saved end-of-epoch checkpoint: {epoch_cp_path}")
+                    prune_checkpoint_family("x_encoder_epoch_", "_end.pt", keep_epoch_checkpoints)
+
+                update_best_checkpoint(latest_save_path, avg_val_loss, epoch)
             else:
                 print(f"[{local_rank}] Epoch {epoch} — skipping checkpoint save (next save at epoch {((epoch // 10) + 1) * 10 - 1})")
     if is_master:
         save_model = model.module if is_distributed else model
         final_path = os.path.join(checkpoint_dir, "x_encoder_latest.pt")
-        torch.save({
+        persist_checkpoint({
             'epoch': epochs,
             'model_state_dict': save_model.state_dict(),
             'optimizer_state_dict': optimizer.state_dict(),
         }, final_path)
         print(f"Final model saved to {final_path}")
         background_upload(final_path, config, experiment_name, label="final")
-        
+
+        final_state_path = os.path.join(checkpoint_dir, "latent_euclid_x_encoder_final.pt")
+        persist_checkpoint(save_model.state_dict(), final_state_path)
+        print(f"Model state successfully saved to {final_state_path}")
+
         # Wait for all background uploads before exiting
         wait_for_uploads()
         print("All uploads complete.")

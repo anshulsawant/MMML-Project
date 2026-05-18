@@ -27,6 +27,7 @@ def e2e_evaluate():
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
     parser.add_argument("--end_to_end", action="store_true", help="Use train_end_to_end configuration instead of train_decoder")
     parser.add_argument("--experiment_name_override", type=str, default=None, help="Override experiment name")
+    parser.add_argument("--force_k_steps", type=int, default=None, help="Override dynamic halt to evaluate exactly K steps")
     args = parser.parse_args()
 
     device = args.device
@@ -68,7 +69,7 @@ def e2e_evaluate():
     x_encoder = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        max_thought_tokens=config["model"].get("max_thought_tokens", 30)
     ).to(device)
     
     # Load VICReg weights
@@ -108,8 +109,8 @@ def e2e_evaluate():
 
     print("Loading Y-Decoder...")
     y_decoder = YDecoderPrefix(
-        target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"],
+        target_model_id=config["model"]["decoder_base_model_id"],
+        # k_steps=config["model"]["k_steps"],
         unfreeze_layers=config.get(active_block, {}).get("unfreeze_layers", 0),
         use_projection_mlp=config.get(active_block, {}).get("use_projection_mlp", True)
     ).to(device)
@@ -153,10 +154,19 @@ def e2e_evaluate():
         print(f"Error loading ground_truths.json: {e}")
         return
 
-    random.seed(42)  # Maintain identical split to validate_generation.py and training loops
-    random.shuffle(full_data)
-    split_idx = int(args.split * len(full_data))
-    val_data = full_data[split_idx:]
+    try:
+        with open("data/v4_split_keys.json", "r") as vf:
+            v4_splits = json.load(vf)
+        v4_val_keys = set(v4_splits["val_keys"])
+        
+        val_data = [item for item in full_data if os.path.basename(item["image_path"]) in v4_val_keys]
+        print(f"Loaded {len(val_data)} validation samples explicitly matching V4 split structure natively.")
+    except Exception as e:
+        print(f"Fallback to linear slice: {e}")
+        random.seed(args.seed)
+        random.shuffle(full_data)
+        split_idx = int(args.split * len(full_data))
+        val_data = full_data[split_idx:]
     
     if args.limit:
         val_data = val_data[:args.limit]
@@ -200,8 +210,7 @@ def e2e_evaluate():
                 if true_answer_raw is None:
                     continue
                     
-                thought_string = "".join([f"<thought_{i+1}>" for i in range(config["model"]["k_steps"])])
-                full_text = question + " " + thought_string
+                full_text = question
                 
                 messages = [{
                     "role": "user",
@@ -222,12 +231,56 @@ def e2e_evaluate():
             # The processor automatically pads dynamic resolution images across the batch 
             inputs = x_encoder.processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
             
-            predicted_latents = x_encoder(
-                input_ids=inputs.input_ids, 
-                pixel_values=inputs.get("pixel_values"), 
-                attention_mask=inputs.attention_mask,
-                image_grid_thw=inputs.get("image_grid_thw")
-            )
+            # --- AUTO-REGRESSIVE X-ENCODER LOOP ---
+            # Compute topological HALT centroid mathematically
+            halt_inputs = y_decoder.tokenizer("\n<HALT>", return_tensors="pt").to(device)
+            halt_anchor = y_decoder.decoder.get_input_embeddings()(halt_inputs.input_ids).mean(dim=1).squeeze(0)
+            
+            dynamic_input_ids = inputs.input_ids
+            dynamic_attention_mask = inputs.attention_mask
+            dynamic_mm_token_type_ids = inputs.get("mm_token_type_ids")
+            max_dynamic_steps = args.force_k_steps if args.force_k_steps else 15
+            batch_size_cur = len(images)
+            finished = torch.zeros(batch_size_cur, dtype=torch.bool, device=device)
+            
+            final_predicted_latents = None
+            
+            for step in range(max_dynamic_steps):
+                t_id = torch.tensor([[x_encoder.thought_ids[step]]] * batch_size_cur).to(device)
+                dynamic_input_ids = torch.cat([dynamic_input_ids, t_id], dim=1)
+                
+                new_attn = torch.ones((batch_size_cur, 1), dtype=dynamic_attention_mask.dtype, device=device)
+                dynamic_attention_mask = torch.cat([dynamic_attention_mask, new_attn], dim=1)
+                
+                if dynamic_mm_token_type_ids is not None:
+                    new_mm_token = torch.zeros((batch_size_cur, 1), dtype=dynamic_mm_token_type_ids.dtype, device=device)
+                    dynamic_mm_token_type_ids = torch.cat([dynamic_mm_token_type_ids, new_mm_token], dim=1)
+                
+                predicted_latents = x_encoder(
+                    input_ids=dynamic_input_ids, 
+                    pixel_values=inputs.get("pixel_values"), 
+                    attention_mask=dynamic_attention_mask,
+                    image_grid_thw=inputs.get("image_grid_thw"),
+                    mm_token_type_ids=dynamic_mm_token_type_ids
+                )
+                
+                final_predicted_latents = predicted_latents
+                
+                if args.force_k_steps:
+                    finished = torch.ones(batch_size_cur, dtype=torch.bool, device=device)
+                    if step + 1 == max_dynamic_steps:
+                        break
+                else:
+                    latest_latents = predicted_latents[:, -1, :]
+                    sim = torch.nn.functional.cosine_similarity(latest_latents, halt_anchor.unsqueeze(0).expand(batch_size_cur, -1), dim=-1)
+                    
+                    finish_mask = sim > 0.90 # Safe mathematical topological boundary
+                    finished = finished | finish_mask
+                    
+                    if finished.all():
+                        break
+                    
+            predicted_latents = final_predicted_latents
             
             # Format clean prompts for y-decoder
             prompts = [q.strip() + "\nAnswer: " for q in questions]

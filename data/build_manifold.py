@@ -304,7 +304,7 @@ if __name__ == "__main__":
         cod_dataset = "ChainOfDraft/qwen3_vl_cod_dataset_filtered_sc.jsonl"
     
     if anchor_projector:
-        print(f"Manifold Anchoring ENABLED")
+        print("Manifold Anchoring ENABLED")
         print(f"  Projector:   {anchor_projector}")
         print(f"  CoD dataset: {cod_dataset}")
     

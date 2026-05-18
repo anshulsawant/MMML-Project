@@ -15,6 +15,7 @@ from torch.utils.data import Dataset, DataLoader, DistributedSampler
 import random
 import sys
 import math
+import re
 
 # ---------------------------------------------------------------------------
 # RunPod S3 + HuggingFace Hub background upload helpers
@@ -123,7 +124,7 @@ class GeoThoughtsTextDataset(Dataset):
         self.ground_truths = ground_truths
         self.tokenizer = tokenizer
         self.k_steps = k_steps
-
+        
     def __len__(self):
         return len(self.data)
 
@@ -137,9 +138,14 @@ class GeoThoughtsTextDataset(Dataset):
         except:
             image = Image.new('RGB', (224, 224), color = (73, 109, 137))
             
-        # 2. Base VLM Input Text
-        thought_string = "".join([f"<thought_{i+1}>" for i in range(self.k_steps)])
-        full_text = item["question"] + " " + thought_string
+        # 2. Base VLM Input Text (Variable Latent Length)
+        N = self.k_steps
+        if "reasoning" in item:
+            N = len([line for line in item["reasoning"].split('\n') if line.strip().startswith('Step')])
+            N = max(1, N) # Ensure at least 1 step
+            
+        thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
+        full_text = item["question"] + "\n" + thought_string
         
         # 3. Final Target Answer for the Y-Decoder to learn to generate
         # Lookup the true answer string dynamically from ground_truths.json
@@ -188,9 +194,7 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
             
             decoder_prompts = []
             for t in texts:
-                clean_t = t
-                for i in range(k_steps):
-                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                clean_t = re.sub(r'<thought_\d+>', '', t)
                 decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
                 
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
@@ -198,7 +202,8 @@ def evaluate_in_memory(y_decoder, x_encoder, val_loader, device, k_steps, limit=
                     input_ids=inputs.input_ids, 
                     attention_mask=inputs.attention_mask,
                     pixel_values=inputs.get("pixel_values"),
-                    image_grid_thw=inputs.get("image_grid_thw")
+                    image_grid_thw=inputs.get("image_grid_thw"),
+                    mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
                 
             generated_texts = val_decoder.generate(
@@ -279,7 +284,7 @@ def train():
     x_encoder = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
         target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"]
+        max_thought_tokens=config["model"].get("max_thought_tokens", 30)
     )
     
     # Load X-encoder weights tracked by experiment
@@ -316,8 +321,8 @@ def train():
 
     print(f"[{local_rank}] Loading Phase 4 Y-Decoder Prefix...")
     y_decoder = YDecoderPrefix(
-        target_model_id=config["model"]["target_model_id"],
-        k_steps=config["model"]["k_steps"],
+        target_model_id=config["model"]["decoder_base_model_id"],
+        # k_steps=config["model"]["k_steps"],
         unfreeze_layers=config[active_block].get("unfreeze_layers", 0),
         use_projection_mlp=config[active_block].get("use_projection_mlp", True)
     )
@@ -421,12 +426,35 @@ def train():
     with open("data/ground_truths.json", 'r') as f:
         ground_truths = json.load(f)
         
-    # 90/10 Train/Val Split for overfitting protection without sklearn
-    random.seed(42)
-    random.shuffle(full_data)
-    split_idx = int(0.9 * len(full_data))
-    train_data = full_data[:split_idx]
-    val_data = full_data[split_idx:]
+    # V4 Aligned Deterministic Train/Val Splits mathematically mapping exact baseline subsets
+    try:
+        with open("data/v4_split_keys.json", "r") as f:
+            v4_splits = json.load(f)
+        v4_val_keys = set(v4_splits["val_keys"])
+        v4_train_keys = set(v4_splits["train_keys"])
+        
+        train_data = []
+        val_data = []
+        for item in full_data:
+            base = os.path.basename(item["image_path"])
+            if base in v4_val_keys:
+                val_data.append(item)
+            elif base in v4_train_keys:
+                train_data.append(item)
+                
+        # Shuffle training set globally mapping stochastic alignment cleanly!
+        random.seed(42)
+        random.shuffle(train_data)
+        if is_master:
+            print(f"Structurally constrained V4 aligned mappings! {len(train_data)} train | {len(val_data)} val keys isolated.")
+    except Exception as e:
+        if is_master:
+            print(f"Falling back to legacy 90-10 random splits natively: {e}")
+        random.seed(42)
+        random.shuffle(full_data)
+        split_idx = int(0.9 * len(full_data))
+        train_data = full_data[:split_idx]
+        val_data = full_data[split_idx:]
     
     if is_master:
         print(f"Train split: {len(train_data)} | Val split: {len(val_data)}")
@@ -479,9 +507,7 @@ def train():
             # Remove the <thought> placeholders from the string so the pure question is fed to the downstream LLM
             decoder_prompts = []
             for t in texts:
-                clean_t = t
-                for i in range(config["model"]["k_steps"]):
-                    clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                clean_t = re.sub(r'<thought_\d+>', '', t)
                 decoder_prompts.append(clean_t.strip() + "\nAnswer: ")
             
             # If Method A: X-Encoder is frozen, no gradients track through it
@@ -492,7 +518,8 @@ def train():
                             input_ids=inputs.input_ids, 
                             attention_mask=inputs.attention_mask,
                             pixel_values=inputs.get("pixel_values"),
-                            image_grid_thw=inputs.get("image_grid_thw")
+                            image_grid_thw=inputs.get("image_grid_thw"),
+                            mm_token_type_ids=inputs.get("mm_token_type_ids")
                         )
             else:
                 # Method B: Gradients track all the way back to the VLM image processor
@@ -501,7 +528,8 @@ def train():
                         input_ids=inputs.input_ids, 
                         attention_mask=inputs.attention_mask,
                         pixel_values=inputs.get("pixel_values"),
-                        image_grid_thw=inputs.get("image_grid_thw")
+                        image_grid_thw=inputs.get("image_grid_thw"),
+                        mm_token_type_ids=inputs.get("mm_token_type_ids")
                     )
             
             # Forward pass through Decoder (computes Cross Entropy against `target_answers`)
@@ -566,13 +594,11 @@ def train():
                         rendered_texts = [x_processor.apply_chat_template(m, tokenize=False, add_generation_prompt=True) for m in batch_messages]
                         inputs = x_processor(text=rendered_texts, images=images, padding=True, return_tensors="pt").to(device)
                         with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
-                            predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask, pixel_values=inputs.get("pixel_values"), image_grid_thw=inputs.get("image_grid_thw"))
+                            predicted_latents = x_encoder(input_ids=inputs.input_ids, attention_mask=inputs.attention_mask, pixel_values=inputs.get("pixel_values"), image_grid_thw=inputs.get("image_grid_thw"), mm_token_type_ids=inputs.get("mm_token_type_ids"))
                         
                         val_prompts = []
                         for t in texts:
-                            clean_t = t
-                            for i in range(config["model"]["k_steps"]):
-                                clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                            clean_t = re.sub(r'<thought_\d+>', '', t)
                             val_prompts.append(clean_t.strip() + "\nAnswer: ")
                         
                         outputs = y_decoder(predicted_latents=predicted_latents, text_prompts=val_prompts, labels=target_answers)
@@ -634,14 +660,13 @@ def train():
                         input_ids=inputs.input_ids, 
                         attention_mask=inputs.attention_mask,
                         pixel_values=inputs.get("pixel_values"),
-                        image_grid_thw=inputs.get("image_grid_thw")
+                        image_grid_thw=inputs.get("image_grid_thw"),
+                        mm_token_type_ids=inputs.get("mm_token_type_ids")
                     )
                 
                 val_prompts = []
                 for t in texts:
-                    clean_t = t
-                    for i in range(config["model"]["k_steps"]):
-                        clean_t = clean_t.replace(f"<thought_{i+1}>", "")
+                    clean_t = re.sub(r'<thought_\d+>', '', t)
                     val_prompts.append(clean_t.strip() + "\nAnswer: ")
                 
                 outputs = y_decoder(

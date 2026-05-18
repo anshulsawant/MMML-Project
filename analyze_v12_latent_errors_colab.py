@@ -121,8 +121,43 @@ def main():
             image_to_idx[key] = idx
             image_to_question[key] = item["question"]
 
+    print(f"\n[DIAG] Dataset index built: {len(image_to_idx)} entries")
+    sample_keys = list(image_to_idx.keys())[:3]
+    print(f"[DIAG] Sample index keys: {sample_keys}")
+
+    # Check target tensors dir
+    if os.path.isdir(args.target_tensors_dir):
+        pt_files = [f for f in os.listdir(args.target_tensors_dir) if f.endswith(".pt")]
+        print(f"[DIAG] target_tensors_dir: {args.target_tensors_dir}  ({len(pt_files)} .pt files)")
+        if pt_files:
+            print(f"[DIAG] Sample tensor files: {sorted(pt_files)[:3]}")
+    else:
+        print(f"[DIAG] WARNING: target_tensors_dir does not exist: {args.target_tensors_dir}")
+
+    # Probe the first eval item through every filter
+    if eval_data:
+        probe = eval_data[0]
+        probe_raw = probe.get("image", "")
+        probe_key = os.path.basename(probe_raw)
+        probe_idx = image_to_idx.get(probe_key)
+        probe_target = (
+            os.path.join(args.target_tensors_dir, f"problem_{probe_idx}_targets.pt")
+            if probe_idx is not None else None
+        )
+        probe_img = resolve_image_path(probe_raw, args.repo_root)
+        print(f"\n[DIAG] Probe first eval item:")
+        print(f"  raw image path : {probe_raw}")
+        print(f"  basename key   : {probe_key}")
+        print(f"  in index?      : {probe_idx is not None}  (idx={probe_idx})")
+        print(f"  target path    : {probe_target}")
+        print(f"  target exists? : {os.path.exists(probe_target) if probe_target else False}")
+        print(f"  resolved image : {probe_img}")
+        print(f"  image exists?  : {os.path.exists(probe_img) if probe_img else False}")
+        print()
+
     correct_mses, correct_coss = [], []
     failed_mses, failed_coss = [], []
+    skip_no_index = skip_no_tensor = skip_no_image = 0
 
     with torch.no_grad():
         for item in tqdm(eval_data, desc="Computing latent errors"):
@@ -131,15 +166,18 @@ def main():
 
             img_path_key = os.path.basename(raw_img_path)
             if img_path_key not in image_to_idx:
+                skip_no_index += 1
                 continue
 
             idx = image_to_idx[img_path_key]
             target_path = os.path.join(args.target_tensors_dir, f"problem_{idx}_targets.pt")
             if not os.path.exists(target_path):
+                skip_no_tensor += 1
                 continue
 
             resolved_img_path = resolve_image_path(raw_img_path, args.repo_root)
             if resolved_img_path is None:
+                skip_no_image += 1
                 continue
 
             try:
@@ -187,6 +225,11 @@ def main():
     print("\n" + "=" * 60)
     print("Latent Vector Prediction Error Analysis (v12_manifold_anchor_cod)")
     print("=" * 60)
+    if skip_no_index + skip_no_tensor + skip_no_image > 0:
+        print(f"[SKIPPED] not in dataset index: {skip_no_index}")
+        print(f"[SKIPPED] target tensor missing: {skip_no_tensor}")
+        print(f"[SKIPPED] image file not found:  {skip_no_image}")
+        print()
     print(f"Correct samples: {len(correct_mses)}")
     print(f"  Avg MSE Loss:   {safe_mean(correct_mses):.6f}")
     print(f"  Avg Cosine Sim: {safe_mean(correct_coss):.6f}")

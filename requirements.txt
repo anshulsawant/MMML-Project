@@ -12,3 +12,4 @@ packaging
 ninja
 openai
 aiohttp
+huggingface_hub
