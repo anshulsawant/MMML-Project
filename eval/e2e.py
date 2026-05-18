@@ -33,6 +33,7 @@ def e2e_evaluate():
     parser.add_argument("--seed", type=int, default=42, help="Seed used when falling back to a shuffled holdout split.")
     parser.add_argument("--out", type=str, default="data/e2e_mismatches.json", help="Path to save mismatches")
     parser.add_argument("--experiment_name_override", type=str, default=None, help="Override experiment name")
+    parser.add_argument("--force_k_steps", type=int, default=None, help="Override dynamic halt to evaluate exactly K steps")
     args = parser.parse_args()
 
     device = args.device
@@ -191,7 +192,6 @@ def e2e_evaluate():
                 true_answer_raw = ground_truths.get(img_path)
                 if true_answer_raw is None:
                     continue
-
                 question = item["question"]
                 thought_string = "".join([f"<thought_{index + 1}>" for index in range(config["model"]["k_steps"])])
                 full_text = question + " " + thought_string
@@ -211,7 +211,6 @@ def e2e_evaluate():
 
             if not batch_messages:
                 continue
-
             rendered_texts = [x_encoder.processor.apply_chat_template(message, tokenize=False, add_generation_prompt=True) for message in batch_messages]
             inputs = x_encoder.processor(text=rendered_texts, images=batch_images, padding=True, return_tensors="pt").to(device)
             predicted_latents = x_encoder(
