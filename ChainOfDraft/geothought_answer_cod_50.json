@@ -1,0 +1,625 @@
+[
+  {
+    "source_index": 0,
+    "answer": "To determine the measure of angle 2, we recognize that angle 1 and angle 2 form a linear pair (they lie on a straight line \\( AB \\)). A straight line forms a straight angle, which measures \\( 180^\\circ \\). Therefore, the sum of angle 1 and angle 2 is \\( 180^\\circ \\).  \n\n\nGiven \\( \\angle 1 = 35.0^\\circ \\), we calculate \\( \\angle 2 \\) as:  \n\\( \\angle 2 = 180^\\circ - \\angle 1 = 180^\\circ - 35.0^\\circ = 145^\\circ \\)  \n\n\nFinal Answer: 145",
+    "CoD_steps": [
+      "\\angle 1 \\text{ and } \\angle 2 \\text{ on line } AB \\implies \\angle 1 + \\angle 2 = 180^\\circ",
+      "\\angle 1 = 35.0^\\circ \\implies \\angle 2 = 180^\\circ - \\angle 1 = 145^\\circ"
+    ]
+  },
+  {
+    "source_index": 1,
+    "answer": "To solve the problem, we analyze the given right triangle and use properties of perpendicular bisectors and angle sums:  \n\n\n### Step 1: Use the Perpendicular Bisector Property  \nDE is the perpendicular bisector of \\( AB \\), so \\( AD = BD \\) (a point on the perpendicular bisector of a segment is equidistant from the segment’s endpoints). Thus, \\( \\triangle ABD \\) is isosceles with \\( \\angle BAD = \\angle ABD \\).  \n\n\n### Step 2: Define Angles Using the Given Ratio  \nLet \\( \\angle BAD = x \\). The ratio \\( \\angle CAD : \\angle BAD = 0.4 \\), so \\( \\angle CAD = 0.4x \\).  \n\nIn \\( \\triangle ABC \\), \\( \\angle C = 90^\\circ \\). The sum of angles in a triangle is \\( 180^\\circ \\), so:  \n\\[\n\\angle CAB + \\angle B + \\angle C = 180^\\circ\n\\]  \nSince \\( \\angle CAB = \\angle CAD + \\angle BAD = 0.4x + x = 1.4x \\), and \\( \\angle B = \\angle BAD = x \\) (from \\( AD = BD \\)), substitute:  \n\\[\n1.4x + x + 90^\\circ = 180^\\circ\n\\]  \nSimplify and solve for \\( x \\):  \n\\[\n2.4x = 90^\\circ \\implies x = \\frac{90^\\circ}{2.4} = 37.5^\\circ\n\\]  \n\n\n### Step 3: Find \\( \\angle CAD \\)  \n\\( \\angle CAD = 0.4x = 0.4 \\times 37.5^\\circ = 15^\\circ \\).  \n\n\n### Step 4: Calculate \\( \\angle ADC \\)  \nIn \\( \\triangle ADC \\), \\( \\angle C = 90^\\circ \\) and \\( \\angle CAD = 15^\\circ \\). The sum of angles in a triangle is \\( 180^\\circ \\), so:  \n\\[\n\\angle ADC = 180^\\circ - \\angle C - \\angle CAD = 180^\\circ - 90^\\circ - 15^\\circ = 75^\\circ\n\\]  \n\n\nThus, the measure of \\( \\angle ADC \\) is \\( \\boldsymbol{75} \\).",
+    "CoD_steps": [
+      "AD = BD",
+      "\\triangle ABD \\text{ isosceles} \\implies \\angle BAD = \\angle ABD",
+      "Let \\angle BAD = x",
+      "\\angle CAD = 0.4x",
+      "\\angle C = 90^\\circ",
+      "\\angle CAB = \\angle CAD + \\angle BAD = 0.4x + x = 1.4x",
+      "\\angle B = \\angle BAD = x",
+      "\\angle CAB + \\angle B + \\angle C = 180^\\circ",
+      "1.4x + x + 90^\\circ = 180^\\circ",
+      "2.4x = 90^\\circ",
+      "x = \\frac{90^\\circ}{2.4} = 37.5^\\circ",
+      "\\angle CAD = 0.4x = 0.4 \\times 37.5^\\circ = 15^\\circ",
+      "\\angle ADC = 180^\\circ - \\angle C - \\angle CAD = 180^\\circ - 90^\\circ - 15^\\circ = 75^\\circ",
+      "\\angle ADC = 75^\\circ"
+    ]
+  },
+  {
+    "source_index": 2,
+    "answer": "To solve for the size of angle \\( 2 \\), we can use the properties of **parallel lines** and **equilateral triangles**:  \n\n\n### Step 1: Recall properties of an equilateral triangle  \nIn an equilateral triangle, all interior angles are \\( 60^\\circ \\). Thus, in \\( \\triangle ABC \\), \\( \\angle BAC = 60^\\circ \\).  \n\n\n### Step 2: Use properties of parallel lines  \nLine \\( l_1 \\parallel l_2 \\), and the transversal (intersecting \\( l_1, l_2, \\) and \\( AB \\)) creates \\( \\angle 1 = 40^\\circ \\). By the **alternate interior angles theorem** (when two parallel lines are cut by a transversal, alternate interior angles are equal), the angle between \\( l_1 \\) and \\( AB \\) is also \\( 40^\\circ \\).  \n\n\n### Step 3: Calculate \\( \\angle 2 \\)  \nAt vertex \\( A \\), the sum of angles along the line formed by \\( l_1 \\) and the transversals must account for \\( \\angle BAC = 60^\\circ \\) and the alternate interior angle (\\( 40^\\circ \\)). Since the total angle on a straight line is \\( 180^\\circ \\), we find \\( \\angle 2 \\) as:  \n\\[\n\\angle 2 = 180^\\circ - \\angle BAC - \\text{(alternate interior angle)} = 180^\\circ - 60^\\circ - 40^\\circ = 80^\\circ\n\\]  \n\n\nFinal answer: \\( 80 \\)",
+    "CoD_steps": [
+      "\\triangle ABC \\text{ equilateral} \\implies \\angle BAC = 60^\\circ",
+      "l_1 \\parallel l_2 \\land AB \\text{ transversal} \\implies \\angle (l_1, AB) = \\angle 1",
+      "\\angle 1 = 40^\\circ \\implies \\angle (l_1, AB) = 40^\\circ",
+      "\\angle BAC = 60^\\circ \\land \\angle (l_1, AB) = 40^\\circ \\implies \\angle 2 = 180^\\circ - \\angle BAC - \\angle (l_1, AB) = 80^\\circ"
+    ]
+  },
+  {
+    "source_index": 3,
+    "answer": "To solve for the measure of angle \\( \\angle CBD \\), we analyze the given conditions and use properties of triangles and perpendicular bisectors:  \n\n\n### Step 1: Recognize \\( BD \\) as a perpendicular bisector of \\( AC \\)  \nA perpendicular bisector of a segment has two key properties: it divides the segment into two equal parts (\\( AD = DC \\)) and forms a right angle with the segment (\\( \\angle ADB = \\angle CDB = 90^\\circ \\)).  \n\n\n### Step 2: Prove \\( \\triangle ABD \\cong \\triangle CBD \\)  \nUsing the **SAS (Side-Angle-Side)** congruence criterion:  \n- \\( AD = DC \\) (BD bisects \\( AC \\)),  \n- \\( \\angle ADB = \\angle CDB = 90^\\circ \\) (BD is perpendicular to \\( AC \\)),  \n- \\( BD = BD \\) (common side).  \n\nThus, \\( \\triangle ABD \\cong \\triangle CBD \\).  \n\n\n### Step 3: Deduce \\( \\triangle ABC \\) is isosceles  \nFrom the congruence \\( \\triangle ABD \\cong \\triangle CBD \\), corresponding sides \\( AB = CB \\). Therefore, \\( \\triangle ABC \\) is isosceles with \\( AB = CB \\).  \n\n\n### Step 4: Find \\( \\angle BCA \\)  \nIn an isosceles triangle, angles opposite equal sides are equal. Since \\( AB = CB \\), \\( \\angle BAC = \\angle BCA \\). Given \\( \\angle BAC = 20^\\circ \\), we have \\( \\angle BCA = 20^\\circ \\).  \n\n\n### Step 5: Calculate \\( \\angle CBD \\) in right \\( \\triangle CBD \\)  \nIn \\( \\triangle CBD \\), \\( \\angle CDB = 90^\\circ \\) (BD is perpendicular to \\( AC \\)) and \\( \\angle BCA = 20^\\circ \\). The sum of angles in a triangle is \\( 180^\\circ \\), so:  \n\\[\n\\angle CBD = 180^\\circ - \\angle CDB - \\angle BCA = 180^\\circ - 90^\\circ - 20^\\circ = 70^\\circ\n\\]  \n\n\nThus, the measure of \\( \\angle CBD \\) is \\( \\boldsymbol{70} \\).",
+    "CoD_steps": [
+      "AD = DC \\land \\angle ADB = \\angle CDB = 90^\\circ",
+      "\\triangle ABD \\cong \\triangle CBD \\text{ by SAS using } AD = DC,\\ \\angle ADB = \\angle CDB = 90^\\circ,\\ BD = BD",
+      "AB = CB",
+      "\\triangle ABC \\text{ is isosceles with } AB = CB",
+      "\\angle BAC = \\angle BCA",
+      "\\angle BAC = 20^\\circ \\implies \\angle BCA = 20^\\circ",
+      "\\angle CBD = 180^\\circ - \\angle CDB - \\angle BCA = 180^\\circ - 90^\\circ - 20^\\circ = 70^\\circ"
+    ]
+  },
+  {
+    "source_index": 4,
+    "answer": "To solve for the measure of angle \\( PAQ \\), follow these steps:  \n\n\n### Step 1: Find \\( \\angle BAC \\) in \\( \\triangle ABC \\)  \nThe sum of angles in a triangle is \\( 180^\\circ \\). Given \\( \\angle B = 20^\\circ \\) and \\( \\angle C = 30^\\circ \\):  \n\\[\n\\angle BAC = 180^\\circ - \\angle B - \\angle C = 180^\\circ - 20^\\circ - 30^\\circ = 130^\\circ\n\\]  \n\n\n### Step 2: Use properties of perpendicular bisectors  \n- \\( MP \\) is the perpendicular bisector of \\( AB \\), so \\( PA = PB \\) (any point on a perpendicular bisector is equidistant from the segment’s endpoints). Thus, \\( \\triangle PAB \\) is isosceles with \\( \\angle PAB = \\angle B \\).  \n- \\( QN \\) is the perpendicular bisector of \\( AC \\), so \\( QA = QC \\). Thus, \\( \\triangle QAC \\) is isosceles with \\( \\angle QAC = \\angle C \\).  \n\n\n### Step 3: Calculate \\( \\angle PAB \\) and \\( \\angle QAC \\)  \nFrom the isosceles triangles:  \n\\[\n\\angle PAB = \\angle B = 20^\\circ, \\quad \\angle QAC = \\angle C = 30^\\circ\n\\]  \n\n\n### Step 4: Find \\( \\angle PAQ \\)  \nSubtract \\( \\angle PAB \\) and \\( \\angle QAC \\) from \\( \\angle BAC \\):  \n\\[\n\\angle PAQ = \\angle BAC - \\angle PAB - \\angle QAC = 130^\\circ - 20^\\circ - 30^\\circ = 80^\\circ\n\\]  \n\n\nFinal Answer: \\( 80 \\)",
+    "CoD_steps": [
+      "\\angle BAC = 180^\\circ - \\angle B - \\angle C = 180^\\circ - 20^\\circ - 30^\\circ = 130^\\circ",
+      "MP \\perp AB,\\ PA = PB \\implies \\triangle PAB \\text{ isosceles with } \\angle PAB = \\angle B",
+      "QN \\perp AC,\\ QA = QC \\implies \\triangle QAC \\text{ isosceles with } \\angle QAC = \\angle C",
+      "\\angle PAB = \\angle B = 20^\\circ,\\ \\angle QAC = \\angle C = 30^\\circ",
+      "\\angle PAQ = \\angle BAC - \\angle PAB - \\angle QAC = 130^\\circ - 20^\\circ - 30^\\circ = 80^\\circ"
+    ]
+  },
+  {
+    "source_index": 5,
+    "answer": "To determine the measure of angle \\( ADC \\) in right triangle \\( ABC \\) (with \\( \\angle ACB = 90^\\circ \\), \\( \\angle A = 52^\\circ \\)), follow these steps:  \n\n\n### Step 1: Find \\( \\angle B \\) in \\( \\triangle ABC \\)  \nIn any triangle, the sum of interior angles is \\( 180^\\circ \\). For \\( \\triangle ABC \\):  \n\\[\n\\angle A + \\angle B + \\angle ACB = 180^\\circ\n\\]  \nSubstitute \\( \\angle A = 52^\\circ \\) and \\( \\angle ACB = 90^\\circ \\):  \n\\[\n52^\\circ + \\angle B + 90^\\circ = 180^\\circ\n\\]  \nSolve for \\( \\angle B \\):  \n\\[\n\\angle B = 180^\\circ - 52^\\circ - 90^\\circ = 38^\\circ\n\\]  \n\n\n### Step 2: Analyze \\( \\triangle BCD \\) (isosceles triangle)  \nThe circle has center \\( B \\) and radius \\( BC \\), so \\( BD = BC \\) (radii of the same circle). Thus, \\( \\triangle BCD \\) is **isosceles** with \\( BD = BC \\). In an isosceles triangle, the angles opposite equal sides are equal, so:  \n\\[\n\\angle BDC = \\angle BCD\n\\]  \n\nLet \\( \\angle BDC = \\angle BCD = x \\). Using the angle sum property in \\( \\triangle BCD \\):  \n\\[\n\\angle B + \\angle BDC + \\angle BCD = 180^\\circ\n\\]  \nSubstitute \\( \\angle B = 38^\\circ \\) and \\( \\angle BDC = \\angle BCD = x \\):  \n\\[\n38^\\circ + x + x = 180^\\circ\n\\]  \nSolve for \\( x \\):  \n\\[\n38^\\circ + 2x = 180^\\circ \\implies 2x = 142^\\circ \\implies x = 71^\\circ\n\\]  \nThus, \\( \\angle BDC = 71^\\circ \\).  \n\n\n### Step 3: Find \\( \\angle ADC \\) (supplementary angles)  \nAngles \\( \\angle ADC \\) and \\( \\angle BDC \\) form a **linear pair** (they lie on a straight line \\( AB \\)), so they are supplementary (sum to \\( 180^\\circ \\)):  \n\\[\n\\angle ADC + \\angle BDC = 180^\\circ\n\\]  \nSubstitute \\( \\angle BDC = 71^\\circ \\):  \n\\[\n\\angle ADC = 180^\\circ - 71^\\circ = 109^\\circ\n\\]  \n\n\nFinal Answer: \\( \\boldsymbol{109} \\)",
+    "CoD_steps": [
+      "\\triangle ABC: \\angle A + \\angle B + \\angle ACB = 180^\\circ \\implies \\angle B = 180^\\circ - 52^\\circ - 90^\\circ = 38^\\circ",
+      "BD = BC \\implies \\triangle BCD \\text{ is isosceles} \\implies \\angle BDC = \\angle BCD",
+      "\\text{Let } \\angle BDC = \\angle BCD = x",
+      "\\angle B + \\angle BDC + \\angle BCD = 180^\\circ \\implies 38^\\circ + x + x = 180^\\circ",
+      "38^\\circ + 2x = 180^\\circ \\implies 2x = 142^\\circ \\implies x = 71^\\circ",
+      "\\angle ADC + \\angle BDC = 180^\\circ \\implies \\angle ADC = 180^\\circ - 71^\\circ = 109^\\circ",
+      "\\angle ADC = 109^\\circ"
+    ]
+  },
+  {
+    "source_index": 6,
+    "answer": "To determine the degree measure of angle \\( \\angle CFA \\) in triangle \\( ABC \\), we analyze the given information step by step:  \n\n\n### Step 1: Analyze \\( \\triangle ABC \\) (Isosceles Triangle)  \nSince \\( AB = AC \\), \\( \\triangle ABC \\) is isosceles with \\( \\angle ABC = \\angle ACB \\).  \nThe sum of angles in a triangle is \\( 180^\\circ \\), so:  \n\\[\n\\angle BAC + \\angle ABC + \\angle ACB = 180^\\circ\n\\]  \nGiven \\( \\angle BAC = 100^\\circ \\), we solve for the base angles:  \n\\[\n\\angle ABC + \\angle ACB = 180^\\circ - 100^\\circ = 80^\\circ\n\\]  \nSince \\( \\angle ABC = \\angle ACB \\), each base angle is:  \n\\[\n\\angle ABC = \\angle ACB = \\frac{80^\\circ}{2} = 40^\\circ\n\\]  \n\n\n### Step 2: Analyze Median \\( AD \\)  \n\\( AD \\) is the median of \\( BC \\), so \\( D \\) is the midpoint of \\( BC \\). In an isosceles triangle, the median from the apex (\\( A \\)) to the base (\\( BC \\)) is also the **angle bisector** and **altitude** of \\( \\angle BAC \\). Thus:  \n- \\( AD \\) bisects \\( \\angle BAC \\), so \\( \\angle BAD = \\angle CAD = \\frac{100^\\circ}{2} = 50^\\circ \\).  \n- \\( AD \\perp BC \\) (altitude), so \\( \\angle ADC = 90^\\circ \\).  \n\n\n### Step 3: Analyze Angle Bisector \\( CE \\)  \n\\( CE \\) bisects \\( \\angle ACB \\). Since \\( \\angle ACB = 40^\\circ \\), the bisector splits it into two equal angles:  \n\\[\n\\angle BCE = \\angle ACE = \\frac{40^\\circ}{2} = 20^\\circ\n\\]  \n\n\n### Step 4: Calculate \\( \\angle CFA \\)  \nTo find \\( \\angle CFA \\), we use the angle sum property in \\( \\triangle CFA \\). We know:  \n- \\( \\angle ACF = \\angle ACE = 20^\\circ \\) (from Step 3).  \n- \\( \\angle CAF = \\angle CAD = 50^\\circ \\) (from Step 2).  \n\nIn \\( \\triangle CFA \\), the sum of angles is \\( 180^\\circ \\), so:  \n\\[\n\\angle CFA = 180^\\circ - \\angle ACF - \\angle CAF\n\\]  \nSubstitute the known values:  \n\\[\n\\angle CFA = 180^\\circ - 20^\\circ - 50^\\circ = 110^\\circ\n\\]  \n\n\nThus, the degree measure of \\( \\angle CFA \\) is \\( \\boldsymbol{110} \\).",
+    "CoD_steps": [
+      "AB = AC \\implies \\angle ABC = \\angle ACB",
+      "\\angle BAC + \\angle ABC + \\angle ACB = 180^\\circ",
+      "\\angle BAC = 100^\\circ \\implies \\angle ABC + \\angle ACB = 80^\\circ",
+      "\\angle ABC = \\angle ACB \\implies \\angle ABC = \\angle ACB = 40^\\circ",
+      "BD = DC",
+      "AD \\text{ median to } BC \\implies \\angle BAD = \\angle CAD",
+      "\\angle BAD = \\angle CAD = \\frac{1}{2}\\angle BAC = 50^\\circ",
+      "AD \\perp BC",
+      "CE \\text{ bisects } \\angle ACB \\implies \\angle BCE = \\angle ACE",
+      "\\angle ACB = 40^\\circ \\implies \\angle BCE = \\angle ACE = 20^\\circ",
+      "F \\in AD \\land F \\in CE",
+      "\\angle ACF = \\angle ACE = 20^\\circ",
+      "\\angle CAF = \\angle CAD = 50^\\circ",
+      "\\angle CFA = 180^\\circ - \\angle ACF - \\angle CAF",
+      "\\angle CFA = 180^\\circ - 20^\\circ - 50^\\circ = 110^\\circ"
+    ]
+  },
+  {
+    "source_index": 7,
+    "answer": "To solve for the measure of angle \\( B \\), we analyze the given conditions step by step:  \n\n\n### Step 1: Identify Isosceles Triangles and Key Properties  \n- **Triangle \\( ABC \\) is isosceles with \\( BA = BC \\)**: By the Isosceles Triangle Theorem, angles opposite equal sides are equal. Thus, \\( \\angle BAC = \\angle BCA \\).  \n- **\\( DE \\) is the perpendicular bisector of \\( AB \\)**: By the Perpendicular Bisector Theorem, any point on the perpendicular bisector of a segment is equidistant from the segment’s endpoints. Thus, \\( AD = BD \\), so \\( \\triangle ABD \\) is isosceles with \\( \\angle BAD = \\angle ABD \\).  \n- **\\( AD \\) is the angle bisector of \\( \\angle BAC \\)**: This means \\( \\angle BAD = \\angle DAC \\).  \n\n\n### Step 2: Define Variables for Angles  \nLet \\( \\angle ABD = x \\). Since \\( \\triangle ABD \\) is isosceles (\\( AD = BD \\)), \\( \\angle BAD = x \\).  \n\nBecause \\( AD \\) bisects \\( \\angle BAC \\), \\( \\angle DAC = \\angle BAD = x \\). Thus, \\( \\angle BAC = \\angle BAD + \\angle DAC = x + x = 2x \\).  \n\nFrom the isosceles triangle \\( ABC \\) (\\( BA = BC \\)), \\( \\angle BCA = \\angle BAC = 2x \\).  \n\n\n### Step 3: Sum of Angles in \\( \\triangle ABC \\)  \nThe sum of angles in a triangle is \\( 180^\\circ \\). For \\( \\triangle ABC \\):  \n\\[\n\\angle ABC + \\angle BAC + \\angle BCA = 180^\\circ\n\\]  \nSubstitute \\( \\angle ABC = x \\), \\( \\angle BAC = 2x \\), and \\( \\angle BCA = 2x \\):  \n\\[\nx + 2x + 2x = 180^\\circ\n\\]  \nSimplify and solve for \\( x \\):  \n\\[\n5x = 180^\\circ \\implies x = 36^\\circ\n\\]  \n\n\nThus, the measure of angle \\( B \\) is \\( 36^\\circ \\).  \n\nFinal Answer: \\( 36 \\)",
+    "CoD_steps": [
+      "BA = BC \\implies \\angle BAC = \\angle BCA",
+      "AD = BD \\implies \\angle BAD = \\angle ABD",
+      "AD \\text{ bisects } \\angle BAC \\implies \\angle BAD = \\angle DAC",
+      "Let x = \\angle ABD; \\angle BAD = x, \\angle DAC = x \\implies \\angle BAC = 2x",
+      "\\angle BCA = \\angle BAC = 2x",
+      "In \\triangle ABC: \\angle ABC + \\angle BAC + \\angle BCA = 180^\\circ, \\angle ABC = x, \\angle BAC = 2x, \\angle BCA = 2x \\implies 5x = 180^\\circ \\implies x = 36^\\circ",
+      "Thus, \\angle B = \\angle ABC = 36^\\circ"
+    ]
+  },
+  {
+    "source_index": 8,
+    "answer": "To solve for the measure of angle \\( A \\) in right triangle \\( ABC \\) (with \\( \\angle ACB = 90^\\circ \\)):  \n\n\n### Step 1: Analyze \\( \\triangle BCD \\)  \nAn arc centered at \\( B \\) with radius \\( BC \\) intersects \\( AB \\) at \\( D \\), so \\( BD = BC \\). Thus, \\( \\triangle BCD \\) is **isosceles** with \\( BD = BC \\), meaning \\( \\angle BCD = \\angle BDC \\).  \n\n\n### Step 2: Find \\( \\angle BCD \\)  \nWe know \\( \\angle ACB = 90^\\circ \\) (right angle) and \\( \\angle ACD = 20^\\circ \\). Since \\( \\angle ACB = \\angle ACD + \\angle BCD \\), we solve for \\( \\angle BCD \\):  \n\\[\n\\angle BCD = \\angle ACB - \\angle ACD = 90^\\circ - 20^\\circ = 70^\\circ\n\\]  \n\n\n### Step 3: Find \\( \\angle DBC \\) (i.e., \\( \\angle ABC \\))  \nIn \\( \\triangle BCD \\), the sum of angles is \\( 180^\\circ \\). Since \\( \\angle BCD = \\angle BDC = 70^\\circ \\), we calculate \\( \\angle DBC \\):  \n\\[\n\\angle DBC = 180^\\circ - \\angle BCD - \\angle BDC = 180^\\circ - 70^\\circ - 70^\\circ = 40^\\circ\n\\]  \nNote: \\( \\angle DBC \\) is the same as \\( \\angle ABC \\) in \\( \\triangle ABC \\).  \n\n\n### Step 4: Find \\( \\angle A \\)  \nIn right triangle \\( ABC \\), \\( \\angle ACB = 90^\\circ \\). The sum of angles in a triangle is \\( 180^\\circ \\), so:  \n\\[\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ\n\\]  \nSubstitute \\( \\angle ABC = 40^\\circ \\) and \\( \\angle ACB = 90^\\circ \\):  \n\\[\n\\angle A + 40^\\circ + 90^\\circ = 180^\\circ\n\\]  \nSolve for \\( \\angle A \\):  \n\\[\n\\angle A = 180^\\circ - 40^\\circ - 90^\\circ = 50^\\circ\n\\]  \n\n\nFinal Answer: \\( \\boldsymbol{50} \\)",
+    "CoD_steps": [
+      "BD = BC \\implies \\angle BCD = \\angle BDC",
+      "∠ACB = 90^\\circ, ∠ACD = 20^\\circ \\implies \\angle BCD = \\angle ACB - \\angle ACD = 90^\\circ - 20^\\circ = 70^\\circ",
+      "\\angle BCD = \\angle BDC = 70^\\circ \\implies \\angle DBC = 180^\\circ - \\angle BCD - \\angle BDC = 40^\\circ",
+      "In \\triangle ABC, \\angle ABC = \\angle DBC = 40^\\circ, \\angle ACB = 90^\\circ \\implies \\angle A = 180^\\circ - \\angle ABC - \\angle ACB = 50^\\circ",
+      "\\angle A = 50^\\circ"
+    ]
+  },
+  {
+    "source_index": 9,
+    "answer": "To solve for the measure of angle \\( \\angle BAD \\) in isosceles triangle \\( ABC \\) (where \\( AB = AC \\)):  \n\n\n### Step 1: Identify properties of the isosceles triangle  \nSince \\( AB = AC \\), \\( \\triangle ABC \\) is isosceles with \\( \\angle B = \\angle C \\) (angles opposite equal sides are equal).  \n\n\n### Step 2: Find \\( \\angle BAC \\)  \nThe sum of angles in a triangle is \\( 180^\\circ \\). Given \\( \\angle B = 25^\\circ \\), we know \\( \\angle C = 25^\\circ \\) (from Step 1). Thus:  \n\\[\n\\angle BAC = 180^\\circ - \\angle B - \\angle C = 180^\\circ - 25^\\circ - 25^\\circ = 130^\\circ\n\\]  \n\n\n### Step 3: Analyze the median \\( AD \\)  \n\\( AD \\) is the median of \\( BC \\), so \\( BD = DC \\). In an isosceles triangle, the median from the apex (vertex \\( A \\)) to the base (\\( BC \\)) also acts as the **angle bisector** of \\( \\angle BAC \\). This means \\( AD \\) splits \\( \\angle BAC \\) into two equal angles: \\( \\angle BAD \\) and \\( \\angle CAD \\).  \n\n\n### Step 4: Calculate \\( \\angle BAD \\)  \nSince \\( AD \\) bisects \\( \\angle BAC \\), we have:  \n\\[\n\\angle BAD = \\frac{1}{2} \\angle BAC = \\frac{1}{2} \\times 130^\\circ = 65^\\circ\n\\]  \n\n\nFinal Answer: \\( 65 \\)",
+    "CoD_steps": [
+      "AB = AC \\implies \\angle B = \\angle C",
+      "\\angle B = 25^\\circ \\implies \\angle C = 25^\\circ",
+      "\\angle BAC = 180^\\circ - \\angle B - \\angle C = 130^\\circ",
+      "AD \\text{ is the median to } BC \\implies BD = DC",
+      "AD \\text{ in } \\triangle ABC \\text{ is the angle bisector of } \\angle BAC \\implies \\angle BAD = \\angle CAD",
+      "\\angle BAD = \\frac{1}{2} \\angle BAC",
+      "\\angle BAD = \\frac{1}{2} \\cdot 130^\\circ = 65^\\circ"
+    ]
+  },
+  {
+    "source_index": 10,
+    "answer": "To solve the problem, we use properties of **cyclic quadrilaterals** and **inscribed angles**:  \n\n\n### Step 1: Exterior Angle of a Cyclic Quadrilateral  \nIn a cyclic quadrilateral, an exterior angle is equal to the interior opposite angle. Here, \\( \\angle DCE \\) is an exterior angle of quadrilateral \\( ABCD \\), so it equals the interior opposite angle \\( \\angle BAD \\).  \n\nThus, \\( \\angle BAD = \\angle DCE = 62^\\circ \\).  \n\n\n### Step 2: Inscribed Angle Theorem  \nThe **inscribed angle theorem** states that an inscribed angle is half the measure of its intercepted arc. \\( \\angle BAD \\) is an inscribed angle intercepting arc \\( BD \\). Let the measure of arc \\( BD \\) be \\( x \\). Then:  \n\\[\n\\angle BAD = \\frac{1}{2} \\times \\text{measure of arc } BD\n\\]  \nSubstituting \\( \\angle BAD = 62^\\circ \\):  \n\\[\n62^\\circ = \\frac{1}{2} x \\implies x = 2 \\times 62^\\circ = 124^\\circ\n\\]  \n\n\n### Step 3: Central Angle Theorem  \nA **central angle** is equal to the measure of its intercepted arc. \\( \\angle BOD \\) is a central angle intercepting arc \\( BD \\), so:  \n\\[\n\\angle BOD = \\text{measure of arc } BD = 124^\\circ\n\\]  \n\n\nFinal Answer: \\( \\boldsymbol{124} \\)",
+    "CoD_steps": [
+      "\\angle BAD = \\angle DCE = 62^\\circ",
+      "\\angle BAD = \\tfrac{1}{2} \\, \\widehat{BD}",
+      "62^\\circ = \\tfrac{1}{2} \\, \\widehat{BD} \\implies \\widehat{BD} = 124^\\circ",
+      "\\angle BOD = \\widehat{BD} = 124^\\circ"
+    ]
+  },
+  {
+    "source_index": 11,
+    "answer": "To solve for the measure of angle \\( C \\), we can use properties of parallel lines, corresponding angles, and isosceles triangles. Here's the step - by - step reasoning:  \n\n\n### Step 1: Identify Corresponding Angles  \nSince \\( AB \\parallel CD \\) and \\( AE \\) is a transversal, \\( \\angle A \\) and \\( \\angle DOE \\) are **corresponding angles**. By the Corresponding Angles Postulate, corresponding angles are equal when two parallel lines are cut by a transversal.  \nGiven \\( \\angle A = 50^\\circ \\), we have \\( \\angle DOE = 50^\\circ \\).  \n\n\n### Step 2: Analyze the Isosceles Triangle \\( \\triangle OCE \\)  \nWe know \\( OC = OE \\). In a triangle, if two sides are equal, the triangle is isosceles, and the angles opposite those equal sides are equal. So in \\( \\triangle OCE \\), \\( \\angle C = \\angle E \\) (let’s call this common measure \\( x \\)).  \n\n\n### Step 3: Apply the Exterior Angle Theorem  \nThe Exterior Angle Theorem states that an exterior angle of a triangle is equal to the sum of the two non - adjacent interior angles. For \\( \\triangle OCE \\), \\( \\angle DOE \\) is an exterior angle, so:  \n\\[\n\\angle DOE = \\angle C + \\angle E\n\\]  \nSubstitute \\( \\angle DOE = 50^\\circ \\), \\( \\angle C = x \\), and \\( \\angle E = x \\):  \n\\[\n50^\\circ = x + x\n\\]  \nSimplify and solve for \\( x \\):  \n\\[\n50^\\circ = 2x \\implies x = 25^\\circ\n\\]  \n\n\nThus, the measure of \\( \\angle C \\) is \\( 25 \\).  \n\nFinal Answer: \\( 25 \\)",
+    "CoD_steps": [
+      "AB \\parallel CD \\wedge AE \\text{ transversal} \\implies \\angle A \\text{ and } \\angle DOE \\text{ are corresponding} \\quad \\angle DOE = \\angle A = 50^\\circ",
+      "OC = OE \\implies \\angle C = \\angle E = x",
+      "\\angle DOE = \\angle C + \\angle E \\quad (\\text{Exterior Angle Theorem})",
+      "50^\\circ = x + x \\implies 50^\\circ = 2x \\implies x = 25^\\circ",
+      "\\angle C = x = 25^\\circ"
+    ]
+  },
+  {
+    "source_index": 12,
+    "answer": "To solve for the degree measure of \\( \\angle DOB \\) in the given diagram, we analyze the properties of the equilateral triangle and use angle - chasing:  \n\n\n### Step 1: Properties of Equilateral Triangle \\( \\triangle ABC \\)  \nIn an equilateral triangle, all sides are equal, all interior angles are \\( 60^\\circ \\), and the median, altitude, and angle - bisector from any vertex coincide. Since \\( BO \\) is a median, \\( O \\) is the mid - point of \\( AC \\), so \\( AO = OC \\). Also, \\( BO \\) acts as an altitude, making \\( \\angle AOB = 90^\\circ \\) (as the altitude is perpendicular to the base).  \n\n\n### Step 2: Analyze \\( \\angle OAB \\) and \\( \\angle ABO \\)  \nIn \\( \\triangle ABC \\), \\( \\angle BAC = 60^\\circ \\) (equilateral triangle property). In right - triangle \\( \\triangle ABO \\) (since \\( BO \\perp AC \\)), we can find \\( \\angle ABO \\):  \nThe sum of angles in a triangle is \\( 180^\\circ \\). So, \\( \\angle ABO=180^\\circ−\\angle OAB−\\angle AOB \\). Substituting \\( \\angle OAB = 60^\\circ \\) and \\( \\angle AOB = 90^\\circ \\), we get \\( \\angle ABO = 180^\\circ−60^\\circ−90^\\circ = 30^\\circ \\).  \n\n\n### Step 3: Analyze \\( \\triangle AOD \\)  \nGiven \\( AD = AO \\), \\( \\triangle AOD \\) is isosceles. Since \\( D \\) lies on the extension of \\( BA \\), \\( \\angle OAD \\) is supplementary to \\( \\angle OAB \\). So, \\( \\angle OAD = 180^\\circ−\\angle OAB = 180^\\circ−60^\\circ = 120^\\circ \\).  \n\nIn \\( \\triangle AOD \\), the sum of interior angles is \\( 180^\\circ \\). Let \\( \\angle ADO=\\angle AOD = x \\) (because \\( AD = AO \\), the base angles of an isosceles triangle are equal). Then \\( x + x+\\angle OAD = 180^\\circ \\). Substituting \\( \\angle OAD = 120^\\circ \\), we have \\( 2x+120^\\circ = 180^\\circ \\), so \\( 2x = 60^\\circ \\) and \\( x = 30^\\circ \\). Thus, \\( \\angle AOD = 30^\\circ \\).  \n\n\n### Step 4: Calculate \\( \\angle DOB \\)  \nWe know that \\( \\angle AOB = 90^\\circ \\) (from Step 1, as \\( BO \\) is an altitude) and \\( \\angle AOD = 30^\\circ \\) (from Step 3). To find \\( \\angle DOB \\), we add these two angles:  \n\\( \\angle DOB=\\angle AOB+\\angle AOD = 90^\\circ+30^\\circ = 120^\\circ \\).  \n\n\nFinal Answer: \\( 120 \\)",
+    "CoD_steps": [
+      "\\triangle ABC \\text{ equilateral} \\implies AB = BC = CA \\land \\angle BAC = 60^\\circ",
+      "BO \\text{ median to } AC \\implies O \\in AC \\land AO = OC",
+      "BO \\perp AC \\implies \\angle AOB = 90^\\circ",
+      "\\angle OAB = \\angle CAB = 60^\\circ",
+      "\\angle ABO = 180^\\circ - \\angle OAB - \\angle AOB = 180^\\circ - 60^\\circ - 90^\\circ = 30^\\circ",
+      "AD = AO \\implies \\triangle AOD \\text{ isosceles} \\implies \\angle ADO = \\angle AOD = x",
+      "\\angle OAD = 180^\\circ - \\angle OAB = 120^\\circ",
+      "\\angle OAD + \\angle AOD + \\angle ADO = 180^\\circ \\implies 120^\\circ + x + x = 180^\\circ",
+      "2x = 60^\\circ \\implies x = 30^\\circ \\implies \\angle AOD = 30^\\circ",
+      "\\angle DOB = \\angle AOB + \\angle AOD = 90^\\circ + 30^\\circ = 120^\\circ"
+    ]
+  },
+  {
+    "source_index": 13,
+    "answer": "To solve for the measure of angle 2, we can use properties of parallel lines and isosceles triangles:  \n\n1. **Alternate Interior Angles (Parallel Lines)**:  \n   Since \\( AB \\parallel CD \\) and the transversal intersects both lines, \\( \\angle 1 \\) and \\( \\angle CAB \\) are alternate interior angles. By the Alternate Interior Angles Theorem, these angles are congruent. Thus, \\( \\angle CAB = \\angle 1 = 70^\\circ \\).    \n\n2. **Isosceles Triangle Properties**:  \n   Given \\( AC = BC \\), \\( \\triangle ABC \\) is isosceles with \\( AC = BC \\). In an isosceles triangle, angles opposite equal sides are congruent. Here, \\( \\angle CBA \\) (opposite \\( AC \\)) and \\( \\angle CAB \\) (opposite \\( BC \\)) are equal. Thus, \\( \\angle CBA = \\angle CAB = 70^\\circ \\).    \n\n3. **Sum of Angles in a Triangle**:  \n   The sum of the interior angles of a triangle is \\( 180^\\circ \\). For \\( \\triangle ABC \\), we have:  \n   \\[\n   \\angle 2 + \\angle CAB + \\angle CBA = 180^\\circ\n   \\]  \n   Substituting \\( \\angle CAB = 70^\\circ \\) and \\( \\angle CBA = 70^\\circ \\):  \n   \\[\n   \\angle 2 = 180^\\circ - 70^\\circ - 70^\\circ = 40^\\circ\n   \\]  \n\n\nFinal Answer: 40",
+    "CoD_steps": [
+      "AB \\parallel CD \\land \\text{transversal} \\implies \\angle CAB = \\angle 1",
+      "\\angle 1 = 70^\\circ \\implies \\angle CAB = 70^\\circ",
+      "AC = BC \\implies \\angle CBA = \\angle BAC",
+      "\\angle BAC = \\angle CAB",
+      "\\angle CAB = 70^\\circ \\implies \\angle CBA = 70^\\circ",
+      "\\angle 2 + \\angle CAB + \\angle CBA = 180^\\circ",
+      "\\angle CAB = \\angle CBA = 70^\\circ \\implies \\angle 2 = 180^\\circ - 70^\\circ - 70^\\circ = 40^\\circ"
+    ]
+  },
+  {
+    "source_index": 14,
+    "answer": "To solve for the measure of angle \\( A \\), we analyze the given isosceles triangles and use angle sum properties. Let’s denote \\( \\angle A = x \\).  \n\n\n### Step 1: Analyze \\( \\triangle ABC \\)  \nSince \\( AB = AC \\), \\( \\triangle ABC \\) is isosceles with \\( \\angle ABC = \\angle ACB \\). By the angle-sum property of a triangle:  \n\\[\n\\angle ABC = \\angle ACB = \\frac{180^\\circ - x}{2}\n\\]  \n\n\n### Step 2: Analyze \\( \\triangle BCD \\)  \nGiven \\( BC = BD \\), \\( \\triangle BCD \\) is isosceles with \\( \\angle BCD = \\angle BDC \\). Since \\( \\angle BCD = \\angle ACB \\) (as \\( D \\) lies on \\( AC \\)):  \n\\[\n\\angle BDC = \\angle ACB = \\frac{180^\\circ - x}{2}\n\\]  \nUsing the angle-sum property in \\( \\triangle BCD \\):  \n\\[\n\\angle DBC = 180^\\circ - 2 \\cdot \\angle BDC = 180^\\circ - 2 \\cdot \\frac{180^\\circ - x}{2} = x\n\\]  \n\n\n### Step 3: Analyze \\( \\triangle ADE \\)  \nGiven \\( AD = DE \\), \\( \\triangle ADE \\) is isosceles with \\( \\angle DAE = \\angle DEA \\). Since \\( \\angle DAE = \\angle A = x \\):  \n\\[\n\\angle DEA = x\n\\]  \nUsing the angle-sum property in \\( \\triangle ADE \\):  \n\\[\n\\angle ADE = 180^\\circ - \\angle DAE - \\angle DEA = 180^\\circ - x - x = 180^\\circ - 2x\n\\]  \n\n\n### Step 4: Analyze \\( \\triangle BDE \\)  \nGiven \\( DE = BE \\), \\( \\triangle BDE \\) is isosceles with \\( \\angle EBD = \\angle EDB \\). Note that \\( \\angle DEB \\) is supplementary to \\( \\angle DEA \\) (since they form a linear pair):  \n\\[\n\\angle DEB = 180^\\circ - \\angle DEA = 180^\\circ - x\n\\]  \nUsing the angle-sum property in \\( \\triangle BDE \\):  \n\\[\n\\angle EBD + \\angle EDB + \\angle DEB = 180^\\circ\n\\]  \nLet \\( \\angle EBD = \\angle EDB = y \\). Then:  \n\\[\ny + y + (180^\\circ - x) = 180^\\circ \\implies 2y = x \\implies y = \\frac{x}{2}\n\\]  \n\n\n### Step 5: Relate \\( \\angle ABC \\) to \\( x \\)  \n\\( \\angle ABC \\) can be expressed as the sum of \\( \\angle EBD \\) and \\( \\angle DBC \\):  \n\\[\n\\angle ABC = \\angle EBD + \\angle DBC = \\frac{x}{2} + x = \\frac{3x}{2}\n\\]  \nBut we also know \\( \\angle ABC = \\frac{180^\\circ - x}{2} \\) (from Step 1). Equating these:  \n\\[\n\\frac{3x}{2} = \\frac{180^\\circ - x}{2}\n\\]  \nMultiply both sides by 2:  \n\\[\n3x = 180^\\circ - x \\implies 4x = 180^\\circ \\implies x = 45^\\circ\n\\]  \n\n\nThus, the measure of angle \\( A \\) is \\( \\boldsymbol{45} \\).",
+    "CoD_steps": [
+      "AB = AC \\implies \\angle ABC = \\angle ACB = \\frac{180^\\circ - x}{2}",
+      "BC = BD \\implies \\angle BCD = \\angle BDC",
+      "D \\in AC \\implies \\angle BCD = \\angle ACB = \\frac{180^\\circ - x}{2}",
+      "\\angle BDC = \\angle BCD = \\frac{180^\\circ - x}{2} \\implies \\angle DBC = 180^\\circ - 2 \\angle BDC = x",
+      "AD = DE \\implies \\angle DAE = \\angle DEA",
+      "\\angle DAE = \\angle A = x \\implies \\angle DEA = x",
+      "In \\triangle ADE: \\angle ADE = 180^\\circ - \\angle DAE - \\angle DEA = 180^\\circ - x - x = 180^\\circ - 2x",
+      "DE = BE \\implies \\angle EBD = \\angle EDB",
+      "\\angle DEB supplementary to \\angle DEA \\implies \\angle DEB = 180^\\circ - \\angle DEA = 180^\\circ - x",
+      "In \\triangle BDE: \\angle EBD + \\angle EDB + \\angle DEB = 180^\\circ",
+      "Let \\angle EBD = \\angle EDB = y: 2y + (180^\\circ - x) = 180^\\circ \\implies 2y = x \\implies y = \\frac{x}{2}",
+      "\\angle ABC = \\angle EBD + \\angle DBC = y + x = \\frac{x}{2} + x = \\frac{3x}{2}",
+      "\\angle ABC = \\frac{180^\\circ - x}{2}",
+      "\\frac{3x}{2} = \\frac{180^\\circ - x}{2} \\implies 3x = 180^\\circ - x \\implies 4x = 180^\\circ \\implies x = 45^\\circ"
+    ]
+  },
+  {
+    "source_index": 15,
+    "answer": "要解决这个问题，我们可以利用**三角形内角和定理**（三角形内角和为\\( 180^\\circ \\)）和对顶角的性质，将分散的角转化为可计算的组合。  \n\n\n### 步骤1：标记中间角并分析关系  \n观察图形，设中间三个对顶角分别为\\( \\angle 1 \\)、\\( \\angle 2 \\)、\\( \\angle 3 \\)（这三个角构成一个三角形的内角）。根据三角形内角和定理，这三个角的和为：  \n\\[ \\angle 1 + \\angle 2 + \\angle 3 = 180^\\circ \\]  \n\n\n### 步骤2：将目标角与中间角关联  \n利用三角形内角和定理，分析包含目标角的小三角形：  \n- 包含\\( \\angle A \\)和\\( \\angle D \\)的三角形：\\( \\angle A + \\angle D + \\angle 1 = 180^\\circ \\)，因此\\( \\angle A + \\angle D = 180^\\circ - \\angle 1 \\)。  \n- 包含\\( \\angle E \\)和\\( \\angle F \\)的三角形：\\( \\angle E + \\angle F + \\angle 2 = 180^\\circ \\)，因此\\( \\angle E + \\angle F = 180^\\circ - \\angle 2 \\)。  \n- 包含\\( \\angle B \\)和\\( \\angle C \\)的三角形：\\( \\angle B + \\angle C + \\angle 3 = 180^\\circ \\)，因此\\( \\angle B + \\angle C = 180^\\circ - \\angle 3 \\)。  \n\n\n### 步骤3：计算六个角的和  \n将上述三个等式相加，得到：  \n\\[ (\\angle A + \\angle D) + (\\angle E + \\angle F) + (\\angle B + \\angle C) = (180^\\circ - \\angle 1) + (180^\\circ - \\angle 2) + (180^\\circ - \\angle 3) \\]  \n化简右边：  \n\\[ = 180^\\circ \\times 3 - (\\angle 1 + \\angle 2 + \\angle 3) \\]  \n代入\\( \\angle 1 + \\angle 2 + \\angle 3 = 180^\\circ \\)：  \n\\[ = 540^\\circ - 180^\\circ = 360^\\circ \\]  \n\n\n因此，\\( \\angle A + \\angle B + \\angle C + \\angle D + \\angle E + \\angle F \\)的和为\\(\\boldsymbol{360}\\)。",
+    "CoD_steps": [
+      "\\angle 1, \\angle 2, \\angle 3 \\text{ are interior angles of a triangle} \\implies \\angle 1 + \\angle 2 + \\angle 3 = 180^\\circ",
+      "\\angle A + \\angle D + \\angle 1 = 180^\\circ \\implies \\angle A + \\angle D = 180^\\circ - \\angle 1",
+      "\\angle E + \\angle F + \\angle 2 = 180^\\circ \\implies \\angle E + \\angle F = 180^\\circ - \\angle 2",
+      "\\angle B + \\angle C + \\angle 3 = 180^\\circ \\implies \\angle B + \\angle C = 180^\\circ - \\angle 3",
+      "(\\angle A + \\angle D) + (\\angle E + \\angle F) + (\\angle B + \\angle C) = (180^\\circ - \\angle 1) + (180^\\circ - \\angle 2) + (180^\\circ - \\angle 3)",
+      "540^\\circ - (\\angle 1 + \\angle 2 + \\angle 3) = 360^\\circ",
+      "\\angle A + \\angle B + \\angle C + \\angle D + \\angle E + \\angle F = 360^\\circ"
+    ]
+  },
+  {
+    "source_index": 16,
+    "answer": "To determine the measure of angle \\( DCF \\), we analyze the angles around point \\( C \\) using properties of squares and regular pentagons, along with the given angle \\( \\angle ACB = 120^\\circ \\).  \n\n\n### Step 1: Angle in the square \\( ACDE \\)  \nIn a square, all internal angles are \\( 90^\\circ \\). Since \\( ACDE \\) is a square, \\( \\angle ACD = 90^\\circ \\).  \n\n\n### Step 2: Angle in the regular pentagon \\( BCFGH \\)  \nThe formula for the internal angle of a regular \\( n \\)-sided polygon is \\( \\frac{(n-2) \\cdot 180^\\circ}{n} \\). For a pentagon (\\( n = 5 \\)):  \n\\[\n\\text{Internal angle} = \\frac{(5-2) \\cdot 180^\\circ}{5} = \\frac{3 \\cdot 180^\\circ}{5} = 108^\\circ\n\\]  \nSince \\( BCFGH \\) is a regular pentagon, \\( \\angle BCF = 108^\\circ \\).  \n\n\n### Step 3: Sum of angles around point \\( C \\)  \nThe sum of angles around any point is \\( 360^\\circ \\). Let \\( \\angle DCF = x \\). The angles around \\( C \\) are \\( \\angle ACD \\), \\( \\angle DCF \\), \\( \\angle BCF \\), and \\( \\angle ACB \\). Thus:  \n\\[\n\\angle ACD + \\angle DCF + \\angle BCF + \\angle ACB = 360^\\circ\n\\]  \n\nSubstitute the known values:  \n\\[\n90^\\circ + x + 108^\\circ + 120^\\circ = 360^\\circ\n\\]  \n\nSimplify and solve for \\( x \\):  \n\\[\n318^\\circ + x = 360^\\circ \\implies x = 360^\\circ - 318^\\circ = 42^\\circ\n\\]  \n\n\nThus, the measure of angle \\( DCF \\) is \\( \\boldsymbol{42} \\).",
+    "CoD_steps": [
+      "ACDE \\text{ square} \\implies \\angle ACD = 90^\\circ",
+      "BCFGH \\text{ regular pentagon} \\implies \\angle BCF = \\frac{(5-2) \\cdot 180^\\circ}{5} = 108^\\circ",
+      "\\angle ACB = 120^\\circ",
+      "\\angle ACD + \\angle DCF + \\angle BCF + \\angle ACB = 360^\\circ",
+      "90^\\circ + \\angle DCF + 108^\\circ + 120^\\circ = 360^\\circ",
+      "90^\\circ + \\angle DCF + 108^\\circ + 120^\\circ = 360^\\circ \\implies \\angle DCF = 42^\\circ"
+    ]
+  },
+  {
+    "source_index": 17,
+    "answer": "To determine the measure of angle \\( \\angle DEF \\), we analyze the interior angles of the regular pentagon and hexagon, then use the properties of supplementary angles and triangle angle sum.  \n\n\n### Step 1: Interior Angle of a Regular Pentagon  \nFor a regular pentagon (\\( n = 5 \\)), the formula for an interior angle is:  \n\\[\n\\text{Interior angle} = \\frac{(n-2) \\times 180^\\circ}{n}\n\\]  \nSubstituting \\( n = 5 \\):  \n\\[\n\\text{Interior angle of pentagon} = \\frac{(5-2) \\times 180^\\circ}{5} = \\frac{3 \\times 180^\\circ}{5} = 108^\\circ\n\\]  \nIn pentagon \\( ABCDE \\), \\( \\angle CDE = 108^\\circ \\). Since \\( CD \\) lies on line \\( l \\), \\( \\angle EDF \\) is supplementary to \\( \\angle CDE \\):  \n\\[\n\\angle EDF = 180^\\circ - 108^\\circ = 72^\\circ\n\\]  \n\n\n### Step 2: Interior Angle of a Regular Hexagon  \nFor a regular hexagon (\\( n = 6 \\)), the interior angle formula gives:  \n\\[\n\\text{Interior angle} = \\frac{(n-2) \\times 180^\\circ}{n}\n\\]  \nSubstituting \\( n = 6 \\):  \n\\[\n\\text{Interior angle of hexagon} = \\frac{(6-2) \\times 180^\\circ}{6} = \\frac{4 \\times 180^\\circ}{6} = 120^\\circ\n\\]  \nIn hexagon \\( EFGHMN \\), \\( \\angle EFG = 120^\\circ \\). Since \\( FG \\) lies on line \\( l \\), \\( \\angle EFD \\) is supplementary to \\( \\angle EFG \\):  \n\\[\n\\angle EFD = 180^\\circ - 120^\\circ = 60^\\circ\n\\]  \n\n\n### Step 3: Find \\( \\angle DEF \\)  \nIn \\( \\triangle DEF \\), the sum of interior angles is \\( 180^\\circ \\). Thus:  \n\\[\n\\angle DEF = 180^\\circ - \\angle EDF - \\angle EFD\n\\]  \nSubstituting \\( \\angle EDF = 72^\\circ \\) and \\( \\angle EFD = 60^\\circ \\):  \n\\[\n\\angle DEF = 180^\\circ - 72^\\circ - 60^\\circ = 48^\\circ\n\\]  \n\n\nFinal Answer: \\( \\boldsymbol{48} \\)",
+    "CoD_steps": [
+      "\\frac{(5-2)\\cdot 180^\\circ}{5} = 108^\\circ \\implies \\angle CDE = 108^\\circ",
+      "CD \\text{ on line } l \\implies \\angle EDF = 180^\\circ - \\angle CDE = 72^\\circ",
+      "\\frac{(6-2)\\cdot 180^\\circ}{6} = 120^\\circ \\implies \\angle EFG = 120^\\circ",
+      "FG \\text{ on line } l \\implies \\angle EFD = 180^\\circ - \\angle EFG = 60^\\circ",
+      "In \\triangle DEF, \\angle DEF = 180^\\circ - \\angle EDF - \\angle EFD",
+      "180^\\circ - 72^\\circ - 60^\\circ = 48^\\circ \\implies \\angle DEF = 48^\\circ",
+      "\\angle DEF = 48^\\circ"
+    ]
+  },
+  {
+    "source_index": 18,
+    "answer": "To determine the measure of angle \\( ACB \\), we use the **central angle theorem** (also known as the inscribed angle theorem), which states that an inscribed angle is half the measure of its intercepted central angle.  \n\n\n### Step 1: Identify the central angle and inscribed angle  \n- \\( \\angle AOB \\) is a **central angle** (vertex at the center \\( O \\) of the circle) intercepting arc \\( AB \\).  \n- \\( \\angle ACB \\) is an **inscribed angle** (vertex at point \\( C \\) on the circle’s circumference) also intercepting arc \\( AB \\).  \n\n\n### Step 2: Apply the central angle theorem  \nBy the theorem, the measure of an inscribed angle is half the measure of its intercepted central angle. Thus:  \n\\[\nm\\angle ACB = \\frac{1}{2} \\times m\\angle AOB\n\\]  \n\n\n### Step 3: Substitute the given value  \nWe know \\( m\\angle AOB = 80.0^\\circ \\). Substituting this into the formula:  \n\\[\nm\\angle ACB = \\frac{1}{2} \\times 80.0^\\circ = 40.0^\\circ\n\\]  \n\n\nFinal answer: \\( 40 \\)",
+    "CoD_steps": [
+      "m\\angle AOB \\text{ central angle subtending arc } AB \\land m\\angle ACB \\text{ inscribed angle subtending arc } AB",
+      "m\\angle ACB = \\tfrac{1}{2} m\\angle AOB",
+      "m\\angle AOB = 80.0^\\circ \\implies m\\angle ACB = \\tfrac{1}{2} \\cdot 80.0^\\circ = 40.0^\\circ"
+    ]
+  },
+  {
+    "source_index": 19,
+    "answer": "To solve the problem, we use the **Triangle Midsegment Theorem** and properties of isosceles triangles:  \n\n\n### Step 1: Apply the Midsegment Theorem  \n- In $\\triangle ABD$: $E$ (midpoint of $AB$) and $P$ (midpoint of $BD$) imply $EP \\parallel AD$ and $EP = \\frac{1}{2}AD$ (by the Midsegment Theorem).  \n- In $\\triangle BCD$: $F$ (midpoint of $CD$) and $P$ (midpoint of $BD$) imply $FP \\parallel BC$ and $FP = \\frac{1}{2}BC$ (by the Midsegment Theorem).    \n\n\n### Step 2: Use $AD = BC$ to show $\\triangle EPF$ is isosceles  \nGiven $AD = BC$, we substitute into the midsegment lengths:  \n$EP = \\frac{1}{2}AD$ and $FP = \\frac{1}{2}BC$ $\\implies EP = FP$.  \n\nThus, $\\triangle EPF$ is **isosceles** with $EP = FP$.  \n\n\n### Step 3: Find $\\angle PEF$ using triangle angle sum  \nIn $\\triangle EPF$, we know $\\angle EPF = 130^\\circ$. Let $\\angle PEF = \\angle PFE = x$ (since base angles of an isosceles triangle are equal).  \n\nThe sum of angles in a triangle is $180^\\circ$:  \n$$\\angle EPF + \\angle PEF + \\angle PFE = 180^\\circ$$  \nSubstitute known values:  \n$$130^\\circ + x + x = 180^\\circ$$  \nSimplify and solve for $x$:  \n$$130^\\circ + 2x = 180^\\circ \\implies 2x = 50^\\circ \\implies x = 25^\\circ$$  \n\n\nThus, the measure of $\\angle PEF$ is $\\boldsymbol{25}$.",
+    "CoD_steps": [
+      "E \\text{ is midpoint of } AB \\land P \\text{ is midpoint of } BD \\implies EP \\parallel AD \\land EP = \\tfrac{1}{2}AD",
+      "F \\text{ is midpoint of } CD \\land P \\text{ is midpoint of } BD \\implies FP \\parallel BC \\land FP = \\tfrac{1}{2}BC",
+      "EP = \\tfrac{1}{2}AD \\land FP = \\tfrac{1}{2}BC \\land AD = BC \\implies EP = FP",
+      "EP = FP \\implies \\triangle EPF \\text{ is isosceles}",
+      "\\angle EPF = 130^\\circ \\land \\angle PEF = \\angle PFE = x",
+      "\\angle EPF + \\angle PEF + \\angle PFE = 180^\\circ",
+      "130^\\circ + x + x = 180^\\circ",
+      "2x = 50^\\circ",
+      "x = 25^\\circ",
+      "\\angle PEF = 25^\\circ"
+    ]
+  },
+  {
+    "source_index": 20,
+    "answer": "To solve the problem, we start by recalling properties of regular pentagons and parallel lines:  \n\n\n### Step 1: Find the interior angle of a regular pentagon  \nThe formula for the interior angle of a regular \\( n \\)-sided polygon is:  \n\\[\n\\text{Interior angle} = \\frac{(n-2) \\times 180^\\circ}{n}\n\\]  \nFor a pentagon (\\( n = 5 \\)):  \n\\[\n\\text{Interior angle} = \\frac{(5-2) \\times 180^\\circ}{5} = \\frac{3 \\times 180^\\circ}{5} = 108^\\circ\n\\]  \nThus, each interior angle of regular pentagon \\( ABCDE \\) is \\( 108^\\circ \\).  \n\n\n### Step 2: Draw an auxiliary line and use parallel line properties  \nDraw a line \\( l_3 \\) through point \\( B \\) such that \\( l_3 \\parallel l_1 \\parallel l_2 \\). Let:  \n- \\( \\angle 3 \\) be the angle between \\( BA \\) and \\( l_3 \\),  \n- \\( \\angle 4 \\) be the angle between \\( BC \\) and \\( l_3 \\).  \n\n#### Property 1: Alternate interior angles (for \\( l_1 \\parallel l_3 \\))  \nSince \\( l_1 \\parallel l_3 \\) and \\( BA \\) is a transversal, \\( \\angle 2 \\) and \\( \\angle 3 \\) are **alternate interior angles**. Thus:  \n\\[\n\\angle 2 = \\angle 3\n\\]  \n\n#### Property 2: Same-side interior angles (for \\( l_3 \\parallel l_2 \\))  \nSince \\( l_3 \\parallel l_2 \\) and \\( BC \\) is a transversal, \\( \\angle 1 \\) and \\( \\angle 4 \\) are **same-side interior angles** (supplementary). Thus:  \n\\[\n\\angle 1 + \\angle 4 = 180^\\circ \\implies \\angle 4 = 180^\\circ - \\angle 1\n\\]  \n\n\n### Step 3: Relate angles using the pentagon’s interior angle  \nThe interior angle at \\( B \\) (\\( \\angle ABC \\)) is \\( 108^\\circ \\), and it is split by \\( l_3 \\) into \\( \\angle 3 \\) and \\( \\angle 4 \\). Thus:  \n\\[\n\\angle 3 + \\angle 4 = 108^\\circ\n\\]  \n\nSubstitute \\( \\angle 3 = \\angle 2 \\) and \\( \\angle 4 = 180^\\circ - \\angle 1 \\) into the equation:  \n\\[\n\\angle 2 + (180^\\circ - \\angle 1) = 108^\\circ\n\\]  \n\nSimplify to solve for \\( \\angle 1 - \\angle 2 \\):  \n\\[\n\\angle 2 + 180^\\circ - \\angle 1 = 108^\\circ \\\\  \n\\angle 2 - \\angle 1 = 108^\\circ - 180^\\circ \\\\  \n\\angle 2 - \\angle 1 = -72^\\circ \\\\  \n\\angle 1 - \\angle 2 = 72^\\circ\n\\]  \n\n\nThus, the value of \\( \\angle 1 - \\angle 2 \\) is \\(\\boldsymbol{72}\\).",
+    "CoD_steps": [
+      "ABCDE \\text{ regular pentagon} \\implies \\angle ABC = 108^\\circ",
+      "l_1 \\parallel l_3 \\land BA \\text{ transversal} \\implies \\angle 2 = \\angle 3",
+      "l_3 \\parallel l_2 \\land BC \\text{ transversal} \\implies \\angle 1 + \\angle 4 = 180^\\circ",
+      "\\angle 3 + \\angle 4 = 108^\\circ",
+      "\\angle 2 + (180^\\circ - \\angle 1) = 108^\\circ",
+      "\\angle 2 - \\angle 1 = -72^\\circ",
+      "\\angle 1 - \\angle 2 = 72^\\circ"
+    ]
+  },
+  {
+    "source_index": 21,
+    "answer": "To solve the problem, we use properties of parallelograms, angle bisectors, and triangle congruence. Here's the step-by-step reasoning:  \n\n\n### Step 1: Analyze Angles in Parallelogram \\(ABCD\\)  \nIn parallelogram \\(ABCD\\), consecutive angles are supplementary. Given \\(\\angle B = 60^\\circ\\), we find:  \n\\[\n\\angle BAD = 180^\\circ - \\angle B = 180^\\circ - 60^\\circ = 120^\\circ\n\\]  \n\n\n### Step 2: Angle Bisector of \\(\\angle BAD\\)  \n\\(AE\\) bisects \\(\\angle BAD\\), so:  \n\\[\n\\angle BAE = \\angle EAD = \\frac{120^\\circ}{2} = 60^\\circ\n\\]  \n\n\n### Step 3: Equilateral Triangle \\(ABE\\)  \nSince \\(AD \\parallel BC\\) (property of parallelograms), \\(\\angle EAD\\) and \\(\\angle AEB\\) are alternate interior angles. Thus:  \n\\[\n\\angle AEB = \\angle EAD = 60^\\circ\n\\]  \nIn \\(\\triangle ABE\\), \\(\\angle B = 60^\\circ\\) and \\(\\angle BAE = 60^\\circ\\), so \\(\\triangle ABE\\) is **equilateral**. Therefore:  \n\\[\nAB = BE = AE\n\\]  \n\n\n### Step 4: Angles in \\(\\triangle AED\\)  \nGiven \\(\\angle AED = 80^\\circ\\) and \\(\\angle EAD = 60^\\circ\\), we find \\(\\angle ADE\\) (sum of angles in a triangle is \\(180^\\circ\\)):  \n\\[\n\\angle ADE = 180^\\circ - \\angle EAD - \\angle AED = 180^\\circ - 60^\\circ - 80^\\circ = 40^\\circ\n\\]  \n\n\n### Step 5: Congruence of \\(\\triangle ADE\\) and \\(\\triangle DCA\\)  \nIn parallelogram \\(ABCD\\), \\(AB = CD\\) (opposite sides are equal). Since \\(AB = AE\\) (from the equilateral triangle \\(ABE\\)), we have \\(AE = CD\\). Also:  \n- \\(AD = DA\\) (common side),  \n- \\(\\angle DAE = \\angle ADC = 60^\\circ\\) ( \\(\\angle ADC = \\angle B = 60^\\circ\\) in parallelogram \\(ABCD\\)).  \n\nBy **SAS congruence**, \\(\\triangle ADE \\cong \\triangle DCA\\). Thus, corresponding angles are equal:  \n\\[\n\\angle ADE = \\angle DAC = 40^\\circ\n\\]  \n\n\n### Step 6: Find \\(\\angle EAC\\)  \nWe know \\(\\angle EAD = 60^\\circ\\) and \\(\\angle DAC = 40^\\circ\\). Since \\(\\angle EAD = \\angle DAC + \\angle EAC\\), we solve for \\(\\angle EAC\\):  \n\\[\n\\angle EAC = \\angle EAD - \\angle DAC = 60^\\circ - 40^\\circ = 20^\\circ\n\\]  \n\n\nThus, the degree measure of \\(\\angle EAC\\) is \\(\\boldsymbol{20}\\).",
+    "CoD_steps": [
+      "ABCD \\text{ is a parallelogram} \\land \\angle B = 60^\\circ \\implies \\angle BAD = 180^\\circ - \\angle B = 120^\\circ",
+      "\\angle BAD = 120^\\circ \\implies \\angle BAE = \\angle EAD = \\frac{120^\\circ}{2} = 60^\\circ",
+      "AD \\parallel BC \\implies \\angle AEB = \\angle EAD = 60^\\circ",
+      "\\angle B = 60^\\circ, \\angle BAE = 60^\\circ \\implies \\triangle ABE \\text{ is equilateral} \\implies AB = BE = AE",
+      "\\angle AED = 80^\\circ, \\angle EAD = 60^\\circ \\implies \\angle ADE = 180^\\circ - 60^\\circ - 80^\\circ = 40^\\circ",
+      "AB = CD \\land AB = AE \\implies AE = CD",
+      "AD \\text{ is common}, \\angle DAE = \\angle ADC = 60^\\circ \\implies \\triangle ADE \\cong \\triangle DCA \\ (\\text{SAS})",
+      "\\angle ADE = \\angle DAC = 40^\\circ",
+      "\\angle EAD = \\angle DAC + \\angle EAC \\implies \\angle EAC = \\angle EAD - \\angle DAC = 60^\\circ - 40^\\circ = 20^\\circ",
+      "\\angle EAC = 20^\\circ"
+    ]
+  },
+  {
+    "source_index": 22,
+    "answer": "To solve for the measure of ∠AED, we can use the **midline theorem** (or midsegment theorem) and properties of similar triangles or parallel lines.  \n\n\n### Step 1: Recall the Midline Theorem  \nThe midline theorem states that the segment connecting the midpoints of two sides of a triangle is parallel to the third side and half its length. Here, \\( D \\) and \\( E \\) are midpoints of \\( AB \\) and \\( AC \\), so \\( DE \\parallel BC \\).  \n\n\n### Step 2: Find \\( \\angle C \\) in \\( \\triangle ABC \\)  \nIn any triangle, the sum of interior angles is \\( 180^\\circ \\). We know \\( \\angle A = 60^\\circ \\) and \\( \\angle B = 50^\\circ \\), so:  \n\\[\n\\angle C = 180^\\circ - \\angle A - \\angle B = 180^\\circ - 60^\\circ - 50^\\circ = 70^\\circ\n\\]  \n\n\n### Step 3: Use Parallel Lines to Find \\( \\angle AED \\)  \nSince \\( DE \\parallel BC \\) (from the midline theorem) and \\( AC \\) is a transversal, \\( \\angle AED \\) and \\( \\angle ACB \\) are **corresponding angles**. Corresponding angles formed by parallel lines and a transversal are congruent. Thus:  \n\\[\n\\angle AED = \\angle ACB = 70^\\circ\n\\]  \n\n\nFinal Answer: \\( 70 \\)",
+    "CoD_steps": [
+      "D \\text{ is midpoint of } AB \\land E \\text{ is midpoint of } AC \\implies DE \\parallel BC",
+      "\\angle A = 60^\\circ \\land \\angle B = 50^\\circ \\implies \\angle C = 180^\\circ - \\angle A - \\angle B = 70^\\circ",
+      "DE \\parallel BC \\land AC \\text{ transversal} \\implies \\angle AED = \\angle ACB",
+      "\\angle ACB = 70^\\circ \\implies \\angle AED = 70^\\circ"
+    ]
+  },
+  {
+    "source_index": 23,
+    "answer": "To solve for \\( \\angle CAB \\) in parallelogram \\( ABCD \\), we use the properties of parallelograms:  \n\n\n### Step 1: Use the supplementary property of consecutive angles in a parallelogram  \nIn a parallelogram, consecutive angles are supplementary (sum to \\( 180^\\circ \\)).  \nGiven \\( \\angle ADC = 135^\\circ \\), and \\( \\angle ADC \\) and \\( \\angle DAB \\) are consecutive angles, we have:  \n\\[\n\\angle DAB + \\angle ADC = 180^\\circ\n\\]  \nSubstitute \\( \\angle ADC = 135^\\circ \\):  \n\\[\n\\angle DAB = 180^\\circ - 135^\\circ = 45^\\circ\n\\]  \n\n\n### Step 2: Analyze the composition of \\( \\angle DAB \\)  \nThe diagonal \\( AC \\) splits \\( \\angle DAB \\) into two angles: \\( \\angle CAD \\) and \\( \\angle CAB \\). Thus:  \n\\[\n\\angle DAB = \\angle CAD + \\angle CAB\n\\]  \nWe know \\( \\angle CAD = 23^\\circ \\), so solve for \\( \\angle CAB \\):  \n\\[\n\\angle CAB = \\angle DAB - \\angle CAD = 45^\\circ - 23^\\circ = 22^\\circ\n\\]  \n\n\nFinal answer: \\( \\boldsymbol{22} \\)",
+    "CoD_steps": [
+      "\\angle DAB + \\angle ADC = 180^\\circ",
+      "\\angle ADC = 135^\\circ \\implies \\angle DAB = 180^\\circ - 135^\\circ = 45^\\circ",
+      "\\angle DAB = \\angle CAD + \\angle CAB",
+      "\\angle CAD = 23^\\circ \\implies \\angle CAB = \\angle DAB - \\angle CAD = 45^\\circ - 23^\\circ = 22^\\circ",
+      "\\angle CAB = 22^\\circ"
+    ]
+  },
+  {
+    "source_index": 24,
+    "answer": "To determine the measure of \\( \\angle DAE \\), we start by recognizing that \\( ABCD \\) is a parallelogram (from the diagram and properties of opposite sides being parallel).  \n\n\n### Step 1: Use properties of a parallelogram  \nIn a parallelogram, **consecutive angles are supplementary** (their measures add to \\( 180^\\circ \\)).  \nGiven \\( \\angle B = 70^\\circ \\), we find \\( \\angle C \\) (consecutive to \\( \\angle B \\)):  \n\\[\n\\angle B + \\angle C = 180^\\circ \\implies 70^\\circ + \\angle C = 180^\\circ \\implies \\angle C = 110^\\circ\n\\]  \n\nAlso, in a parallelogram, **opposite angles are equal**. Thus, \\( \\angle D = \\angle B = 70^\\circ \\) (since \\( \\angle B \\) and \\( \\angle D \\) are opposite angles).  \n\n\n### Step 2: Analyze \\( \\triangle ADE \\)  \n\\( AE \\perp CD \\), so \\( \\angle AED = 90^\\circ \\) (a right angle).  \n\nIn any triangle, the sum of interior angles is \\( 180^\\circ \\). For \\( \\triangle ADE \\):  \n\\[\n\\angle DAE + \\angle ADE + \\angle AED = 180^\\circ\n\\]  \n\nWe know \\( \\angle ADE = \\angle D = 70^\\circ \\) (same angle) and \\( \\angle AED = 90^\\circ \\). Substitute these values:  \n\\[\n\\angle DAE + 70^\\circ + 90^\\circ = 180^\\circ\n\\]  \n\nSolve for \\( \\angle DAE \\):  \n\\[\n\\angle DAE = 180^\\circ - 70^\\circ - 90^\\circ = 20^\\circ\n\\]  \n\n\nFinal Answer: \\( 20 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle B + \\angle C = 180^\\circ",
+      "\\angle B = 70^\\circ \\implies \\angle C = 110^\\circ",
+      "ABCD \\text{ parallelogram} \\implies \\angle D = \\angle B",
+      "AE \\perp CD \\implies \\angle AED = 90^\\circ",
+      "\\triangle ADE \\implies \\angle DAE + \\angle ADE + \\angle AED = 180^\\circ",
+      "\\angle ADE = \\angle D = 70^\\circ",
+      "\\angle AED = 90^\\circ",
+      "\\angle DAE + 70^\\circ + 90^\\circ = 180^\\circ \\implies \\angle DAE = 20^\\circ"
+    ]
+  },
+  {
+    "source_index": 25,
+    "answer": "To determine the measure of angle \\( \\angle CAB \\), we first recognize that \\( ABCD \\) is a parallelogram (from the diagram’s structure, where opposite sides are parallel). In a parallelogram, **consecutive angles are supplementary** (their measures add to \\( 180^\\circ \\)).  \n\n\n### Step 1: Find \\( \\angle BAD \\)  \nSince \\( \\angle ABC = 125^\\circ \\) and \\( \\angle ABC \\) and \\( \\angle BAD \\) are consecutive angles in the parallelogram, they are supplementary:  \n\\[\n\\angle BAD + \\angle ABC = 180^\\circ\n\\]  \nSubstitute \\( \\angle ABC = 125^\\circ \\):  \n\\[\n\\angle BAD = 180^\\circ - 125^\\circ = 55^\\circ\n\\]  \n\n\n### Step 2: Find \\( \\angle CAB \\)  \nAngle \\( \\angle BAD \\) is composed of \\( \\angle CAB \\) and \\( \\angle CAD \\). We know \\( \\angle CAD = 21^\\circ \\), so:  \n\\[\n\\angle BAD = \\angle CAB + \\angle CAD\n\\]  \nRearrange to solve for \\( \\angle CAB \\):  \n\\[\n\\angle CAB = \\angle BAD - \\angle CAD\n\\]  \nSubstitute \\( \\angle BAD = 55^\\circ \\) and \\( \\angle CAD = 21^\\circ \\):  \n\\[\n\\angle CAB = 55^\\circ - 21^\\circ = 34^\\circ\n\\]  \n\n\nFinal Answer: \\( 34 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle BAD + \\angle ABC = 180^\\circ",
+      "\\angle ABC = 125^\\circ \\implies \\angle BAD = 180^\\circ - 125^\\circ = 55^\\circ",
+      "\\angle BAD = \\angle CAB + \\angle CAD",
+      "\\angle CAD = 21^\\circ",
+      "\\angle CAB = \\angle BAD - \\angle CAD",
+      "55^\\circ - 21^\\circ = 34^\\circ",
+      "\\angle CAB = 34^\\circ"
+    ]
+  },
+  {
+    "source_index": 26,
+    "answer": "To determine the measure of angle \\( E \\) in quadrilateral \\( BCDE \\), follow these steps:  \n\n\n### Step 1: Analyze \\( \\triangle ABC \\)  \nGiven \\( AB = AC \\), \\( \\triangle ABC \\) is **isosceles** with \\( \\angle A = 40^\\circ \\). In an isosceles triangle, the base angles are equal. Let \\( \\angle ABC = \\angle ACB = x \\).  \n\nThe sum of angles in a triangle is \\( 180^\\circ \\), so:  \n\\[\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ\n\\]  \nSubstitute \\( \\angle A = 40^\\circ \\) and \\( \\angle ABC = \\angle ACB = x \\):  \n\\[\n40^\\circ + x + x = 180^\\circ\n\\]  \nSimplify and solve for \\( x \\):  \n\\[\n40^\\circ + 2x = 180^\\circ \\\\  \n2x = 140^\\circ \\\\  \nx = 70^\\circ\n\\]  \nThus, \\( \\angle ACB = 70^\\circ \\).  \n\n\n### Step 2: Identify \\( BCDE \\) as a Parallelogram  \nFrom the diagram, \\( BCDE \\) is a **parallelogram** (opposite sides are parallel: \\( EB \\parallel DC \\) and \\( ED \\parallel BC \\)). In a parallelogram, **opposite angles are equal**.  \n\n\n### Step 3: Find \\( \\angle E \\)  \nIn parallelogram \\( BCDE \\), \\( \\angle E \\) and \\( \\angle ACB \\) are opposite angles. Therefore:  \n\\[\n\\angle E = \\angle ACB = 70^\\circ\n\\]  \n\n\nFinal Answer: \\( 70 \\)",
+    "CoD_steps": [
+      "AB = AC \\land \\angle A = 40^\\circ \\implies \\angle ABC = \\angle ACB = x",
+      "\\angle A + \\angle ABC + \\angle ACB = 180^\\circ \\implies 40^\\circ + x + x = 180^\\circ",
+      "2x = 140^\\circ",
+      "x = 70^\\circ",
+      "\\angle ACB = 70^\\circ",
+      "BCDE \\text{ parallelogram} \\implies \\angle E = \\angle ACB",
+      "\\angle E = 70^\\circ"
+    ]
+  },
+  {
+    "source_index": 27,
+    "answer": "To determine the measure of angle \\( C \\) in parallelogram \\( ABCD \\), we use a key property of parallelograms: **opposite angles in a parallelogram are equal** (congruent).  \n\nIn parallelogram \\( ABCD \\), angle \\( A \\) and angle \\( C \\) are opposite angles. Since angle \\( A \\) measures \\( 60^\\circ \\), angle \\( C \\) (being its opposite angle) must also measure \\( 60^\\circ \\).  \n\n\nFinal answer: 60",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle A \\cong \\angle C",
+      "\\angle A = 60^\\circ",
+      "\\angle A \\cong \\angle C \\land \\angle A = 60^\\circ \\implies \\angle C = 60^\\circ",
+      "\\angle C = 60^\\circ"
+    ]
+  },
+  {
+    "source_index": 28,
+    "answer": "To solve for the measure of \\( \\angle ACF \\), we can use the **Midline Theorem** and properties of triangle angles.  \n\n\n### Step 1: Apply the Midline Theorem  \nIn \\( \\triangle ABC \\), \\( E \\) is the midpoint of \\( AB \\) and \\( D \\) is the midpoint of \\( AC \\). By the Midline Theorem, the segment connecting the midpoints of two sides of a triangle is parallel to the third side. Thus, \\( ED \\parallel BC \\).  \n\n\n### Step 2: Identify Corresponding Angles  \nSince \\( ED \\parallel BC \\) and \\( AB \\) is a transversal, \\( \\angle AED \\) and \\( \\angle ABC \\) are **corresponding angles**. Corresponding angles are equal when two parallel lines are cut by a transversal. Thus:  \n\\[ \\angle ABC = \\angle AED = 30^\\circ \\]  \n\n\n### Step 3: Find \\( \\angle ACB \\) in \\( \\triangle ABC \\)  \nThe sum of angles in a triangle is \\( 180^\\circ \\). In \\( \\triangle ABC \\), we know \\( \\angle A = 35^\\circ \\) and \\( \\angle ABC = 30^\\circ \\). Let \\( \\angle ACB = x \\). Then:  \n\\[ \\angle A + \\angle ABC + \\angle ACB = 180^\\circ \\]  \nSubstitute the known values:  \n\\[ 35^\\circ + 30^\\circ + x = 180^\\circ \\]  \nSolve for \\( x \\):  \n\\[ x = 180^\\circ - 35^\\circ - 30^\\circ = 115^\\circ \\]  \nThus, \\( \\angle ACB = 115^\\circ \\).  \n\n\n### Step 4: Find \\( \\angle ACF \\) (Linear Pair)  \nPoint \\( F \\) lies on the extension of \\( BC \\), so \\( \\angle ACB \\) and \\( \\angle ACF \\) form a **linear pair** (they are adjacent angles on a straight line). Linear pairs are supplementary (their measures add to \\( 180^\\circ \\)). Thus:  \n\\[ \\angle ACB + \\angle ACF = 180^\\circ \\]  \nSubstitute \\( \\angle ACB = 115^\\circ \\):  \n\\[ 115^\\circ + \\angle ACF = 180^\\circ \\]  \nSolve for \\( \\angle ACF \\):  \n\\[ \\angle ACF = 180^\\circ - 115^\\circ = 65^\\circ \\]  \n\n\nFinal Answer: \\( \\boldsymbol{65} \\)",
+    "CoD_steps": [
+      "E \\text{ is midpoint of } AB \\land D \\text{ is midpoint of } AC \\implies ED \\parallel BC",
+      "ED \\parallel BC \\implies \\angle ABC = \\angle AED = 30^\\circ",
+      "\\angle A = 35^\\circ, \\angle ABC = 30^\\circ \\implies \\angle A + \\angle ABC + \\angle ACB = 180^\\circ",
+      "35^\\circ + 30^\\circ + \\angle ACB = 180^\\circ \\implies \\angle ACB = 115^\\circ",
+      "\\angle ACB + \\angle ACF = 180^\\circ",
+      "\\angle ACF = 180^\\circ - \\angle ACB = 180^\\circ - 115^\\circ = 65^\\circ",
+      "\\angle ACF = 65^\\circ"
+    ]
+  },
+  {
+    "source_index": 29,
+    "answer": "To solve the problem, we analyze the properties of the parallelogram and isosceles triangle step by step:  \n\n\n### Step 1: Analyze $\\triangle BCD$ (isosceles triangle)  \nIn parallelogram \\(ABCD\\), \\(BD = BC\\), so \\(\\triangle BCD\\) is **isosceles** with \\(BD = BC\\).  \nBy the isosceles triangle property, *base angles are equal*. Given \\(\\angle C = 55^\\circ\\), we have:  \n\\[\n\\angle BDC = \\angle C = 55^\\circ\n\\]  \n\n\n### Step 2: Use parallel sides of the parallelogram (alternate interior angles)  \nIn parallelogram \\(ABCD\\), \\(AB \\parallel CD\\) (opposite sides of a parallelogram are parallel).  \n\\(BD\\) is a transversal intersecting \\(AB\\) and \\(CD\\), so \\(\\angle ABD\\) and \\(\\angle BDC\\) are **alternate interior angles**.  \nBy the alternate interior angles theorem:  \n\\[\n\\angle ABD = \\angle BDC = 55^\\circ\n\\]  \n\n\n### Step 3: Analyze right triangle \\(AEB\\)  \nGiven \\(AE \\perp BD\\), \\(\\angle AEB = 90^\\circ\\) (definition of perpendicular lines).  \nIn \\(\\triangle AEB\\), the sum of interior angles is \\(180^\\circ\\). Thus:  \n\\[\n\\angle EAB + \\angle ABE + \\angle AEB = 180^\\circ\n\\]  \nSubstitute \\(\\angle AEB = 90^\\circ\\) and \\(\\angle ABE = \\angle ABD = 55^\\circ\\):  \n\\[\n\\angle EAB + 55^\\circ + 90^\\circ = 180^\\circ\n\\]  \nSimplify to solve for \\(\\angle EAB\\):  \n\\[\n\\angle EAB = 180^\\circ - 90^\\circ - 55^\\circ = 35^\\circ\n\\]  \n\n\nFinal answer: \\(\\boldsymbol{35}\\)",
+    "CoD_steps": [
+      "BD = BC \\Rightarrow \\triangle BCD \\text{ isosceles with base } DC \\Rightarrow \\angle BCD = \\angle BDC",
+      "\\angle C = 55^\\circ \\Rightarrow \\angle BDC = 55^\\circ",
+      "AB \\parallel CD \\text{ and } BD \\text{ is a transversal} \\Rightarrow \\angle ABD = \\angle BDC",
+      "\\angle ABD = 55^\\circ",
+      "AE \\perp BD \\Rightarrow \\angle AEB = 90^\\circ",
+      "\\angle EAB + \\angle ABD + \\angle AEB = 180^\\circ",
+      "\\angle ABD = 55^\\circ, \\ \\angle AEB = 90^\\circ \\Rightarrow \\angle EAB = 35^\\circ",
+      "\\angle EAB = 35^\\circ"
+    ]
+  },
+  {
+    "source_index": 30,
+    "answer": "To determine the measurement of angle \\( B \\) in parallelogram \\( ABCD \\), we use key properties of parallelograms:  \n\n\n### Step 1: Recall properties of parallelograms  \n- **Opposite angles are equal**: \\( \\angle A = \\angle C \\) and \\( \\angle B = \\angle D \\).  \n- **Consecutive angles are supplementary**: \\( \\angle A + \\angle B = 180^\\circ \\) (since they lie on the same side of a transversal).  \n\n\n### Step 2: Find \\( \\angle A \\) (and \\( \\angle C \\))  \nThe problem states \\( \\angle A + \\angle C = 130^\\circ \\). Since \\( \\angle A = \\angle C \\) (opposite angles in a parallelogram), we solve for \\( \\angle A \\):  \n\\[\n\\angle A = \\angle C = \\frac{130^\\circ}{2} = 65^\\circ\n\\]  \n\n\n### Step 3: Find \\( \\angle B \\)  \nUsing the supplementary property of consecutive angles (\\( \\angle A + \\angle B = 180^\\circ \\)):  \n\\[\n\\angle B = 180^\\circ - \\angle A = 180^\\circ - 65^\\circ = 115^\\circ\n\\]  \n\n\nFinal answer: \\( 115 \\)",
+    "CoD_steps": [
+      "\\angle A = \\angle C \\quad (\\text{opposite angles in parallelogram})",
+      "\\angle B = \\angle D \\quad (\\text{opposite angles in parallelogram})",
+      "\\angle A + \\angle B = 180^\\circ \\quad (\\text{consecutive angles supplementary})",
+      "\\angle A = \\angle C \\land \\angle A + \\angle C = 130^\\circ \\implies 2\\angle A = 130^\\circ",
+      "\\angle A = \\angle C \\implies \\angle A = \\angle C = 65^\\circ",
+      "\\angle B = 180^\\circ - \\angle A = 180^\\circ - 65^\\circ = 115^\\circ",
+      "\\text{Final answer: } \\angle B = 115^\\circ"
+    ]
+  },
+  {
+    "source_index": 31,
+    "answer": "To determine the measure of angle \\( D \\) in parallelogram \\( ABCD \\), we use the **property of parallelograms**: *opposite angles in a parallelogram are equal*.  \n\nIn parallelogram \\( ABCD \\), angle \\( B \\) and angle \\( D \\) are opposite angles. Since \\( \\angle B = 70^\\circ \\), it follows that \\( \\angle D = \\angle B = 70^\\circ \\).  \n\n\n70",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle B = \\angle D",
+      "\\angle B = 70^\\circ \\implies \\angle D = \\angle B = 70^\\circ",
+      "\\angle D = 70^\\circ"
+    ]
+  },
+  {
+    "source_index": 32,
+    "answer": "To determine the measure of angle \\( B \\) in parallelogram \\( ABCD \\), we use properties of parallelograms:  \n\n1. **Opposite angles in a parallelogram are equal**: Thus, \\( \\angle A = \\angle C \\).  \n2. **Given \\( \\angle A + \\angle C = 160^\\circ \\)**: Since \\( \\angle A = \\angle C \\), we solve for \\( \\angle A \\):  \n   \\( \\angle A = \\frac{160^\\circ}{2} = 80^\\circ \\).  \n3. **Consecutive angles in a parallelogram are supplementary** (sum to \\( 180^\\circ \\)): \\( \\angle A \\) and \\( \\angle B \\) are consecutive angles, so \\( \\angle A + \\angle B = 180^\\circ \\).  \n   Substituting \\( \\angle A = 80^\\circ \\):  \n   \\( \\angle B = 180^\\circ - 80^\\circ = 100^\\circ \\).  \n\n\nFinal answer: \\( 100 \\)",
+    "CoD_steps": [
+      "\\angle A = \\angle C",
+      "\\angle A = \\angle C \\land \\angle A + \\angle C = 160^\\circ \\implies 2\\angle A = 160^\\circ \\implies \\angle A = 80^\\circ",
+      "\\angle A + \\angle B = 180^\\circ",
+      "\\angle B = 180^\\circ - \\angle A",
+      "\\angle B = 180^\\circ - 80^\\circ = 100^\\circ"
+    ]
+  },
+  {
+    "source_index": 33,
+    "answer": "To determine the measure of angle \\( A \\) in parallelogram \\( ABCD \\), we use the properties of parallelograms:  \n\n1. **Opposite angles in a parallelogram are equal**: Thus, \\( \\angle B = \\angle D \\).  \n2. **Given**: The sum of \\( \\angle B \\) and \\( \\angle D \\) is \\( 100^\\circ \\). Since \\( \\angle B = \\angle D \\), we find each angle:  \n   \\[\n   \\angle B = \\angle D = \\frac{100^\\circ}{2} = 50^\\circ\n   \\]  \n3. **Consecutive angles in a parallelogram are supplementary** (they add to \\( 180^\\circ \\)): \\( \\angle A \\) and \\( \\angle B \\) are consecutive angles, so:  \n   \\[\n   \\angle A + \\angle B = 180^\\circ\n   \\]  \n   Substituting \\( \\angle B = 50^\\circ \\):  \n   \\[\n   \\angle A = 180^\\circ - 50^\\circ = 130^\\circ\n   \\]  \n\n\nFinal answer: \\( 130 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ is a parallelogram} \\implies \\angle B = \\angle D",
+      "\\angle B = \\angle D \\land (\\angle B + \\angle D = 100^\\circ) \\implies 2\\angle B = 100^\\circ",
+      "\\angle B = 50^\\circ",
+      "\\angle D = 50^\\circ",
+      "\\angle A + \\angle B = 180^\\circ",
+      "\\angle A = 180^\\circ - \\angle B",
+      "\\angle A = 180^\\circ - 50^\\circ = 130^\\circ"
+    ]
+  },
+  {
+    "source_index": 34,
+    "answer": "To determine the measure of angle \\( C \\) in quadrilateral \\( ABCD \\) (a parallelogram, as indicated by the diagram), we use properties of parallelograms:  \n\n\n### Step 1: Recall properties of a parallelogram  \n- Opposite angles are equal: \\( \\angle B = \\angle D \\) and \\( \\angle A = \\angle C \\).  \n- Consecutive angles are **supplementary** (sum to \\( 180^\\circ \\)): \\( \\angle B + \\angle C = 180^\\circ \\), \\( \\angle A + \\angle B = 180^\\circ \\), etc.  \n\n\n### Step 2: Find \\( \\angle B \\) (and \\( \\angle D \\))  \nGiven \\( \\angle B + \\angle D = 140^\\circ \\). Since \\( \\angle B = \\angle D \\) (opposite angles in a parallelogram), we solve:  \n\\[\n\\angle B = \\angle D = \\frac{140^\\circ}{2} = 70^\\circ\n\\]  \n\n\n### Step 3: Find \\( \\angle C \\)  \nUsing the supplementary property of consecutive angles in a parallelogram (\\( \\angle B + \\angle C = 180^\\circ \\)):  \n\\[\n\\angle C = 180^\\circ - \\angle B = 180^\\circ - 70^\\circ = 110^\\circ\n\\]  \n\n\nFinal Answer: \\( 110 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle B = \\angle D \\land \\angle A = \\angle C \\land \\angle B + \\angle C = 180^\\circ",
+      "\\angle B = \\angle D \\land \\angle B + \\angle D = 140^\\circ \\implies 2\\angle B = 140^\\circ \\implies \\angle B = 70^\\circ",
+      "\\angle C = 180^\\circ - \\angle B = 110^\\circ"
+    ]
+  },
+  {
+    "source_index": 35,
+    "answer": "To solve for \\( \\angle BDC \\) in parallelogram \\( ABCD \\), we use properties of parallelograms and angle relationships:  \n\n\n### Step 1: Find \\( \\angle ABC \\) (consecutive angles in a parallelogram are supplementary)  \nIn parallelogram \\( ABCD \\), \\( AD \\parallel BC \\), so \\( \\angle BAD \\) and \\( \\angle ABC \\) are **consecutive angles** (supplementary, sum to \\( 180^\\circ \\)).  \nGiven \\( \\angle BAD = 115^\\circ \\), we calculate:  \n\\[\n\\angle ABC = 180^\\circ - \\angle BAD = 180^\\circ - 115^\\circ = 65^\\circ\n\\]  \n\n\n### Step 2: Use opposite angles in a parallelogram to find \\( \\angle ADC \\)  \nIn a parallelogram, **opposite angles are equal**. Thus, \\( \\angle ADC = \\angle ABC \\).  \nFrom Step 1, \\( \\angle ABC = 65^\\circ \\), so:  \n\\[\n\\angle ADC = 65^\\circ\n\\]  \n\n\n### Step 3: Use alternate interior angles to find \\( \\angle ADB \\)  \nSince \\( AD \\parallel BC \\) and \\( BD \\) is a transversal, \\( \\angle ADB \\) and \\( \\angle DBC \\) are **alternate interior angles** (equal).  \nGiven \\( \\angle DBC = 25^\\circ \\), we have:  \n\\[\n\\angle ADB = \\angle DBC = 25^\\circ\n\\]  \n\n\n### Step 4: Calculate \\( \\angle BDC \\)  \nNotice \\( \\angle ADC \\) is composed of \\( \\angle ADB \\) and \\( \\angle BDC \\). Thus:  \n\\[\n\\angle ADC = \\angle ADB + \\angle BDC\n\\]  \nSubstitute \\( \\angle ADC = 65^\\circ \\) and \\( \\angle ADB = 25^\\circ \\):  \n\\[\n\\angle BDC = \\angle ADC - \\angle ADB = 65^\\circ - 25^\\circ = 40^\\circ\n\\]  \n\n\nFinal answer: \\( \\boldsymbol{40} \\)",
+    "CoD_steps": [
+      "\\angle BAD = 115^\\circ \\implies \\angle ABC = 180^\\circ - \\angle BAD = 65^\\circ",
+      "\\angle ADC = \\angle ABC = 65^\\circ",
+      "\\angle ADB = \\angle DBC = 25^\\circ",
+      "\\angle ADC = \\angle ADB + \\angle BDC \\implies \\angle BDC = \\angle ADC - \\angle ADB = 65^\\circ - 25^\\circ = 40^\\circ"
+    ]
+  },
+  {
+    "source_index": 36,
+    "answer": "To determine the measure of angle 1, we use the fact that the sum of the exterior angles of any polygon is \\( 360^\\circ \\).  \n\n1. Recall that the sum of all exterior angles (angle 1, angle 2, angle 3, and angle 4) is \\( 360^\\circ \\).  \n2. We know the sum of angle 2, angle 3, and angle 4 is \\( 320^\\circ \\).  \n3. To find angle 1, subtract the sum of angle 2, angle 3, and angle 4 from \\( 360^\\circ \\):  \n   \\[\n   \\text{angle 1} = 360^\\circ - (\\text{angle 2} + \\text{angle 3} + \\text{angle 4}) = 360^\\circ - 320^\\circ = 40^\\circ\n   \\]  \n\n\n40",
+    "CoD_steps": [
+      "\\angle 1 + \\angle 2 + \\angle 3 + \\angle 4 = 360^\\circ",
+      "\\angle 2 + \\angle 3 + \\angle 4 = 320^\\circ",
+      "\\angle 1 = 360^\\circ - (\\angle 2 + \\angle 3 + \\angle 4) = 360^\\circ - 320^\\circ = 40^\\circ"
+    ]
+  },
+  {
+    "source_index": 37,
+    "answer": "To determine the measure of angle \\( C \\) in parallelogram \\( ABCD \\), we use the **property of parallelograms**: *opposite angles in a parallelogram are equal*.  \n\nIn parallelogram \\( ABCD \\), angle \\( A \\) and angle \\( C \\) are opposite angles. Since angle \\( A \\) measures \\( 150^\\circ \\), angle \\( C \\) (being its opposite angle) must also measure \\( 150^\\circ \\).  \n\n\nFinal answer: 150",
+    "CoD_steps": [
+      "ABCD \\text{ is a parallelogram} \\implies \\angle A = \\angle C",
+      "\\angle A = 150^\\circ \\implies \\angle C = 150^\\circ",
+      "\\angle C = 150^\\circ"
+    ]
+  },
+  {
+    "source_index": 38,
+    "answer": "To determine the measure of angle \\( A \\) in quadrilateral \\( ABCD \\), we first recognize that \\( ABCD \\) is a **parallelogram** (from the diagram’s shape, where opposite sides are parallel).  \n\n\n### Key Properties of a Parallelogram:  \n1. **Opposite angles are equal**: \\( \\angle B = \\angle D \\) and \\( \\angle A = \\angle C \\).  \n2. **Consecutive angles are supplementary**: \\( \\angle A + \\angle B = 180^\\circ \\) (since \\( AB \\parallel CD \\) and \\( AD \\) is a transversal, they form same-side interior angles).  \n\n\n### Step 1: Find \\( \\angle B \\) (and \\( \\angle D \\))  \nThe problem states \\( \\angle B + \\angle D = 200^\\circ \\). Since \\( \\angle B = \\angle D \\) (opposite angles in a parallelogram), we can write:  \n\\[\n\\angle B + \\angle B = 200^\\circ \\implies 2\\angle B = 200^\\circ \\implies \\angle B = 100^\\circ\n\\]  \n\n\n### Step 2: Find \\( \\angle A \\)  \nUsing the supplementary property of consecutive angles in a parallelogram (\\( \\angle A + \\angle B = 180^\\circ \\)):  \n\\[\n\\angle A = 180^\\circ - \\angle B = 180^\\circ - 100^\\circ = 80^\\circ\n\\]  \n\n\nFinal Answer: \\( 80 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ is a parallelogram} \\implies \\angle B = \\angle D",
+      "\\angle B = \\angle D \\land \\angle B + \\angle D = 200^\\circ \\implies 2\\angle B = 200^\\circ \\implies \\angle B = 100^\\circ",
+      "\\angle A + \\angle B = 180^\\circ",
+      "\\angle A = 180^\\circ - \\angle B = 80^\\circ"
+    ]
+  },
+  {
+    "source_index": 39,
+    "answer": "To solve for the measure of angle \\( \\angle DCE \\), we analyze the given information and use properties of isosceles triangles and parallelograms:  \n\n\n### Step 1: Analyze \\( \\triangle ABD \\) (isosceles triangle)  \nGiven \\( AB = BD \\), \\( \\triangle ABD \\) is isosceles with \\( \\angle BAD = \\angle ADB \\).  \n- \\( \\angle ADB = 65^\\circ \\), so \\( \\angle BAD = 65^\\circ \\).  \n- The sum of angles in a triangle is \\( 180^\\circ \\), so \\( \\angle ABD = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ \\).  \n\n\n### Step 2: Use properties of the parallelogram \\( ABCD \\)  \nAssume \\( ABCD \\) is a parallelogram (from the diagram’s structure, where \\( AB \\parallel DC \\) and \\( AD \\parallel BC \\)):  \n- **Alternate interior angles** (for \\( AB \\parallel DC \\) and transversal \\( BD \\)): \\( \\angle ABD = \\angle BDC = 50^\\circ \\).  \n- **Alternate interior angles** (for \\( AD \\parallel BC \\) and transversal \\( BD \\)): \\( \\angle ADB = \\angle DBC = 65^\\circ \\).  \n\n\n### Step 3: Analyze \\( \\triangle CEB \\) (isosceles triangle)  \nGiven \\( CE = CB \\), \\( \\triangle CEB \\) is isosceles with \\( \\angle CEB = \\angle CBE \\).  \n- \\( \\angle CBE = \\angle DBC = 65^\\circ \\) (from Step 2), so \\( \\angle CEB = 65^\\circ \\).  \n- The sum of angles in a triangle is \\( 180^\\circ \\), so \\( \\angle ECB = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ \\).  \n\n\n### Step 4: Find \\( \\angle DCE \\)  \nIn parallelogram \\( ABCD \\), opposite angles are equal: \\( \\angle BCD = \\angle BAD = 65^\\circ \\).  \n- \\( \\angle BCD \\) is composed of \\( \\angle ECB \\) and \\( \\angle DCE \\). Thus:  \n  \\[\n  \\angle DCE = \\angle BCD - \\angle ECB = 65^\\circ - 50^\\circ = 15^\\circ\n  \\]  \n\n\nFinal Answer: \\( 15 \\)",
+    "CoD_steps": [
+      "AB = BD ∧ \\triangle ABD \\text{ isosceles} \\implies \\angle BAD = \\angle ADB",
+      "\\angle ADB = 65^\\circ \\implies \\angle BAD = 65^\\circ",
+      "\\angle ABD = 180^\\circ - \\angle BAD - \\angle ADB = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ",
+      "AB \\parallel DC \\land BD \\text{ is a transversal} \\implies \\angle ABD = \\angle BDC",
+      "\\angle ABD = 50^\\circ \\implies \\angle BDC = 50^\\circ",
+      "AD \\parallel BC \\land BD \\text{ is a transversal} \\implies \\angle ADB = \\angle DBC",
+      "\\angle ADB = 65^\\circ \\implies \\angle DBC = 65^\\circ",
+      "CE = CB \\land \\triangle CEB \\text{ isosceles} \\implies \\angle CEB = \\angle CBE",
+      "\\angle CBE = \\angle DBC = 65^\\circ",
+      "\\angle CEB = 65^\\circ",
+      "\\triangle CEB \\implies \\angle ECB = 180^\\circ - \\angle CEB - \\angle CBE = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ",
+      "In \\parallel ABCD, \\angle BCD = \\angle BAD = 65^\\circ",
+      "\\angle BCD = \\angle ECB + \\angle DCE",
+      "\\angle DCE = \\angle BCD - \\angle ECB = 65^\\circ - 50^\\circ = 15^\\circ",
+      "\\angle DCE = 15^\\circ"
+    ]
+  },
+  {
+    "source_index": 40,
+    "answer": "To determine the measure of \\( \\angle CBM \\), we first recognize that \\( ABCD \\) is a **parallelogram** (from the diagram, \\( AB \\parallel CD \\) and \\( AD \\parallel BC \\)).  \n\n\n### Step 1: Properties of a Parallelogram  \nIn a parallelogram, **opposite angles are equal**, and **consecutive angles are supplementary** (sum to \\( 180^\\circ \\)).  \n\nGiven \\( \\angle D = 120^\\circ \\), we use the property that opposite angles in a parallelogram are equal. Thus, \\( \\angle ABC = \\angle D = 120^\\circ \\).  \n\n\n### Step 2: Linear Pair Relationship  \nPoint \\( M \\) lies on the extension of \\( AB \\), so \\( \\angle ABC \\) and \\( \\angle CBM \\) form a **linear pair** (they lie on a straight line). By definition, a linear pair of angles sums to \\( 180^\\circ \\).  \n\nThus:  \n\\[\n\\angle ABC + \\angle CBM = 180^\\circ\n\\]  \n\nSubstitute \\( \\angle ABC = 120^\\circ \\):  \n\\[\n120^\\circ + \\angle CBM = 180^\\circ\n\\]  \n\nSolve for \\( \\angle CBM \\):  \n\\[\n\\angle CBM = 180^\\circ - 120^\\circ = 60^\\circ\n\\]  \n\n\nFinal Answer: \\( 60 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle ABC = \\angle D",
+      "\\angle D = 120^\\circ \\implies \\angle ABC = 120^\\circ",
+      "M \\text{ on extension of } AB \\implies \\angle ABC \\text{ and } \\angle CBM \\text{ form a linear pair} \\Rightarrow \\angle ABC + \\angle CBM = 180^\\circ",
+      "120^\\circ + \\angle CBM = 180^\\circ",
+      "\\angle CBM = 60^\\circ"
+    ]
+  },
+  {
+    "source_index": 41,
+    "answer": "To determine the measure of angle \\( B \\) in quadrilateral \\( ABCD \\), we first recognize that \\( ABCD \\) is a **parallelogram** (from the diagram, opposite sides are parallel).  \n\n\n### Step 1: Properties of a Parallelogram  \nIn a parallelogram:  \n- Opposite angles are equal (\\( \\angle A = \\angle C \\), \\( \\angle B = \\angle D \\)).  \n- Consecutive angles are supplementary (they add to \\( 180^\\circ \\), e.g., \\( \\angle A + \\angle B = 180^\\circ \\)).  \n\n\n### Step 2: Use the Given Sum of \\( \\angle A \\) and \\( \\angle C \\)  \nWe know \\( \\angle A + \\angle C = 110^\\circ \\). Since \\( \\angle A = \\angle C \\) (opposite angles in a parallelogram), we can find \\( \\angle A \\):  \n\\[\n\\angle A = \\angle C = \\frac{110^\\circ}{2} = 55^\\circ\n\\]  \n\n\n### Step 3: Find \\( \\angle B \\) Using Supplementary Angles  \nIn a parallelogram, consecutive angles are supplementary. Thus, \\( \\angle A + \\angle B = 180^\\circ \\). Substituting \\( \\angle A = 55^\\circ \\):  \n\\[\n\\angle B = 180^\\circ - \\angle A = 180^\\circ - 55^\\circ = 125^\\circ\n\\]  \n\n\nFinal Answer: \\( 125 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle A = \\angle C \\land \\angle B = \\angle D \\land \\angle A + \\angle B = 180^\\circ",
+      "\\angle A + \\angle C = 110^\\circ \\land \\angle A = \\angle C \\implies \\angle A = \\angle C = 55^\\circ",
+      "\\angle B = 180^\\circ - \\angle A = 180^\\circ - 55^\\circ = 125^\\circ"
+    ]
+  },
+  {
+    "source_index": 42,
+    "answer": "To determine the measure of angle \\( B \\) in quadrilateral \\( ABCD \\), we analyze the given information and use properties of isosceles triangles and parallelograms:  \n\n\n### Step 1: Analyze Isosceles Triangle \\( ADE \\)  \nWe know \\( AE = DE \\), so \\( \\triangle ADE \\) is isosceles with \\( \\angle ADE = \\angle DAE \\). The sum of angles in a triangle is \\( 180^\\circ \\), and \\( \\angle E = 46^\\circ \\). Let \\( \\angle ADE = \\angle DAE = x \\).  \n\nUsing the angle-sum property:  \n\\[\n\\angle ADE + \\angle DAE + \\angle E = 180^\\circ\n\\]  \nSubstitute \\( \\angle ADE = \\angle DAE = x \\) and \\( \\angle E = 46^\\circ \\):  \n\\[\nx + x + 46^\\circ = 180^\\circ\n\\]  \nSolve for \\( x \\):  \n\\[\n2x = 180^\\circ - 46^\\circ = 134^\\circ \\implies x = 67^\\circ\n\\]  \nThus, \\( \\angle ADE = 67^\\circ \\).  \n\n\n### Step 2: Use Properties of Parallelogram \\( ABCD \\)  \nFrom the diagram, \\( ABCD \\) is a parallelogram (implied by parallel sides \\( AB \\parallel DC \\) and \\( AD \\parallel BC \\)). In a parallelogram:  \n- **Opposite angles are equal**, and **consecutive angles are supplementary** (sum to \\( 180^\\circ \\)).  \n\n\\( \\angle ADE \\) is equal to \\( \\angle ADC \\) (since \\( E \\) lies on the extension of \\( DC \\), \\( DE \\) is a straight line, so \\( \\angle ADC = \\angle ADE = 67^\\circ \\)). In parallelogram \\( ABCD \\), \\( \\angle B \\) and \\( \\angle D \\) are **opposite angles**, so they are equal.  \n\n\nThus, \\( \\angle B = \\angle ADC = 67^\\circ \\).  \n\n\nFinal Answer: \\( 67 \\)",
+    "CoD_steps": [
+      "AE = DE \\implies \\angle ADE = \\angle DAE",
+      "\\triangle ADE: \\angle ADE + \\angle DAE + \\angle E = 180^\\circ, \\ \\angle E = 46^\\circ",
+      "Let \\angle ADE = \\angle DAE = x. Then 2x + 46^\\circ = 180^\\circ \\implies x = 67^\\circ",
+      "Hence \\angle ADE = 67^\\circ",
+      "Since E lies on the extension of DC, DE \\parallel DC \\implies \\angle ADC = \\angle ADE = 67^\\circ",
+      "In parallelogram ABCD, \\angle B = \\angle D",
+      "Thus \\angle B = \\angle ADC = 67^\\circ"
+    ]
+  },
+  {
+    "source_index": 43,
+    "answer": "To determine the measure of angle \\( D \\) in quadrilateral \\( ABCD \\), we first recognize that \\( ABCD \\) is a **parallelogram** (from the diagram and properties of parallelograms: opposite sides are parallel).  \n\n\n### Step 1: Recall Properties of Parallelograms  \nIn a parallelogram:  \n- Consecutive angles are **supplementary** (they add up to \\( 180^\\circ \\)).  \n- Opposite angles are **equal** (e.g., \\( \\angle A = \\angle C \\) and \\( \\angle B = \\angle D \\)).  \n\n\n### Step 2: Define Angles Using the Given Relationship  \nLet \\( \\angle B = x \\). The problem states \\( \\angle A \\) is twice \\( \\angle B \\), so \\( \\angle A = 2x \\).  \n\n\n### Step 3: Use Supplementary Consecutive Angles  \nIn a parallelogram, \\( \\angle A \\) and \\( \\angle B \\) are consecutive angles, so they are supplementary:  \n\\[\n\\angle A + \\angle B = 180^\\circ\n\\]  \nSubstitute \\( \\angle A = 2x \\) and \\( \\angle B = x \\):  \n\\[\n2x + x = 180^\\circ\n\\]  \nSimplify and solve for \\( x \\):  \n\\[\n3x = 180^\\circ \\implies x = 60^\\circ\n\\]  \n\n\n### Step 4: Find \\( \\angle D \\) Using Opposite Angles  \nIn a parallelogram, opposite angles are equal. Thus, \\( \\angle D = \\angle B \\). Since \\( \\angle B = x = 60^\\circ \\), we conclude:  \n\\[\n\\angle D = 60^\\circ\n\\]  \n\n\nFinal Answer: \\( 60 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle A + \\angle B = 180^\\circ \\land \\angle A = \\angle C \\land \\angle B = \\angle D",
+      "\\angle B = x \\implies \\angle A = 2x",
+      "2x + x = 180^\\circ",
+      "3x = 180^\\circ \\implies x = 60^\\circ",
+      "\\angle D = \\angle B = x = 60^\\circ",
+      "\\angle D = 60^\\circ"
+    ]
+  },
+  {
+    "source_index": 44,
+    "answer": "To determine the measure of angle \\( D \\) in parallelogram \\( ABCD \\), we use key properties of parallelograms:  \n\n\n### Step 1: Recall properties of parallelograms  \n- **Opposite angles are equal**: \\( \\angle A = \\angle C \\) and \\( \\angle B = \\angle D \\).  \n- **Consecutive angles are supplementary**: Adjacent angles (e.g., \\( \\angle A \\) and \\( \\angle D \\)) add up to \\( 180^\\circ \\).  \n\n\n### Step 2: Find \\( \\angle A \\) (and \\( \\angle C \\))  \nThe problem states \\( \\angle A + \\angle C = 120^\\circ \\). Since \\( \\angle A = \\angle C \\) (opposite angles in a parallelogram), let \\( \\angle A = \\angle C = x \\). Then:  \n\\[\nx + x = 120^\\circ \\implies 2x = 120^\\circ \\implies x = 60^\\circ\n\\]  \nThus, \\( \\angle A = 60^\\circ \\).  \n\n\n### Step 3: Find \\( \\angle D \\)  \n\\( \\angle A \\) and \\( \\angle D \\) are consecutive angles in the parallelogram, so they are supplementary (sum to \\( 180^\\circ \\)):  \n\\[\n\\angle A + \\angle D = 180^\\circ\n\\]  \nSubstitute \\( \\angle A = 60^\\circ \\):  \n\\[\n60^\\circ + \\angle D = 180^\\circ \\implies \\angle D = 180^\\circ - 60^\\circ = 120^\\circ\n\\]  \n\n\nFinal answer: \\( 120 \\)",
+    "CoD_steps": [
+      "ABCD \\text{ parallelogram} \\implies \\angle A = \\angle C \\land \\angle B = \\angle D",
+      "\\angle A + \\angle D = 180^\\circ",
+      "Let \\(x = \\angle A = \\angle C\\). Given \\(\\angle A + \\angle C = 120^\\circ \\implies x + x = 120^\\circ \\implies 2x = 120^\\circ \\implies x = 60^\\circ\\)",
+      "\\angle D = 180^\\circ - \\angle A = 180^\\circ - 60^\\circ = 120^\\circ",
+      "Thus \\(\\angle D = 120^\\circ\\)"
+    ]
+  },
+  {
+    "source_index": 45,
+    "answer": "To determine the measure of angle 1, we analyze the properties of the quadrilateral (a parallelogram, as indicated by the parallel sides in the diagram):  \n\n1. **Opposite Angles in a Parallelogram**: In a parallelogram, opposite angles are equal. Thus, \\( \\angle A = \\angle BCD \\). Given \\( \\angle A = 110^\\circ \\), we have \\( \\angle BCD = 110^\\circ \\).  \n\n2. **Linear Pair of Angles**: Angle 1 and \\( \\angle BCD \\) form a linear pair (they lie on a straight line, \\( BC \\) extended to \\( E \\)). A linear pair of angles is supplementary, meaning their measures add to \\( 180^\\circ \\).  \n\n3. **Calculate Angle 1**: Using the supplementary property:  \n   \\( \\angle 1 + \\angle BCD = 180^\\circ \\)  \n   Substitute \\( \\angle BCD = 110^\\circ \\):  \n   \\( \\angle 1 = 180^\\circ - 110^\\circ = 70^\\circ \\).  \n\n\nFinal answer: 70",
+    "CoD_steps": [
+      "\\angle A = \\angle BCD \\quad (\\text{parallelogram opposite angles})",
+      "\\angle A = 110^\\circ \\implies \\angle BCD = 110^\\circ",
+      "\\angle 1 + \\angle BCD = 180^\\circ \\quad (\\text{linear pair; supplementary})",
+      "\\angle 1 = 180^\\circ - \\angle BCD = 180^\\circ - 110^\\circ = 70^\\circ"
+    ]
+  },
+  {
+    "source_index": 46,
+    "answer": "To solve for the measure of angle \\( \\angle BOD \\), we start by analyzing the properties of the triangular plates:  \n\n\n### Step 1: Identify Right Angles  \nTriangular plates are right - angled, so \\( \\angle AOB = 90^\\circ \\) and \\( \\angle COD = 90^\\circ \\) (these are the right angles of the two triangles with a common vertex \\( O \\)).  \n\n\n### Step 2: Relate \\( \\angle AOC \\) and \\( \\angle BOD \\)  \nNotice that \\( \\angle AOC + \\angle BOD = \\angle AOB + \\angle COD \\). This is because:  \n- \\( \\angle AOC \\) can be split into \\( \\angle AOB + \\angle BOC \\), and \\( \\angle BOD \\) can be seen in the context of \\( \\angle COD - \\angle BOC \\). When we add \\( \\angle AOC \\) and \\( \\angle BOD \\), the \\( \\angle BOC \\) terms cancel out, leaving \\( \\angle AOB + \\angle COD \\).  \n\nSince \\( \\angle AOB = 90^\\circ \\) and \\( \\angle COD = 90^\\circ \\), we have:  \n\\[\n\\angle AOC + \\angle BOD = 90^\\circ + 90^\\circ = 180^\\circ\n\\]  \n\n\n### Step 3: Solve for \\( \\angle BOD \\)  \nWe know \\( \\angle AOC = 130.0^\\circ \\). Substitute into the equation above:  \n\\[\n\\angle BOD = 180^\\circ - \\angle AOC = 180^\\circ - 130^\\circ = 50^\\circ\n\\]  \n\n\nFinal Answer: \\( 50 \\)",
+    "CoD_steps": [
+      "\\angle AOB = 90^\\circ \\land \\angle COD = 90^\\circ",
+      "\\angle AOC = \\angle AOB + \\angle BOC, \\quad \\angle BOD = \\angle COD - \\angle BOC",
+      "\\angle AOC + \\angle BOD = \\angle AOB + \\angle COD",
+      "\\angle AOB + \\angle COD = 90^\\circ + 90^\\circ = 180^\\circ",
+      "\\angle AOC + \\angle BOD = 180^\\circ",
+      "\\angle AOC = 130.0^\\circ",
+      "\\angle BOD = 180^\\circ - \\angle AOC = 180^\\circ - 130.0^\\circ = 50^\\circ"
+    ]
+  },
+  {
+    "source_index": 47,
+    "answer": "To solve for the measure of angle \\( \\angle AEC \\) in parallelogram \\( ABCD \\), we use properties of parallelograms, angle bisectors, and supplementary angles.  \n\n\n### Step 1: Find \\( \\angle BAD \\)  \nIn a parallelogram, **consecutive angles are supplementary** (they add to \\( 180^\\circ \\)).  \nGiven \\( \\angle D = 58^\\circ \\), and \\( \\angle BAD \\) and \\( \\angle D \\) are consecutive angles:  \n\\[\n\\angle BAD = 180^\\circ - \\angle D = 180^\\circ - 58^\\circ = 122^\\circ\n\\]  \n\n\n### Step 2: Use the angle bisector to find \\( \\angle BAE \\) and \\( \\angle EAD \\)  \n\\( AE \\) bisects \\( \\angle BAD \\), so it splits \\( \\angle BAD \\) into two equal angles:  \n\\[\n\\angle BAE = \\angle EAD = \\frac{\\angle BAD}{2} = \\frac{122^\\circ}{2} = 61^\\circ\n\\]  \n\n\n### Step 3: Use parallel sides to find \\( \\angle AEB \\)  \nIn parallelogram \\( ABCD \\), \\( AD \\parallel BC \\) (opposite sides of a parallelogram are parallel).  \n\\( AE \\) is a transversal cutting \\( AD \\) and \\( BC \\), so \\( \\angle EAD \\) and \\( \\angle AEB \\) are **alternate interior angles** (equal when two parallel lines are cut by a transversal):  \n\\[\n\\angle EAD = \\angle AEB = 61^\\circ\n\\]  \n\n\n### Step 4: Find \\( \\angle AEC \\)  \n\\( \\angle AEC \\) and \\( \\angle AEB \\) form a **linear pair** (they lie on a straight line), so they are supplementary (add to \\( 180^\\circ \\)):  \n\\[\n\\angle AEC = 180^\\circ - \\angle AEB = 180^\\circ - 61^\\circ = 119^\\circ\n\\]  \n\n\nThus, the measure of \\( \\angle AEC \\) is \\( \\boldsymbol{119} \\).",
+    "CoD_steps": [
+      "\\angle D = 58^\\circ \\implies \\angle BAD = 180^\\circ - \\angle D = 122^\\circ",
+      "\\angle BAD = 122^\\circ \\implies \\angle BAE = \\angle EAD = \\frac{\\angle BAD}{2} = 61^\\circ",
+      "AD \\parallel BC, E \\in BC, AE \\text{ transversal} \\implies \\angle EAD = \\angle AEB = 61^\\circ",
+      "\\angle AEC = 180^\\circ - \\angle AEB = 180^\\circ - 61^\\circ = 119^\\circ"
+    ]
+  },
+  {
+    "source_index": 48,
+    "answer": "To solve the problem, we analyze the isosceles triangle \\( ABC \\) and the properties of quadrilateral \\( BCDE \\):  \n\n\n### Step 1: Find \\( \\angle ACB \\) in \\( \\triangle ABC \\)  \nSince \\( AB = AC \\), \\( \\triangle ABC \\) is **isosceles** with \\( \\angle ABC = \\angle ACB \\).  \nThe sum of angles in a triangle is \\( 180^\\circ \\). Given \\( \\angle A = 40^\\circ \\), we calculate:  \n\\[\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ\n\\]  \nLet \\( \\angle ABC = \\angle ACB = x \\). Substituting:  \n\\[\n40^\\circ + x + x = 180^\\circ\n\\]  \n\\[\n2x = 140^\\circ \\implies x = 70^\\circ\n\\]  \nThus, \\( \\angle ACB = 70^\\circ \\).  \n\n\n### Step 2: Analyze quadrilateral \\( BCDE \\)  \nFrom the diagram and description, \\( BCDE \\) is a **parallelogram** (opposite sides are parallel: \\( EB \\parallel CD \\) and \\( ED \\parallel BC \\)). In a parallelogram, **opposite angles are equal**.  \n\nIn parallelogram \\( BCDE \\), \\( \\angle E \\) and \\( \\angle BCD \\) are opposite angles. Notice \\( \\angle BCD \\) is the same as \\( \\angle ACB \\) (since \\( D \\) lies on \\( AC \\)), so \\( \\angle BCD = 70^\\circ \\).  \n\nBy the property of parallelograms, \\( \\angle E = \\angle BCD = 70^\\circ \\).  \n\n\nFinal Answer: \\( 70 \\)",
+    "CoD_steps": [
+      "AB = AC \\implies \\angle ABC = \\angle ACB",
+      "\\angle A + \\angle ABC + \\angle ACB = 180^\\circ",
+      "Let \\angle ABC = \\angle ACB = x",
+      "40^\\circ + x + x = 180^\\circ",
+      "2x = 140^\\circ",
+      "x = 70^\\circ",
+      "\\angle ACB = 70^\\circ",
+      "D \\in AC \\implies \\angle BCD = \\angle ACB",
+      "BCDE \\text{ parallelogram} \\implies \\angle E = \\angle BCD",
+      "\\angle BCD = 70^\\circ",
+      "\\angle E = 70^\\circ"
+    ]
+  },
+  {
+    "source_index": 49,
+    "answer": "To solve the problem, we use the properties of **parallelograms** and **linear pairs**:  \n\n1. **Identify the linear pair relationship**:  \n   Angle \\( \\angle 1 \\) and \\( \\angle BCD \\) form a linear pair (they lie on a straight line \\( BC \\) extended to \\( E \\)). By the definition of a linear pair, their measures add up to \\( 180^\\circ \\).  \n   Given \\( \\angle 1 = 80^\\circ \\), we calculate \\( \\angle BCD \\):  \n   \\[\n   \\angle BCD = 180^\\circ - \\angle 1 = 180^\\circ - 80^\\circ = 100^\\circ\n   \\]    \n\n2. **Use the property of parallelogram opposite angles**:  \n   In a parallelogram, *opposite angles are equal*. For parallelogram \\( ABCD \\), \\( \\angle A \\) and \\( \\angle BCD \\) are opposite angles. Thus:  \n   \\[\n   \\angle A = \\angle BCD = 100^\\circ\n   \\]  \n\n\nFinal answer: \\( 100 \\)",
+    "CoD_steps": [
+      "\\angle 1 + \\angle BCD = 180^\\circ",
+      "\\angle 1 = 80^\\circ \\implies \\angle BCD = 100^\\circ",
+      "ABCD \\text{ is a parallelogram} \\implies \\angle A = \\angle BCD",
+      "\\angle A = \\angle BCD = 100^\\circ"
+    ]
+  }
+]
