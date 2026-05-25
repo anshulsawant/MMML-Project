@@ -1,0 +1,178 @@
+idx,image_path,gt_answer,pass_count,runs,pass_rate,keep,cod_preview,predictions_preview
+0,./geothought_images/geothought_00000.jpg,145,5,5,1.0,True,"\angle 1 \text{ and } \angle 2 \text{ on line } AB \implies \angle 1 + \angle 2 = 180^\circ
+\angle 1 = 35.0^\circ \implies \angle 2 = 180^\circ - \angle 1 = 145^\circ",145.0 || 145.0 || 145.0
+1,./geothought_images/geothought_00001.jpg,75,5,5,1.0,True,"AD = BD
+\triangle ABD \text{ isosceles} \implies \angle BAD = \angle ABD
+Let \angle BAD = x
+\angle CAD = 0.4x
+\angle C = 90^\circ
+\angle CAB = \angle CAD + \angle BAD = 0.4x + x = 1.4x
+\angle B = \ang",75° || 75° || 75°
+2,./geothought_images/geothought_00002.jpg,80,5,5,1.0,True,"\triangle ABC \text{ equilateral} \implies \angle BAC = 60^\circ
+l_1 \parallel l_2 \land AB \text{ transversal} \implies \angle (l_1, AB) = \angle 1
+\angle 1 = 40^\circ \implies \angle (l_1, AB) = 40^",80° || 80 || 80°
+3,./geothought_images/geothought_00003.jpg,70,5,5,1.0,True,"AD = DC \land \angle ADB = \angle CDB = 90^\circ
+\triangle ABD \cong \triangle CBD \text{ by SAS using } AD = DC,\ \angle ADB = \angle CDB = 90^\circ,\ BD = BD
+AB = CB
+\triangle ABC \text{ is isoscele",70 || 70 || 70
+4,./geothought_images/geothought_00004.jpg,80,5,5,1.0,True,"\angle BAC = 180^\circ - \angle B - \angle C = 180^\circ - 20^\circ - 30^\circ = 130^\circ
+MP \perp AB,\ PA = PB \implies \triangle PAB \text{ isosceles with } \angle PAB = \angle B
+QN \perp AC,\ QA =",80° || 80° || 80°
+5,./geothought_images/geothought_00005.jpg,109,5,5,1.0,True,"\triangle ABC: \angle A + \angle B + \angle ACB = 180^\circ \implies \angle B = 180^\circ - 52^\circ - 90^\circ = 38^\circ
+BD = BC \implies \triangle BCD \text{ is isosceles} \implies \angle BDC = \an",109° || 109° || 109°
+6,./geothought_images/geothought_00006.jpg,110,5,5,1.0,True,"AB = AC \implies \angle ABC = \angle ACB
+\angle BAC + \angle ABC + \angle ACB = 180^\circ
+\angle BAC = 100^\circ \implies \angle ABC + \angle ACB = 80^\circ
+\angle ABC = \angle ACB \implies \angle ABC",110 || 110 || 110
+7,./geothought_images/geothought_00007.jpg,36,5,5,1.0,True,"BA = BC \implies \angle BAC = \angle BCA
+AD = BD \implies \angle BAD = \angle ABD
+AD \text{ bisects } \angle BAC \implies \angle BAD = \angle DAC
+Let x = \angle ABD; \angle BAD = x, \angle DAC = x \im",36 || 36 || 36
+8,./geothought_images/geothought_00008.jpg,50,5,5,1.0,True,"BD = BC \implies \angle BCD = \angle BDC
+∠ACB = 90^\circ, ∠ACD = 20^\circ \implies \angle BCD = \angle ACB - \angle ACD = 90^\circ - 20^\circ = 70^\circ
+\angle BCD = \angle BDC = 70^\circ \implies \an",50 || 50° || 50
+9,./geothought_images/geothought_00009.jpg,65,5,5,1.0,True,"AB = AC \implies \angle B = \angle C
+\angle B = 25^\circ \implies \angle C = 25^\circ
+\angle BAC = 180^\circ - \angle B - \angle C = 130^\circ
+AD \text{ is the median to } BC \implies BD = DC
+AD \text",65° || 65° || 65°
+10,./geothought_images/geothought_00010.jpg,124,5,5,1.0,True,"\angle BAD = \angle DCE = 62^\circ
+\angle BAD = \tfrac{1}{2} \, \widehat{BD}
+62^\circ = \tfrac{1}{2} \, \widehat{BD} \implies \widehat{BD} = 124^\circ
+\angle BOD = \widehat{BD} = 124^\circ",124 || 124 || 124
+11,./geothought_images/geothought_00011.jpg,25,5,5,1.0,True,"AB \parallel CD \wedge AE \text{ transversal} \implies \angle A \text{ and } \angle DOE \text{ are corresponding} \quad \angle DOE = \angle A = 50^\circ
+OC = OE \implies \angle C = \angle E = x
+\angle",25 || 25° || 25
+12,./geothought_images/geothought_00012.jpg,120,5,5,1.0,True,"\triangle ABC \text{ equilateral} \implies AB = BC = CA \land \angle BAC = 60^\circ
+BO \text{ median to } AC \implies O \in AC \land AO = OC
+BO \perp AC \implies \angle AOB = 90^\circ
+\angle OAB = \an",120° || 120° || 120
+13,./geothought_images/geothought_00013.jpg,40,5,5,1.0,True,"AB \parallel CD \land \text{transversal} \implies \angle CAB = \angle 1
+\angle 1 = 70^\circ \implies \angle CAB = 70^\circ
+AC = BC \implies \angle CBA = \angle BAC
+\angle BAC = \angle CAB
+\angle CAB =",40 || 40 || 40
+14,./geothought_images/geothought_00014.jpg,45,5,5,1.0,True,"AB = AC \implies \angle ABC = \angle ACB = \frac{180^\circ - x}{2}
+BC = BD \implies \angle BCD = \angle BDC
+D \in AC \implies \angle BCD = \angle ACB = \frac{180^\circ - x}{2}
+\angle BDC = \angle BCD ",45 || 45 || 45°
+15,./geothought_images/geothought_00015.jpg,360,5,5,1.0,True,"\angle 1, \angle 2, \angle 3 \text{ are interior angles of a triangle} \implies \angle 1 + \angle 2 + \angle 3 = 180^\circ
+\angle A + \angle D + \angle 1 = 180^\circ \implies \angle A + \angle D = 180",360° || 360° || 360°
+16,./geothought_images/geothought_00016.jpg,42,5,5,1.0,True,"ACDE \text{ square} \implies \angle ACD = 90^\circ
+BCFGH \text{ regular pentagon} \implies \angle BCF = \frac{(5-2) \cdot 180^\circ}{5} = 108^\circ
+\angle ACB = 120^\circ
+\angle ACD + \angle DCF + \an",42 || 42 || 42
+17,./geothought_images/geothought_00017.jpg,48,5,5,1.0,True,"\frac{(5-2)\cdot 180^\circ}{5} = 108^\circ \implies \angle CDE = 108^\circ
+CD \text{ on line } l \implies \angle EDF = 180^\circ - \angle CDE = 72^\circ
+\frac{(6-2)\cdot 180^\circ}{6} = 120^\circ \imp",48° || 48° || 48°
+18,./geothought_images/geothought_00018.jpg,40,5,5,1.0,True,"m\angle AOB \text{ central angle subtending arc } AB \land m\angle ACB \text{ inscribed angle subtending arc } AB
+m\angle ACB = \tfrac{1}{2} m\angle AOB
+m\angle AOB = 80.0^\circ \implies m\angle ACB =",40.0° || 40.0° || 40.0
+19,./geothought_images/geothought_00019.jpg,25,5,5,1.0,True,"E \text{ is midpoint of } AB \land P \text{ is midpoint of } BD \implies EP \parallel AD \land EP = \tfrac{1}{2}AD
+F \text{ is midpoint of } CD \land P \text{ is midpoint of } BD \implies FP \parallel",25 || 25 || 25°
+20,./geothought_images/geothought_00020.jpg,72,5,5,1.0,True,"ABCDE \text{ regular pentagon} \implies \angle ABC = 108^\circ
+l_1 \parallel l_3 \land BA \text{ transversal} \implies \angle 2 = \angle 3
+l_3 \parallel l_2 \land BC \text{ transversal} \implies \angl",72 || 72° || 72
+21,./geothought_images/geothought_00021.jpg,20,5,5,1.0,True,"ABCD \text{ is a parallelogram} \land \angle B = 60^\circ \implies \angle BAD = 180^\circ - \angle B = 120^\circ
+\angle BAD = 120^\circ \implies \angle BAE = \angle EAD = \frac{120^\circ}{2} = 60^\cir",20 || 20 || 20
+22,./geothought_images/geothought_00022.jpg,70,5,5,1.0,True,"D \text{ is midpoint of } AB \land E \text{ is midpoint of } AC \implies DE \parallel BC
+\angle A = 60^\circ \land \angle B = 50^\circ \implies \angle C = 180^\circ - \angle A - \angle B = 70^\circ
+DE",70 || 70 || 70
+23,./geothought_images/geothought_00023.jpg,22,5,5,1.0,True,"\angle DAB + \angle ADC = 180^\circ
+\angle ADC = 135^\circ \implies \angle DAB = 180^\circ - 135^\circ = 45^\circ
+\angle DAB = \angle CAD + \angle CAB
+\angle CAD = 23^\circ \implies \angle CAB = \angl",22° || 22° || 22°
+24,./geothought_images/geothought_00024.jpg,20,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle B + \angle C = 180^\circ
+\angle B = 70^\circ \implies \angle C = 110^\circ
+ABCD \text{ parallelogram} \implies \angle D = \angle B
+AE \perp CD \implies \angl",20 || 20 || 20
+25,./geothought_images/geothought_00025.jpg,34,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle BAD + \angle ABC = 180^\circ
+\angle ABC = 125^\circ \implies \angle BAD = 180^\circ - 125^\circ = 55^\circ
+\angle BAD = \angle CAB + \angle CAD
+\angle CAD = ",34° || 34° || 34°
+26,./geothought_images/geothought_00026.jpg,70,5,5,1.0,True,"AB = AC \land \angle A = 40^\circ \implies \angle ABC = \angle ACB = x
+\angle A + \angle ABC + \angle ACB = 180^\circ \implies 40^\circ + x + x = 180^\circ
+2x = 140^\circ
+x = 70^\circ
+\angle ACB = 70^",70 || 70 || 70
+27,./geothought_images/geothought_00027.jpg,60,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle A \cong \angle C
+\angle A = 60^\circ
+\angle A \cong \angle C \land \angle A = 60^\circ \implies \angle C = 60^\circ
+\angle C = 60^\circ",60 || 60 || 60
+28,./geothought_images/geothought_00028.jpg,65,5,5,1.0,True,"E \text{ is midpoint of } AB \land D \text{ is midpoint of } AC \implies ED \parallel BC
+ED \parallel BC \implies \angle ABC = \angle AED = 30^\circ
+\angle A = 35^\circ, \angle ABC = 30^\circ \implies",65 || 65 || 65°
+29,./geothought_images/geothought_00029.jpg,35,5,5,1.0,True,"BD = BC \Rightarrow \triangle BCD \text{ isosceles with base } DC \Rightarrow \angle BCD = \angle BDC
+\angle C = 55^\circ \Rightarrow \angle BDC = 55^\circ
+AB \parallel CD \text{ and } BD \text{ is a ",35 || 35 || 35
+30,./geothought_images/geothought_00030.jpg,115,5,5,1.0,True,"\angle A = \angle C \quad (\text{opposite angles in parallelogram})
+\angle B = \angle D \quad (\text{opposite angles in parallelogram})
+\angle A + \angle B = 180^\circ \quad (\text{consecutive angles ",115° || 115° || 115°
+31,./geothought_images/geothought_00031.jpg,70,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle B = \angle D
+\angle B = 70^\circ \implies \angle D = \angle B = 70^\circ
+\angle D = 70^\circ",70 || 70 || 70
+32,./geothought_images/geothought_00032.jpg,100,5,5,1.0,True,"\angle A = \angle C
+\angle A = \angle C \land \angle A + \angle C = 160^\circ \implies 2\angle A = 160^\circ \implies \angle A = 80^\circ
+\angle A + \angle B = 180^\circ
+\angle B = 180^\circ - \angle ",100° || 100° || 100°
+33,./geothought_images/geothought_00033.jpg,130,5,5,1.0,True,"ABCD \text{ is a parallelogram} \implies \angle B = \angle D
+\angle B = \angle D \land (\angle B + \angle D = 100^\circ) \implies 2\angle B = 100^\circ
+\angle B = 50^\circ
+\angle D = 50^\circ
+\angle A",130° || 130° || 130°
+34,./geothought_images/geothought_00034.jpg,110,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle B = \angle D \land \angle A = \angle C \land \angle B + \angle C = 180^\circ
+\angle B = \angle D \land \angle B + \angle D = 140^\circ \implies 2\angle B = 1",110° || 110 || 110
+35,./geothought_images/geothought_00035.jpg,40,5,5,1.0,True,"\angle BAD = 115^\circ \implies \angle ABC = 180^\circ - \angle BAD = 65^\circ
+\angle ADC = \angle ABC = 65^\circ
+\angle ADB = \angle DBC = 25^\circ
+\angle ADC = \angle ADB + \angle BDC \implies \angl",40° || 40° || 40°
+36,./geothought_images/geothought_00036.jpg,40,5,5,1.0,True,"\angle 1 + \angle 2 + \angle 3 + \angle 4 = 360^\circ
+\angle 2 + \angle 3 + \angle 4 = 320^\circ
+\angle 1 = 360^\circ - (\angle 2 + \angle 3 + \angle 4) = 360^\circ - 320^\circ = 40^\circ",40 || 40 || 40
+37,./geothought_images/geothought_00037.jpg,150,5,5,1.0,True,"ABCD \text{ is a parallelogram} \implies \angle A = \angle C
+\angle A = 150^\circ \implies \angle C = 150^\circ
+\angle C = 150^\circ",150 || 150 || 150
+38,./geothought_images/geothought_00038.jpg,80,5,5,1.0,True,"ABCD \text{ is a parallelogram} \implies \angle B = \angle D
+\angle B = \angle D \land \angle B + \angle D = 200^\circ \implies 2\angle B = 200^\circ \implies \angle B = 100^\circ
+\angle A + \angle B ",80 || 80 || 80
+39,./geothought_images/geothought_00039.jpg,15,5,5,1.0,True,"AB = BD ∧ \triangle ABD \text{ isosceles} \implies \angle BAD = \angle ADB
+\angle ADB = 65^\circ \implies \angle BAD = 65^\circ
+\angle ABD = 180^\circ - \angle BAD - \angle ADB = 180^\circ - 65^\circ ",15 || 15° || 15
+40,./geothought_images/geothought_00040.jpg,60,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle ABC = \angle D
+\angle D = 120^\circ \implies \angle ABC = 120^\circ
+M \text{ on extension of } AB \implies \angle ABC \text{ and } \angle CBM \text{ form a l",60° || 60° || 60°
+41,./geothought_images/geothought_00041.jpg,125,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle A = \angle C \land \angle B = \angle D \land \angle A + \angle B = 180^\circ
+\angle A + \angle C = 110^\circ \land \angle A = \angle C \implies \angle A = \a",125 || 125 || 125
+42,./geothought_images/geothought_00042.jpg,67,5,5,1.0,True,"AE = DE \implies \angle ADE = \angle DAE
+\triangle ADE: \angle ADE + \angle DAE + \angle E = 180^\circ, \ \angle E = 46^\circ
+Let \angle ADE = \angle DAE = x. Then 2x + 46^\circ = 180^\circ \implies x",67° || 67° || 67°
+43,./geothought_images/geothought_00043.jpg,60,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle A + \angle B = 180^\circ \land \angle A = \angle C \land \angle B = \angle D
+\angle B = x \implies \angle A = 2x
+2x + x = 180^\circ
+3x = 180^\circ \implies x",60° || 60° || 60°
+44,./geothought_images/geothought_00044.jpg,120,5,5,1.0,True,"ABCD \text{ parallelogram} \implies \angle A = \angle C \land \angle B = \angle D
+\angle A + \angle D = 180^\circ
+Let \(x = \angle A = \angle C\). Given \(\angle A + \angle C = 120^\circ \implies x + ",120° || 120° || 120°
+45,./geothought_images/geothought_00045.jpg,70,5,5,1.0,True,"\angle A = \angle BCD \quad (\text{parallelogram opposite angles})
+\angle A = 110^\circ \implies \angle BCD = 110^\circ
+\angle 1 + \angle BCD = 180^\circ \quad (\text{linear pair; supplementary})
+\ang",70 || 70 || 70
+46,./geothought_images/geothought_00046.jpg,50,5,5,1.0,True,"\angle AOB = 90^\circ \land \angle COD = 90^\circ
+\angle AOC = \angle AOB + \angle BOC, \quad \angle BOD = \angle COD - \angle BOC
+\angle AOC + \angle BOD = \angle AOB + \angle COD
+\angle AOB + \angle",50.0 || 50.0 || 50.0
+47,./geothought_images/geothought_00047.jpg,119,5,5,1.0,True,"\angle D = 58^\circ \implies \angle BAD = 180^\circ - \angle D = 122^\circ
+\angle BAD = 122^\circ \implies \angle BAE = \angle EAD = \frac{\angle BAD}{2} = 61^\circ
+AD \parallel BC, E \in BC, AE \text",119° || 119° || 119°
+48,./geothought_images/geothought_00048.jpg,70,5,5,1.0,True,"AB = AC \implies \angle ABC = \angle ACB
+\angle A + \angle ABC + \angle ACB = 180^\circ
+Let \angle ABC = \angle ACB = x
+40^\circ + x + x = 180^\circ
+2x = 140^\circ
+x = 70^\circ
+\angle ACB = 70^\circ
+D",70 || 70 || 70
+49,./geothought_images/geothought_00049.jpg,100,5,5,1.0,True,"\angle 1 + \angle BCD = 180^\circ
+\angle 1 = 80^\circ \implies \angle BCD = 100^\circ
+ABCD \text{ is a parallelogram} \implies \angle A = \angle BCD
+\angle A = \angle BCD = 100^\circ",100° || 100° || 100°

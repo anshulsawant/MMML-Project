@@ -403,32 +403,51 @@ def evaluate_dataset(args: argparse.Namespace) -> Tuple[List[EvalRecord], List[D
     }
 
     for local_i, sample in enumerate(selected):
-        messages = sample.get("messages", [])
-        question = extract_question_from_messages(messages)
-        image_path = extract_image_path_from_messages(messages)
-        if not image_path:
-            skip_counts["no_image_path"] += 1
-            continue
+        # New flat format produced by convert_to_cod_openai.py:
+        #   {"__source_index": int, "problem": str, "solution": str, "CoD_steps": [...], "images": {...}}
+        # Old messages format:
+        #   {"messages": [{"role": "user", "content": [{"type": "image", ...}, ...]}, ...]}
+        if "__source_index" in sample and "CoD_steps" in sample:
+            idx = sample.get("__source_index")
+            if not isinstance(idx, int) or idx >= len(gt_dataset):
+                skip_counts["bad_idx"] += 1
+                continue
 
-        idx = extract_index_from_image_path(image_path)
-        if idx is None or idx >= len(gt_dataset):
-            skip_counts["bad_idx"] += 1
-            continue
+            question = str(sample.get("problem", "")).replace("<image>", "").strip()
+            cod_steps = sample.get("CoD_steps") or []
+            if not cod_steps:
+                skip_counts["empty_cod"] += 1
+                continue
+            cod_raw = "\n".join(str(s) for s in cod_steps)
+            cod_stripped = cod_raw  # Steps are already symbolic/stripped
+            image_path = f"./geothought_images/geothought_{idx:05d}.jpg"
+        else:
+            messages = sample.get("messages", [])
+            question = extract_question_from_messages(messages)
+            image_path = extract_image_path_from_messages(messages)
+            if not image_path:
+                skip_counts["no_image_path"] += 1
+                continue
 
-        if not question:
-            question = str(gt_dataset[idx].get("problem", "")).replace("<image>", "").strip()
+            idx = extract_index_from_image_path(image_path)
+            if idx is None or idx >= len(gt_dataset):
+                skip_counts["bad_idx"] += 1
+                continue
 
-        assistant_msg = ""
-        for msg in messages:
-            if msg.get("role") == "assistant":
-                assistant_msg = str(msg.get("content", ""))
-                break
+            if not question:
+                question = str(gt_dataset[idx].get("problem", "")).replace("<image>", "").strip()
 
-        cod_raw, _ = extract_think_and_final(assistant_msg)
-        cod_stripped = strip_cod_answer(cod_raw)
-        if not cod_stripped:
-            skip_counts["empty_cod"] += 1
-            continue
+            assistant_msg = ""
+            for msg in messages:
+                if msg.get("role") == "assistant":
+                    assistant_msg = str(msg.get("content", ""))
+                    break
+
+            cod_raw, _ = extract_think_and_final(assistant_msg)
+            cod_stripped = strip_cod_answer(cod_raw)
+            if not cod_stripped:
+                skip_counts["empty_cod"] += 1
+                continue
 
         gt_answer = extract_ground_truth(str(gt_dataset[idx].get("solution", "")))
         if not gt_answer:

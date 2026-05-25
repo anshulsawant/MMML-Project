@@ -1,0 +1,1310 @@
+{
+  "summary": {
+    "evaluated": 50,
+    "kept": 50,
+    "keep_rate": 1.0,
+    "mean_pass_rate": 1.0
+  },
+  "records": [
+    {
+      "idx": 0,
+      "image_path": "./geothought_images/geothought_00000.jpg",
+      "question": "In the given diagram, if angle 1 has a measure of 35.0 degrees, what is the measure of angle 2?",
+      "gt_answer": "145",
+      "cod_raw": "\\angle 1 \\text{ and } \\angle 2 \\text{ on line } AB \\implies \\angle 1 + \\angle 2 = 180^\\circ\n\\angle 1 = 35.0^\\circ \\implies \\angle 2 = 180^\\circ - \\angle 1 = 145^\\circ",
+      "cod_stripped": "\\angle 1 \\text{ and } \\angle 2 \\text{ on line } AB \\implies \\angle 1 + \\angle 2 = 180^\\circ\n\\angle 1 = 35.0^\\circ \\implies \\angle 2 = 180^\\circ - \\angle 1 = 145^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "145.0",
+        "145.0",
+        "145.0",
+        "145.0",
+        "145.0"
+      ],
+      "predictions": [
+        "#### 145.0",
+        "#### 145.0",
+        "#### 145.0",
+        "#### 145.0",
+        "#### 145.0"
+      ]
+    },
+    {
+      "idx": 1,
+      "image_path": "./geothought_images/geothought_00001.jpg",
+      "question": "In the given diagram, consider right triangle ABC where angle C equals 90 degrees. The perpendicular bisector of side AB, labeled as DE, intersects BC at point D and intersects AB at point E. If AD divides angle CAB into two angles and the ratio of angle CAD to angle BAD is 0.4, what is the measure of angle ADC?",
+      "gt_answer": "75",
+      "cod_raw": "AD = BD\n\\triangle ABD \\text{ isosceles} \\implies \\angle BAD = \\angle ABD\nLet \\angle BAD = x\n\\angle CAD = 0.4x\n\\angle C = 90^\\circ\n\\angle CAB = \\angle CAD + \\angle BAD = 0.4x + x = 1.4x\n\\angle B = \\angle BAD = x\n\\angle CAB + \\angle B + \\angle C = 180^\\circ\n1.4x + x + 90^\\circ = 180^\\circ\n2.4x = 90^\\circ\nx = \\frac{90^\\circ}{2.4} = 37.5^\\circ\n\\angle CAD = 0.4x = 0.4 \\times 37.5^\\circ = 15^\\circ\n\\angle ADC = 180^\\circ - \\angle C - \\angle CAD = 180^\\circ - 90^\\circ - 15^\\circ = 75^\\circ\n\\angle ADC = 75^\\circ",
+      "cod_stripped": "AD = BD\n\\triangle ABD \\text{ isosceles} \\implies \\angle BAD = \\angle ABD\nLet \\angle BAD = x\n\\angle CAD = 0.4x\n\\angle C = 90^\\circ\n\\angle CAB = \\angle CAD + \\angle BAD = 0.4x + x = 1.4x\n\\angle B = \\angle BAD = x\n\\angle CAB + \\angle B + \\angle C = 180^\\circ\n1.4x + x + 90^\\circ = 180^\\circ\n2.4x = 90^\\circ\nx = \\frac{90^\\circ}{2.4} = 37.5^\\circ\n\\angle CAD = 0.4x = 0.4 \\times 37.5^\\circ = 15^\\circ\n\\angle ADC = 180^\\circ - \\angle C - \\angle CAD = 180^\\circ - 90^\\circ - 15^\\circ = 75^\\circ\n\\angle ADC = 75^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "75°",
+        "75°",
+        "75°",
+        "75°",
+        "75°"
+      ],
+      "predictions": [
+        "#### 75°",
+        "#### 75°",
+        "#### 75°",
+        "#### 75°",
+        "#### 75°"
+      ]
+    },
+    {
+      "idx": 2,
+      "image_path": "./geothought_images/geothought_00002.jpg",
+      "question": "As shown in the figure, line l1 is parallel to line l2, and triangle ABC is an equilateral triangle. If angle 1 = 40°, then the size of angle 2 is ()",
+      "gt_answer": "80",
+      "cod_raw": "\\triangle ABC \\text{ equilateral} \\implies \\angle BAC = 60^\\circ\nl_1 \\parallel l_2 \\land AB \\text{ transversal} \\implies \\angle (l_1, AB) = \\angle 1\n\\angle 1 = 40^\\circ \\implies \\angle (l_1, AB) = 40^\\circ\n\\angle BAC = 60^\\circ \\land \\angle (l_1, AB) = 40^\\circ \\implies \\angle 2 = 180^\\circ - \\angle BAC - \\angle (l_1, AB) = 80^\\circ",
+      "cod_stripped": "\\triangle ABC \\text{ equilateral} \\implies \\angle BAC = 60^\\circ\nl_1 \\parallel l_2 \\land AB \\text{ transversal} \\implies \\angle (l_1, AB) = \\angle 1\n\\angle 1 = 40^\\circ \\implies \\angle (l_1, AB) = 40^\\circ\n\\angle BAC = 60^\\circ \\land \\angle (l_1, AB) = 40^\\circ \\implies \\angle 2 = 180^\\circ - \\angle BAC - \\angle (l_1, AB) = 80^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "80°",
+        "80",
+        "80°",
+        "80°",
+        "80°"
+      ],
+      "predictions": [
+        "#### 80°",
+        "#### 80",
+        "#### 80°",
+        "#### 80°",
+        "#### 80°"
+      ]
+    },
+    {
+      "idx": 3,
+      "image_path": "./geothought_images/geothought_00003.jpg",
+      "question": "In the given triangle ABC, if line BD is perpendicular to AC and also bisects it, and angle A measures 20 degrees, what is the measure of angle CBD?",
+      "gt_answer": "70",
+      "cod_raw": "AD = DC \\land \\angle ADB = \\angle CDB = 90^\\circ\n\\triangle ABD \\cong \\triangle CBD \\text{ by SAS using } AD = DC,\\ \\angle ADB = \\angle CDB = 90^\\circ,\\ BD = BD\nAB = CB\n\\triangle ABC \\text{ is isosceles with } AB = CB\n\\angle BAC = \\angle BCA\n\\angle BAC = 20^\\circ \\implies \\angle BCA = 20^\\circ\n\\angle CBD = 180^\\circ - \\angle CDB - \\angle BCA = 180^\\circ - 90^\\circ - 20^\\circ = 70^\\circ",
+      "cod_stripped": "AD = DC \\land \\angle ADB = \\angle CDB = 90^\\circ\n\\triangle ABD \\cong \\triangle CBD \\text{ by SAS using } AD = DC,\\ \\angle ADB = \\angle CDB = 90^\\circ,\\ BD = BD\nAB = CB\n\\triangle ABC \\text{ is isosceles with } AB = CB\n\\angle BAC = \\angle BCA\n\\angle BAC = 20^\\circ \\implies \\angle BCA = 20^\\circ\n\\angle CBD = 180^\\circ - \\angle CDB - \\angle BCA = 180^\\circ - 90^\\circ - 20^\\circ = 70^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "70",
+        "70",
+        "70",
+        "70",
+        "70"
+      ],
+      "predictions": [
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70"
+      ]
+    },
+    {
+      "idx": 4,
+      "image_path": "./geothought_images/geothought_00004.jpg",
+      "question": "In the given diagram, if angle B measures 20° and angle C measures 30°, and MP and QN bisect AB and AC perpendicularly, what is the measure of angle PAQ?",
+      "gt_answer": "80",
+      "cod_raw": "\\angle BAC = 180^\\circ - \\angle B - \\angle C = 180^\\circ - 20^\\circ - 30^\\circ = 130^\\circ\nMP \\perp AB,\\ PA = PB \\implies \\triangle PAB \\text{ isosceles with } \\angle PAB = \\angle B\nQN \\perp AC,\\ QA = QC \\implies \\triangle QAC \\text{ isosceles with } \\angle QAC = \\angle C\n\\angle PAB = \\angle B = 20^\\circ,\\ \\angle QAC = \\angle C = 30^\\circ\n\\angle PAQ = \\angle BAC - \\angle PAB - \\angle QAC = 130^\\circ - 20^\\circ - 30^\\circ = 80^\\circ",
+      "cod_stripped": "\\angle BAC = 180^\\circ - \\angle B - \\angle C = 180^\\circ - 20^\\circ - 30^\\circ = 130^\\circ\nMP \\perp AB,\\ PA = PB \\implies \\triangle PAB \\text{ isosceles with } \\angle PAB = \\angle B\nQN \\perp AC,\\ QA = QC \\implies \\triangle QAC \\text{ isosceles with } \\angle QAC = \\angle C\n\\angle PAB = \\angle B = 20^\\circ,\\ \\angle QAC = \\angle C = 30^\\circ\n\\angle PAQ = \\angle BAC - \\angle PAB - \\angle QAC = 130^\\circ - 20^\\circ - 30^\\circ = 80^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "80°",
+        "80°",
+        "80°",
+        "80°",
+        "80°"
+      ],
+      "predictions": [
+        "#### 80°",
+        "#### 80°",
+        "#### 80°",
+        "#### 80°",
+        "#### 80°"
+      ]
+    },
+    {
+      "idx": 5,
+      "image_path": "./geothought_images/geothought_00005.jpg",
+      "question": "What is the measure of angle ADC in right triangle ABC if angle ACB is 90 degrees, angle A is 52 degrees, and a circle with point B as the center and BC as the radius intersects AB at point D?",
+      "gt_answer": "109",
+      "cod_raw": "\\triangle ABC: \\angle A + \\angle B + \\angle ACB = 180^\\circ \\implies \\angle B = 180^\\circ - 52^\\circ - 90^\\circ = 38^\\circ\nBD = BC \\implies \\triangle BCD \\text{ is isosceles} \\implies \\angle BDC = \\angle BCD\n\\text{Let } \\angle BDC = \\angle BCD = x\n\\angle B + \\angle BDC + \\angle BCD = 180^\\circ \\implies 38^\\circ + x + x = 180^\\circ\n38^\\circ + 2x = 180^\\circ \\implies 2x = 142^\\circ \\implies x = 71^\\circ\n\\angle ADC + \\angle BDC = 180^\\circ \\implies \\angle ADC = 180^\\circ - 71^\\circ = 109^\\circ\n\\angle ADC = 109^\\circ",
+      "cod_stripped": "\\triangle ABC: \\angle A + \\angle B + \\angle ACB = 180^\\circ \\implies \\angle B = 180^\\circ - 52^\\circ - 90^\\circ = 38^\\circ\nBD = BC \\implies \\triangle BCD \\text{ is isosceles} \\implies \\angle BDC = \\angle BCD\n\\text{Let } \\angle BDC = \\angle BCD = x\n\\angle B + \\angle BDC + \\angle BCD = 180^\\circ \\implies 38^\\circ + x + x = 180^\\circ\n38^\\circ + 2x = 180^\\circ \\implies 2x = 142^\\circ \\implies x = 71^\\circ\n\\angle ADC + \\angle BDC = 180^\\circ \\implies \\angle ADC = 180^\\circ - 71^\\circ = 109^\\circ\n\\angle ADC = 109^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "109°",
+        "109°",
+        "109°",
+        "109°",
+        "109°"
+      ],
+      "predictions": [
+        "#### 109°",
+        "#### 109°",
+        "#### 109°",
+        "#### 109°",
+        "#### 109°"
+      ]
+    },
+    {
+      "idx": 6,
+      "image_path": "./geothought_images/geothought_00006.jpg",
+      "question": "What is the degree measure of angle CFA in triangle ABC, where AB is equal to AC, angle BAC measures 100°, AD is the median of side BC, CE bisects angle BCA, and intersects AB at point E, and AD intersects CE at point F?",
+      "gt_answer": "110",
+      "cod_raw": "AB = AC \\implies \\angle ABC = \\angle ACB\n\\angle BAC + \\angle ABC + \\angle ACB = 180^\\circ\n\\angle BAC = 100^\\circ \\implies \\angle ABC + \\angle ACB = 80^\\circ\n\\angle ABC = \\angle ACB \\implies \\angle ABC = \\angle ACB = 40^\\circ\nBD = DC\nAD \\text{ median to } BC \\implies \\angle BAD = \\angle CAD\n\\angle BAD = \\angle CAD = \\frac{1}{2}\\angle BAC = 50^\\circ\nAD \\perp BC\nCE \\text{ bisects } \\angle ACB \\implies \\angle BCE = \\angle ACE\n\\angle ACB = 40^\\circ \\implies \\angle BCE = \\angle ACE = 20^\\circ\nF \\in AD \\land F \\in CE\n\\angle ACF = \\angle ACE = 20^\\circ\n\\angle CAF = \\angle CAD = 50^\\circ\n\\angle CFA = 180^\\circ - \\angle ACF - \\angle CAF\n\\angle CFA = 180^\\circ - 20^\\circ - 50^\\circ = 110^\\circ",
+      "cod_stripped": "AB = AC \\implies \\angle ABC = \\angle ACB\n\\angle BAC + \\angle ABC + \\angle ACB = 180^\\circ\n\\angle BAC = 100^\\circ \\implies \\angle ABC + \\angle ACB = 80^\\circ\n\\angle ABC = \\angle ACB \\implies \\angle ABC = \\angle ACB = 40^\\circ\nBD = DC\nAD \\text{ median to } BC \\implies \\angle BAD = \\angle CAD\n\\angle BAD = \\angle CAD = \\frac{1}{2}\\angle BAC = 50^\\circ\nAD \\perp BC\nCE \\text{ bisects } \\angle ACB \\implies \\angle BCE = \\angle ACE\n\\angle ACB = 40^\\circ \\implies \\angle BCE = \\angle ACE = 20^\\circ\nF \\in AD \\land F \\in CE\n\\angle ACF = \\angle ACE = 20^\\circ\n\\angle CAF = \\angle CAD = 50^\\circ\n\\angle CFA = 180^\\circ - \\angle ACF - \\angle CAF\n\\angle CFA = 180^\\circ - 20^\\circ - 50^\\circ = 110^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "110",
+        "110",
+        "110",
+        "110",
+        "110"
+      ],
+      "predictions": [
+        "#### 110",
+        "#### 110",
+        "#### 110",
+        "#### 110",
+        "#### 110"
+      ]
+    },
+    {
+      "idx": 7,
+      "image_path": "./geothought_images/geothought_00007.jpg",
+      "question": "In the given illustration, triangle ABC is depicted with BA being equal to BC. The line segment DE serves as the perpendicular bisector of side AB, intersecting BC and AB at points D and E, respectively. If AD functions as the angle bisector of angle BAC, what is the degree measure of angle B?",
+      "gt_answer": "36",
+      "cod_raw": "BA = BC \\implies \\angle BAC = \\angle BCA\nAD = BD \\implies \\angle BAD = \\angle ABD\nAD \\text{ bisects } \\angle BAC \\implies \\angle BAD = \\angle DAC\nLet x = \\angle ABD; \\angle BAD = x, \\angle DAC = x \\implies \\angle BAC = 2x\n\\angle BCA = \\angle BAC = 2x\nIn \\triangle ABC: \\angle ABC + \\angle BAC + \\angle BCA = 180^\\circ, \\angle ABC = x, \\angle BAC = 2x, \\angle BCA = 2x \\implies 5x = 180^\\circ \\implies x = 36^\\circ\nThus, \\angle B = \\angle ABC = 36^\\circ",
+      "cod_stripped": "BA = BC \\implies \\angle BAC = \\angle BCA\nAD = BD \\implies \\angle BAD = \\angle ABD\nAD \\text{ bisects } \\angle BAC \\implies \\angle BAD = \\angle DAC\nLet x = \\angle ABD; \\angle BAD = x, \\angle DAC = x \\implies \\angle BAC = 2x\n\\angle BCA = \\angle BAC = 2x\nIn \\triangle ABC: \\angle ABC + \\angle BAC + \\angle BCA = 180^\\circ, \\angle ABC = x, \\angle BAC = 2x, \\angle BCA = 2x \\implies 5x = 180^\\circ \\implies x = 36^\\circ\nThus, \\angle B = \\angle ABC = 36^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "36",
+        "36",
+        "36",
+        "36",
+        "36"
+      ],
+      "predictions": [
+        "#### 36",
+        "#### 36",
+        "#### 36",
+        "#### 36",
+        "#### 36"
+      ]
+    },
+    {
+      "idx": 8,
+      "image_path": "./geothought_images/geothought_00008.jpg",
+      "question": "What is the measure of angle A in right triangle ABC, where angle ACB is 90 degrees, and an arc is drawn with point B as the center and BC as the radius, intersecting AB at point D, and angle ACD measures 20 degrees?",
+      "gt_answer": "50",
+      "cod_raw": "BD = BC \\implies \\angle BCD = \\angle BDC\n∠ACB = 90^\\circ, ∠ACD = 20^\\circ \\implies \\angle BCD = \\angle ACB - \\angle ACD = 90^\\circ - 20^\\circ = 70^\\circ\n\\angle BCD = \\angle BDC = 70^\\circ \\implies \\angle DBC = 180^\\circ - \\angle BCD - \\angle BDC = 40^\\circ\nIn \\triangle ABC, \\angle ABC = \\angle DBC = 40^\\circ, \\angle ACB = 90^\\circ \\implies \\angle A = 180^\\circ - \\angle ABC - \\angle ACB = 50^\\circ\n\\angle A = 50^\\circ",
+      "cod_stripped": "BD = BC \\implies \\angle BCD = \\angle BDC\n∠ACB = 90^\\circ, ∠ACD = 20^\\circ \\implies \\angle BCD = \\angle ACB - \\angle ACD = 90^\\circ - 20^\\circ = 70^\\circ\n\\angle BCD = \\angle BDC = 70^\\circ \\implies \\angle DBC = 180^\\circ - \\angle BCD - \\angle BDC = 40^\\circ\nIn \\triangle ABC, \\angle ABC = \\angle DBC = 40^\\circ, \\angle ACB = 90^\\circ \\implies \\angle A = 180^\\circ - \\angle ABC - \\angle ACB = 50^\\circ\n\\angle A = 50^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "50",
+        "50°",
+        "50",
+        "50°",
+        "50"
+      ],
+      "predictions": [
+        "#### 50",
+        "#### 50°",
+        "#### 50",
+        "#### 50°",
+        "#### 50"
+      ]
+    },
+    {
+      "idx": 9,
+      "image_path": "./geothought_images/geothought_00009.jpg",
+      "question": "In the given triangle ABC, where AB is equal to AC, and AD is the median of side BC, with angle B measuring 25 degrees, what is the measure of angle BAD?",
+      "gt_answer": "65",
+      "cod_raw": "AB = AC \\implies \\angle B = \\angle C\n\\angle B = 25^\\circ \\implies \\angle C = 25^\\circ\n\\angle BAC = 180^\\circ - \\angle B - \\angle C = 130^\\circ\nAD \\text{ is the median to } BC \\implies BD = DC\nAD \\text{ in } \\triangle ABC \\text{ is the angle bisector of } \\angle BAC \\implies \\angle BAD = \\angle CAD\n\\angle BAD = \\frac{1}{2} \\angle BAC\n\\angle BAD = \\frac{1}{2} \\cdot 130^\\circ = 65^\\circ",
+      "cod_stripped": "AB = AC \\implies \\angle B = \\angle C\n\\angle B = 25^\\circ \\implies \\angle C = 25^\\circ\n\\angle BAC = 180^\\circ - \\angle B - \\angle C = 130^\\circ\nAD \\text{ is the median to } BC \\implies BD = DC\nAD \\text{ in } \\triangle ABC \\text{ is the angle bisector of } \\angle BAC \\implies \\angle BAD = \\angle CAD\n\\angle BAD = \\frac{1}{2} \\angle BAC\n\\angle BAD = \\frac{1}{2} \\cdot 130^\\circ = 65^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "65°",
+        "65°",
+        "65°",
+        "65°",
+        "65°"
+      ],
+      "predictions": [
+        "#### 65°",
+        "#### 65°",
+        "#### 65°",
+        "#### 65°",
+        "#### 65°"
+      ]
+    },
+    {
+      "idx": 10,
+      "image_path": "./geothought_images/geothought_00010.jpg",
+      "question": "In the provided figure, the quadrilateral ABCD is inscribed in circle O. If one of its exterior angles, DCE, measures 62.0, what is the measure of angle BOD?",
+      "gt_answer": "124",
+      "cod_raw": "\\angle BAD = \\angle DCE = 62^\\circ\n\\angle BAD = \\tfrac{1}{2} \\, \\widehat{BD}\n62^\\circ = \\tfrac{1}{2} \\, \\widehat{BD} \\implies \\widehat{BD} = 124^\\circ\n\\angle BOD = \\widehat{BD} = 124^\\circ",
+      "cod_stripped": "\\angle BAD = \\angle DCE = 62^\\circ\n\\angle BAD = \\tfrac{1}{2} \\, \\widehat{BD}\n62^\\circ = \\tfrac{1}{2} \\, \\widehat{BD} \\implies \\widehat{BD} = 124^\\circ\n\\angle BOD = \\widehat{BD} = 124^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "124",
+        "124",
+        "124",
+        "124",
+        "124"
+      ],
+      "predictions": [
+        "#### 124",
+        "#### 124",
+        "#### 124",
+        "#### 124",
+        "#### 124"
+      ]
+    },
+    {
+      "idx": 11,
+      "image_path": "./geothought_images/geothought_00011.jpg",
+      "question": "In the given figure, point O is the intersection of AE and CD, with AB being parallel to CD. If OC is equal to OE and angle A measures 50 degrees, what is the measure of angle C?",
+      "gt_answer": "25",
+      "cod_raw": "AB \\parallel CD \\wedge AE \\text{ transversal} \\implies \\angle A \\text{ and } \\angle DOE \\text{ are corresponding} \\quad \\angle DOE = \\angle A = 50^\\circ\nOC = OE \\implies \\angle C = \\angle E = x\n\\angle DOE = \\angle C + \\angle E \\quad (\\text{Exterior Angle Theorem})\n50^\\circ = x + x \\implies 50^\\circ = 2x \\implies x = 25^\\circ\n\\angle C = x = 25^\\circ",
+      "cod_stripped": "AB \\parallel CD \\wedge AE \\text{ transversal} \\implies \\angle A \\text{ and } \\angle DOE \\text{ are corresponding} \\quad \\angle DOE = \\angle A = 50^\\circ\nOC = OE \\implies \\angle C = \\angle E = x\n\\angle DOE = \\angle C + \\angle E \\quad (\\text{Exterior Angle Theorem})\n50^\\circ = x + x \\implies 50^\\circ = 2x \\implies x = 25^\\circ\n\\angle C = x = 25^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "25",
+        "25°",
+        "25",
+        "25",
+        "25"
+      ],
+      "predictions": [
+        "#### 25",
+        "#### 25°",
+        "#### 25",
+        "#### 25",
+        "#### 25"
+      ]
+    },
+    {
+      "idx": 12,
+      "image_path": "./geothought_images/geothought_00012.jpg",
+      "question": "In the given diagram, triangle ABC is equilateral with BO as the median line, and BA extended to point D such that AD is equal to AO. What is the degree measure of angle DOB?",
+      "gt_answer": "120",
+      "cod_raw": "\\triangle ABC \\text{ equilateral} \\implies AB = BC = CA \\land \\angle BAC = 60^\\circ\nBO \\text{ median to } AC \\implies O \\in AC \\land AO = OC\nBO \\perp AC \\implies \\angle AOB = 90^\\circ\n\\angle OAB = \\angle CAB = 60^\\circ\n\\angle ABO = 180^\\circ - \\angle OAB - \\angle AOB = 180^\\circ - 60^\\circ - 90^\\circ = 30^\\circ\nAD = AO \\implies \\triangle AOD \\text{ isosceles} \\implies \\angle ADO = \\angle AOD = x\n\\angle OAD = 180^\\circ - \\angle OAB = 120^\\circ\n\\angle OAD + \\angle AOD + \\angle ADO = 180^\\circ \\implies 120^\\circ + x + x = 180^\\circ\n2x = 60^\\circ \\implies x = 30^\\circ \\implies \\angle AOD = 30^\\circ\n\\angle DOB = \\angle AOB + \\angle AOD = 90^\\circ + 30^\\circ = 120^\\circ",
+      "cod_stripped": "\\triangle ABC \\text{ equilateral} \\implies AB = BC = CA \\land \\angle BAC = 60^\\circ\nBO \\text{ median to } AC \\implies O \\in AC \\land AO = OC\nBO \\perp AC \\implies \\angle AOB = 90^\\circ\n\\angle OAB = \\angle CAB = 60^\\circ\n\\angle ABO = 180^\\circ - \\angle OAB - \\angle AOB = 180^\\circ - 60^\\circ - 90^\\circ = 30^\\circ\nAD = AO \\implies \\triangle AOD \\text{ isosceles} \\implies \\angle ADO = \\angle AOD = x\n\\angle OAD = 180^\\circ - \\angle OAB = 120^\\circ\n\\angle OAD + \\angle AOD + \\angle ADO = 180^\\circ \\implies 120^\\circ + x + x = 180^\\circ\n2x = 60^\\circ \\implies x = 30^\\circ \\implies \\angle AOD = 30^\\circ\n\\angle DOB = \\angle AOB + \\angle AOD = 90^\\circ + 30^\\circ = 120^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "120°",
+        "120°",
+        "120",
+        "120°",
+        "120"
+      ],
+      "predictions": [
+        "#### 120°",
+        "#### 120°",
+        "#### 120",
+        "#### 120°",
+        "#### 120"
+      ]
+    },
+    {
+      "idx": 13,
+      "image_path": "./geothought_images/geothought_00013.jpg",
+      "question": "If AB is parallel to CD and AC equals BC, and angle 1 measures 70 degrees in the given diagram, what is the degree measure of angle 2?",
+      "gt_answer": "40",
+      "cod_raw": "AB \\parallel CD \\land \\text{transversal} \\implies \\angle CAB = \\angle 1\n\\angle 1 = 70^\\circ \\implies \\angle CAB = 70^\\circ\nAC = BC \\implies \\angle CBA = \\angle BAC\n\\angle BAC = \\angle CAB\n\\angle CAB = 70^\\circ \\implies \\angle CBA = 70^\\circ\n\\angle 2 + \\angle CAB + \\angle CBA = 180^\\circ\n\\angle CAB = \\angle CBA = 70^\\circ \\implies \\angle 2 = 180^\\circ - 70^\\circ - 70^\\circ = 40^\\circ",
+      "cod_stripped": "AB \\parallel CD \\land \\text{transversal} \\implies \\angle CAB = \\angle 1\n\\angle 1 = 70^\\circ \\implies \\angle CAB = 70^\\circ\nAC = BC \\implies \\angle CBA = \\angle BAC\n\\angle BAC = \\angle CAB\n\\angle CAB = 70^\\circ \\implies \\angle CBA = 70^\\circ\n\\angle 2 + \\angle CAB + \\angle CBA = 180^\\circ\n\\angle CAB = \\angle CBA = 70^\\circ \\implies \\angle 2 = 180^\\circ - 70^\\circ - 70^\\circ = 40^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "40",
+        "40",
+        "40",
+        "40",
+        "40"
+      ],
+      "predictions": [
+        "#### 40",
+        "#### 40",
+        "#### 40",
+        "#### 40",
+        "#### 40"
+      ]
+    },
+    {
+      "idx": 14,
+      "image_path": "./geothought_images/geothought_00014.jpg",
+      "question": "In the given diagram, point D lies on AC, while point E lies on AB. It is also given that AB is equal to AC, and BC is equal to BD, and AD is equal to DE, which also equals BE. What is the measure of angle A?",
+      "gt_answer": "45",
+      "cod_raw": "AB = AC \\implies \\angle ABC = \\angle ACB = \\frac{180^\\circ - x}{2}\nBC = BD \\implies \\angle BCD = \\angle BDC\nD \\in AC \\implies \\angle BCD = \\angle ACB = \\frac{180^\\circ - x}{2}\n\\angle BDC = \\angle BCD = \\frac{180^\\circ - x}{2} \\implies \\angle DBC = 180^\\circ - 2 \\angle BDC = x\nAD = DE \\implies \\angle DAE = \\angle DEA\n\\angle DAE = \\angle A = x \\implies \\angle DEA = x\nIn \\triangle ADE: \\angle ADE = 180^\\circ - \\angle DAE - \\angle DEA = 180^\\circ - x - x = 180^\\circ - 2x\nDE = BE \\implies \\angle EBD = \\angle EDB\n\\angle DEB supplementary to \\angle DEA \\implies \\angle DEB = 180^\\circ - \\angle DEA = 180^\\circ - x\nIn \\triangle BDE: \\angle EBD + \\angle EDB + \\angle DEB = 180^\\circ\nLet \\angle EBD = \\angle EDB = y: 2y + (180^\\circ - x) = 180^\\circ \\implies 2y = x \\implies y = \\frac{x}{2}\n\\angle ABC = \\angle EBD + \\angle DBC = y + x = \\frac{x}{2} + x = \\frac{3x}{2}\n\\angle ABC = \\frac{180^\\circ - x}{2}\n\\frac{3x}{2} = \\frac{180^\\circ - x}{2} \\implies 3x = 180^\\circ - x \\implies 4x = 180^\\circ \\implies x = 45^\\circ",
+      "cod_stripped": "AB = AC \\implies \\angle ABC = \\angle ACB = \\frac{180^\\circ - x}{2}\nBC = BD \\implies \\angle BCD = \\angle BDC\nD \\in AC \\implies \\angle BCD = \\angle ACB = \\frac{180^\\circ - x}{2}\n\\angle BDC = \\angle BCD = \\frac{180^\\circ - x}{2} \\implies \\angle DBC = 180^\\circ - 2 \\angle BDC = x\nAD = DE \\implies \\angle DAE = \\angle DEA\n\\angle DAE = \\angle A = x \\implies \\angle DEA = x\nIn \\triangle ADE: \\angle ADE = 180^\\circ - \\angle DAE - \\angle DEA = 180^\\circ - x - x = 180^\\circ - 2x\nDE = BE \\implies \\angle EBD = \\angle EDB\n\\angle DEB supplementary to \\angle DEA \\implies \\angle DEB = 180^\\circ - \\angle DEA = 180^\\circ - x\nIn \\triangle BDE: \\angle EBD + \\angle EDB + \\angle DEB = 180^\\circ\nLet \\angle EBD = \\angle EDB = y: 2y + (180^\\circ - x) = 180^\\circ \\implies 2y = x \\implies y = \\frac{x}{2}\n\\angle ABC = \\angle EBD + \\angle DBC = y + x = \\frac{x}{2} + x = \\frac{3x}{2}\n\\angle ABC = \\frac{180^\\circ - x}{2}\n\\frac{3x}{2} = \\frac{180^\\circ - x}{2} \\implies 3x = 180^\\circ - x \\implies 4x = 180^\\circ \\implies x = 45^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "45",
+        "45",
+        "45°",
+        "45°",
+        "45°"
+      ],
+      "predictions": [
+        "#### 45",
+        "#### 45",
+        "#### 45°",
+        "#### 45°",
+        "#### 45°"
+      ]
+    },
+    {
+      "idx": 15,
+      "image_path": "./geothought_images/geothought_00015.jpg",
+      "question": "What is the sum of angle A, angle B, angle C, angle D, angle E, and angle F in the given equation?",
+      "gt_answer": "360",
+      "cod_raw": "\\angle 1, \\angle 2, \\angle 3 \\text{ are interior angles of a triangle} \\implies \\angle 1 + \\angle 2 + \\angle 3 = 180^\\circ\n\\angle A + \\angle D + \\angle 1 = 180^\\circ \\implies \\angle A + \\angle D = 180^\\circ - \\angle 1\n\\angle E + \\angle F + \\angle 2 = 180^\\circ \\implies \\angle E + \\angle F = 180^\\circ - \\angle 2\n\\angle B + \\angle C + \\angle 3 = 180^\\circ \\implies \\angle B + \\angle C = 180^\\circ - \\angle 3\n(\\angle A + \\angle D) + (\\angle E + \\angle F) + (\\angle B + \\angle C) = (180^\\circ - \\angle 1) + (180^\\circ - \\angle 2) + (180^\\circ - \\angle 3)\n540^\\circ - (\\angle 1 + \\angle 2 + \\angle 3) = 360^\\circ\n\\angle A + \\angle B + \\angle C + \\angle D + \\angle E + \\angle F = 360^\\circ",
+      "cod_stripped": "\\angle 1, \\angle 2, \\angle 3 \\text{ are interior angles of a triangle} \\implies \\angle 1 + \\angle 2 + \\angle 3 = 180^\\circ\n\\angle A + \\angle D + \\angle 1 = 180^\\circ \\implies \\angle A + \\angle D = 180^\\circ - \\angle 1\n\\angle E + \\angle F + \\angle 2 = 180^\\circ \\implies \\angle E + \\angle F = 180^\\circ - \\angle 2\n\\angle B + \\angle C + \\angle 3 = 180^\\circ \\implies \\angle B + \\angle C = 180^\\circ - \\angle 3\n(\\angle A + \\angle D) + (\\angle E + \\angle F) + (\\angle B + \\angle C) = (180^\\circ - \\angle 1) + (180^\\circ - \\angle 2) + (180^\\circ - \\angle 3)\n540^\\circ - (\\angle 1 + \\angle 2 + \\angle 3) = 360^\\circ\n\\angle A + \\angle B + \\angle C + \\angle D + \\angle E + \\angle F = 360^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "360°",
+        "360°",
+        "360°",
+        "360°",
+        "360°"
+      ],
+      "predictions": [
+        "#### 360°",
+        "#### 360°",
+        "#### 360°",
+        "#### 360°",
+        "#### 360°"
+      ]
+    },
+    {
+      "idx": 16,
+      "image_path": "./geothought_images/geothought_00016.jpg",
+      "question": "In the given diagram, triangle ABC is depicted with angle ACB measuring 120 degrees. If square ACDE and regular pentagon BCFGH are constructed with sides AC and BC, what is the measure of angle DCF?",
+      "gt_answer": "42",
+      "cod_raw": "ACDE \\text{ square} \\implies \\angle ACD = 90^\\circ\nBCFGH \\text{ regular pentagon} \\implies \\angle BCF = \\frac{(5-2) \\cdot 180^\\circ}{5} = 108^\\circ\n\\angle ACB = 120^\\circ\n\\angle ACD + \\angle DCF + \\angle BCF + \\angle ACB = 360^\\circ\n90^\\circ + \\angle DCF + 108^\\circ + 120^\\circ = 360^\\circ\n90^\\circ + \\angle DCF + 108^\\circ + 120^\\circ = 360^\\circ \\implies \\angle DCF = 42^\\circ",
+      "cod_stripped": "ACDE \\text{ square} \\implies \\angle ACD = 90^\\circ\nBCFGH \\text{ regular pentagon} \\implies \\angle BCF = \\frac{(5-2) \\cdot 180^\\circ}{5} = 108^\\circ\n\\angle ACB = 120^\\circ\n\\angle ACD + \\angle DCF + \\angle BCF + \\angle ACB = 360^\\circ\n90^\\circ + \\angle DCF + 108^\\circ + 120^\\circ = 360^\\circ\n90^\\circ + \\angle DCF + 108^\\circ + 120^\\circ = 360^\\circ \\implies \\angle DCF = 42^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "42",
+        "42",
+        "42",
+        "42",
+        "42"
+      ],
+      "predictions": [
+        "90 + ∠DCF + 108 + 120 = 360  \n→ ∠DCF = 360 - 90 - 108 - 120 = 42\n\n#### 42",
+        "#### 42",
+        "90 + ∠DCF + 108 + 120 = 360  \n→ ∠DCF = 360 - 90 - 108 - 120 = 42\n\n#### 42",
+        "90 + ∠DCF + 108 + 120 = 360  \n→ ∠DCF = 360 - 90 - 108 - 120 = 42\n\n#### 42",
+        "90 + ∠DCF + 108 + 120 = 360  \n→ ∠DCF = 360 - 90 - 108 - 120 = 42\n\n#### 42"
+      ]
+    },
+    {
+      "idx": 17,
+      "image_path": "./geothought_images/geothought_00017.jpg",
+      "question": "As shown in the diagram, the sides CD and FG of the regular pentagon ABCDE and the regular hexagon EFGHMN are on the line l. The pentagon is on the left side of the hexagon, and both polygons are on the same side of the line l. Therefore, the size of angle DEF is ().",
+      "gt_answer": "48",
+      "cod_raw": "\\frac{(5-2)\\cdot 180^\\circ}{5} = 108^\\circ \\implies \\angle CDE = 108^\\circ\nCD \\text{ on line } l \\implies \\angle EDF = 180^\\circ - \\angle CDE = 72^\\circ\n\\frac{(6-2)\\cdot 180^\\circ}{6} = 120^\\circ \\implies \\angle EFG = 120^\\circ\nFG \\text{ on line } l \\implies \\angle EFD = 180^\\circ - \\angle EFG = 60^\\circ\nIn \\triangle DEF, \\angle DEF = 180^\\circ - \\angle EDF - \\angle EFD\n180^\\circ - 72^\\circ - 60^\\circ = 48^\\circ \\implies \\angle DEF = 48^\\circ\n\\angle DEF = 48^\\circ",
+      "cod_stripped": "\\frac{(5-2)\\cdot 180^\\circ}{5} = 108^\\circ \\implies \\angle CDE = 108^\\circ\nCD \\text{ on line } l \\implies \\angle EDF = 180^\\circ - \\angle CDE = 72^\\circ\n\\frac{(6-2)\\cdot 180^\\circ}{6} = 120^\\circ \\implies \\angle EFG = 120^\\circ\nFG \\text{ on line } l \\implies \\angle EFD = 180^\\circ - \\angle EFG = 60^\\circ\nIn \\triangle DEF, \\angle DEF = 180^\\circ - \\angle EDF - \\angle EFD\n180^\\circ - 72^\\circ - 60^\\circ = 48^\\circ \\implies \\angle DEF = 48^\\circ\n\\angle DEF = 48^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "48°",
+        "48°",
+        "48°",
+        "48°",
+        "48°"
+      ],
+      "predictions": [
+        "#### 48°",
+        "#### 48°",
+        "#### 48°",
+        "#### 48°",
+        "#### 48°"
+      ]
+    },
+    {
+      "idx": 18,
+      "image_path": "./geothought_images/geothought_00018.jpg",
+      "question": "Given that points A, B, and C lie on circle O and angle AOB measures 80.0 degrees, what is the measure of angle ACB?",
+      "gt_answer": "40",
+      "cod_raw": "m\\angle AOB \\text{ central angle subtending arc } AB \\land m\\angle ACB \\text{ inscribed angle subtending arc } AB\nm\\angle ACB = \\tfrac{1}{2} m\\angle AOB\nm\\angle AOB = 80.0^\\circ \\implies m\\angle ACB = \\tfrac{1}{2} \\cdot 80.0^\\circ = 40.0^\\circ",
+      "cod_stripped": "m\\angle AOB \\text{ central angle subtending arc } AB \\land m\\angle ACB \\text{ inscribed angle subtending arc } AB\nm\\angle ACB = \\tfrac{1}{2} m\\angle AOB\nm\\angle AOB = 80.0^\\circ \\implies m\\angle ACB = \\tfrac{1}{2} \\cdot 80.0^\\circ = 40.0^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "40.0°",
+        "40.0°",
+        "40.0",
+        "40.0°",
+        "40.0°"
+      ],
+      "predictions": [
+        "#### 40.0°",
+        "#### 40.0°",
+        "#### 40.0",
+        "#### 40.0°",
+        "#### 40.0°"
+      ]
+    },
+    {
+      "idx": 19,
+      "image_path": "./geothought_images/geothought_00019.jpg",
+      "question": "If quadrilateral ABCD is depicted in the figure, with AD equal to BC and point P being the midpoint of diagonal BD while E and F are the midpoints of AB and CD respectively, what is the measure of angle PEF if angle EPF is 130 degrees?",
+      "gt_answer": "25",
+      "cod_raw": "E \\text{ is midpoint of } AB \\land P \\text{ is midpoint of } BD \\implies EP \\parallel AD \\land EP = \\tfrac{1}{2}AD\nF \\text{ is midpoint of } CD \\land P \\text{ is midpoint of } BD \\implies FP \\parallel BC \\land FP = \\tfrac{1}{2}BC\nEP = \\tfrac{1}{2}AD \\land FP = \\tfrac{1}{2}BC \\land AD = BC \\implies EP = FP\nEP = FP \\implies \\triangle EPF \\text{ is isosceles}\n\\angle EPF = 130^\\circ \\land \\angle PEF = \\angle PFE = x\n\\angle EPF + \\angle PEF + \\angle PFE = 180^\\circ\n130^\\circ + x + x = 180^\\circ\n2x = 50^\\circ\nx = 25^\\circ\n\\angle PEF = 25^\\circ",
+      "cod_stripped": "E \\text{ is midpoint of } AB \\land P \\text{ is midpoint of } BD \\implies EP \\parallel AD \\land EP = \\tfrac{1}{2}AD\nF \\text{ is midpoint of } CD \\land P \\text{ is midpoint of } BD \\implies FP \\parallel BC \\land FP = \\tfrac{1}{2}BC\nEP = \\tfrac{1}{2}AD \\land FP = \\tfrac{1}{2}BC \\land AD = BC \\implies EP = FP\nEP = FP \\implies \\triangle EPF \\text{ is isosceles}\n\\angle EPF = 130^\\circ \\land \\angle PEF = \\angle PFE = x\n\\angle EPF + \\angle PEF + \\angle PFE = 180^\\circ\n130^\\circ + x + x = 180^\\circ\n2x = 50^\\circ\nx = 25^\\circ\n\\angle PEF = 25^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "25",
+        "25",
+        "25°",
+        "25",
+        "25"
+      ],
+      "predictions": [
+        "#### 25",
+        "#### 25",
+        "#### 25°",
+        "#### 25",
+        "#### 25"
+      ]
+    },
+    {
+      "idx": 20,
+      "image_path": "./geothought_images/geothought_00020.jpg",
+      "question": "As shown in the figure, pentagon ABCDE is a regular pentagon. If l1parallel l2, the value of angle 1 - angle 2 is ()",
+      "gt_answer": "72",
+      "cod_raw": "ABCDE \\text{ regular pentagon} \\implies \\angle ABC = 108^\\circ\nl_1 \\parallel l_3 \\land BA \\text{ transversal} \\implies \\angle 2 = \\angle 3\nl_3 \\parallel l_2 \\land BC \\text{ transversal} \\implies \\angle 1 + \\angle 4 = 180^\\circ\n\\angle 3 + \\angle 4 = 108^\\circ\n\\angle 2 + (180^\\circ - \\angle 1) = 108^\\circ\n\\angle 2 - \\angle 1 = -72^\\circ\n\\angle 1 - \\angle 2 = 72^\\circ",
+      "cod_stripped": "ABCDE \\text{ regular pentagon} \\implies \\angle ABC = 108^\\circ\nl_1 \\parallel l_3 \\land BA \\text{ transversal} \\implies \\angle 2 = \\angle 3\nl_3 \\parallel l_2 \\land BC \\text{ transversal} \\implies \\angle 1 + \\angle 4 = 180^\\circ\n\\angle 3 + \\angle 4 = 108^\\circ\n\\angle 2 + (180^\\circ - \\angle 1) = 108^\\circ\n\\angle 2 - \\angle 1 = -72^\\circ\n\\angle 1 - \\angle 2 = 72^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "72",
+        "72°",
+        "72",
+        "72",
+        "72"
+      ],
+      "predictions": [
+        "#### 72",
+        "#### 72°",
+        "#### 72",
+        "#### 72",
+        "#### 72"
+      ]
+    },
+    {
+      "idx": 21,
+      "image_path": "./geothought_images/geothought_00021.jpg",
+      "question": "In the given parallelogram ABCD, where angle B measures 60 degrees, the angle bisector of angle BAD intersects BC at point E. If the measure of angle AED is 80 degrees, what is the degree measure of angle EAC?",
+      "gt_answer": "20",
+      "cod_raw": "ABCD \\text{ is a parallelogram} \\land \\angle B = 60^\\circ \\implies \\angle BAD = 180^\\circ - \\angle B = 120^\\circ\n\\angle BAD = 120^\\circ \\implies \\angle BAE = \\angle EAD = \\frac{120^\\circ}{2} = 60^\\circ\nAD \\parallel BC \\implies \\angle AEB = \\angle EAD = 60^\\circ\n\\angle B = 60^\\circ, \\angle BAE = 60^\\circ \\implies \\triangle ABE \\text{ is equilateral} \\implies AB = BE = AE\n\\angle AED = 80^\\circ, \\angle EAD = 60^\\circ \\implies \\angle ADE = 180^\\circ - 60^\\circ - 80^\\circ = 40^\\circ\nAB = CD \\land AB = AE \\implies AE = CD\nAD \\text{ is common}, \\angle DAE = \\angle ADC = 60^\\circ \\implies \\triangle ADE \\cong \\triangle DCA \\ (\\text{SAS})\n\\angle ADE = \\angle DAC = 40^\\circ\n\\angle EAD = \\angle DAC + \\angle EAC \\implies \\angle EAC = \\angle EAD - \\angle DAC = 60^\\circ - 40^\\circ = 20^\\circ\n\\angle EAC = 20^\\circ",
+      "cod_stripped": "ABCD \\text{ is a parallelogram} \\land \\angle B = 60^\\circ \\implies \\angle BAD = 180^\\circ - \\angle B = 120^\\circ\n\\angle BAD = 120^\\circ \\implies \\angle BAE = \\angle EAD = \\frac{120^\\circ}{2} = 60^\\circ\nAD \\parallel BC \\implies \\angle AEB = \\angle EAD = 60^\\circ\n\\angle B = 60^\\circ, \\angle BAE = 60^\\circ \\implies \\triangle ABE \\text{ is equilateral} \\implies AB = BE = AE\n\\angle AED = 80^\\circ, \\angle EAD = 60^\\circ \\implies \\angle ADE = 180^\\circ - 60^\\circ - 80^\\circ = 40^\\circ\nAB = CD \\land AB = AE \\implies AE = CD\nAD \\text{ is common}, \\angle DAE = \\angle ADC = 60^\\circ \\implies \\triangle ADE \\cong \\triangle DCA \\ (\\text{SAS})\n\\angle ADE = \\angle DAC = 40^\\circ\n\\angle EAD = \\angle DAC + \\angle EAC \\implies \\angle EAC = \\angle EAD - \\angle DAC = 60^\\circ - 40^\\circ = 20^\\circ\n\\angle EAC = 20^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "20",
+        "20",
+        "20",
+        "20",
+        "20"
+      ],
+      "predictions": [
+        "#### 20",
+        "#### 20",
+        "#### 20",
+        "#### 20",
+        "#### 20"
+      ]
+    },
+    {
+      "idx": 22,
+      "image_path": "./geothought_images/geothought_00022.jpg",
+      "question": "If points D and E are the midpoints of the sides AB and AC of triangle ABC and connected, and angle B measures 50 degrees while angle A measures 60 degrees, what is the degree measure of angle AED?",
+      "gt_answer": "70",
+      "cod_raw": "D \\text{ is midpoint of } AB \\land E \\text{ is midpoint of } AC \\implies DE \\parallel BC\n\\angle A = 60^\\circ \\land \\angle B = 50^\\circ \\implies \\angle C = 180^\\circ - \\angle A - \\angle B = 70^\\circ\nDE \\parallel BC \\land AC \\text{ transversal} \\implies \\angle AED = \\angle ACB\n\\angle ACB = 70^\\circ \\implies \\angle AED = 70^\\circ",
+      "cod_stripped": "D \\text{ is midpoint of } AB \\land E \\text{ is midpoint of } AC \\implies DE \\parallel BC\n\\angle A = 60^\\circ \\land \\angle B = 50^\\circ \\implies \\angle C = 180^\\circ - \\angle A - \\angle B = 70^\\circ\nDE \\parallel BC \\land AC \\text{ transversal} \\implies \\angle AED = \\angle ACB\n\\angle ACB = 70^\\circ \\implies \\angle AED = 70^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "70",
+        "70",
+        "70",
+        "70",
+        "70"
+      ],
+      "predictions": [
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70"
+      ]
+    },
+    {
+      "idx": 23,
+      "image_path": "./geothought_images/geothought_00023.jpg",
+      "question": "As shown in the figure, in ABCD, angle ADC = 135° and angle CAD = 23°, then angle CAB is equal to ().",
+      "gt_answer": "22",
+      "cod_raw": "\\angle DAB + \\angle ADC = 180^\\circ\n\\angle ADC = 135^\\circ \\implies \\angle DAB = 180^\\circ - 135^\\circ = 45^\\circ\n\\angle DAB = \\angle CAD + \\angle CAB\n\\angle CAD = 23^\\circ \\implies \\angle CAB = \\angle DAB - \\angle CAD = 45^\\circ - 23^\\circ = 22^\\circ\n\\angle CAB = 22^\\circ",
+      "cod_stripped": "\\angle DAB + \\angle ADC = 180^\\circ\n\\angle ADC = 135^\\circ \\implies \\angle DAB = 180^\\circ - 135^\\circ = 45^\\circ\n\\angle DAB = \\angle CAD + \\angle CAB\n\\angle CAD = 23^\\circ \\implies \\angle CAB = \\angle DAB - \\angle CAD = 45^\\circ - 23^\\circ = 22^\\circ\n\\angle CAB = 22^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "22°",
+        "22°",
+        "22°",
+        "22°",
+        "22°"
+      ],
+      "predictions": [
+        "#### 22°",
+        "#### 22°",
+        "#### 22°",
+        "#### 22°",
+        "#### 22°"
+      ]
+    },
+    {
+      "idx": 24,
+      "image_path": "./geothought_images/geothought_00024.jpg",
+      "question": "In the given diagram, quadrilateral ABCD is depicted with AE perpendicular to CD. If angle B measures 70 degrees, what is the degree measure of angle DAE?",
+      "gt_answer": "20",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle B + \\angle C = 180^\\circ\n\\angle B = 70^\\circ \\implies \\angle C = 110^\\circ\nABCD \\text{ parallelogram} \\implies \\angle D = \\angle B\nAE \\perp CD \\implies \\angle AED = 90^\\circ\n\\triangle ADE \\implies \\angle DAE + \\angle ADE + \\angle AED = 180^\\circ\n\\angle ADE = \\angle D = 70^\\circ\n\\angle AED = 90^\\circ\n\\angle DAE + 70^\\circ + 90^\\circ = 180^\\circ \\implies \\angle DAE = 20^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle B + \\angle C = 180^\\circ\n\\angle B = 70^\\circ \\implies \\angle C = 110^\\circ\nABCD \\text{ parallelogram} \\implies \\angle D = \\angle B\nAE \\perp CD \\implies \\angle AED = 90^\\circ\n\\triangle ADE \\implies \\angle DAE + \\angle ADE + \\angle AED = 180^\\circ\n\\angle ADE = \\angle D = 70^\\circ\n\\angle AED = 90^\\circ\n\\angle DAE + 70^\\circ + 90^\\circ = 180^\\circ \\implies \\angle DAE = 20^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "20",
+        "20",
+        "20",
+        "20",
+        "20"
+      ],
+      "predictions": [
+        "#### 20",
+        "#### 20",
+        "#### 20",
+        "#### 20",
+        "#### 20"
+      ]
+    },
+    {
+      "idx": 25,
+      "image_path": "./geothought_images/geothought_00025.jpg",
+      "question": "In the given diagram depicting quadrilateral ABCD, if angle ABC measures 125 degrees and angle CAD measures 21 degrees, what is the measure of angle CAB?",
+      "gt_answer": "34",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle BAD + \\angle ABC = 180^\\circ\n\\angle ABC = 125^\\circ \\implies \\angle BAD = 180^\\circ - 125^\\circ = 55^\\circ\n\\angle BAD = \\angle CAB + \\angle CAD\n\\angle CAD = 21^\\circ\n\\angle CAB = \\angle BAD - \\angle CAD\n55^\\circ - 21^\\circ = 34^\\circ\n\\angle CAB = 34^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle BAD + \\angle ABC = 180^\\circ\n\\angle ABC = 125^\\circ \\implies \\angle BAD = 180^\\circ - 125^\\circ = 55^\\circ\n\\angle BAD = \\angle CAB + \\angle CAD\n\\angle CAD = 21^\\circ\n\\angle CAB = \\angle BAD - \\angle CAD\n55^\\circ - 21^\\circ = 34^\\circ\n\\angle CAB = 34^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "34°",
+        "34°",
+        "34°",
+        "34",
+        "34"
+      ],
+      "predictions": [
+        "#### 34°",
+        "#### 34°",
+        "#### 34°",
+        "#### 34",
+        "#### 34"
+      ]
+    },
+    {
+      "idx": 26,
+      "image_path": "./geothought_images/geothought_00026.jpg",
+      "question": "What is the measure of angle E in triangle BCDE if angle A in triangle ABC measures 40 degrees and AB is equal to AC?",
+      "gt_answer": "70",
+      "cod_raw": "AB = AC \\land \\angle A = 40^\\circ \\implies \\angle ABC = \\angle ACB = x\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ \\implies 40^\\circ + x + x = 180^\\circ\n2x = 140^\\circ\nx = 70^\\circ\n\\angle ACB = 70^\\circ\nBCDE \\text{ parallelogram} \\implies \\angle E = \\angle ACB\n\\angle E = 70^\\circ",
+      "cod_stripped": "AB = AC \\land \\angle A = 40^\\circ \\implies \\angle ABC = \\angle ACB = x\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ \\implies 40^\\circ + x + x = 180^\\circ\n2x = 140^\\circ\nx = 70^\\circ\n\\angle ACB = 70^\\circ\nBCDE \\text{ parallelogram} \\implies \\angle E = \\angle ACB\n\\angle E = 70^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "70",
+        "70",
+        "70",
+        "70",
+        "70"
+      ],
+      "predictions": [
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70"
+      ]
+    },
+    {
+      "idx": 27,
+      "image_path": "./geothought_images/geothought_00027.jpg",
+      "question": "If angle A measures 60 degrees in parallelogram ABCD, what is the degree measure of angle C?",
+      "gt_answer": "60",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle A \\cong \\angle C\n\\angle A = 60^\\circ\n\\angle A \\cong \\angle C \\land \\angle A = 60^\\circ \\implies \\angle C = 60^\\circ\n\\angle C = 60^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle A \\cong \\angle C\n\\angle A = 60^\\circ\n\\angle A \\cong \\angle C \\land \\angle A = 60^\\circ \\implies \\angle C = 60^\\circ\n\\angle C = 60^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "60",
+        "60",
+        "60",
+        "60",
+        "60"
+      ],
+      "predictions": [
+        "#### 60",
+        "#### 60",
+        "#### 60",
+        "#### 60",
+        "#### 60"
+      ]
+    },
+    {
+      "idx": 28,
+      "image_path": "./geothought_images/geothought_00028.jpg",
+      "question": "In the given diagram, if in triangle ABC, point D is the midpoint of AC and point E is the midpoint of AB, and point F lies on the extension of BC, and if angle A measures 35° and angle AED measures 30°, then what is the degree measure of angle ACF?",
+      "gt_answer": "65",
+      "cod_raw": "E \\text{ is midpoint of } AB \\land D \\text{ is midpoint of } AC \\implies ED \\parallel BC\nED \\parallel BC \\implies \\angle ABC = \\angle AED = 30^\\circ\n\\angle A = 35^\\circ, \\angle ABC = 30^\\circ \\implies \\angle A + \\angle ABC + \\angle ACB = 180^\\circ\n35^\\circ + 30^\\circ + \\angle ACB = 180^\\circ \\implies \\angle ACB = 115^\\circ\n\\angle ACB + \\angle ACF = 180^\\circ\n\\angle ACF = 180^\\circ - \\angle ACB = 180^\\circ - 115^\\circ = 65^\\circ\n\\angle ACF = 65^\\circ",
+      "cod_stripped": "E \\text{ is midpoint of } AB \\land D \\text{ is midpoint of } AC \\implies ED \\parallel BC\nED \\parallel BC \\implies \\angle ABC = \\angle AED = 30^\\circ\n\\angle A = 35^\\circ, \\angle ABC = 30^\\circ \\implies \\angle A + \\angle ABC + \\angle ACB = 180^\\circ\n35^\\circ + 30^\\circ + \\angle ACB = 180^\\circ \\implies \\angle ACB = 115^\\circ\n\\angle ACB + \\angle ACF = 180^\\circ\n\\angle ACF = 180^\\circ - \\angle ACB = 180^\\circ - 115^\\circ = 65^\\circ\n\\angle ACF = 65^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "65",
+        "65",
+        "65°",
+        "65",
+        "65°"
+      ],
+      "predictions": [
+        "#### 65",
+        "#### 65",
+        "#### 65°",
+        "#### 65",
+        "#### 65°"
+      ]
+    },
+    {
+      "idx": 29,
+      "image_path": "./geothought_images/geothought_00029.jpg",
+      "question": "As shown in the figure, in ABCD, BD = BC, AE is perpendicular to BD, and the foot is E. If angle C = 55°, then the degree of angle EAB is ().",
+      "gt_answer": "35",
+      "cod_raw": "BD = BC \\Rightarrow \\triangle BCD \\text{ isosceles with base } DC \\Rightarrow \\angle BCD = \\angle BDC\n\\angle C = 55^\\circ \\Rightarrow \\angle BDC = 55^\\circ\nAB \\parallel CD \\text{ and } BD \\text{ is a transversal} \\Rightarrow \\angle ABD = \\angle BDC\n\\angle ABD = 55^\\circ\nAE \\perp BD \\Rightarrow \\angle AEB = 90^\\circ\n\\angle EAB + \\angle ABD + \\angle AEB = 180^\\circ\n\\angle ABD = 55^\\circ, \\ \\angle AEB = 90^\\circ \\Rightarrow \\angle EAB = 35^\\circ\n\\angle EAB = 35^\\circ",
+      "cod_stripped": "BD = BC \\Rightarrow \\triangle BCD \\text{ isosceles with base } DC \\Rightarrow \\angle BCD = \\angle BDC\n\\angle C = 55^\\circ \\Rightarrow \\angle BDC = 55^\\circ\nAB \\parallel CD \\text{ and } BD \\text{ is a transversal} \\Rightarrow \\angle ABD = \\angle BDC\n\\angle ABD = 55^\\circ\nAE \\perp BD \\Rightarrow \\angle AEB = 90^\\circ\n\\angle EAB + \\angle ABD + \\angle AEB = 180^\\circ\n\\angle ABD = 55^\\circ, \\ \\angle AEB = 90^\\circ \\Rightarrow \\angle EAB = 35^\\circ\n\\angle EAB = 35^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "35",
+        "35",
+        "35",
+        "35",
+        "35°"
+      ],
+      "predictions": [
+        "#### 35",
+        "#### 35",
+        "#### 35",
+        "#### 35",
+        "#### 35°"
+      ]
+    },
+    {
+      "idx": 30,
+      "image_path": "./geothought_images/geothought_00030.jpg",
+      "question": "What is the measurement of angle B in parallelogram ABCD if the sum of angles A and C is 130 degrees, as depicted in the diagram?",
+      "gt_answer": "115",
+      "cod_raw": "\\angle A = \\angle C \\quad (\\text{opposite angles in parallelogram})\n\\angle B = \\angle D \\quad (\\text{opposite angles in parallelogram})\n\\angle A + \\angle B = 180^\\circ \\quad (\\text{consecutive angles supplementary})\n\\angle A = \\angle C \\land \\angle A + \\angle C = 130^\\circ \\implies 2\\angle A = 130^\\circ\n\\angle A = \\angle C \\implies \\angle A = \\angle C = 65^\\circ\n\\angle B = 180^\\circ - \\angle A = 180^\\circ - 65^\\circ = 115^\\circ\n\\text{Final answer: } \\angle B = 115^\\circ",
+      "cod_stripped": "\\angle A = \\angle C \\quad (\\text{opposite angles in parallelogram})\n\\angle B = \\angle D \\quad (\\text{opposite angles in parallelogram})\n\\angle A + \\angle B = 180^\\circ \\quad (\\text{consecutive angles supplementary})\n\\angle A = \\angle C \\land \\angle A + \\angle C = 130^\\circ \\implies 2\\angle A = 130^\\circ\n\\angle A = \\angle C \\implies \\angle A = \\angle C = 65^\\circ\n\\angle B = 180^\\circ - \\angle A = 180^\\circ - 65^\\circ = 115^\\circ\n\\text{Final answer: } \\angle B = 115^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "115°",
+        "115°",
+        "115°",
+        "115°",
+        "115°"
+      ],
+      "predictions": [
+        "#### 115°",
+        "#### 115°",
+        "#### 115°",
+        "#### 115°",
+        "#### 115°"
+      ]
+    },
+    {
+      "idx": 31,
+      "image_path": "./geothought_images/geothought_00031.jpg",
+      "question": "If angle B in the parallelogram ABCD is 70 degrees, what is the measure of angle D?",
+      "gt_answer": "70",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle B = \\angle D\n\\angle B = 70^\\circ \\implies \\angle D = \\angle B = 70^\\circ\n\\angle D = 70^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle B = \\angle D\n\\angle B = 70^\\circ \\implies \\angle D = \\angle B = 70^\\circ\n\\angle D = 70^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "70",
+        "70",
+        "70",
+        "70",
+        "70"
+      ],
+      "predictions": [
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70"
+      ]
+    },
+    {
+      "idx": 32,
+      "image_path": "./geothought_images/geothought_00032.jpg",
+      "question": "In the given diagram, if the sum of angles A and C in parallelogram ABCD equals 160°, what is the measure of angle B?",
+      "gt_answer": "100",
+      "cod_raw": "\\angle A = \\angle C\n\\angle A = \\angle C \\land \\angle A + \\angle C = 160^\\circ \\implies 2\\angle A = 160^\\circ \\implies \\angle A = 80^\\circ\n\\angle A + \\angle B = 180^\\circ\n\\angle B = 180^\\circ - \\angle A\n\\angle B = 180^\\circ - 80^\\circ = 100^\\circ",
+      "cod_stripped": "\\angle A = \\angle C\n\\angle A = \\angle C \\land \\angle A + \\angle C = 160^\\circ \\implies 2\\angle A = 160^\\circ \\implies \\angle A = 80^\\circ\n\\angle A + \\angle B = 180^\\circ\n\\angle B = 180^\\circ - \\angle A\n\\angle B = 180^\\circ - 80^\\circ = 100^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "100°",
+        "100°",
+        "100°",
+        "100°",
+        "100°"
+      ],
+      "predictions": [
+        "#### 100°",
+        "#### 100°",
+        "#### 100°",
+        "#### 100°",
+        "#### 100°"
+      ]
+    },
+    {
+      "idx": 33,
+      "image_path": "./geothought_images/geothought_00033.jpg",
+      "question": "In the given parallelogram ABCD, if the sum of angle B and angle D measures 100°, what is the measure of angle A?",
+      "gt_answer": "130",
+      "cod_raw": "ABCD \\text{ is a parallelogram} \\implies \\angle B = \\angle D\n\\angle B = \\angle D \\land (\\angle B + \\angle D = 100^\\circ) \\implies 2\\angle B = 100^\\circ\n\\angle B = 50^\\circ\n\\angle D = 50^\\circ\n\\angle A + \\angle B = 180^\\circ\n\\angle A = 180^\\circ - \\angle B\n\\angle A = 180^\\circ - 50^\\circ = 130^\\circ",
+      "cod_stripped": "ABCD \\text{ is a parallelogram} \\implies \\angle B = \\angle D\n\\angle B = \\angle D \\land (\\angle B + \\angle D = 100^\\circ) \\implies 2\\angle B = 100^\\circ\n\\angle B = 50^\\circ\n\\angle D = 50^\\circ\n\\angle A + \\angle B = 180^\\circ\n\\angle A = 180^\\circ - \\angle B\n\\angle A = 180^\\circ - 50^\\circ = 130^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "130°",
+        "130°",
+        "130°",
+        "130°",
+        "130°"
+      ],
+      "predictions": [
+        "#### 130°",
+        "#### 130°",
+        "#### 130°",
+        "#### 130°",
+        "#### 130°"
+      ]
+    },
+    {
+      "idx": 34,
+      "image_path": "./geothought_images/geothought_00034.jpg",
+      "question": "In the given figure, if in quadrilateral ABCD, angle B added to angle D equals 140 degrees, what is the measure of angle C?",
+      "gt_answer": "110",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle B = \\angle D \\land \\angle A = \\angle C \\land \\angle B + \\angle C = 180^\\circ\n\\angle B = \\angle D \\land \\angle B + \\angle D = 140^\\circ \\implies 2\\angle B = 140^\\circ \\implies \\angle B = 70^\\circ\n\\angle C = 180^\\circ - \\angle B = 110^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle B = \\angle D \\land \\angle A = \\angle C \\land \\angle B + \\angle C = 180^\\circ\n\\angle B = \\angle D \\land \\angle B + \\angle D = 140^\\circ \\implies 2\\angle B = 140^\\circ \\implies \\angle B = 70^\\circ\n\\angle C = 180^\\circ - \\angle B = 110^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "110°",
+        "110",
+        "110",
+        "110",
+        "110"
+      ],
+      "predictions": [
+        "#### 110°",
+        "#### 110",
+        "#### 110",
+        "#### 110",
+        "#### 110"
+      ]
+    },
+    {
+      "idx": 35,
+      "image_path": "./geothought_images/geothought_00035.jpg",
+      "question": "As shown in the diagram, in the parallelogram ABCD, angle DBC = 25°, angle BAD = 115°, then angle BDC = ().",
+      "gt_answer": "40",
+      "cod_raw": "\\angle BAD = 115^\\circ \\implies \\angle ABC = 180^\\circ - \\angle BAD = 65^\\circ\n\\angle ADC = \\angle ABC = 65^\\circ\n\\angle ADB = \\angle DBC = 25^\\circ\n\\angle ADC = \\angle ADB + \\angle BDC \\implies \\angle BDC = \\angle ADC - \\angle ADB = 65^\\circ - 25^\\circ = 40^\\circ",
+      "cod_stripped": "\\angle BAD = 115^\\circ \\implies \\angle ABC = 180^\\circ - \\angle BAD = 65^\\circ\n\\angle ADC = \\angle ABC = 65^\\circ\n\\angle ADB = \\angle DBC = 25^\\circ\n\\angle ADC = \\angle ADB + \\angle BDC \\implies \\angle BDC = \\angle ADC - \\angle ADB = 65^\\circ - 25^\\circ = 40^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "40°",
+        "40°",
+        "40°",
+        "40°",
+        "40°"
+      ],
+      "predictions": [
+        "#### 40°",
+        "#### 40°",
+        "#### 40°",
+        "#### 40°",
+        "#### 40°"
+      ]
+    },
+    {
+      "idx": 36,
+      "image_path": "./geothought_images/geothought_00036.jpg",
+      "question": "If the sum of angle 2, angle 3, and angle 4 is 320.0 degrees as indicated in the figure, what is the measure of angle 1?",
+      "gt_answer": "40",
+      "cod_raw": "\\angle 1 + \\angle 2 + \\angle 3 + \\angle 4 = 360^\\circ\n\\angle 2 + \\angle 3 + \\angle 4 = 320^\\circ\n\\angle 1 = 360^\\circ - (\\angle 2 + \\angle 3 + \\angle 4) = 360^\\circ - 320^\\circ = 40^\\circ",
+      "cod_stripped": "\\angle 1 + \\angle 2 + \\angle 3 + \\angle 4 = 360^\\circ\n\\angle 2 + \\angle 3 + \\angle 4 = 320^\\circ\n\\angle 1 = 360^\\circ - (\\angle 2 + \\angle 3 + \\angle 4) = 360^\\circ - 320^\\circ = 40^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "40",
+        "40",
+        "40",
+        "40",
+        "40"
+      ],
+      "predictions": [
+        "#### 40",
+        "#### 40",
+        "#### 40",
+        "#### 40",
+        "#### 40"
+      ]
+    },
+    {
+      "idx": 37,
+      "image_path": "./geothought_images/geothought_00037.jpg",
+      "question": "In the given parallelogram ABCD, if angle A measures 150 degrees, what is the degree measure of angle C?",
+      "gt_answer": "150",
+      "cod_raw": "ABCD \\text{ is a parallelogram} \\implies \\angle A = \\angle C\n\\angle A = 150^\\circ \\implies \\angle C = 150^\\circ\n\\angle C = 150^\\circ",
+      "cod_stripped": "ABCD \\text{ is a parallelogram} \\implies \\angle A = \\angle C\n\\angle A = 150^\\circ \\implies \\angle C = 150^\\circ\n\\angle C = 150^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "150",
+        "150",
+        "150",
+        "150",
+        "150"
+      ],
+      "predictions": [
+        "#### 150",
+        "#### 150",
+        "#### 150",
+        "#### 150",
+        "#### 150"
+      ]
+    },
+    {
+      "idx": 38,
+      "image_path": "./geothought_images/geothought_00038.jpg",
+      "question": "In the given diagram illustrating quadrilateral ABCD, if the sum of angle B and angle D is 200 degrees, what is the measure of angle A?",
+      "gt_answer": "80",
+      "cod_raw": "ABCD \\text{ is a parallelogram} \\implies \\angle B = \\angle D\n\\angle B = \\angle D \\land \\angle B + \\angle D = 200^\\circ \\implies 2\\angle B = 200^\\circ \\implies \\angle B = 100^\\circ\n\\angle A + \\angle B = 180^\\circ\n\\angle A = 180^\\circ - \\angle B = 80^\\circ",
+      "cod_stripped": "ABCD \\text{ is a parallelogram} \\implies \\angle B = \\angle D\n\\angle B = \\angle D \\land \\angle B + \\angle D = 200^\\circ \\implies 2\\angle B = 200^\\circ \\implies \\angle B = 100^\\circ\n\\angle A + \\angle B = 180^\\circ\n\\angle A = 180^\\circ - \\angle B = 80^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "80",
+        "80",
+        "80",
+        "80",
+        "80"
+      ],
+      "predictions": [
+        "#### 80",
+        "#### 80",
+        "#### 80",
+        "#### 80",
+        "#### 80"
+      ]
+    },
+    {
+      "idx": 39,
+      "image_path": "./geothought_images/geothought_00039.jpg",
+      "question": "In the given diagram of quadrilateral ABCD, where AB equals BD and point E lies on BD with CE measuring the same as CB, if angle ADB is 65 degrees, what would be the measure of angle DCE?",
+      "gt_answer": "15",
+      "cod_raw": "AB = BD ∧ \\triangle ABD \\text{ isosceles} \\implies \\angle BAD = \\angle ADB\n\\angle ADB = 65^\\circ \\implies \\angle BAD = 65^\\circ\n\\angle ABD = 180^\\circ - \\angle BAD - \\angle ADB = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ\nAB \\parallel DC \\land BD \\text{ is a transversal} \\implies \\angle ABD = \\angle BDC\n\\angle ABD = 50^\\circ \\implies \\angle BDC = 50^\\circ\nAD \\parallel BC \\land BD \\text{ is a transversal} \\implies \\angle ADB = \\angle DBC\n\\angle ADB = 65^\\circ \\implies \\angle DBC = 65^\\circ\nCE = CB \\land \\triangle CEB \\text{ isosceles} \\implies \\angle CEB = \\angle CBE\n\\angle CBE = \\angle DBC = 65^\\circ\n\\angle CEB = 65^\\circ\n\\triangle CEB \\implies \\angle ECB = 180^\\circ - \\angle CEB - \\angle CBE = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ\nIn \\parallel ABCD, \\angle BCD = \\angle BAD = 65^\\circ\n\\angle BCD = \\angle ECB + \\angle DCE\n\\angle DCE = \\angle BCD - \\angle ECB = 65^\\circ - 50^\\circ = 15^\\circ\n\\angle DCE = 15^\\circ",
+      "cod_stripped": "AB = BD ∧ \\triangle ABD \\text{ isosceles} \\implies \\angle BAD = \\angle ADB\n\\angle ADB = 65^\\circ \\implies \\angle BAD = 65^\\circ\n\\angle ABD = 180^\\circ - \\angle BAD - \\angle ADB = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ\nAB \\parallel DC \\land BD \\text{ is a transversal} \\implies \\angle ABD = \\angle BDC\n\\angle ABD = 50^\\circ \\implies \\angle BDC = 50^\\circ\nAD \\parallel BC \\land BD \\text{ is a transversal} \\implies \\angle ADB = \\angle DBC\n\\angle ADB = 65^\\circ \\implies \\angle DBC = 65^\\circ\nCE = CB \\land \\triangle CEB \\text{ isosceles} \\implies \\angle CEB = \\angle CBE\n\\angle CBE = \\angle DBC = 65^\\circ\n\\angle CEB = 65^\\circ\n\\triangle CEB \\implies \\angle ECB = 180^\\circ - \\angle CEB - \\angle CBE = 180^\\circ - 65^\\circ - 65^\\circ = 50^\\circ\nIn \\parallel ABCD, \\angle BCD = \\angle BAD = 65^\\circ\n\\angle BCD = \\angle ECB + \\angle DCE\n\\angle DCE = \\angle BCD - \\angle ECB = 65^\\circ - 50^\\circ = 15^\\circ\n\\angle DCE = 15^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "15",
+        "15°",
+        "15",
+        "15°",
+        "15°"
+      ],
+      "predictions": [
+        "#### 15",
+        "#### 15°",
+        "#### 15",
+        "#### 15°",
+        "#### 15°"
+      ]
+    },
+    {
+      "idx": 40,
+      "image_path": "./geothought_images/geothought_00040.jpg",
+      "question": "In the given diagram, for the quadrilateral ABCD, a point M is positioned on the extension of side AB. If angle D measures 120 degrees, what is the measure of angle CBM?",
+      "gt_answer": "60",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle ABC = \\angle D\n\\angle D = 120^\\circ \\implies \\angle ABC = 120^\\circ\nM \\text{ on extension of } AB \\implies \\angle ABC \\text{ and } \\angle CBM \\text{ form a linear pair} \\Rightarrow \\angle ABC + \\angle CBM = 180^\\circ\n120^\\circ + \\angle CBM = 180^\\circ\n\\angle CBM = 60^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle ABC = \\angle D\n\\angle D = 120^\\circ \\implies \\angle ABC = 120^\\circ\nM \\text{ on extension of } AB \\implies \\angle ABC \\text{ and } \\angle CBM \\text{ form a linear pair} \\Rightarrow \\angle ABC + \\angle CBM = 180^\\circ\n120^\\circ + \\angle CBM = 180^\\circ\n\\angle CBM = 60^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "60°",
+        "60°",
+        "60°",
+        "60°",
+        "60°"
+      ],
+      "predictions": [
+        "#### 60°",
+        "#### 60°",
+        "#### 60°",
+        "#### 60°",
+        "#### 60°"
+      ]
+    },
+    {
+      "idx": 41,
+      "image_path": "./geothought_images/geothought_00041.jpg",
+      "question": "In the given figure, if the sum of angles A and C in quadrilateral ABCD is 110 degrees, what is the measure of angle B?",
+      "gt_answer": "125",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle A = \\angle C \\land \\angle B = \\angle D \\land \\angle A + \\angle B = 180^\\circ\n\\angle A + \\angle C = 110^\\circ \\land \\angle A = \\angle C \\implies \\angle A = \\angle C = 55^\\circ\n\\angle B = 180^\\circ - \\angle A = 180^\\circ - 55^\\circ = 125^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle A = \\angle C \\land \\angle B = \\angle D \\land \\angle A + \\angle B = 180^\\circ\n\\angle A + \\angle C = 110^\\circ \\land \\angle A = \\angle C \\implies \\angle A = \\angle C = 55^\\circ\n\\angle B = 180^\\circ - \\angle A = 180^\\circ - 55^\\circ = 125^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "125",
+        "125",
+        "125",
+        "125",
+        "125"
+      ],
+      "predictions": [
+        "#### 125",
+        "#### 125",
+        "#### 125",
+        "#### 125",
+        "#### 125"
+      ]
+    },
+    {
+      "idx": 42,
+      "image_path": "./geothought_images/geothought_00042.jpg",
+      "question": "What is the measure of angle B in quadrilateral ABCD if point E lies on the extension of side DC, AE equals DE, and angle E measures 46 degrees?",
+      "gt_answer": "67",
+      "cod_raw": "AE = DE \\implies \\angle ADE = \\angle DAE\n\\triangle ADE: \\angle ADE + \\angle DAE + \\angle E = 180^\\circ, \\ \\angle E = 46^\\circ\nLet \\angle ADE = \\angle DAE = x. Then 2x + 46^\\circ = 180^\\circ \\implies x = 67^\\circ\nHence \\angle ADE = 67^\\circ\nSince E lies on the extension of DC, DE \\parallel DC \\implies \\angle ADC = \\angle ADE = 67^\\circ\nIn parallelogram ABCD, \\angle B = \\angle D\nThus \\angle B = \\angle ADC = 67^\\circ",
+      "cod_stripped": "AE = DE \\implies \\angle ADE = \\angle DAE\n\\triangle ADE: \\angle ADE + \\angle DAE + \\angle E = 180^\\circ, \\ \\angle E = 46^\\circ\nLet \\angle ADE = \\angle DAE = x. Then 2x + 46^\\circ = 180^\\circ \\implies x = 67^\\circ\nHence \\angle ADE = 67^\\circ\nSince E lies on the extension of DC, DE \\parallel DC \\implies \\angle ADC = \\angle ADE = 67^\\circ\nIn parallelogram ABCD, \\angle B = \\angle D\nThus \\angle B = \\angle ADC = 67^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "67°",
+        "67°",
+        "67°",
+        "67",
+        "67°"
+      ],
+      "predictions": [
+        "#### 67°",
+        "#### 67°",
+        "#### 67°",
+        "#### 67",
+        "#### 67°"
+      ]
+    },
+    {
+      "idx": 43,
+      "image_path": "./geothought_images/geothought_00043.jpg",
+      "question": "In the given figure for quadrilateral ABCD, if angle A measures twice the size of angle B, what is the measure of angle D?",
+      "gt_answer": "60",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle A + \\angle B = 180^\\circ \\land \\angle A = \\angle C \\land \\angle B = \\angle D\n\\angle B = x \\implies \\angle A = 2x\n2x + x = 180^\\circ\n3x = 180^\\circ \\implies x = 60^\\circ\n\\angle D = \\angle B = x = 60^\\circ\n\\angle D = 60^\\circ",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle A + \\angle B = 180^\\circ \\land \\angle A = \\angle C \\land \\angle B = \\angle D\n\\angle B = x \\implies \\angle A = 2x\n2x + x = 180^\\circ\n3x = 180^\\circ \\implies x = 60^\\circ\n\\angle D = \\angle B = x = 60^\\circ\n\\angle D = 60^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "60°",
+        "60°",
+        "60°",
+        "60°",
+        "60°"
+      ],
+      "predictions": [
+        "#### 60°",
+        "#### 60°",
+        "#### 60°",
+        "#### 60°",
+        "#### 60°"
+      ]
+    },
+    {
+      "idx": 44,
+      "image_path": "./geothought_images/geothought_00044.jpg",
+      "question": "What is the measure of angle D in parallelogram ABCD if the sum of angle A and angle C is 120 degrees, as depicted in the diagram?",
+      "gt_answer": "120",
+      "cod_raw": "ABCD \\text{ parallelogram} \\implies \\angle A = \\angle C \\land \\angle B = \\angle D\n\\angle A + \\angle D = 180^\\circ\nLet \\(x = \\angle A = \\angle C\\). Given \\(\\angle A + \\angle C = 120^\\circ \\implies x + x = 120^\\circ \\implies 2x = 120^\\circ \\implies x = 60^\\circ\\)\n\\angle D = 180^\\circ - \\angle A = 180^\\circ - 60^\\circ = 120^\\circ\nThus \\(\\angle D = 120^\\circ\\)",
+      "cod_stripped": "ABCD \\text{ parallelogram} \\implies \\angle A = \\angle C \\land \\angle B = \\angle D\n\\angle A + \\angle D = 180^\\circ\nLet \\(x = \\angle A = \\angle C\\). Given \\(\\angle A + \\angle C = 120^\\circ \\implies x + x = 120^\\circ \\implies 2x = 120^\\circ \\implies x = 60^\\circ\\)\n\\angle D = 180^\\circ - \\angle A = 180^\\circ - 60^\\circ = 120^\\circ\nThus \\(\\angle D = 120^\\circ\\)",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "120°",
+        "120°",
+        "120°",
+        "120°",
+        "120°"
+      ],
+      "predictions": [
+        "#### 120°",
+        "#### 120°",
+        "#### 120°",
+        "#### 120°",
+        "#### 120°"
+      ]
+    },
+    {
+      "idx": 45,
+      "image_path": "./geothought_images/geothought_00045.jpg",
+      "question": "If one side of quadrilateral ABCD, BC, is extended to point E and angle A measures 110° in the given diagram, what is the measure of angle 1?",
+      "gt_answer": "70",
+      "cod_raw": "\\angle A = \\angle BCD \\quad (\\text{parallelogram opposite angles})\n\\angle A = 110^\\circ \\implies \\angle BCD = 110^\\circ\n\\angle 1 + \\angle BCD = 180^\\circ \\quad (\\text{linear pair; supplementary})\n\\angle 1 = 180^\\circ - \\angle BCD = 180^\\circ - 110^\\circ = 70^\\circ",
+      "cod_stripped": "\\angle A = \\angle BCD \\quad (\\text{parallelogram opposite angles})\n\\angle A = 110^\\circ \\implies \\angle BCD = 110^\\circ\n\\angle 1 + \\angle BCD = 180^\\circ \\quad (\\text{linear pair; supplementary})\n\\angle 1 = 180^\\circ - \\angle BCD = 180^\\circ - 110^\\circ = 70^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "70",
+        "70",
+        "70",
+        "70",
+        "70"
+      ],
+      "predictions": [
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70"
+      ]
+    },
+    {
+      "idx": 46,
+      "image_path": "./geothought_images/geothought_00046.jpg",
+      "question": "If angle AOC is measured at 130.0 degrees in the figure depicting a set of triangular plates placed on a desktop (with the right-angle vertices coinciding), what is the measure of angle BOD?",
+      "gt_answer": "50",
+      "cod_raw": "\\angle AOB = 90^\\circ \\land \\angle COD = 90^\\circ\n\\angle AOC = \\angle AOB + \\angle BOC, \\quad \\angle BOD = \\angle COD - \\angle BOC\n\\angle AOC + \\angle BOD = \\angle AOB + \\angle COD\n\\angle AOB + \\angle COD = 90^\\circ + 90^\\circ = 180^\\circ\n\\angle AOC + \\angle BOD = 180^\\circ\n\\angle AOC = 130.0^\\circ\n\\angle BOD = 180^\\circ - \\angle AOC = 180^\\circ - 130.0^\\circ = 50^\\circ",
+      "cod_stripped": "\\angle AOB = 90^\\circ \\land \\angle COD = 90^\\circ\n\\angle AOC = \\angle AOB + \\angle BOC, \\quad \\angle BOD = \\angle COD - \\angle BOC\n\\angle AOC + \\angle BOD = \\angle AOB + \\angle COD\n\\angle AOB + \\angle COD = 90^\\circ + 90^\\circ = 180^\\circ\n\\angle AOC + \\angle BOD = 180^\\circ\n\\angle AOC = 130.0^\\circ\n\\angle BOD = 180^\\circ - \\angle AOC = 180^\\circ - 130.0^\\circ = 50^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "50.0",
+        "50.0",
+        "50.0",
+        "50.0",
+        "50.0"
+      ],
+      "predictions": [
+        "#### 50.0",
+        "#### 50.0",
+        "#### 50.0",
+        "#### 50.0",
+        "#### 50.0"
+      ]
+    },
+    {
+      "idx": 47,
+      "image_path": "./geothought_images/geothought_00047.jpg",
+      "question": "In the parallelogram ABCD, point E lies on side BC, and the line segment AE is drawn. If AE bisects angle BAD and angle D measures 58 degrees, what is the measure of angle AEC?",
+      "gt_answer": "119",
+      "cod_raw": "\\angle D = 58^\\circ \\implies \\angle BAD = 180^\\circ - \\angle D = 122^\\circ\n\\angle BAD = 122^\\circ \\implies \\angle BAE = \\angle EAD = \\frac{\\angle BAD}{2} = 61^\\circ\nAD \\parallel BC, E \\in BC, AE \\text{ transversal} \\implies \\angle EAD = \\angle AEB = 61^\\circ\n\\angle AEC = 180^\\circ - \\angle AEB = 180^\\circ - 61^\\circ = 119^\\circ",
+      "cod_stripped": "\\angle D = 58^\\circ \\implies \\angle BAD = 180^\\circ - \\angle D = 122^\\circ\n\\angle BAD = 122^\\circ \\implies \\angle BAE = \\angle EAD = \\frac{\\angle BAD}{2} = 61^\\circ\nAD \\parallel BC, E \\in BC, AE \\text{ transversal} \\implies \\angle EAD = \\angle AEB = 61^\\circ\n\\angle AEC = 180^\\circ - \\angle AEB = 180^\\circ - 61^\\circ = 119^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "119°",
+        "119°",
+        "119°",
+        "119°",
+        "119°"
+      ],
+      "predictions": [
+        "#### 119°",
+        "#### 119°",
+        "#### 119°",
+        "#### 119°",
+        "#### 119°"
+      ]
+    },
+    {
+      "idx": 48,
+      "image_path": "./geothought_images/geothought_00048.jpg",
+      "question": "In the given diagram of triangle ABC where AB is equal to AC, point D lies on side AC. By constructing quadrilateral BCDE with CB and CD as sides, if angle A measures 40°, what is the degree measure of angle E?",
+      "gt_answer": "70",
+      "cod_raw": "AB = AC \\implies \\angle ABC = \\angle ACB\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ\nLet \\angle ABC = \\angle ACB = x\n40^\\circ + x + x = 180^\\circ\n2x = 140^\\circ\nx = 70^\\circ\n\\angle ACB = 70^\\circ\nD \\in AC \\implies \\angle BCD = \\angle ACB\nBCDE \\text{ parallelogram} \\implies \\angle E = \\angle BCD\n\\angle BCD = 70^\\circ\n\\angle E = 70^\\circ",
+      "cod_stripped": "AB = AC \\implies \\angle ABC = \\angle ACB\n\\angle A + \\angle ABC + \\angle ACB = 180^\\circ\nLet \\angle ABC = \\angle ACB = x\n40^\\circ + x + x = 180^\\circ\n2x = 140^\\circ\nx = 70^\\circ\n\\angle ACB = 70^\\circ\nD \\in AC \\implies \\angle BCD = \\angle ACB\nBCDE \\text{ parallelogram} \\implies \\angle E = \\angle BCD\n\\angle BCD = 70^\\circ\n\\angle E = 70^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "70",
+        "70",
+        "70",
+        "70",
+        "70"
+      ],
+      "predictions": [
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70",
+        "#### 70"
+      ]
+    },
+    {
+      "idx": 49,
+      "image_path": "./geothought_images/geothought_00049.jpg",
+      "question": "As shown in the diagram, extend one side of ABCD, BC, to point E. If angle 1 = 80°, then angle A is equal to ()",
+      "gt_answer": "100",
+      "cod_raw": "\\angle 1 + \\angle BCD = 180^\\circ\n\\angle 1 = 80^\\circ \\implies \\angle BCD = 100^\\circ\nABCD \\text{ is a parallelogram} \\implies \\angle A = \\angle BCD\n\\angle A = \\angle BCD = 100^\\circ",
+      "cod_stripped": "\\angle 1 + \\angle BCD = 180^\\circ\n\\angle 1 = 80^\\circ \\implies \\angle BCD = 100^\\circ\nABCD \\text{ is a parallelogram} \\implies \\angle A = \\angle BCD\n\\angle A = \\angle BCD = 100^\\circ",
+      "pass_count": 5,
+      "runs": 5,
+      "pass_rate": 1.0,
+      "keep": true,
+      "parsed_predictions": [
+        "100°",
+        "100°",
+        "100°",
+        "100°",
+        "100°"
+      ],
+      "predictions": [
+        "#### 100°",
+        "#### 100°",
+        "#### 100°",
+        "#### 100°",
+        "#### 100°"
+      ]
+    }
+  ]
+}
