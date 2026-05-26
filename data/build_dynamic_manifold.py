@@ -4,19 +4,36 @@ Data Engineering: Dynamic Expert Target Manifold (Y-Encoder)
 This distinct script functionally preserves backwards compatibility with `build_manifold.py`
 while implementing **Dynamic Latent Recursion**. It dynamically unrolls sequences of 
 variable lengths extracted from `geothoughts_arbitrary_cot.jsonl` and forcibly 
-prepends the structural Step 0 mathematical map globally.
+appends a final HALT state for verifiable dynamic-length supervision.
 '''
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForImageTextToText, AutoProcessor
 import csv
 import json
-import re
 
 
 import argparse
 import os
 import yaml
+
+
+def upload_targets_to_hf(local_dir: str, repo_id: str, path_in_repo: str) -> None:
+    """Upload generated target tensors to a Hugging Face model repository."""
+    try:
+        from huggingface_hub import HfApi
+
+        api = HfApi()
+        api.upload_folder(
+            folder_path=local_dir,
+            path_in_repo=path_in_repo,
+            repo_id=repo_id,
+            repo_type="model",
+            commit_message=f"[auto] upload target tensors from {os.path.basename(local_dir)}",
+        )
+        print(f"Uploaded targets to HF: {repo_id}/{path_in_repo}")
+    except Exception as e:
+        print(f"Warning: failed to upload targets to HF ({repo_id}/{path_in_repo}): {e}")
 
 def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_available() else "cpu"):
     print(f"Loading {model_id} for Target Manifold extraction on {device}...")
@@ -97,7 +114,14 @@ def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, devi
     
     return mean_pooled_embeddings.cpu()
 
-def build_manifold(model_id: str, input_jsonl: str, output_dir: str, filter_csv: str = None):
+def build_manifold(
+    model_id: str,
+    input_jsonl: str,
+    output_dir: str,
+    filter_csv: str = None,
+    hf_repo: str = None,
+    hf_targets_prefix: str = None,
+):
     """Processes dynamic text and saves continuous target tensors."""
     os.makedirs(output_dir, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -105,20 +129,6 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str, filter_csv:
     
     batch_size = config.get("build_manifold", {}).get("batch_size", 4)
     print(f"Processing with chunked batch_size: {batch_size}")
-    
-    print("Caching Step 0 foundational mathematical parsed roots from strictly verified K=4 logic graph...")
-    step0_map = {}
-    if os.path.exists('data/geothoughts_verified.jsonl'):
-        with open('data/geothoughts_verified.jsonl', 'r') as f:
-            for line in f:
-                d = json.loads(line)
-                k4_ans = d.get('answer', d.get('conversations', [{}, {}])[1].get('content', ''))
-                k4_parts = re.split(r'Step \d+.*?\]?:', k4_ans)
-                base_img = d.get('image', '').split('/images/')[-1]
-                if len(k4_parts) > 1:
-                    step0_map[base_img] = k4_parts[1].strip()
-                else:
-                    step0_map[base_img] = k4_ans.strip()
     
     with open(input_jsonl, 'r') as f:
         lines = f.readlines()
@@ -168,15 +178,12 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str, filter_csv:
             # Use image path from CSV when available, fall back to JSONL field
             img_path = keep_map[global_idx] if keep_map is not None else data.get("image_path", data.get("image", ""))
             
-            base_img = img_path.split("/images/")[-1] if "/images/" in img_path else img_path
-            step0_text = step0_map.get(base_img, "Analyze mathematical geometries dynamically explicitly extracted from raw source.")
-            
             cod_array = data.get("CoD_steps", [])
 
-            cumulative_text = step0_text
+            cumulative_text = ""
             for step_text in cod_array:
                 flat_bases.append(f"{prefix}{cumulative_text}")
-                cumulative_text += "\n" + step_text
+                cumulative_text = f"{cumulative_text}\n{step_text}" if cumulative_text else step_text
                 flat_steps.append(f"{prefix}{cumulative_text}")
                 flat_images.append(img_path)
 
@@ -206,6 +213,11 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str, filter_csv:
         if (i + len(batch_data)) % 25 < batch_size:
             print(f"Generated manifolds for {i + len(batch_data)} problems ({len(kept_global_indices)} kept in last batch)...")
 
+    if hf_repo:
+        if not hf_targets_prefix:
+            hf_targets_prefix = f"target_tensors/{os.path.basename(output_dir)}"
+        upload_targets_to_hf(output_dir, hf_repo, hf_targets_prefix)
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract dynamic continuous manifold targets.")
     parser.add_argument("--config", type=str, default="training/config.yaml")
@@ -214,6 +226,10 @@ if __name__ == "__main__":
     parser.add_argument("--input_jsonl", type=str, default=None)
     parser.add_argument("--filter_csv", type=str, default=None,
                         help="Path to CSV with 'idx', 'image_path', and 'keep' columns (e.g. geothought_cod_full_report.csv).")
+    parser.add_argument("--hf_repo", type=str, default=None,
+                        help="Optional Hugging Face model repo id for uploading generated target tensors.")
+    parser.add_argument("--hf_targets_prefix", type=str, default=None,
+                        help="Optional path prefix inside HF repo for targets (default: target_tensors/<output_dir_basename>).")
     parser.add_argument("--output_dir", type=str, default=None)
     args = parser.parse_args()
     
@@ -237,4 +253,14 @@ if __name__ == "__main__":
     print(f"Dynamically generating explicitly robust sequence lengths mapped identically with HALT blocks...")
     print("="*50 + "\n")
         
-    build_manifold(model_id, input_jsonl, output_dir, filter_csv=args.filter_csv)
+    hf_repo = args.hf_repo or config.get("build_manifold", {}).get("hf_repo")
+    hf_targets_prefix = args.hf_targets_prefix or config.get("build_manifold", {}).get("hf_targets_prefix")
+
+    build_manifold(
+        model_id,
+        input_jsonl,
+        output_dir,
+        filter_csv=args.filter_csv,
+        hf_repo=hf_repo,
+        hf_targets_prefix=hf_targets_prefix,
+    )

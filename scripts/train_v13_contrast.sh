@@ -9,6 +9,8 @@ set -euo pipefail
 CONFIG="configs/v13_contrast.yaml"
 EXPERIMENT="v13_contrast"
 FILTER_CSV="ChainOfDraft/geothought_cod_full_report.csv"
+# Optional: export TARGETS_HF_REPO="your-username/your-model-repo" before running.
+TARGETS_HF_REPO="${TARGETS_HF_REPO:-}"
 NUM_GPUS="${1:-$(python -c 'import torch; print(torch.cuda.device_count())')}"
 
 # ── Resolve project root ─────────────────────────────────────────────────────
@@ -19,16 +21,25 @@ echo "========================================"
 echo " v13_contrast training pipeline"
 echo " Config   : $CONFIG"
 echo " Filter   : $FILTER_CSV"
+echo " Targets HF repo: ${TARGETS_HF_REPO:-<none>}"
 echo " GPUs     : $NUM_GPUS"
 echo "========================================"
 
 # ── Step 1: Pre-generate manifold target tensors ─────────────────────────────
 echo ""
 echo "[Step 1/2] Generating manifold target tensors..."
-python -m data.build_dynamic_manifold \
-    --config "$CONFIG" \
-    --experiment_name "$EXPERIMENT" \
-    --filter_csv "$FILTER_CSV"
+if [ -n "$TARGETS_HF_REPO" ]; then
+    python -m data.build_dynamic_manifold \
+        --config "$CONFIG" \
+        --experiment_name "$EXPERIMENT" \
+        --filter_csv "$FILTER_CSV" \
+        --hf_repo "$TARGETS_HF_REPO"
+else
+    python -m data.build_dynamic_manifold \
+        --config "$CONFIG" \
+        --experiment_name "$EXPERIMENT" \
+        --filter_csv "$FILTER_CSV"
+fi
 
 echo "[Step 1/2] Done."
 

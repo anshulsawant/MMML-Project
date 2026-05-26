@@ -121,22 +121,86 @@ class GeoThoughtsDataset(Dataset):
     Parses the JSONL generation pairs, loads the raw vision images, 
     and aligns them with the offline continuous 4-step .pt manifolds.
     """
-    def __init__(self, jsonl_path: str, targets_dir: str, augment=False):
+    def __init__(
+        self,
+        jsonl_path: str,
+        targets_dir: str,
+        augment=False,
+        targets_hf_repo: str | None = None,
+        targets_hf_prefix: str | None = None,
+    ):
         self.data = []
         self.targets_dir = targets_dir
         self.augmentor = GeometrySafeAugmentation() if augment else None
+        self.targets_hf_repo = targets_hf_repo
+        self.targets_hf_prefix = (targets_hf_prefix or "").strip("/")
+
+        os.makedirs(self.targets_dir, exist_ok=True)
+
+        local_count = 0
+        remote_candidate_count = 0
+        skipped_count = 0
         
         with open(jsonl_path, 'r') as f:
             for idx, line in enumerate(f):
                 item = json.loads(line)
                 
-                # Verify that the target tensor actually exists
+                # Local-first: keep local tensor paths when already present.
                 target_path = os.path.join(targets_dir, f"problem_{idx}_targets.pt")
                 if os.path.exists(target_path):
                     item["target_path"] = target_path
                     self.data.append(item)
+                    local_count += 1
+                elif self.targets_hf_repo:
+                    # Keep sample; we'll lazily fetch tensor from HF in __getitem__.
+                    item["target_idx"] = idx
+                    self.data.append(item)
+                    remote_candidate_count += 1
+                else:
+                    skipped_count += 1
                     
-        print(f"Loaded {len(self.data)} valid aligned dynamically mapped geometric datasets.")
+        print(
+            f"Loaded {len(self.data)} aligned datasets "
+            f"(local={local_count}, hf_fallback={remote_candidate_count}, skipped={skipped_count})."
+        )
+
+    def _resolve_target_path(self, item: dict) -> str:
+        """Resolve target tensor path with local-first, HF fallback behavior."""
+        local_path = item.get("target_path")
+        if local_path and os.path.exists(local_path):
+            return local_path
+
+        target_idx = item.get("target_idx")
+        if target_idx is None:
+            raise FileNotFoundError("Missing target path and target_idx for sample")
+
+        expected_local = os.path.join(self.targets_dir, f"problem_{target_idx}_targets.pt")
+        if os.path.exists(expected_local):
+            item["target_path"] = expected_local
+            return expected_local
+
+        if not self.targets_hf_repo:
+            raise FileNotFoundError(f"Target tensor not found locally: {expected_local}")
+
+        filename = f"problem_{target_idx}_targets.pt"
+        repo_filename = f"{self.targets_hf_prefix}/{filename}" if self.targets_hf_prefix else filename
+
+        try:
+            from huggingface_hub import hf_hub_download
+
+            downloaded_path = hf_hub_download(
+                repo_id=self.targets_hf_repo,
+                filename=repo_filename,
+                repo_type="model",
+                local_dir=self.targets_dir,
+            )
+            item["target_path"] = downloaded_path
+            return downloaded_path
+        except Exception as e:
+            raise FileNotFoundError(
+                f"Target tensor not found locally ({expected_local}) and HF download failed "
+                f"({self.targets_hf_repo}/{repo_filename}): {e}"
+            ) from e
 
     def __len__(self):
         return len(self.data)
@@ -159,7 +223,8 @@ class GeoThoughtsDataset(Dataset):
         cot_text = item.get("CoT_text", "")
 
         # 3. Target manifolds [N, target_dim]
-        target_tensor = torch.load(item["target_path"], map_location="cpu", weights_only=True)
+        target_path = self._resolve_target_path(item)
+        target_tensor = torch.load(target_path, map_location="cpu", weights_only=True)
 
         return {
             "image": image,
@@ -404,6 +469,15 @@ def train():
         jsonl_path=config["data"]["jsonl_path"],
         targets_dir=config["data"]["targets_dir"],
         augment=xenc_cfg.get("augment", False),
+        targets_hf_repo=(
+            config.get("data", {}).get("targets_hf_repo")
+            or xenc_cfg.get("targets_hf_repo")
+        ),
+        targets_hf_prefix=(
+            config.get("data", {}).get("targets_hf_prefix")
+            or xenc_cfg.get("targets_hf_prefix")
+            or f"target_tensors/{os.path.basename(config['data']['targets_dir'])}"
+        ),
     )
     
     # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
