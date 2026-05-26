@@ -256,7 +256,7 @@ def train():
     experiment_name = args.experiment_name or config.get(active_block, {}).get("experiment_name") or config.get("experiment", {}).get("name", "default")
 
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
-    base_checkpoint_dir = config.get(active_block, {}).get("checkpoint_dir", "/workspace/checkpoints/decoder")
+    base_checkpoint_dir = config.get(active_block, {}).get("checkpoint_dir", "./checkpoints/decoder")
     if base_checkpoint_dir.endswith("decoder"):
         checkpoint_dir = os.path.join(os.path.dirname(base_checkpoint_dir), experiment_name, "decoder")
     else:
@@ -296,7 +296,7 @@ def train():
         weight_path = config["model"].get("x_encoder_weights", args.x_encoder_weights)
         if "x_encoder_best.pt" in weight_path and experiment_name != "default":
             # Ensure it checks the namespaced folder from Phase 3 natively
-            weight_path = os.path.join("/workspace/checkpoints", experiment_name, "x_encoder_best.pt")
+            weight_path = os.path.join("./checkpoints", experiment_name, "x_encoder_best.pt")
             
     if os.path.exists(weight_path):
         state_dict = torch.load(weight_path, map_location="cpu", weights_only=False)

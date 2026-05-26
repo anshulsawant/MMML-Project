@@ -1,3 +1,4 @@
+import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -9,7 +10,8 @@ class AlignmentLossFactory(nn.Module):
                  vicreg_sim_coeff: float = 25.0,
                  vicreg_var_coeff: float = 25.0,
                  vicreg_cov_coeff: float = 1.0,
-                 temperature: float = 0.07):
+                 temperature: float = 0.07,
+                 gamma: float = 1.0):
         super().__init__()
         valid_types = ["info_nce_vanilla", "info_nce_threshold", "vicreg", "huber_cosine"]
         if loss_type not in valid_types:
@@ -18,16 +20,23 @@ class AlignmentLossFactory(nn.Module):
         self.loss_type = loss_type
         self.sim_threshold = sim_threshold
         self.temperature = temperature
+        self.gamma = gamma
         
         # VICReg specific hyperparameters
         self.sim_coeff = vicreg_sim_coeff
         self.var_coeff = vicreg_var_coeff
         self.cov_coeff = vicreg_cov_coeff
+
+        # Learnable temperature for the InfoNCE contrastive loss (CLIP-style)
+        # Initialised to ln(1/0.07) ≈ 2.659 so exp(logit_scale) ≈ 1/0.07
+        self.logit_scale = nn.Parameter(torch.ones([]) * math.log(1.0 / 0.07))
         
-    def forward(self, predicted, targets):
+    def forward(self, predicted, targets, Z_cod=None, Z_cot=None):
         """
         predicted: [batch, K, dim] - Output from LatentEuclid Predictor
-        targets: [batch, K, dim] - Target vectors from frozen Qwen-0.5B
+        targets:   [batch, K, dim] - Target vectors from frozen Qwen-0.5B
+        Z_cod:     [batch, dim]    - Pooled CoD embeddings (optional)
+        Z_cot:     [batch, dim]    - Pooled CoT embeddings (optional)
         """
         batch, k_steps, dim = predicted.shape
         total_loss = 0.0
@@ -37,7 +46,8 @@ class AlignmentLossFactory(nn.Module):
             "loss/variance_loss": 0.0,
             "loss/variance_std_physical": 0.0,
             "loss/covariance_cor": 0.0,
-            "loss/info_nce": 0.0
+            "loss/info_nce": 0.0,
+            "loss/contrastive": 0.0,
         }
         
         # We compute the loss iteratively across the sequence of K steps
@@ -76,8 +86,32 @@ class AlignmentLossFactory(nn.Module):
         total_loss = total_loss / k_steps
         for k in metrics.keys():
             metrics[k] /= k_steps
-            
+
+        # Optional dual-stream contrastive loss (CoD vs CoT)
+        if Z_cod is not None and Z_cot is not None:
+            contrastive_loss = self.compute_contrastive_loss(Z_cod, Z_cot)
+            total_loss = total_loss + self.gamma * contrastive_loss
+            metrics["loss/contrastive"] = contrastive_loss.item()
+
         return total_loss, metrics
+
+    def compute_contrastive_loss(self, Z_cod, Z_cot):
+        """
+        Symmetric InfoNCE (CLIP-style) between CoD and CoT embeddings.
+
+        Z_cod, Z_cot: (Batch, dim) — will be L2-normalised inside.
+        Uses the learnable self.logit_scale temperature.
+        """
+        Z_cod = F.normalize(Z_cod, dim=-1)
+        Z_cot = F.normalize(Z_cot, dim=-1)
+
+        scale = self.logit_scale.exp()
+        logits = scale * Z_cod @ Z_cot.T  # [B, B]
+
+        labels = torch.arange(logits.shape[0], device=logits.device)
+        loss_cod = F.cross_entropy(logits, labels)
+        loss_cot = F.cross_entropy(logits.T, labels)
+        return (loss_cod + loss_cot) / 2.0
 
     def compute_info_nce(self, pred, targ, use_threshold=False):
         """

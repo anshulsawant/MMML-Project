@@ -307,7 +307,7 @@ def main():
     mse_weight = args.mse_weight if args.mse_weight is not None else anchor_cfg.get("mse_weight", 0.1)
 
     experiment_name = anchor_cfg.get("experiment_name") or config.get("experiment", {}).get("name", "default")
-    output_dir = args.output_dir or anchor_cfg.get("output_dir") or f"/workspace/checkpoints/{experiment_name}/manifold_anchor"
+    output_dir = args.output_dir or anchor_cfg.get("output_dir") or os.path.join("./checkpoints", experiment_name, "manifold_anchor")
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 

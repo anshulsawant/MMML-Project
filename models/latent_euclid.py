@@ -39,7 +39,8 @@ class LatentPredictor(nn.Module):
 
 def setup_latent_euclid_tokenizer(model_id: str = "Qwen/Qwen3-VL-4B-Instruct", max_thought_tokens: int = 30):
     """
-    Loads tokenizer and adds the new <thought_1>...<thought_k> dynamically allocated sequence tokens.
+    Loads tokenizer and adds the new <thought_1>...<thought_k> dynamically allocated sequence tokens
+    plus the <REASON> pooling anchor token used for contrastive text encoding.
     Requires resizing the model embeddings afterwards.
     """
     tokenizer = AutoTokenizer.from_pretrained(model_id)
@@ -49,10 +50,15 @@ def setup_latent_euclid_tokenizer(model_id: str = "Qwen/Qwen3-VL-4B-Instruct", m
     
     print(f"Added {num_added} dynamically routed new thought tokens")
     
+    # Add the <REASON> anchor token used as a pooling sentinel for contrastive text encoding
+    num_reason = tokenizer.add_tokens(["<REASON>"], special_tokens=True)
+    print(f"Added {num_reason} <REASON> token(s)")
+    reason_token_id = tokenizer.convert_tokens_to_ids("<REASON>")
+    
     # Cache the token IDs for fast PyTorch tensorized matching during the forward pass
     thought_token_ids = tokenizer.convert_tokens_to_ids(thought_tokens)
     
-    return tokenizer, thought_token_ids
+    return tokenizer, thought_token_ids, reason_token_id
 
 class LatentEuclid(nn.Module):
     def __init__(self, 
@@ -74,7 +80,7 @@ class LatentEuclid(nn.Module):
             target_dim = 1024
         
         # 1. Setup Tokenizer & Model
-        self.tokenizer, self.thought_ids = setup_latent_euclid_tokenizer(base_model_id, max_thought_tokens)
+        self.tokenizer, self.thought_ids, self.reason_token_id = setup_latent_euclid_tokenizer(base_model_id, max_thought_tokens)
         
         # Load the multimodal processor to handle image/text inputs, embedding the custom tokenizer
         try:
@@ -167,6 +173,63 @@ class LatentEuclid(nn.Module):
         projected_latents = self.predictor(predicted_latents_padded)
         
         return projected_latents
+
+    def forward_contrastive_texts(
+        self,
+        cod_texts: list,
+        cot_texts: list,
+    ):
+        """
+        Encode CoD and CoT text sequences into fixed-size embeddings for contrastive learning.
+
+        Appends <REASON> to every string, runs text-only forward passes through the VLM,
+        and extracts the hidden state at the <REASON> position as a pooled representation.
+        Projects through the predictor head so both streams live in the same target latent space.
+
+        Returns:
+            Z_cod: (Batch, target_dim)
+            Z_cot: (Batch, target_dim)
+        """
+        device = next(self.predictor.parameters()).device
+        reason_str = " <REASON>"
+
+        cod_inputs_raw = [t + reason_str for t in cod_texts]
+        cot_inputs_raw = [t + reason_str for t in cot_texts]
+
+        def _encode(texts: list):
+            encodings = self.tokenizer(
+                texts,
+                return_tensors="pt",
+                padding=True,
+                truncation=True,
+            ).to(device)
+
+            outputs = self.vlm(
+                input_ids=encodings.input_ids,
+                attention_mask=encodings.attention_mask,
+                output_hidden_states=True,
+                use_cache=False,
+                return_dict=True,
+            )
+
+            last_hidden = outputs.hidden_states[-1]  # [B, seq_len, hidden_size]
+
+            reason_id = self.reason_token_id
+            batch_size = encodings.input_ids.shape[0]
+            pooled = []
+            for b in range(batch_size):
+                positions = (encodings.input_ids[b] == reason_id).nonzero(as_tuple=True)[0]
+                # Use the last occurrence; fall back to final token if sentinel is missing
+                pos = int(positions[-1]) if len(positions) > 0 else -1
+                pooled.append(last_hidden[b, pos])
+
+            pooled_tensor = torch.stack(pooled, dim=0)  # [B, hidden_size]
+            return self.predictor(pooled_tensor)         # [B, target_dim]
+
+        Z_cod = _encode(cod_inputs_raw)
+        Z_cot = _encode(cot_inputs_raw)
+
+        return Z_cod, Z_cot
 
 if __name__ == "__main__":
     # Test Scaffold

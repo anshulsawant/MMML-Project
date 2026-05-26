@@ -48,7 +48,7 @@ def e2e_evaluate():
         args.out = f"data/eval_{experiment_name}.json"
 
     if args.decoder_weights is None:
-        ckpt_dir = f"/workspace/checkpoints/{experiment_name}/decoder"
+        ckpt_dir = os.path.join("./checkpoints", experiment_name, "decoder")
         if os.path.exists(ckpt_dir):
             best_checkpoint = os.path.join(ckpt_dir, "decoder_best.pt")
             if os.path.exists(best_checkpoint):
@@ -78,12 +78,12 @@ def e2e_evaluate():
 
     weight_path = args.x_encoder_weights
     if not weight_path:
-        e2e_weight_path = f"/workspace/checkpoints/{experiment_name}/decoder/x_encoder_e2e_best.pt"
+        e2e_weight_path = os.path.join("./checkpoints", experiment_name, "decoder", "x_encoder_e2e_best.pt")
         if os.path.exists(e2e_weight_path):
             weight_path = e2e_weight_path
 
     if not weight_path:
-        local_encoder_path = f"/workspace/checkpoints/{experiment_name}/x_encoder_best.pt"
+        local_encoder_path = os.path.join("./checkpoints", experiment_name, "x_encoder_best.pt")
         if os.path.exists(local_encoder_path):
             weight_path = local_encoder_path
 

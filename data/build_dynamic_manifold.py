@@ -9,6 +9,7 @@ prepends the structural Step 0 mathematical map globally.
 
 import torch
 from transformers import AutoModelForCausalLM, AutoTokenizer, AutoModelForImageTextToText, AutoProcessor
+import csv
 import json
 import re
 
@@ -39,23 +40,6 @@ def load_qwen_target_model(model_id: str, device="cuda" if torch.cuda.is_availab
         processor = None
         
     return tokenizer, processor, model
-
-def parse_dynamic_steps(reasoning_text: str, step0_text: str):
-    """Extracts arbitrary dynamic steps cumulatively from the LLM output."""
-    steps = [step0_text]
-    parts = re.split(r'Step \d+.*?\]?:', reasoning_text)
-    
-    cumulative_text = step0_text
-    for p in parts[1:]:
-        clean_p = p.strip()
-        # Avoid empty splits
-        if clean_p:
-            cumulative_text += "\n" + clean_p
-            steps.append(cumulative_text)
-        
-    # Append the explicit terminal HALT state condition to the final layer
-    steps.append(cumulative_text + "\n<HALT>")
-    return steps
 
 def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, device="cuda", images=None, processor=None):
     """Passes a batch of step texts natively through Qwen3-0.6B and extracts the final hidden states."""
@@ -113,7 +97,7 @@ def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, devi
     
     return mean_pooled_embeddings.cpu()
 
-def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
+def build_manifold(model_id: str, input_jsonl: str, output_dir: str, filter_csv: str = None):
     """Processes dynamic text and saves continuous target tensors."""
     os.makedirs(output_dir, exist_ok=True)
     device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -138,59 +122,79 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
     
     with open(input_jsonl, 'r') as f:
         lines = f.readlines()
+
+    # Load CSV filter: only process rows where keep=True
+    keep_map = None
+    if filter_csv and os.path.exists(filter_csv):
+        keep_map = {}
+        with open(filter_csv, newline='') as csvfile:
+            reader = csv.DictReader(csvfile)
+            for row in reader:
+                if row['keep'].strip() in ('True', '1', 'true'):
+                    keep_map[int(row['idx'])] = row['image_path']
+        print(f"CSV filter loaded: {len(keep_map)} samples with keep=True from {filter_csv}")
         
     for i in range(0, len(lines), batch_size):
         batch_lines = lines[i:i+batch_size]
         batch_data = [json.loads(line) for line in batch_lines]
         
-        # Check if the entire batch already exists
-        skip_batch = True
+        # Determine which items in this batch to process (filtered + not already saved)
+        indices_to_process = []
         for j in range(len(batch_data)):
-            if not os.path.exists(os.path.join(output_dir, f"problem_{i+j}_targets.pt")):
-                skip_batch = False
-                break
-                
-        if skip_batch:
+            global_idx = i + j
+            if keep_map is not None and global_idx not in keep_map:
+                continue
+            if not os.path.exists(os.path.join(output_dir, f"problem_{global_idx}_targets.pt")):
+                indices_to_process.append(j)
+
+        if not indices_to_process:
             continue
             
         flat_steps = []
         flat_bases = []
         flat_images = []
         lengths = []
+        kept_global_indices = []
         
-        for data in batch_data:
+        for j in indices_to_process:
+            global_idx = i + j
+            data = batch_data[j]
+
             q_text = data.get("question", data.get("text", "")).replace("<image>", "").strip()
             for k in range(1, 20):
                 q_text = q_text.replace(f"<thought_{k}>", "")
                 
             prefix = f"{q_text}\nAnswer: "
-            img_path = data.get("image_path", data.get("image", ""))
+            # Use image path from CSV when available, fall back to JSONL field
+            img_path = keep_map[global_idx] if keep_map is not None else data.get("image_path", data.get("image", ""))
             
             base_img = img_path.split("/images/")[-1] if "/images/" in img_path else img_path
             step0_text = step0_map.get(base_img, "Analyze mathematical geometries dynamically explicitly extracted from raw source.")
             
-            reasoning = data.get("reasoning", data.get('conversations', [{}, {}])[1].get('content', ''))
-            cumulative_steps = parse_dynamic_steps(reasoning, step0_text)
-            
-            base = prefix
-            for step_text in cumulative_steps:
-                flat_bases.append(base)
-                flat_steps.append(f"{prefix}{step_text}")
+            cod_array = data.get("CoD_steps", [])
+
+            cumulative_text = step0_text
+            for step_text in cod_array:
+                flat_bases.append(f"{prefix}{cumulative_text}")
+                cumulative_text += "\n" + step_text
+                flat_steps.append(f"{prefix}{cumulative_text}")
                 flat_images.append(img_path)
-                base = f"{prefix}{step_text}"
-                
-            lengths.append(len(cumulative_steps))
+
+            # Final HALT state
+            flat_bases.append(f"{prefix}{cumulative_text}")
+            flat_steps.append(f"{prefix}{cumulative_text}\n<HALT>")
+            flat_images.append(img_path)
+
+            lengths.append(len(cod_array) + 1)
+            kept_global_indices.append(global_idx)
             
         target_tensors_flat = embed_steps_batch(flat_steps, flat_bases, tokenizer, model, device=device, images=flat_images, processor=processor)
         target_tensors = torch.split(target_tensors_flat, lengths)
         
         import io
-        for j, tensor in enumerate(target_tensors):
-            idx = i + j
-            target_path = os.path.join(output_dir, f"problem_{idx}_targets.pt")
+        for tensor, global_idx in zip(target_tensors, kept_global_indices):
+            target_path = os.path.join(output_dir, f"problem_{global_idx}_targets.pt")
             
-            # MooseFS Network-Safe Serialization
-            # By dumping to a memory buffer globally prior to POSIX block write, we bypass C++ ZipStream IO timeouts
             buf = io.BytesIO()
             torch.save(tensor.clone(), buf)
             
@@ -200,7 +204,7 @@ def build_manifold(model_id: str, input_jsonl: str, output_dir: str):
                 os.fsync(f.fileno())
             
         if (i + len(batch_data)) % 25 < batch_size:
-            print(f"Generated manifolds for {i + len(batch_data)} problems...")
+            print(f"Generated manifolds for {i + len(batch_data)} problems ({len(kept_global_indices)} kept in last batch)...")
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Extract dynamic continuous manifold targets.")
@@ -208,6 +212,8 @@ if __name__ == "__main__":
     parser.add_argument("--experiment_name", type=str, default=None)
     parser.add_argument("--model_id", type=str, default=None)
     parser.add_argument("--input_jsonl", type=str, default=None)
+    parser.add_argument("--filter_csv", type=str, default=None,
+                        help="Path to CSV with 'idx', 'image_path', and 'keep' columns (e.g. geothought_cod_full_report.csv).")
     parser.add_argument("--output_dir", type=str, default=None)
     args = parser.parse_args()
     
@@ -220,7 +226,7 @@ if __name__ == "__main__":
     
     output_dir = args.output_dir
     if output_dir is None:
-        base_dir = config.get("data", {}).get("targets_dir", "/workspace/target_tensors")
+        base_dir = config.get("data", {}).get("targets_dir", "./target_tensors")
         output_dir = os.path.join(base_dir, f"target_tensors_{experiment_name}")
         
     if "data" not in config: config["data"] = {}
@@ -231,4 +237,4 @@ if __name__ == "__main__":
     print(f"Dynamically generating explicitly robust sequence lengths mapped identically with HALT blocks...")
     print("="*50 + "\n")
         
-    build_manifold(model_id, input_jsonl, output_dir)
+    build_manifold(model_id, input_jsonl, output_dir, filter_csv=args.filter_csv)

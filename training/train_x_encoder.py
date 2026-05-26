@@ -3,7 +3,6 @@ import yaml
 import json
 import os
 import shutil
-import subprocess
 import tempfile
 import threading
 import time
@@ -19,24 +18,10 @@ from training.stable_alignment_loss import AlignmentLossFactory
 from training.augmentation import GeometrySafeAugmentation
 
 # ---------------------------------------------------------------------------
-# RunPod S3 + HuggingFace Hub background upload helpers
+# HuggingFace Hub background upload helpers
 # ---------------------------------------------------------------------------
 
-RUNPOD_S3_REGION = "us-md-1"
-RUNPOD_S3_ENDPOINT = "https://s3api-us-md-1.runpod.io"
-
 _upload_threads: list[threading.Thread] = []
-
-
-def _s3_base_args() -> list[str]:
-    return ["--region", RUNPOD_S3_REGION, "--endpoint-url", RUNPOD_S3_ENDPOINT]
-
-
-def _s3_upload_file(local_path: str, bucket: str, s3_key: str) -> None:
-    """Upload a single file to RunPod S3 (per-file cp avoids pagination bug)."""
-    dst = f"s3://{bucket}/{s3_key}"
-    subprocess.run(["aws", "s3", "cp", local_path, dst, *_s3_base_args()],
-                   capture_output=True)
 
 
 def _hf_upload_file(local_path: str, repo_id: str, path_in_repo: str, commit_message: str) -> None:
@@ -56,20 +41,15 @@ def _hf_upload_file(local_path: str, repo_id: str, path_in_repo: str, commit_mes
 
 
 def background_upload(local_path: str, config: dict, experiment_name: str, label: str = "checkpoint") -> None:
-    """Fire-and-forget upload of a checkpoint file to S3 and HF Hub.
+    """Fire-and-forget upload of a checkpoint file to HuggingFace Hub.
 
     Runs in a daemon thread so it never blocks training.
-    Note: if the file is overwritten before the upload finishes, the upload may fail.
     """
     xenc_cfg = config.get("train_x_encoder", {})
-    s3_bucket = xenc_cfg.get("s3_bucket") or config.get("train_manifold_anchor", {}).get("s3_bucket")
     hf_repo = xenc_cfg.get("hf_repo") or config.get("train_manifold_anchor", {}).get("hf_repo")
     fname = os.path.basename(local_path)
 
     def _worker():
-        if s3_bucket:
-            s3_key = f"checkpoints/{experiment_name}/{fname}"
-            _s3_upload_file(local_path, s3_bucket, s3_key)
         if hf_repo:
             _hf_upload_file(local_path, hf_repo, f"x_encoder/{experiment_name}/{fname}",
                             commit_message=f"[auto] {label}: {fname}")
@@ -96,27 +76,21 @@ def parse_cp_name(f):
         return (int(ep), int(st))
     return (int(base), 0)
 
-def robust_mfs_save(state_dict, file_path):
+def atomic_torch_save(state_dict, file_path):
     """
-    Saves sequentially bypassing all PyTorch C++ ZIP-stream metadata timeout bugs!
-    It intercepts the 26.7GB dictionary, writes to the 132GB RAM-Disk naturally (~2 seconds),
-    and forces the native Linux `cp` architecture to robustly stream network block parity 
-    directly over MooseFS identically to a flat binary without seeking!
+    Atomically saves a checkpoint by writing to a temporary file first, then
+    copying to the final destination. This prevents partial/corrupt checkpoint
+    files if the process is interrupted mid-write.
+    Uses /dev/shm (shared memory) when available for faster intermediate I/O,
+    falling back to the system temp directory.
     """
-    import os
-    import torch
-
-    # Prefer a RAM-backed temp dir when available, but fall back to the system temp dir.
+    # Write to fast temp location first
     temp_dir = "/dev/shm" if os.path.isdir("/dev/shm") and os.access("/dev/shm", os.W_OK) else tempfile.gettempdir()
-    temp_path = os.path.join(temp_dir, "latent_euclid_network_buffer.pt")
-    
-    # Step 1: Zip-serialize instantly to RAM
+    temp_path = os.path.join(temp_dir, "latent_euclid_checkpoint_tmp.pt")
+
     torch.save(state_dict, temp_path)
-    
-    # Step 2: Use native Sequential OS streams crossing the network lock efficiently!
     shutil.copyfile(temp_path, file_path)
-    
-    # Step 3: Evict from RAM disk instantly natively securing DataLoader SHM balances
+
     if os.path.exists(temp_path):
         os.remove(temp_path)
 
@@ -147,10 +121,9 @@ class GeoThoughtsDataset(Dataset):
     Parses the JSONL generation pairs, loads the raw vision images, 
     and aligns them with the offline continuous 4-step .pt manifolds.
     """
-    def __init__(self, jsonl_path: str, targets_dir: str, tokenizer, augment=False):
+    def __init__(self, jsonl_path: str, targets_dir: str, augment=False):
         self.data = []
         self.targets_dir = targets_dir
-        self.tokenizer = tokenizer
         self.augmentor = GeometrySafeAugmentation() if augment else None
         
         with open(jsonl_path, 'r') as f:
@@ -170,7 +143,7 @@ class GeoThoughtsDataset(Dataset):
 
     def __getitem__(self, idx):
         item = self.data[idx]
-        
+
         # 1. Image
         img_path = item["image_path"]
         try:
@@ -178,39 +151,44 @@ class GeoThoughtsDataset(Dataset):
             if self.augmentor is not None:
                 image = self.augmentor(image)
         except:
-            # Fallback mock image if path is broken
-            image = Image.new('RGB', (224, 224), color = (73, 109, 137))
-            
-        # 3. Target Manifolds pre-generated into .pt uniquely sized per-sample [N, target_dim]
+            image = Image.new('RGB', (224, 224), color=(73, 109, 137))
+
+        # 2. Text sequences for dual-alignment objective
+        cod_steps = item.get("CoD_steps", [])
+        cod_text = " ".join(cod_steps) if isinstance(cod_steps, list) else str(cod_steps)
+        cot_text = item.get("CoT_text", "")
+
+        # 3. Target manifolds [N, target_dim]
         target_tensor = torch.load(item["target_path"], map_location="cpu", weights_only=True)
-        N = target_tensor.shape[0]
-            
-        # 2. Text Prompts (appended identically corresponding to N arbitrary continuous sequences generated)
-        thought_string = "".join([f"<thought_{i+1}>" for i in range(N)])
-        full_text = item["question"] + " " + thought_string
-        
+
         return {
             "image": image,
-            "text": full_text,
-            "target": target_tensor # Shape [N, target_dim]
+            "cod_text": cod_text,
+            "cot_text": cot_text,
+            "target": target_tensor,
         }
         
 from torch.nn.utils.rnn import pad_sequence
 
 def custom_collate(batch):
     images = [item["image"] for item in batch]
-    texts = [item["text"] for item in batch]
+    cod_texts = [item["cod_text"] for item in batch]
+    cot_texts = [item["cot_text"] for item in batch]
     targets = [item["target"] for item in batch]
-    
-    # Structurally zero-pad dimensional offsets natively handling N varying target tracks
+
     targets_padded = pad_sequence(targets, batch_first=True, padding_value=0.0)
-    
-    # Establish hard boolean gating parameters filtering out strictly padded states logically before Loss Formulation
+
     target_mask = torch.zeros(len(targets), targets_padded.size(1), dtype=torch.bool)
     for i, t in enumerate(targets):
         target_mask[i, :len(t)] = True
-        
-    return images, texts, targets_padded, target_mask
+
+    return {
+        "images": images,
+        "cod_texts": cod_texts,
+        "cot_texts": cot_texts,
+        "targets": targets_padded,
+        "target_mask": target_mask,
+    }
 
 def train():
     args = parse_args()
@@ -245,11 +223,11 @@ def train():
     experiment_name = args.experiment_name or xenc_cfg.get("experiment_name") or config.get("experiment", {}).get("name", "default")
     
     # Pre-resolve Dynamic Namespaces for Transparent Telemetry Logging
-    base_checkpoint_dir = xenc_cfg.get("checkpoint_dir", "/workspace/checkpoints")
+    base_checkpoint_dir = xenc_cfg.get("checkpoint_dir", "./checkpoints")
     checkpoint_dir = os.path.join(base_checkpoint_dir, experiment_name)
     config.setdefault("train_x_encoder", {})["checkpoint_dir"] = checkpoint_dir
     
-    base_targets_dir = config.get("data", {}).get("targets_dir", "/workspace/target_tensors")
+    base_targets_dir = config.get("data", {}).get("targets_dir", "./target_tensors")
     targets_dir = os.path.join(base_targets_dir, f"target_tensors_{experiment_name}")
     config.setdefault("data", {})["targets_dir"] = targets_dir
 
@@ -290,7 +268,8 @@ def train():
         loss_type=xenc_cfg["loss_type"],
         vicreg_sim_coeff=float(xenc_cfg.get("vicreg_sim_coeff", 25.0)),
         vicreg_var_coeff=float(xenc_cfg.get("vicreg_var_coeff", 25.0)),
-        vicreg_cov_coeff=float(xenc_cfg.get("vicreg_cov_coeff", 1.0))
+        vicreg_cov_coeff=float(xenc_cfg.get("vicreg_cov_coeff", 1.0)),
+        gamma=float(xenc_cfg.get("gamma", 0.0)),
     )
     
     loss_target_mode = xenc_cfg.get("loss_target", "guided")
@@ -317,7 +296,7 @@ def train():
 
     def persist_checkpoint(payload: dict, save_path: str) -> None:
         if use_robust_checkpoint_save:
-            robust_mfs_save(payload, save_path)
+            atomic_torch_save(payload, save_path)
         else:
             torch.save(payload, save_path)
 
@@ -424,8 +403,7 @@ def train():
     full_dataset = GeoThoughtsDataset(
         jsonl_path=config["data"]["jsonl_path"],
         targets_dir=config["data"]["targets_dir"],
-        tokenizer=model.module.tokenizer if is_distributed else model.tokenizer,
-        augment=xenc_cfg.get("augment", False) # Read flag from config, default pure dataset
+        augment=xenc_cfg.get("augment", False),
     )
     
     # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
@@ -497,7 +475,11 @@ def train():
             print(f"{step_label} | Running validation inference...")
             
         with torch.no_grad():
-            for val_idx, (val_img, val_txt, val_targ, val_target_mask) in enumerate(val_dataloader):
+            for val_idx, val_batch in enumerate(val_dataloader):
+                val_img = val_batch["images"]
+                val_txt = val_batch["cod_texts"]
+                val_targ = val_batch["targets"]
+                val_target_mask = val_batch["target_mask"]
                 # Stop early if we hit the requested validation subset size
                 if max_val_samples > 0 and val_samples_processed >= max_val_samples:
                     break
@@ -571,7 +553,12 @@ def train():
         optimizer.zero_grad()
         avg_val_loss = float('inf')
         
-        for batch_idx, (images, texts, targets, target_masks) in enumerate(train_dataloader):
+        for batch_idx, batch in enumerate(train_dataloader):
+            images = batch["images"]
+            cod_texts = batch["cod_texts"]
+            cot_texts = batch["cot_texts"]
+            targets = batch["targets"]
+            target_masks = batch["target_mask"]
             micro_start_time = time.time()
             if max_steps_per_epoch is not None and batch_idx >= max_steps_per_epoch:
                 print(f"[{local_rank}] Reached max_steps_per_epoch ({max_steps_per_epoch}). Ending epoch {epoch} early.")
@@ -592,7 +579,7 @@ def train():
                         ],
                     }
                 ]
-                for img, txt in zip(images, texts)
+                for img, txt in zip(images, cod_texts)
             ]
             
             text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in messages]
@@ -607,6 +594,8 @@ def train():
                 pixel_val_shape = inputs.get("pixel_values").shape if inputs.get("pixel_values") is not None else "None !!"
                 print(f"\n[Hardware Matrix Sanity Check] Successfully routed batch 0 images! pixel_values shape: {pixel_val_shape}")
                 
+            inner_model = model.module if is_distributed else model
+
             with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
                 predicted_latents = model(
                     input_ids=inputs.input_ids, 
@@ -615,7 +604,10 @@ def train():
                     image_grid_thw=inputs.get("image_grid_thw"),
                     mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
-                
+
+                # Dual-stream contrastive encoding: CoD and CoT text → fixed-size embeddings
+                Z_cod, Z_cot = inner_model.forward_contrastive_texts(cod_texts, cot_texts)
+
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)
                 
                 if loss_target_mode in ["direct", "pondering"]:
@@ -632,8 +624,8 @@ def train():
                     predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
                     targets_loss = targets_loss.unsqueeze(1)
                 
-                # Loss alignment mapping
-                loss, metrics_dict = criterion(predicted_latents_loss, targets_loss)
+                # Composite multi-objective loss: spatial alignment + semantic contrastive regularization
+                loss, metrics_dict = criterion(predicted_latents_loss, targets_loss, Z_cod=Z_cod, Z_cot=Z_cot)
                 
                 # Scale loss by accumulation steps
                 # Dynamically handle the remainder of the epoch if the last accumulation step isn't full
@@ -660,12 +652,14 @@ def train():
                     var_std_val = metrics_dict.get("loss/variance_std_physical", 0.0) if type(metrics_dict) is dict else 0.0
                     huber_val = metrics_dict.get("loss/huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
                     train_mse_val = metrics_dict.get("loss/cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
+                    contrastive_val = metrics_dict.get("loss/contrastive", 0.0) if type(metrics_dict) is dict else 0.0
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Contrastive: {contrastive_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
+                    metrics_dict["train/contrastive_loss"] = contrastive_val
                     metrics_dict["epoch"] = epoch
                     
                     wandb.log(metrics_dict)
@@ -724,8 +718,6 @@ def train():
                     micro_metrics_dict["train_micro/step_time"] = micro_duration
                     micro_metrics_dict["epoch"] = epoch
                     
-                    wandb.log(micro_metrics_dict)
-
                     wandb.log(micro_metrics_dict)
 
         # --- VALIDATION PER EPOCH ---
