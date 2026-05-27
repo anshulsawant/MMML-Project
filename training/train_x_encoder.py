@@ -127,13 +127,16 @@ class GeoThoughtsDataset(Dataset):
         targets_dir: str,
         augment=False,
         targets_hf_repo: str | None = None,
-        targets_hf_prefix: str | None = None,
+        targets_hf_prefixes: list[str] | None = None,
     ):
         self.data = []
         self.targets_dir = targets_dir
         self.augmentor = GeometrySafeAugmentation() if augment else None
         self.targets_hf_repo = targets_hf_repo
-        self.targets_hf_prefix = (targets_hf_prefix or "").strip("/")
+        # Ordered list of folder paths inside the HF repo to search for tensors.
+        self.targets_hf_prefixes: list[str] = [
+            p.strip("/") for p in (targets_hf_prefixes or [])
+        ]
 
         os.makedirs(self.targets_dir, exist_ok=True)
 
@@ -183,24 +186,29 @@ class GeoThoughtsDataset(Dataset):
             raise FileNotFoundError(f"Target tensor not found locally: {expected_local}")
 
         filename = f"problem_{target_idx}_targets.pt"
-        repo_filename = f"{self.targets_hf_prefix}/{filename}" if self.targets_hf_prefix else filename
+        prefixes = self.targets_hf_prefixes or [""]  # try repo root if no prefixes given
 
-        try:
-            from huggingface_hub import hf_hub_download
+        from huggingface_hub import hf_hub_download
 
-            downloaded_path = hf_hub_download(
-                repo_id=self.targets_hf_repo,
-                filename=repo_filename,
-                repo_type="model",
-                local_dir=self.targets_dir,
-            )
-            item["target_path"] = downloaded_path
-            return downloaded_path
-        except Exception as e:
-            raise FileNotFoundError(
-                f"Target tensor not found locally ({expected_local}) and HF download failed "
-                f"({self.targets_hf_repo}/{repo_filename}): {e}"
-            ) from e
+        last_exc: Exception = FileNotFoundError("no prefixes to try")
+        for prefix in prefixes:
+            repo_filename = f"{prefix}/{filename}" if prefix else filename
+            try:
+                downloaded_path = hf_hub_download(
+                    repo_id=self.targets_hf_repo,
+                    filename=repo_filename,
+                    repo_type="model",
+                    local_dir=self.targets_dir,
+                )
+                item["target_path"] = downloaded_path
+                return downloaded_path
+            except Exception as e:
+                last_exc = e
+
+        raise FileNotFoundError(
+            f"Target tensor not found locally ({expected_local}) and HF download failed across "
+            f"all prefixes {prefixes} in {self.targets_hf_repo}: {last_exc}"
+        ) from last_exc
 
     def __len__(self):
         return len(self.data)
@@ -473,10 +481,9 @@ def train():
             config.get("data", {}).get("targets_hf_repo")
             or xenc_cfg.get("targets_hf_repo")
         ),
-        targets_hf_prefix=(
-            config.get("data", {}).get("targets_hf_prefix")
-            or xenc_cfg.get("targets_hf_prefix")
-            or f"target_tensors/{os.path.basename(config['data']['targets_dir'])}"
+        targets_hf_prefixes=(
+            config.get("data", {}).get("targets_hf_prefixes")
+            or xenc_cfg.get("targets_hf_prefixes")
         ),
     )
     

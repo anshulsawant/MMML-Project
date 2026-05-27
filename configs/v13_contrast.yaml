@@ -12,6 +12,11 @@ experiment:
 data:
   jsonl_path: "ChainOfDraft/training_dataset.jsonl"
   targets_dir: "target_tensors"
+  targets_hf_repo: "shilinm/latent_euclid"
+  targets_hf_prefixes:
+    - "target_tensors_v13_contrast/split_20_a"
+    - "target_tensors_v13_contrast/split_20_b"
+    - "target_tensors_v13_contrast/split_60"
 
 # ── X-Encoder training ──────────────────────────────────────────────────────
 train_x_encoder:
