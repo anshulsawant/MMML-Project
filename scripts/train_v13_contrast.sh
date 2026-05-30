@@ -17,11 +17,19 @@ NUM_GPUS="${1:-$(python -c 'import torch; print(torch.cuda.device_count())')}"
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$SCRIPT_DIR/.."
 
+# WandB defaults (branch-aware). Override these before running if needed.
+GIT_BRANCH="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"
+export GIT_BRANCH
+export WANDB_PROJECT="${WANDB_PROJECT:-LatentEuclid}"
+export WANDB_RUN_GROUP="${WANDB_RUN_GROUP:-${EXPERIMENT}_${GIT_BRANCH}}"
+
 echo "========================================"
 echo " v13_contrast training pipeline"
 echo " Config   : $CONFIG"
 echo " Filter   : $FILTER_CSV"
 echo " Targets HF repo: ${TARGETS_HF_REPO:-<none>}"
+echo " Git branch: $GIT_BRANCH"
+echo " WandB project/group: $WANDB_PROJECT / $WANDB_RUN_GROUP"
 echo " GPUs     : $NUM_GPUS"
 echo "========================================"
 

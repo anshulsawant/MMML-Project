@@ -94,6 +94,164 @@ def atomic_torch_save(state_dict, file_path):
     if os.path.exists(temp_path):
         os.remove(temp_path)
 
+def run_geometry_sanity_check(
+    model,
+    criterion,
+    full_dataset,
+    xenc_cfg,
+    loss_target_mode,
+    device,
+    is_distributed,
+    is_master,
+    local_rank,
+):
+    """
+    Single-batch overfit test: verifies γ is balanced so the contrastive loss
+    does not dominate and collapse spatial geometry.
+
+    Protocol
+    --------
+    1. Draw a fixed batch of 32 samples from the dataset (text-only; no images).
+    2. For each sample append <thought_1>…<thought_N> tokens (N = # target steps).
+    3. Run the composite loss (spatial + γ·InfoNCE) for SANITY_STEPS=50 gradient steps.
+    4. Both losses should smoothly approach zero (single-batch overfit).
+    5. Model and criterion weights are saved before and fully restored after — training
+       state is completely unaffected.
+
+    Logged to WandB under the 'sanity/' prefix so you can inspect the curves.
+    """
+    SANITY_N = 32
+    SANITY_STEPS = 50
+
+    if is_master:
+        print("\n" + "=" * 60)
+        print("  Geometry Sanity Check  (γ calibration · text-only · 50 steps)")
+        print("=" * 60)
+
+    # ── 1. Fixed 32-sample batch ──────────────────────────────────────────
+    n_samples = min(SANITY_N, len(full_dataset))
+    sanity_subset = torch.utils.data.Subset(full_dataset, list(range(n_samples)))
+    sanity_loader = DataLoader(
+        sanity_subset, batch_size=n_samples, collate_fn=custom_collate, shuffle=False
+    )
+    batch = next(iter(sanity_loader))
+    cod_texts   = batch["cod_texts"]
+    cot_texts   = batch["cot_texts"]
+    targets     = batch["targets"].to(device)      # [B, N, dim]
+    target_mask = batch["target_mask"].to(device)  # [B, N]
+
+    # ── 2. Text-only inputs: append <thought_k> tokens per sample ─────────
+    #    The main forward() locates thought tokens by id — no image needed.
+    inner_model = model.module if is_distributed else model
+    tokenizer   = inner_model.tokenizer
+
+    text_inputs = []
+    for cod_text, mask in zip(cod_texts, target_mask):
+        n_thoughts  = int(mask.sum().item())
+        thought_str = "".join(f"<thought_{k + 1}>" for k in range(n_thoughts))
+        text_inputs.append(f"{cod_text} {thought_str}")
+
+    encodings = tokenizer(
+        text_inputs,
+        return_tensors="pt",
+        padding=True,
+        truncation=True,
+    ).to(device)
+
+    # ── 3. Save model + criterion state (restored at the end) ─────────────
+    saved_model_state     = {k: v.clone() for k, v in model.state_dict().items()}
+    saved_criterion_state = {k: v.clone() for k, v in criterion.state_dict().items()}
+
+    sanity_optim = torch.optim.AdamW(
+        list(model.parameters()) + list(criterion.parameters()),
+        lr=float(xenc_cfg.get("learning_rate", 5e-5)),
+        weight_decay=float(xenc_cfg.get("weight_decay", 0.01)),
+    )
+
+    model.train()
+    criterion.train()
+
+    metrics = {}
+    loss    = torch.tensor(0.0)
+
+    # ── 4. 50-step single-batch overfit loop ──────────────────────────────
+    for step in range(SANITY_STEPS):
+        sanity_optim.zero_grad()
+
+        with torch.autocast(device_type="cuda", dtype=torch.bfloat16):
+            predicted_latents = model(
+                input_ids        =encodings["input_ids"],
+                attention_mask   =encodings["attention_mask"],
+                pixel_values     =None,
+                image_grid_thw   =None,
+                mm_token_type_ids=None,
+            )
+
+            Z_cod, Z_cot = inner_model.forward_contrastive_texts(cod_texts, cot_texts)
+
+            tgt = targets.to(dtype=predicted_latents.dtype)
+            if loss_target_mode in ["direct", "pondering"]:
+                pred_l = torch.stack(
+                    [p[m.sum() - 1] for p, m in zip(predicted_latents, target_mask)]
+                ).unsqueeze(1)
+                targ_l = torch.stack(
+                    [t[m.sum() - 1] for t, m in zip(tgt, target_mask)]
+                ).unsqueeze(1)
+            else:
+                pred_l = predicted_latents[target_mask].unsqueeze(1)
+                targ_l = tgt[target_mask].unsqueeze(1)
+
+            loss, metrics = criterion(pred_l, targ_l, Z_cod=Z_cod, Z_cot=Z_cot)
+
+        loss.backward()
+        sanity_optim.step()
+
+        if is_master:
+            huber_val       = metrics.get("loss/huber_magnitude", 0.0)
+            contrastive_val = metrics.get("loss/contrastive",     0.0)
+            total_val       = loss.item()
+            print(
+                f"  [{step + 1:2d}/{SANITY_STEPS}] "
+                f"total={total_val:.4f}  huber={huber_val:.4f}  contrastive={contrastive_val:.4f}"
+            )
+            if wandb.run is not None:
+                wandb.log({
+                    "sanity/total_loss":       total_val,
+                    "sanity/huber_loss":       huber_val,
+                    "sanity/contrastive_loss": contrastive_val,
+                    "sanity/step":             step,
+                })
+
+    # ── 5. Verdict ─────────────────────────────────────────────────────────
+    if is_master:
+        final_huber       = metrics.get("loss/huber_magnitude", 0.0)
+        final_contrastive = metrics.get("loss/contrastive",     0.0)
+        print()
+        if final_huber > 0.5:
+            print(
+                f"  [WARN] Huber={final_huber:.4f} did not converge below 0.5. "
+                "γ may be too large — spatial geometry is being overwhelmed by contrastive loss."
+            )
+        elif final_contrastive > 0.3:
+            print(
+                f"  [WARN] Contrastive={final_contrastive:.4f} did not converge below 0.3. "
+                "Check InfoNCE temperature or whether CoD/CoT texts are too similar."
+            )
+        else:
+            print(
+                f"  [OK] Both losses converged  "
+                f"(huber={final_huber:.4f}, contrastive={final_contrastive:.4f}). "
+                "γ looks well-tuned — proceed with training."
+            )
+        print("=" * 60 + "\n")
+
+    # ── 6. Restore pristine weights ────────────────────────────────────────
+    model.load_state_dict(saved_model_state)
+    criterion.load_state_dict(saved_criterion_state)
+    model.train()
+    criterion.train()
+
+
 def parse_args():
     parser = argparse.ArgumentParser(description="LatentEuclid X-Encoder Full SFT Loop")
     parser.add_argument("--config", type=str, default="configs/v12_cod.yaml",
@@ -311,15 +469,25 @@ def train():
         print(yaml.dump(config, default_flow_style=False))
         print("="*50 + "\n")
     
-    if is_master:
+    wandb_enabled = bool(config.get("wandb", {}).get("enabled", True))
+    wandb_active = False
+    if is_master and wandb_enabled:
         import time
+
         run_timestamp = time.strftime("%Y%m%d_%H%M%S")
+        git_branch = os.getenv("GIT_BRANCH", "unknown")
+        wandb_cfg = config.get("wandb", {})
+        wandb_project = wandb_cfg.get("project") or os.getenv("WANDB_PROJECT", "LatentEuclid")
+        wandb_group = wandb_cfg.get("group") or os.getenv("WANDB_RUN_GROUP", f"{experiment_name}_{git_branch}")
+        run_name_prefix = wandb_cfg.get("name_prefix", f"{experiment_name}_{git_branch}_XEncoder")
+
         wandb.init(
-            project="LatentEuclid",
-            name=f"{experiment_name}_XEncoder_{run_timestamp}",
-            group=experiment_name,
-            config=config
+            project=wandb_project,
+            name=f"{run_name_prefix}_{run_timestamp}",
+            group=wandb_group,
+            config=config,
         )
+        wandb_active = True
     
     print(f"[{local_rank}] Instantiating LatentEuclid module constraints...")
     
@@ -620,12 +788,27 @@ def train():
         
         if is_master:
             print(f"[{local_rank}] {step_label} Validation | Eval Samples: {val_samples_processed} | Avg Loss: {avg_val_loss:.4f} | Avg Cosine: {avg_val_mse:.4f}")
-            wandb.log({"val/epoch_loss": avg_val_loss, "val/epoch_cos": avg_val_mse, "epoch": current_epoch, "step": current_step})
+            if wandb_active:
+                wandb.log({"val/epoch_loss": avg_val_loss, "val/epoch_cos": avg_val_mse, "epoch": current_epoch, "step": current_step})
             
         model.train()
         return avg_val_loss
         
     # ------------------------------------
+
+    # Optional γ-calibration sanity check (set sanity_check: true in config to enable)
+    if is_master and xenc_cfg.get("sanity_check", False):
+        run_geometry_sanity_check(
+            model=model,
+            criterion=criterion,
+            full_dataset=full_dataset,
+            xenc_cfg=xenc_cfg,
+            loss_target_mode=loss_target_mode,
+            device=device,
+            is_distributed=is_distributed,
+            is_master=is_master,
+            local_rank=local_rank,
+        )
 
     for epoch in range(start_epoch, epochs):
         if train_sampler:
@@ -743,7 +926,8 @@ def train():
                     metrics_dict["train/contrastive_loss"] = contrastive_val
                     metrics_dict["epoch"] = epoch
                     
-                    wandb.log(metrics_dict)
+                    if wandb_active:
+                        wandb.log(metrics_dict)
                     
                     # --- SAVE CHECKPOINT EVERY N STEPS ---
                     save_every_n_steps = int(xenc_cfg.get("save_every_n_steps", 0))
@@ -799,7 +983,8 @@ def train():
                     micro_metrics_dict["train_micro/step_time"] = micro_duration
                     micro_metrics_dict["epoch"] = epoch
                     
-                    wandb.log(micro_metrics_dict)
+                    if wandb_active:
+                        wandb.log(micro_metrics_dict)
 
         # --- VALIDATION PER EPOCH ---
         if is_master:
@@ -855,7 +1040,8 @@ def train():
         # Wait for all background uploads before exiting
         wait_for_uploads()
         print("All uploads complete.")
-        wandb.finish()
+        if wandb_active:
+            wandb.finish()
 
 if __name__ == "__main__":
     train()
