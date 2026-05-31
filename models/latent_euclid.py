@@ -179,6 +179,7 @@ class LatentEuclid(nn.Module):
         cod_texts: list,
         cot_texts: list,
         chunk_size: int | None = None,
+        detach_backbone: bool = False,
     ):
         """
         Encode CoD and CoT text sequences into fixed-size embeddings for contrastive learning.
@@ -193,6 +194,11 @@ class LatentEuclid(nn.Module):
                         (e.g. the sanity check's 32 samples) at the cost of more sequential
                         VLM calls. Set to the training batch_size to stay within budget.
                         None (default) processes all texts in a single forward pass.
+            detach_backbone: When True, the VLM backbone runs under torch.no_grad() and
+                        its hidden states are detached before entering the predictor MLP.
+                        Only the predictor receives contrastive gradients, saving the full
+                        VLM activation graphs from memory. Recommended during training where
+                        the spatial loss already provides backbone gradient signal.
 
         Returns:
             Z_cod: (Batch, target_dim)
@@ -212,15 +218,25 @@ class LatentEuclid(nn.Module):
                 truncation=True,
             ).to(device)
 
-            outputs = self.vlm(
-                input_ids=encodings.input_ids,
-                attention_mask=encodings.attention_mask,
-                output_hidden_states=True,
-                use_cache=False,
-                return_dict=True,
-            )
-
-            last_hidden = outputs.hidden_states[-1]  # [B, seq_len, hidden_size]
+            if detach_backbone:
+                with torch.no_grad():
+                    outputs = self.vlm(
+                        input_ids=encodings.input_ids,
+                        attention_mask=encodings.attention_mask,
+                        output_hidden_states=True,
+                        use_cache=False,
+                        return_dict=True,
+                    )
+                last_hidden = outputs.hidden_states[-1].detach()  # [B, seq_len, hidden_size]
+            else:
+                outputs = self.vlm(
+                    input_ids=encodings.input_ids,
+                    attention_mask=encodings.attention_mask,
+                    output_hidden_states=True,
+                    use_cache=False,
+                    return_dict=True,
+                )
+                last_hidden = outputs.hidden_states[-1]  # [B, seq_len, hidden_size]
 
             reason_id = self.reason_token_id
             b_size = encodings.input_ids.shape[0]

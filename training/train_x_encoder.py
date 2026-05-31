@@ -911,8 +911,14 @@ def train():
                     mm_token_type_ids=inputs.get("mm_token_type_ids")
                 )
 
-                # Dual-stream contrastive encoding: CoD and CoT text → fixed-size embeddings
-                Z_cod, Z_cot = inner_model.forward_contrastive_texts(cod_texts, cot_texts)
+                # Dual-stream contrastive encoding: CoD and CoT text → fixed-size embeddings.
+                # detach_backbone=True: the 4B VLM runs under no_grad here; only the small
+                # predictor MLP accumulates contrastive gradients. This avoids holding two
+                # extra full-VLM activation graphs alongside the spatial-loss graph.
+                Z_cod, Z_cot = inner_model.forward_contrastive_texts(
+                    cod_texts, cot_texts,
+                    detach_backbone=True,
+                )
 
                 targets = targets.to(device=device, dtype=predicted_latents.dtype)
                 
