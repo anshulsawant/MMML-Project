@@ -171,6 +171,12 @@ def run_geometry_sanity_check(
     model.train()
     criterion.train()
 
+    # Disable the MoCo queue during the sanity check: at this point the queue
+    # holds only random unit vectors, so queue negatives would add noise and
+    # artificially inflate the contrastive loss. Pure in-batch InfoNCE is
+    # a better signal for the γ calibration purpose of this check.
+    criterion.use_queue = False
+
     metrics = {}
     loss    = torch.tensor(0.0)
 
@@ -251,6 +257,7 @@ def run_geometry_sanity_check(
     # ── 6. Restore pristine weights ────────────────────────────────────────
     model.load_state_dict(saved_model_state)
     criterion.load_state_dict(saved_criterion_state)
+    criterion.use_queue = True  # re-enable queue for actual training
     model.train()
     criterion.train()
 

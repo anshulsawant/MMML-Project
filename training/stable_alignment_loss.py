@@ -41,6 +41,11 @@ class AlignmentLossFactory(nn.Module):
         self.register_buffer("queue_cod", queue_cod)
         self.register_buffer("queue_cot", queue_cot)
         self.register_buffer("queue_ptr", torch.zeros(1, dtype=torch.long))
+
+        # When False, compute_contrastive_loss falls back to pure in-batch
+        # symmetric InfoNCE and skips queue updates. Useful for sanity checks
+        # where the queue contains only random noise.
+        self.use_queue = True
         
     def forward(self, predicted, targets, Z_cod=None, Z_cot=None):
         """
@@ -156,7 +161,17 @@ class AlignmentLossFactory(nn.Module):
                 f"got Z_cod={Z_cod.shape[-1]}, Z_cot={Z_cot.shape[-1]}"
             )
 
-        scale = self.logit_scale.exp()
+        # Clamp logit_scale to ln(100) ≈ 4.605 so the temperature stays in
+        # [1/100, ...] and never drives logits into a regime where gradients vanish.
+        scale = self.logit_scale.clamp(max=4.6052).exp()
+
+        if not self.use_queue:
+            # In-batch symmetric InfoNCE (no queue negatives).
+            # Safe to run even when B=2; queue is frozen and untouched.
+            logits = scale * (Z_cod @ Z_cot.T)  # [B, B]
+            labels = torch.arange(logits.shape[0], device=logits.device)
+            loss = (F.cross_entropy(logits, labels) + F.cross_entropy(logits.T, labels)) / 2.0
+            return loss
 
         # Positive logits: [B, 1]
         pos_logits = scale * torch.sum(Z_cod * Z_cot, dim=-1, keepdim=True)

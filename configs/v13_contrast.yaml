@@ -50,7 +50,7 @@ train_x_encoder:
 
   # Semantic Contrastive Regularization weight (γ · L_InfoNCE)
   # Set to 0.0 to disable contrastive loss and reproduce v12 behaviour.
-  gamma: 0.5
+  gamma: 0.05
 
   # Validation / checkpointing
   save_every_n_steps: 200
