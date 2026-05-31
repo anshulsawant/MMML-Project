@@ -361,10 +361,37 @@ class GeoThoughtsDataset(Dataset):
         )
 
         # Eagerly download all HF tensors in the main process so DataLoader workers
-        # never have to hit the network during training.
+        # never have to hit the network during training.  Download whole prefix
+        # folders in one shot with snapshot_download, which is far faster than
+        # fetching each file individually.
         if remote_candidate_count > 0 and self.targets_hf_repo:
             print(f"[Prefetch] Downloading {remote_candidate_count} missing target tensors from HF...")
-            resolved = 0
+            from huggingface_hub import snapshot_download
+            prefixes = self.targets_hf_prefixes or [""]
+            for prefix in prefixes:
+                pattern = f"{prefix}/*.pt" if prefix else "*.pt"
+                try:
+                    snapshot_download(
+                        repo_id=self.targets_hf_repo,
+                        repo_type="model",
+                        local_dir=targets_dir,
+                        allow_patterns=[pattern],
+                        ignore_patterns=["*.json", "*.md", "*.yaml"],
+                    )
+                    print(f"[Prefetch] Downloaded {prefix or 'root'}")
+                except Exception as e:
+                    print(f"[Prefetch] Warning: snapshot_download failed for prefix '{prefix}': {e}")
+                    print(f"[Prefetch] Falling back to per-file download for {prefix}...")
+                    for item in self.data:
+                        if item.get("target_path"):
+                            continue
+                        target_idx = item.get("target_idx")
+                        try:
+                            self._resolve_target_path(item)
+                        except Exception as e2:
+                            print(f"[Prefetch] Warning: could not fetch problem_{target_idx}_targets.pt: {e2}")
+            # After bulk download, resolve all remaining items so workers never
+            # call _resolve_target_path with a missing target_path.
             failed = 0
             for item in self.data:
                 if item.get("target_path"):
@@ -372,12 +399,12 @@ class GeoThoughtsDataset(Dataset):
                 target_idx = item.get("target_idx")
                 try:
                     self._resolve_target_path(item)
-                    resolved += 1
                 except Exception as e:
                     failed += 1
                     if failed <= 3:
-                        print(f"[Prefetch] Warning: could not fetch problem_{target_idx}_targets.pt: {e}")
-            print(f"[Prefetch] Done: {resolved} downloaded, {failed} failed.")
+                        print(f"[Prefetch] Warning: still missing problem_{target_idx}_targets.pt: {e}")
+            remaining = sum(1 for it in self.data if not it.get("target_path"))
+            print(f"[Prefetch] Done. {remaining} items still unresolved (will error on access).")
 
     def _resolve_target_path(self, item: dict) -> str:
         """Resolve target tensor path with local-first, HF fallback behavior."""
@@ -574,7 +601,8 @@ def train():
     
     model = LatentEuclid(
         base_model_id=config["model"]["base_model_id"],
-        target_model_id=config["model"]["target_model_id"]
+        target_model_id=config["model"]["target_model_id"],
+        max_thought_tokens=int(config.get("model", {}).get("max_thought_tokens", 10)),
     )
     max_thought_tokens = int(config.get("model", {}).get("max_thought_tokens", 10))
     
