@@ -218,25 +218,26 @@ class LatentEuclid(nn.Module):
                 truncation=True,
             ).to(device)
 
+            # Use the base transformer (self.vlm.model) directly to skip the
+            # lm_head projection (~150k vocab), which would allocate ~38 GB just
+            # for the logits tensor while we only need hidden states.
             if detach_backbone:
                 with torch.no_grad():
-                    outputs = self.vlm(
+                    outputs = self.vlm.model(
                         input_ids=encodings.input_ids,
                         attention_mask=encodings.attention_mask,
-                        output_hidden_states=True,
                         use_cache=False,
                         return_dict=True,
                     )
-                last_hidden = outputs.hidden_states[-1].detach()  # [B, seq_len, hidden_size]
+                last_hidden = outputs.last_hidden_state.detach()  # [B, seq_len, hidden_size]
             else:
-                outputs = self.vlm(
+                outputs = self.vlm.model(
                     input_ids=encodings.input_ids,
                     attention_mask=encodings.attention_mask,
-                    output_hidden_states=True,
                     use_cache=False,
                     return_dict=True,
                 )
-                last_hidden = outputs.hidden_states[-1]  # [B, seq_len, hidden_size]
+                last_hidden = outputs.last_hidden_state  # [B, seq_len, hidden_size]
 
             reason_id = self.reason_token_id
             b_size = encodings.input_ids.shape[0]
