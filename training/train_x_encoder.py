@@ -656,6 +656,17 @@ def train():
     )
     
     # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
+    def _fallback_random_split(reason: str):
+        if is_master:
+            print(f"X-Encoder falling back to legacy 90-10 random splits: {reason}")
+        train_size = int(0.9 * len(full_dataset))
+        val_size = len(full_dataset) - train_size
+        return torch.utils.data.random_split(
+            full_dataset,
+            [train_size, val_size],
+            generator=torch.Generator().manual_seed(42),
+        )
+
     try:
         with open("data/v4_split_keys.json", "r") as f:
             v4_splits = json.load(f)
@@ -665,22 +676,30 @@ def train():
         train_indices = []
         val_indices = []
         for i, item in enumerate(full_dataset.data):
-            base = os.path.basename(item["image_path"])
-            if base in v4_val_keys:
+            raw_path = item["image_path"]
+            norm_path = raw_path.lstrip("./")
+            base = os.path.basename(norm_path)
+            path_candidates = {raw_path, norm_path, base, f"./{norm_path}"}
+
+            if any(k in v4_val_keys for k in path_candidates):
                 val_indices.append(i)
-            elif base in v4_train_keys:
+            elif any(k in v4_train_keys for k in path_candidates):
                 train_indices.append(i)
-                
-        train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
-        val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
-        if is_master:
-            print(f"X-Encoder mapped explicit V4 aligned boundaries! {len(train_indices)} train | {len(val_indices)} val keys isolated.")
+
+        if len(train_indices) == 0 or len(val_indices) == 0:
+            train_dataset, val_dataset = _fallback_random_split(
+                f"V4 key mapping produced empty split (train={len(train_indices)}, val={len(val_indices)})"
+            )
+        else:
+            train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
+            val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
+            if is_master:
+                print(
+                    f"X-Encoder mapped explicit V4 aligned boundaries! "
+                    f"{len(train_indices)} train | {len(val_indices)} val keys isolated."
+                )
     except Exception as e:
-        if is_master:
-            print(f"X-Encoder falling back to legacy 90-10 random splits natively: {e}")
-        train_size = int(0.9 * len(full_dataset))
-        val_size = len(full_dataset) - train_size
-        train_dataset, val_dataset = torch.utils.data.random_split(full_dataset, [train_size, val_size], generator=torch.Generator().manual_seed(42))
+        train_dataset, val_dataset = _fallback_random_split(str(e))
     
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     train_dataloader = DataLoader(
