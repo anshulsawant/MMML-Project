@@ -345,16 +345,31 @@ class GeoThoughtsDataset(Dataset):
         if target_idx is None:
             raise FileNotFoundError("Missing target path and target_idx for sample")
 
-        expected_local = os.path.join(self.targets_dir, f"problem_{target_idx}_targets.pt")
+        filename = f"problem_{target_idx}_targets.pt"
+        expected_local = os.path.join(self.targets_dir, filename)
         if os.path.exists(expected_local):
             item["target_path"] = expected_local
             return expected_local
 
+        # Also check prefix-nested paths that hf_hub_download writes to, so we
+        # don't re-download files that are already on disk from a previous call.
+        prefixes = self.targets_hf_prefixes or [""]
+        for prefix in prefixes:
+            candidate = os.path.join(self.targets_dir, prefix, filename) if prefix else expected_local
+            if os.path.exists(candidate):
+                # Hardlink/copy to the flat expected_local so future calls hit the
+                # cheap os.path.exists check above without iterating prefixes again.
+                try:
+                    os.makedirs(os.path.dirname(expected_local), exist_ok=True)
+                    os.link(candidate, expected_local)
+                except OSError:
+                    import shutil as _shutil
+                    _shutil.copy2(candidate, expected_local)
+                item["target_path"] = expected_local
+                return expected_local
+
         if not self.targets_hf_repo:
             raise FileNotFoundError(f"Target tensor not found locally: {expected_local}")
-
-        filename = f"problem_{target_idx}_targets.pt"
-        prefixes = self.targets_hf_prefixes or [""]  # try repo root if no prefixes given
 
         from huggingface_hub import hf_hub_download
 
@@ -368,8 +383,16 @@ class GeoThoughtsDataset(Dataset):
                     repo_type="model",
                     local_dir=self.targets_dir,
                 )
-                item["target_path"] = downloaded_path
-                return downloaded_path
+                # Hardlink to flat expected_local so the next lookup is O(1).
+                if downloaded_path != expected_local:
+                    try:
+                        os.makedirs(os.path.dirname(expected_local), exist_ok=True)
+                        os.link(downloaded_path, expected_local)
+                    except OSError:
+                        import shutil as _shutil
+                        _shutil.copy2(downloaded_path, expected_local)
+                item["target_path"] = expected_local
+                return expected_local
             except Exception as e:
                 last_exc = e
 
@@ -770,9 +793,15 @@ def train():
                 current_batch_size = len(val_img)
                 val_samples_processed += current_batch_size
                 
+                # Append <thought_k> tokens so the model has sentinel positions to extract.
+                val_aug_txt = [
+                    txt + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
+                    for txt, mask in zip(val_txt, val_target_mask)
+                ]
+
                 val_msgs = [
                     [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
-                    for img, txt in zip(val_img, val_txt)
+                    for img, txt in zip(val_img, val_aug_txt)
                 ]
                 
                 processor = model.module.processor if is_distributed else model.processor
