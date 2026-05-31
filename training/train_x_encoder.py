@@ -187,7 +187,10 @@ def run_geometry_sanity_check(
                 mm_token_type_ids=None,
             )
 
-            Z_cod, Z_cot = inner_model.forward_contrastive_texts(cod_texts, cot_texts)
+            Z_cod, Z_cot = inner_model.forward_contrastive_texts(
+                cod_texts, cot_texts,
+                chunk_size=int(xenc_cfg.get("batch_size", 2)),
+            )
 
             tgt = targets.to(dtype=predicted_latents.dtype)
             if loss_target_mode in ["direct", "pondering"]:

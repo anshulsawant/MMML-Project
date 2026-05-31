@@ -178,6 +178,7 @@ class LatentEuclid(nn.Module):
         self,
         cod_texts: list,
         cot_texts: list,
+        chunk_size: int | None = None,
     ):
         """
         Encode CoD and CoT text sequences into fixed-size embeddings for contrastive learning.
@@ -185,6 +186,13 @@ class LatentEuclid(nn.Module):
         Appends <REASON> to every string, runs text-only forward passes through the VLM,
         and extracts the hidden state at the <REASON> position as a pooled representation.
         Projects through the predictor head so both streams live in the same target latent space.
+
+        Args:
+            chunk_size: If set, processes texts in mini-batches of this size and concatenates
+                        the results. Reduces peak GPU memory when encoding large batches
+                        (e.g. the sanity check's 32 samples) at the cost of more sequential
+                        VLM calls. Set to the training batch_size to stay within budget.
+                        None (default) processes all texts in a single forward pass.
 
         Returns:
             Z_cod: (Batch, target_dim)
@@ -196,7 +204,7 @@ class LatentEuclid(nn.Module):
         cod_inputs_raw = [t + reason_str for t in cod_texts]
         cot_inputs_raw = [t + reason_str for t in cot_texts]
 
-        def _encode(texts: list):
+        def _encode_chunk(texts: list):
             encodings = self.tokenizer(
                 texts,
                 return_tensors="pt",
@@ -215,9 +223,9 @@ class LatentEuclid(nn.Module):
             last_hidden = outputs.hidden_states[-1]  # [B, seq_len, hidden_size]
 
             reason_id = self.reason_token_id
-            batch_size = encodings.input_ids.shape[0]
+            b_size = encodings.input_ids.shape[0]
             pooled = []
-            for b in range(batch_size):
+            for b in range(b_size):
                 positions = (encodings.input_ids[b] == reason_id).nonzero(as_tuple=True)[0]
                 # Use the last occurrence; fall back to final token if sentinel is missing
                 pos = int(positions[-1]) if len(positions) > 0 else -1
@@ -225,6 +233,12 @@ class LatentEuclid(nn.Module):
 
             pooled_tensor = torch.stack(pooled, dim=0)  # [B, hidden_size]
             return self.predictor(pooled_tensor)         # [B, target_dim]
+
+        def _encode(texts: list):
+            if chunk_size is None or len(texts) <= chunk_size:
+                return _encode_chunk(texts)
+            chunks = [texts[i:i + chunk_size] for i in range(0, len(texts), chunk_size)]
+            return torch.cat([_encode_chunk(chunk) for chunk in chunks], dim=0)
 
         Z_cod = _encode(cod_inputs_raw)
         Z_cot = _encode(cot_inputs_raw)
