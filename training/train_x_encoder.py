@@ -866,7 +866,15 @@ def train():
                 
             # We extract them utilizing the associated model processor dynamically:
             processor = model.module.processor if is_distributed else model.processor
-            
+
+            # Append the correct number of <thought_k> tokens to each text so the
+            # VLM forward pass has sentinel positions to extract latents from.
+            # n_thoughts per sample is derived from its target_mask (non-padded steps).
+            augmented_cod_texts = [
+                txt + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
+                for txt, mask in zip(cod_texts, target_masks)
+            ]
+
             messages = [
                 [
                     {
@@ -877,7 +885,7 @@ def train():
                         ],
                     }
                 ]
-                for img, txt in zip(images, cod_texts)
+                for img, txt in zip(images, augmented_cod_texts)
             ]
             
             text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in messages]
