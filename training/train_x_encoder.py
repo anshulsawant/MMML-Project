@@ -417,6 +417,7 @@ class GeoThoughtsDataset(Dataset):
             image = Image.new('RGB', (224, 224), color=(73, 109, 137))
 
         # 2. Text sequences for dual-alignment objective
+        question = item.get("question", item.get("text", "")).replace("<image>", "").strip()
         cod_steps = item.get("CoD_steps", [])
         cod_text = " ".join(cod_steps) if isinstance(cod_steps, list) else str(cod_steps)
         cot_text = item.get("CoT_text", "")
@@ -427,6 +428,7 @@ class GeoThoughtsDataset(Dataset):
 
         return {
             "image": image,
+            "question": question,
             "cod_text": cod_text,
             "cot_text": cot_text,
             "target": target_tensor,
@@ -436,6 +438,7 @@ from torch.nn.utils.rnn import pad_sequence
 
 def custom_collate(batch):
     images = [item["image"] for item in batch]
+    questions = [item["question"] for item in batch]
     cod_texts = [item["cod_text"] for item in batch]
     cot_texts = [item["cot_text"] for item in batch]
     targets = [item["target"] for item in batch]
@@ -448,6 +451,7 @@ def custom_collate(batch):
 
     return {
         "images": images,
+        "questions": questions,
         "cod_texts": cod_texts,
         "cot_texts": cot_texts,
         "targets": targets_padded,
@@ -783,7 +787,7 @@ def train():
         with torch.no_grad():
             for val_idx, val_batch in enumerate(val_dataloader):
                 val_img = val_batch["images"]
-                val_txt = val_batch["cod_texts"]
+                val_questions = val_batch["questions"]
                 val_targ = val_batch["targets"]
                 val_target_mask = val_batch["target_mask"]
                 # Stop early if we hit the requested validation subset size
@@ -793,15 +797,16 @@ def train():
                 current_batch_size = len(val_img)
                 val_samples_processed += current_batch_size
                 
-                # Append <thought_k> tokens so the model has sentinel positions to extract.
-                val_aug_txt = [
-                    txt + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
-                    for txt, mask in zip(val_txt, val_target_mask)
+                # Append <thought_k> tokens to the QUESTION (not CoD) so the model has
+                # sentinel positions to extract latents from without seeing the answers.
+                val_aug_questions = [
+                    q + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
+                    for q, mask in zip(val_questions, val_target_mask)
                 ]
 
                 val_msgs = [
                     [{"role": "user", "content": [{"type": "image", "image": img}, {"type": "text", "text": txt}]}]
-                    for img, txt in zip(val_img, val_aug_txt)
+                    for img, txt in zip(val_img, val_aug_questions)
                 ]
                 
                 processor = model.module.processor if is_distributed else model.processor
@@ -882,10 +887,11 @@ def train():
         
         for batch_idx, batch in enumerate(train_dataloader):
             images = batch["images"]
+            questions = batch["questions"]
             cod_texts = batch["cod_texts"]
             cot_texts = batch["cot_texts"]
             targets = batch["targets"]
-            target_masks = batch["target_mask"]
+            target_masks = batch["target_mask"].to(device)
             micro_start_time = time.time()
             if max_steps_per_epoch is not None and batch_idx >= max_steps_per_epoch:
                 print(f"[{local_rank}] Reached max_steps_per_epoch ({max_steps_per_epoch}). Ending epoch {epoch} early.")
@@ -896,12 +902,12 @@ def train():
             # We extract them utilizing the associated model processor dynamically:
             processor = model.module.processor if is_distributed else model.processor
 
-            # Append the correct number of <thought_k> tokens to each text so the
+            # Append the correct number of <thought_k> tokens to each QUESTION so the
             # VLM forward pass has sentinel positions to extract latents from.
-            # n_thoughts per sample is derived from its target_mask (non-padded steps).
-            augmented_cod_texts = [
-                txt + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
-                for txt, mask in zip(cod_texts, target_masks)
+            # The contrastive streams (cod_texts, cot_texts) are kept separate.
+            augmented_questions = [
+                q + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
+                for q, mask in zip(questions, target_masks)
             ]
 
             messages = [
@@ -914,7 +920,7 @@ def train():
                         ],
                     }
                 ]
-                for img, txt in zip(images, augmented_cod_texts)
+                for img, txt in zip(images, augmented_questions)
             ]
             
             text_prompts = [processor.apply_chat_template(msg, tokenize=False, add_generation_prompt=True) for msg in messages]
@@ -994,13 +1000,17 @@ def train():
                     huber_val = metrics_dict.get("loss/huber_magnitude", 0.0) if type(metrics_dict) is dict else 0.0
                     train_mse_val = metrics_dict.get("loss/cosine_angular", metrics_dict.get("loss/invariance_cos", 0.0)) if type(metrics_dict) is dict else 0.0
                     contrastive_val = metrics_dict.get("loss/contrastive", 0.0) if type(metrics_dict) is dict else 0.0
-                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Contrastive: {contrastive_val:.4f} | Grad Norm: {grad_norm_val:.2f} | Var: {var_std_val:.3f}")
+                    pred_norm_val = metrics_dict.get("pred_norm", 0.0) if type(metrics_dict) is dict else 0.0
+                    targ_norm_val = metrics_dict.get("targ_norm", 0.0) if type(metrics_dict) is dict else 0.0
+                    print(f"Epoch {epoch} | Step {batch_idx + 1} | Time: {step_duration:.2f}s | Train Loss: {loss.item() * current_accumulation_steps:.4f} | Cos: {train_mse_val:.4f} | Huber: {huber_val:.4f} | Contrastive: {contrastive_val:.4f} | Grad Norm: {grad_norm_val:.2f} | PNorm: {pred_norm_val:.3f} | TNorm: {targ_norm_val:.3f}")
                     
                     # Push tracked metrics to WandB securely
                     metrics_dict["train/total_loss"] = loss.item() * current_accumulation_steps
                     metrics_dict["train/grad_norm"] = grad_norm_val
                     metrics_dict["train/learning_rate"] = current_lr
                     metrics_dict["train/contrastive_loss"] = contrastive_val
+                    metrics_dict["train/pred_norm"] = pred_norm_val
+                    metrics_dict["train/targ_norm"] = targ_norm_val
                     metrics_dict["epoch"] = epoch
                     
                     if wandb_active:

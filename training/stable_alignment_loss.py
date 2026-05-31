@@ -227,9 +227,13 @@ class AlignmentLossFactory(nn.Module):
         Because Target Y is a frozen LLM, we strictly enforce both angular 
         direction (Cosine) and scale magnitude (Huber).
         """
-        # Directional alignment: Target 1 means "make these vectors point the same way"
+        # Normalise to unit sphere first so the cosine gradient is well-defined
+        # even when either vector has near-zero magnitude (which would otherwise
+        # produce a 1/‖x‖ gradient → ∞, get clipped, and stall direction learning).
+        x_n = F.normalize(x, p=2, dim=-1)
+        y_n = F.normalize(y, p=2, dim=-1)
         target_ones = torch.ones(x.shape[0], device=x.device)
-        cos_loss = F.cosine_embedding_loss(x, y, target_ones)
+        cos_loss = F.cosine_embedding_loss(x_n, y_n, target_ones)
         
         # Magnitude/Scale alignment: Smooth L1 treats small errors as L2 and large errors as L1
         huber_loss = F.smooth_l1_loss(x, y, beta=1.0)
@@ -239,7 +243,9 @@ class AlignmentLossFactory(nn.Module):
         
         metrics = {
             "cosine_angular": cos_loss.item(),
-            "huber_magnitude": huber_loss.item()
+            "huber_magnitude": huber_loss.item(),
+            "pred_norm": x.norm(dim=-1).mean().item(),
+            "targ_norm": y.norm(dim=-1).mean().item(),
         }
         
         return total_loss, metrics
