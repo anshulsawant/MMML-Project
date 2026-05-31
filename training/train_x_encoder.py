@@ -519,11 +519,9 @@ def train():
         queue_size=contrastive_queue_size,
         hidden_dim=contrastive_hidden_dim,
     )
+    criterion = criterion.to(local_rank)
     
     loss_target_mode = xenc_cfg.get("loss_target", "guided")
-
-    if is_distributed:
-        criterion = criterion.to(local_rank)
         
     optimizer = torch.optim.AdamW(
         model.parameters(), 

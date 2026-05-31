@@ -7,7 +7,7 @@ experiment:
   name: "v13_contrast"
 
 wandb:
-  enabled: true
+  enabled: false
   project: "LatentEuclid"
   # Leave group/name_prefix blank to use branch-aware env defaults from the launcher:
   #   group       -> ${EXPERIMENT}_${GIT_BRANCH}
@@ -34,7 +34,7 @@ train_x_encoder:
 
   # Training schedule
   epochs: 100
-  batch_size: 64
+  batch_size: 16
   gradient_accumulation_steps: 1        # effective batch = 64
   learning_rate: 5.0e-5
   weight_decay: 0.01
@@ -63,7 +63,7 @@ train_x_encoder:
   # γ-calibration sanity check: set to true to run a 50-step single-batch overfit
   # test (text-only, no images) before epoch 0. Both Huber and Contrastive losses
   # should reach ≈ 0; if Huber stays high, reduce gamma.
-  sanity_check: false
+  sanity_check: true
 
   # HuggingFace Hub upload (leave blank to skip)
   hf_repo: "shilinm/latent_euclid"
