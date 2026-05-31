@@ -25,6 +25,8 @@ train_x_encoder:
   vicreg_sim_coeff: 1.0
   vicreg_var_coeff: 1.0
   vicreg_cov_coeff: 0.0
+  queue_size: 128
+  hidden_dim: 3584
   use_robust_checkpoint_save: true
   keep_step_checkpoints: 4
   keep_epoch_checkpoints: 4

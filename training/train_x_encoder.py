@@ -504,6 +504,11 @@ def train():
         model = DDP(model, device_ids=[local_rank])
     else:
         model = model.to(local_rank) # cpu/cuda
+
+    model_ref = model.module if is_distributed else model
+    model_hidden_dim = int(getattr(getattr(model_ref, "config", object()), "hidden_size", 3584))
+    contrastive_hidden_dim = int(xenc_cfg.get("hidden_dim", model_hidden_dim))
+    contrastive_queue_size = int(xenc_cfg.get("queue_size", 128))
         
     criterion = AlignmentLossFactory(
         loss_type=xenc_cfg["loss_type"],
@@ -511,6 +516,8 @@ def train():
         vicreg_var_coeff=float(xenc_cfg.get("vicreg_var_coeff", 25.0)),
         vicreg_cov_coeff=float(xenc_cfg.get("vicreg_cov_coeff", 1.0)),
         gamma=float(xenc_cfg.get("gamma", 0.0)),
+        queue_size=contrastive_queue_size,
+        hidden_dim=contrastive_hidden_dim,
     )
     
     loss_target_mode = xenc_cfg.get("loss_target", "guided")

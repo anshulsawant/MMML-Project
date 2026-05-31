@@ -11,7 +11,9 @@ class AlignmentLossFactory(nn.Module):
                  vicreg_var_coeff: float = 25.0,
                  vicreg_cov_coeff: float = 1.0,
                  temperature: float = 0.07,
-                 gamma: float = 1.0):
+                 gamma: float = 1.0,
+                 queue_size: int = 128,
+                 hidden_dim: int = 3584):
         super().__init__()
         valid_types = ["info_nce_vanilla", "info_nce_threshold", "vicreg", "huber_cosine"]
         if loss_type not in valid_types:
@@ -21,6 +23,8 @@ class AlignmentLossFactory(nn.Module):
         self.sim_threshold = sim_threshold
         self.temperature = temperature
         self.gamma = gamma
+        self.queue_size = queue_size
+        self.hidden_dim = hidden_dim
         
         # VICReg specific hyperparameters
         self.sim_coeff = vicreg_sim_coeff
@@ -30,6 +34,13 @@ class AlignmentLossFactory(nn.Module):
         # Learnable temperature for the InfoNCE contrastive loss (CLIP-style)
         # Initialised to ln(1/0.07) ≈ 2.659 so exp(logit_scale) ≈ 1/0.07
         self.logit_scale = nn.Parameter(torch.ones([]) * math.log(1.0 / 0.07))
+
+        # MoCo-style FIFO queues for negatives from historical batches.
+        queue_cod = F.normalize(torch.randn(queue_size, hidden_dim), dim=-1)
+        queue_cot = F.normalize(torch.randn(queue_size, hidden_dim), dim=-1)
+        self.register_buffer("queue_cod", queue_cod)
+        self.register_buffer("queue_cot", queue_cot)
+        self.register_buffer("queue_ptr", torch.zeros(1, dtype=torch.long))
         
     def forward(self, predicted, targets, Z_cod=None, Z_cot=None):
         """
@@ -95,23 +106,78 @@ class AlignmentLossFactory(nn.Module):
 
         return total_loss, metrics
 
+    @torch.no_grad()
+    def _dequeue_and_enqueue(self, Z_cod, Z_cot):
+        """
+        Push current batch embeddings into the FIFO queue and advance pointer.
+        """
+        Z_cod = Z_cod.detach()
+        Z_cot = Z_cot.detach()
+
+        batch_size = Z_cod.shape[0]
+        if batch_size == 0:
+            return
+
+        # If a batch is larger than queue, keep only the most recent queue_size entries.
+        if batch_size >= self.queue_size:
+            Z_cod = Z_cod[-self.queue_size:]
+            Z_cot = Z_cot[-self.queue_size:]
+            batch_size = self.queue_size
+
+        ptr = int(self.queue_ptr.item())
+        end_ptr = ptr + batch_size
+
+        if end_ptr <= self.queue_size:
+            self.queue_cod[ptr:end_ptr] = Z_cod
+            self.queue_cot[ptr:end_ptr] = Z_cot
+        else:
+            first_chunk = self.queue_size - ptr
+            second_chunk = batch_size - first_chunk
+            self.queue_cod[ptr:] = Z_cod[:first_chunk]
+            self.queue_cot[ptr:] = Z_cot[:first_chunk]
+            self.queue_cod[:second_chunk] = Z_cod[first_chunk:]
+            self.queue_cot[:second_chunk] = Z_cot[first_chunk:]
+
+        self.queue_ptr[0] = (self.queue_ptr[0] + batch_size) % self.queue_size
+
     def compute_contrastive_loss(self, Z_cod, Z_cot):
         """
-        Symmetric InfoNCE (CLIP-style) between CoD and CoT embeddings.
+        Symmetric InfoNCE with a MoCo-style queue of historical negatives.
 
-        Z_cod, Z_cot: (Batch, dim) — will be L2-normalised inside.
-        Uses the learnable self.logit_scale temperature.
+        Positives are in-batch CoD-CoT pairs.
+        Negatives come from queue_cod/queue_cot.
         """
         Z_cod = F.normalize(Z_cod, dim=-1)
         Z_cot = F.normalize(Z_cot, dim=-1)
 
-        scale = self.logit_scale.exp()
-        logits = scale * Z_cod @ Z_cot.T  # [B, B]
+        if Z_cod.shape[-1] != self.hidden_dim or Z_cot.shape[-1] != self.hidden_dim:
+            raise ValueError(
+                f"Embedding dim mismatch. Expected hidden_dim={self.hidden_dim}, "
+                f"got Z_cod={Z_cod.shape[-1]}, Z_cot={Z_cot.shape[-1]}"
+            )
 
-        labels = torch.arange(logits.shape[0], device=logits.device)
-        loss_cod = F.cross_entropy(logits, labels)
-        loss_cot = F.cross_entropy(logits.T, labels)
-        return (loss_cod + loss_cot) / 2.0
+        scale = self.logit_scale.exp()
+
+        # Positive logits: [B, 1]
+        pos_logits = scale * torch.sum(Z_cod * Z_cot, dim=-1, keepdim=True)
+
+        # Negative logits from the queue: [B, Q]
+        neg_logits_cod = scale * (Z_cod @ self.queue_cot.T)
+        neg_logits_cot = scale * (Z_cot @ self.queue_cod.T)
+
+        # Combined logits: positive always at index 0.
+        logits_cod = torch.cat([pos_logits, neg_logits_cod], dim=1)
+        logits_cot = torch.cat([pos_logits, neg_logits_cot], dim=1)
+
+        labels = torch.zeros(logits_cod.shape[0], dtype=torch.long, device=logits_cod.device)
+        loss_cod = F.cross_entropy(logits_cod, labels)
+        loss_cot = F.cross_entropy(logits_cot, labels)
+        loss = (loss_cod + loss_cot) / 2.0
+
+        # Update queue after computing the loss so current batch is used in future steps.
+        self._dequeue_and_enqueue(Z_cod, Z_cot)
+
+        return loss
 
     def compute_info_nce(self, pred, targ, use_threshold=False):
         """
