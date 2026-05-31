@@ -316,14 +316,39 @@ class GeoThoughtsDataset(Dataset):
             for idx, line in enumerate(f):
                 item = json.loads(line)
                 
-                # Local-first: keep local tensor paths when already present.
-                target_path = os.path.join(targets_dir, f"problem_{idx}_targets.pt")
-                if os.path.exists(target_path):
-                    item["target_path"] = target_path
+                filename = f"problem_{idx}_targets.pt"
+                flat_path = os.path.join(targets_dir, filename)
+
+                # Check flat path first (O(1) after first download).
+                if os.path.exists(flat_path):
+                    item["target_path"] = flat_path
                     self.data.append(item)
                     local_count += 1
-                elif self.targets_hf_repo:
-                    # Keep sample; we'll lazily fetch tensor from HF in __getitem__.
+                    continue
+
+                # Check every prefix subdirectory that hf_hub_download may have
+                # written to in a previous run.  If found, hardlink to the flat
+                # path so future __init__ calls hit the fast branch above.
+                found_in_prefix = False
+                for prefix in self.targets_hf_prefixes:
+                    candidate = os.path.join(targets_dir, prefix, filename)
+                    if os.path.exists(candidate):
+                        try:
+                            os.link(candidate, flat_path)
+                        except OSError:
+                            import shutil as _shutil
+                            _shutil.copy2(candidate, flat_path)
+                        item["target_path"] = flat_path
+                        self.data.append(item)
+                        local_count += 1
+                        found_in_prefix = True
+                        break
+
+                if found_in_prefix:
+                    continue
+
+                if self.targets_hf_repo:
+                    # Path not on disk yet; worker will download lazily.
                     item["target_idx"] = idx
                     self.data.append(item)
                     remote_candidate_count += 1
@@ -532,6 +557,7 @@ def train():
         base_model_id=config["model"]["base_model_id"],
         target_model_id=config["model"]["target_model_id"]
     )
+    max_thought_tokens = int(config.get("model", {}).get("max_thought_tokens", 10))
     
     # Activation Checkpointing trades 20-30% compute time for massive memory savings by dropping intermediate activations.
     model.vlm.gradient_checkpointing_enable()
@@ -799,8 +825,10 @@ def train():
                 
                 # Append <thought_k> tokens to the QUESTION (not CoD) so the model has
                 # sentinel positions to extract latents from without seeing the answers.
+                # Clamp thought count to max_thought_tokens so we never request more
+                # sentinels than the model can produce.
                 val_aug_questions = [
-                    q + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
+                    q + "".join(f"<thought_{k + 1}>" for k in range(min(int(mask.sum().item()), max_thought_tokens)))
                     for q, mask in zip(val_questions, val_target_mask)
                 ]
 
@@ -828,16 +856,21 @@ def train():
                     )
                     val_targ = val_targ.to(device=device, dtype=val_pred.dtype)
                     
+                    # Clip mask and targets to the model's output length.
+                    val_K = val_pred.shape[1]
+                    val_target_mask_clipped = val_target_mask[:, :val_K]
+                    val_targ_clipped = val_targ[:, :val_K, :]
+
                     if loss_target_mode in ["direct", "pondering"]:
                         # Extract the exact final step natively ignoring arbitrary lengths natively
-                        val_pred_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(val_pred, val_target_mask)])
-                        val_targ_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(val_targ, val_target_mask)])
+                        val_pred_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(val_pred, val_target_mask_clipped)])
+                        val_targ_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(val_targ_clipped, val_target_mask_clipped)])
                         # Expand functionally for criterion input dimensions seamlessly mapping to flattened states
                         val_pred_loss = val_pred_loss.unsqueeze(1)
                         val_targ_loss = val_targ_loss.unsqueeze(1)
                     else:
-                        val_pred_loss = val_pred[val_target_mask]
-                        val_targ_loss = val_targ[val_target_mask]
+                        val_pred_loss = val_pred[val_target_mask_clipped]
+                        val_targ_loss = val_targ_clipped[val_target_mask_clipped]
                         val_pred_loss = val_pred_loss.unsqueeze(1)
                         val_targ_loss = val_targ_loss.unsqueeze(1)
                         
@@ -905,8 +938,10 @@ def train():
             # Append the correct number of <thought_k> tokens to each QUESTION so the
             # VLM forward pass has sentinel positions to extract latents from.
             # The contrastive streams (cod_texts, cot_texts) are kept separate.
+            # Clamp thought count to max_thought_tokens so we never request more
+            # sentinels than the model's vocabulary contains.
             augmented_questions = [
-                q + "".join(f"<thought_{k + 1}>" for k in range(int(mask.sum().item())))
+                q + "".join(f"<thought_{k + 1}>" for k in range(min(int(mask.sum().item()), max_thought_tokens)))
                 for q, mask in zip(questions, target_masks)
             ]
 
@@ -959,14 +994,21 @@ def train():
                 
                 if loss_target_mode in ["direct", "pondering"]:
                     # Dynamically extract HALT target mathematically
-                    predicted_latents_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(predicted_latents, target_masks)])
-                    targets_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(targets, target_masks)])
+                    K = predicted_latents.shape[1]
+                    target_masks_clipped = target_masks[:, :K]
+                    predicted_latents_loss = torch.stack([pred[m.sum()-1] for pred, m in zip(predicted_latents, target_masks_clipped)])
+                    targets_loss = torch.stack([targ[m.sum()-1] for targ, m in zip(targets[:, :K, :], target_masks_clipped)])
                     predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
                     targets_loss = targets_loss.unsqueeze(1)
                 else:
-                    # Globally evaluate purely over dimensions valid to unroll natively!
-                    predicted_latents_loss = predicted_latents[target_masks]
-                    targets_loss = targets[target_masks]
+                    # Clip mask and targets to the model's output length: predicted_latents
+                    # has at most max_thought_tokens steps, but target_masks may be padded
+                    # to a longer sequence (targets have variable CoD step counts).
+                    K = predicted_latents.shape[1]
+                    target_masks_clipped = target_masks[:, :K]
+                    targets_clipped = targets[:, :K, :]
+                    predicted_latents_loss = predicted_latents[target_masks_clipped]
+                    targets_loss = targets_clipped[target_masks_clipped]
                     # Map onto sequence abstraction array logic uniformly
                     predicted_latents_loss = predicted_latents_loss.unsqueeze(1)
                     targets_loss = targets_loss.unsqueeze(1)
