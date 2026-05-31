@@ -94,9 +94,13 @@ class AlignmentLossFactory(nn.Module):
                     metrics["loss/huber_cosine_total"] = 0.0
                     metrics["loss/cosine_angular"] = 0.0
                     metrics["loss/huber_magnitude"] = 0.0
+                    metrics["pred_norm"] = 0.0
+                    metrics["targ_norm"] = 0.0
                 metrics["loss/huber_cosine_total"] += loss_val.item()
                 metrics["loss/cosine_angular"] += hc_metrics["cosine_angular"]
                 metrics["loss/huber_magnitude"] += hc_metrics["huber_magnitude"]
+                metrics["pred_norm"] += hc_metrics["pred_norm"]
+                metrics["targ_norm"] += hc_metrics["targ_norm"]
                 
         # Average loss and metrics over the K reasoning steps
         total_loss = total_loss / k_steps

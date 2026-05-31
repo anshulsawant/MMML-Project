@@ -360,6 +360,25 @@ class GeoThoughtsDataset(Dataset):
             f"(local={local_count}, hf_fallback={remote_candidate_count}, skipped={skipped_count})."
         )
 
+        # Eagerly download all HF tensors in the main process so DataLoader workers
+        # never have to hit the network during training.
+        if remote_candidate_count > 0 and self.targets_hf_repo:
+            print(f"[Prefetch] Downloading {remote_candidate_count} missing target tensors from HF...")
+            resolved = 0
+            failed = 0
+            for item in self.data:
+                if item.get("target_path"):
+                    continue
+                target_idx = item.get("target_idx")
+                try:
+                    self._resolve_target_path(item)
+                    resolved += 1
+                except Exception as e:
+                    failed += 1
+                    if failed <= 3:
+                        print(f"[Prefetch] Warning: could not fetch problem_{target_idx}_targets.pt: {e}")
+            print(f"[Prefetch] Done: {resolved} downloaded, {failed} failed.")
+
     def _resolve_target_path(self, item: dict) -> str:
         """Resolve target tensor path with local-first, HF fallback behavior."""
         local_path = item.get("target_path")
