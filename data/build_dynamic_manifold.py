@@ -114,6 +114,57 @@ def embed_steps_batch(texts: list[str], bases: list[str], tokenizer, model, devi
     
     return mean_pooled_embeddings.cpu()
 
+def _pack_and_upload(output_dir: str, split_keys_path: str, hf_repo: str | None, hf_targets_prefix: str | None) -> None:
+    """Pack individual problem_*_targets.pt files into one .pt dict per split and upload."""
+    with open(split_keys_path) as f:
+        split_keys = json.load(f)
+    idx_to_split: dict[int, str] = {}
+    for split in ("train", "val", "test"):
+        for idx in split_keys.get(f"{split}_indices", []):
+            idx_to_split[idx] = split
+
+    packed: dict[str, dict] = {"train": {}, "val": {}, "test": {}}
+    for fname in os.listdir(output_dir):
+        if not (fname.startswith("problem_") and fname.endswith("_targets.pt")):
+            continue
+        try:
+            idx = int(fname.split("_")[1])
+        except (IndexError, ValueError):
+            continue
+        split = idx_to_split.get(idx)
+        if split is None:
+            continue
+        packed[split][idx] = torch.load(
+            os.path.join(output_dir, fname), map_location="cpu", weights_only=True
+        )
+
+    if hf_repo:
+        try:
+            from huggingface_hub import HfApi
+            api = HfApi()
+        except ImportError:
+            api = None
+    else:
+        api = None
+
+    for split, d in packed.items():
+        if not d:
+            continue
+        out_path = os.path.join(output_dir, f"{split}_targets.pt")
+        torch.save(d, out_path)
+        print(f"Packed {len(d)} tensors -> {out_path}")
+        if api and hf_targets_prefix:
+            repo_path = f"{hf_targets_prefix}/{split}_targets.pt"
+            api.upload_file(
+                path_or_fileobj=out_path,
+                path_in_repo=repo_path,
+                repo_id=hf_repo,
+                repo_type="model",
+                commit_message=f"[auto] packed {split} target tensors",
+            )
+            print(f"Uploaded -> {hf_repo}/{repo_path}")
+
+
 def build_manifold(
     model_id: str,
     input_jsonl: str,
@@ -121,6 +172,7 @@ def build_manifold(
     filter_csv: str = None,
     hf_repo: str = None,
     hf_targets_prefix: str = None,
+    split_keys_path: str = None,
 ):
     """Processes dynamic text and saves continuous target tensors."""
     os.makedirs(output_dir, exist_ok=True)
@@ -213,7 +265,9 @@ def build_manifold(
         if (i + len(batch_data)) % 25 < batch_size:
             print(f"Generated manifolds for {i + len(batch_data)} problems ({len(kept_global_indices)} kept in last batch)...")
 
-    if hf_repo:
+    if split_keys_path:
+        _pack_and_upload(output_dir, split_keys_path, hf_repo, hf_targets_prefix)
+    elif hf_repo:
         if not hf_targets_prefix:
             hf_targets_prefix = f"target_tensors/{os.path.basename(output_dir)}"
         upload_targets_to_hf(output_dir, hf_repo, hf_targets_prefix)
@@ -231,6 +285,8 @@ if __name__ == "__main__":
     parser.add_argument("--hf_targets_prefix", type=str, default=None,
                         help="Optional path prefix inside HF repo for targets (default: target_tensors/<output_dir_basename>).")
     parser.add_argument("--output_dir", type=str, default=None)
+    parser.add_argument("--split_keys", type=str, default=None,
+                        help="Path to v13_split_keys.json; if set, packs output into per-split .pt files.")
     args = parser.parse_args()
     
     with open(args.config, 'r') as f:
@@ -255,6 +311,7 @@ if __name__ == "__main__":
         
     hf_repo = args.hf_repo or config.get("build_manifold", {}).get("hf_repo")
     hf_targets_prefix = args.hf_targets_prefix or config.get("build_manifold", {}).get("hf_targets_prefix")
+    split_keys_path = args.split_keys or config.get("build_manifold", {}).get("split_keys_path")
 
     build_manifold(
         model_id,
@@ -263,4 +320,5 @@ if __name__ == "__main__":
         filter_csv=args.filter_csv,
         hf_repo=hf_repo,
         hf_targets_prefix=hf_targets_prefix,
+        split_keys_path=split_keys_path,
     )

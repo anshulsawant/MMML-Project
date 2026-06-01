@@ -296,6 +296,8 @@ class GeoThoughtsDataset(Dataset):
         augment=False,
         targets_hf_repo: str | None = None,
         targets_hf_prefixes: list[str] | None = None,
+        targets_hf_prefix: str | None = None,
+        split_keys_path: str | None = None,
     ):
         self.data = []
         self.targets_dir = targets_dir
@@ -305,8 +307,58 @@ class GeoThoughtsDataset(Dataset):
         self.targets_hf_prefixes: list[str] = [
             p.strip("/") for p in (targets_hf_prefixes or [])
         ]
+        # Packed mode state (v13+)
+        self.target_cache: dict[int, torch.Tensor] = {}
+        self.train_positions: list[int] = []
+        self.val_positions: list[int] = []
 
         os.makedirs(self.targets_dir, exist_ok=True)
+
+        # ── Packed mode: single .pt dict per split (v13+) ────────────────────
+        if targets_hf_prefix and split_keys_path:
+            with open(split_keys_path) as _f:
+                _sk = json.load(_f)
+            _train_set = set(_sk["train_indices"])
+            _val_set   = set(_sk["val_indices"])
+            _active    = _train_set | _val_set
+            for _split in ("train", "val"):
+                _flat   = os.path.join(targets_dir, f"{_split}_targets.pt")
+                _nested = os.path.join(targets_dir, targets_hf_prefix, f"{_split}_targets.pt")
+                _local  = _flat if os.path.exists(_flat) else (_nested if os.path.exists(_nested) else None)
+                if _local is None and targets_hf_repo:
+                    from huggingface_hub import hf_hub_download
+                    try:
+                        _local = hf_hub_download(
+                            repo_id=targets_hf_repo,
+                            filename=f"{targets_hf_prefix}/{_split}_targets.pt",
+                            repo_type="model",
+                            local_dir=targets_dir,
+                        )
+                    except Exception as _e:
+                        print(f"Warning: could not download {_split}_targets.pt: {_e}")
+                if _local and os.path.exists(_local):
+                    _d = torch.load(_local, map_location="cpu", weights_only=True)
+                    self.target_cache.update(_d)
+            with open(jsonl_path, "r") as _f:
+                for _idx, _line in enumerate(_f):
+                    if _idx not in _active or _idx not in self.target_cache:
+                        continue
+                    _item = json.loads(_line)
+                    _item["jsonl_idx"] = _idx
+                    _pos = len(self.data)
+                    self.data.append(_item)
+                    if _idx in _train_set:
+                        self.train_positions.append(_pos)
+                    else:
+                        self.val_positions.append(_pos)
+            self.remote_candidate_count = 0
+            print(
+                f"Packed mode: {len(self.data)} items "
+                f"(train={len(self.train_positions)}, val={len(self.val_positions)}) "
+                f"from {len(self.target_cache)} cached tensors."
+            )
+            return
+        # ── End packed mode ──────────────────────────────────────────────────
 
         local_count = 0
         remote_candidate_count = 0
@@ -453,8 +505,11 @@ class GeoThoughtsDataset(Dataset):
         cot_text = item.get("CoT_text", "")
 
         # 3. Target manifolds [N, target_dim]
-        target_path = self._resolve_target_path(item)
-        target_tensor = torch.load(target_path, map_location="cpu", weights_only=True)
+        if self.target_cache:
+            target_tensor = self.target_cache[item["jsonl_idx"]]
+        else:
+            target_path = self._resolve_target_path(item)
+            target_tensor = torch.load(target_path, map_location="cpu", weights_only=True)
 
         return {
             "image": image,
@@ -723,57 +778,66 @@ def train():
             config.get("data", {}).get("targets_hf_repo")
             or xenc_cfg.get("targets_hf_repo")
         ),
+        targets_hf_prefix=config.get("data", {}).get("targets_hf_prefix"),
+        split_keys_path=config.get("data", {}).get("split_keys_path"),
         targets_hf_prefixes=(
             config.get("data", {}).get("targets_hf_prefixes")
             or xenc_cfg.get("targets_hf_prefixes")
         ),
     )
     
-    # V4 Aligned Deterministic Extracted Splits tracking precise topological boundaries naturally
-    def _fallback_random_split(reason: str):
+    # V13+ packed integer-index split (preferred when packed mode was used)
+    if full_dataset.train_positions and full_dataset.val_positions:
+        train_dataset = torch.utils.data.Subset(full_dataset, full_dataset.train_positions)
+        val_dataset   = torch.utils.data.Subset(full_dataset, full_dataset.val_positions)
         if is_master:
-            print(f"X-Encoder falling back to legacy 90-10 random splits: {reason}")
-        train_size = int(0.9 * len(full_dataset))
-        val_size = len(full_dataset) - train_size
-        return torch.utils.data.random_split(
-            full_dataset,
-            [train_size, val_size],
-            generator=torch.Generator().manual_seed(42),
-        )
-
-    try:
-        with open("data/v4_split_keys.json", "r") as f:
-            v4_splits = json.load(f)
-        v4_val_keys = set(v4_splits["val_keys"])
-        v4_train_keys = set(v4_splits["train_keys"])
-        
-        train_indices = []
-        val_indices = []
-        for i, item in enumerate(full_dataset.data):
-            raw_path = item["image_path"]
-            norm_path = raw_path.lstrip("./")
-            base = os.path.basename(norm_path)
-            path_candidates = {raw_path, norm_path, base, f"./{norm_path}"}
-
-            if any(k in v4_val_keys for k in path_candidates):
-                val_indices.append(i)
-            elif any(k in v4_train_keys for k in path_candidates):
-                train_indices.append(i)
-
-        if len(train_indices) == 0 or len(val_indices) == 0:
-            train_dataset, val_dataset = _fallback_random_split(
-                f"V4 key mapping produced empty split (train={len(train_indices)}, val={len(val_indices)})"
-            )
-        else:
-            train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
-            val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
+            print(f"V13 packed split: {len(train_dataset)} train | {len(val_dataset)} val")
+    else:
+        # V4 filename-based split (fallback for pre-v13 experiments)
+        def _fallback_random_split(reason: str):
             if is_master:
-                print(
-                    f"X-Encoder mapped explicit V4 aligned boundaries! "
-                    f"{len(train_indices)} train | {len(val_indices)} val keys isolated."
+                print(f"X-Encoder falling back to legacy 90-10 random splits: {reason}")
+            train_size = int(0.9 * len(full_dataset))
+            val_size = len(full_dataset) - train_size
+            return torch.utils.data.random_split(
+                full_dataset,
+                [train_size, val_size],
+                generator=torch.Generator().manual_seed(42),
+            )
+
+        try:
+            with open("data/v4_split_keys.json", "r") as f:
+                v4_splits = json.load(f)
+            v4_val_keys = set(v4_splits["val_keys"])
+            v4_train_keys = set(v4_splits["train_keys"])
+
+            train_indices = []
+            val_indices = []
+            for i, item in enumerate(full_dataset.data):
+                raw_path = item["image_path"]
+                norm_path = raw_path.lstrip("./")
+                base = os.path.basename(norm_path)
+                path_candidates = {raw_path, norm_path, base, f"./{norm_path}"}
+
+                if any(k in v4_val_keys for k in path_candidates):
+                    val_indices.append(i)
+                elif any(k in v4_train_keys for k in path_candidates):
+                    train_indices.append(i)
+
+            if len(train_indices) == 0 or len(val_indices) == 0:
+                train_dataset, val_dataset = _fallback_random_split(
+                    f"V4 key mapping produced empty split (train={len(train_indices)}, val={len(val_indices)})"
                 )
-    except Exception as e:
-        train_dataset, val_dataset = _fallback_random_split(str(e))
+            else:
+                train_dataset = torch.utils.data.Subset(full_dataset, train_indices)
+                val_dataset = torch.utils.data.Subset(full_dataset, val_indices)
+                if is_master:
+                    print(
+                        f"X-Encoder mapped explicit V4 aligned boundaries! "
+                        f"{len(train_indices)} train | {len(val_indices)} val keys isolated."
+                    )
+        except Exception as e:
+            train_dataset, val_dataset = _fallback_random_split(str(e))
     
     train_sampler = DistributedSampler(train_dataset) if is_distributed else None
     dataset_has_remote_fallback = getattr(full_dataset, "remote_candidate_count", 0) > 0

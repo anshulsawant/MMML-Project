@@ -22,9 +22,9 @@ wandb:
 data:
   jsonl_path: "ChainOfDraft/training_dataset.jsonl"
   targets_dir: "target_tensors"
+  split_keys_path: "data/v13_split_keys.json"
   targets_hf_repo: "shilinm/latent_euclid"
-  targets_hf_prefixes:
-    - "target_tensors_v13_contrast/test"
+  targets_hf_prefix: "target_tensors_v13_contrast"
 
 # ── X-Encoder training ──────────────────────────────────────────────────────
 train_x_encoder:
@@ -70,6 +70,9 @@ train_x_encoder:
 # ── Manifold anchor pre-generation ──────────────────────────────────────────
 build_manifold:
   batch_size: 4
+  split_keys_path: "data/v13_split_keys.json"
+  hf_repo: "shilinm/latent_euclid"
+  hf_targets_prefix: "target_tensors_v13_contrast"
 
 # ── Decoder (latent → token) training ────────────────────────────────────────
 train_decoder:
