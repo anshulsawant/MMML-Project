@@ -54,8 +54,8 @@ train_x_encoder:
   # Validation / checkpointing
   save_every_n_steps: 200
   max_val_samples: 128
-  keep_step_checkpoints: 4
-  keep_epoch_checkpoints: 4
+  keep_step_checkpoints: 1
+  keep_epoch_checkpoints: 1
   save_epoch_checkpoints_after: 7
   use_robust_checkpoint_save: true
 
